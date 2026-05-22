@@ -10,3 +10,6 @@ func _set(property: StringName, value: Variant) -> bool:
 
 func _get(property: StringName) -> Variant:
 	return data.get(property, null)
+
+func has(property: StringName) -> bool:
+	return data.has(property)

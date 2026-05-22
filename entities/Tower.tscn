@@ -15,7 +15,7 @@ metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
 [sub_resource type="Resource" id="Resource_mttso"]
 script = ExtResource("3_c12lq")
-knockback = 5.0
+knockback = 2.0
 metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]

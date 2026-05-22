@@ -9,7 +9,9 @@
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://components/hitbox.gd" id="6_dsp8k"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://components/hurtbox.gd" id="7_66spp"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://components/Health.tscn" id="8_66spp"]
+[ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://components/SoftCollision.tscn" id="10_ijd6d"]
 [ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://components/detect_zone.gd" id="10_im3kb"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://components/PhysicsHandler.tscn" id="12_r1qvq"]
 
 [sub_resource type="Resource" id="Resource_ijd6d"]
 script = ExtResource("2_5g4gd")
@@ -138,6 +140,8 @@ max_health = 5
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_a23sr")]
 
+[node name="SoftCollision" parent="." unique_id=1691847556 instance=ExtResource("10_ijd6d")]
+
 [node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
 collision_layer = 0
 collision_mask = 65536
@@ -147,6 +151,10 @@ script = ExtResource("10_im3kb")
 shape = SubResource("CircleShape2D_m7yij")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("12_r1qvq")]
+
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]
+
+[editable path="SoftCollision"]
