@@ -7,6 +7,9 @@ func _ready() -> void:
 	_setup_ref()
 	_setup_nodes(self)
 
+func _setup(p_ref):
+	ref.enemies = p_ref.enemies
+
 func _setup_nodes(p_node):
 	for child in p_node.get_children():
 		if child.has_method('_setup'):

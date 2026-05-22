@@ -11,7 +11,7 @@ script/source = "extends Ref
 
 var actor: Node2D
 var bullet_spawner: BulletSpawner
-var enemies: Enemies
+var enemy_dir: Enemies
 "
 
 [node name="Tower" type="Node2D" unique_id=1332146881]

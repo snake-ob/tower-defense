@@ -14,6 +14,7 @@ var actor
 var input_controller
 var visuals
 var physics_handler
+var enemy_dir
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yw30f"]
