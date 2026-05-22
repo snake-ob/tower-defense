@@ -17,3 +17,13 @@ May 20 2026
 - Composition & clean scene structure
 - Separate data & code
 ==============================================
+May 20 2026
+- ENEMY SPAWNER
+- Teleports to various locations around the perimeter of the map
+- Spawns enemies
+	- Pulls from enemy pool (different for each stage)
+	- Needs stats (speed of enemy release, waves, total enemies)
+- LEVEL BOUNDARIES
+	- Keep player within screen boundaries
+==============================================
+
