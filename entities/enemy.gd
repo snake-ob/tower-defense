@@ -20,10 +20,7 @@ func _ready() -> void:
 func _setup_ref():
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())
-	print("Raw Move variable contains: ", move)
-	print("Ref Move variable contains: ", ref.move)
 	ref.set('body', $Body)
-	print(ref.body)
 	ref.set('data', $Data)
 	ref.set('health', $Health)
 	ref.set('hurtbox', $Hurtbox)

@@ -3,19 +3,21 @@
 [ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="1_jdpn8"]
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/Enemy.tscn" id="2_0wynk"]
 [ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/Tower.tscn" id="2_5krfb"]
-[ext_resource type="Script" uid="uid://cqjophiwq5ew4" path="res://levels/components/enemy_directory.gd" id="5_ohqux"]
-[ext_resource type="PackedScene" uid="uid://dwnu8wu0emtd" path="res://components/Ref.tscn" id="6_a47p7"]
+[ext_resource type="PackedScene" uid="uid://c0wpo1ltgbtb2" path="res://levels/components/SpawnPath.tscn" id="5_ohqux"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://components/Ref.tscn" id="6_a47p7"]
 
 [sub_resource type="GDScript" id="GDScript_0wynk"]
 script/source = "extends Node2D
 
-@onready var ref: Ref = $Ref
+@onready var ref: Ref
 
 func _ready() -> void:
-	$Enemy.ref.target = $Player
-	ref.enemies = $Enemies
 	SignalBus.spawn_bullet.connect(_spawn_bullet)
 	_setup_nodes(self)
+	
+func _setup_ref():
+	ref.set('level', self)
+	ref.set('enemies', $Enemies)
 	
 func _setup_nodes(p_node):
 	for child in p_node.get_children():
@@ -24,12 +26,6 @@ func _setup_nodes(p_node):
 
 func _spawn_bullet(p_bullet):
 	$Projectiles.add_child(p_bullet)
-"
-
-[sub_resource type="GDScript" id="GDScript_ah1fx"]
-script/source = "extends Ref
-
-var enemies
 "
 
 [node name="Test Scene" type="Node2D" unique_id=1723051521]
@@ -44,12 +40,10 @@ position = Vector2(778, 198)
 [node name="Tower" parent="." unique_id=1332146881 instance=ExtResource("2_5krfb")]
 position = Vector2(298, 239)
 
-[node name="Node" type="Node" parent="." unique_id=178557916]
+[node name="Projectiles" type="Node2D" parent="." unique_id=94357809]
 
-[node name="Enemies" type="Node" parent="." unique_id=328227377]
-script = ExtResource("5_ohqux")
+[node name="Enemies" type="Node2D" parent="." unique_id=629788147]
 
-[node name="Ref" parent="." unique_id=88008116 instance=ExtResource("6_a47p7")]
-script = SubResource("GDScript_ah1fx")
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("6_a47p7")]
 
-[node name="Projectiles" type="Node" parent="." unique_id=1739046176]
+[node name="SpawnPath" parent="." unique_id=1469162358 instance=ExtResource("5_ohqux")]

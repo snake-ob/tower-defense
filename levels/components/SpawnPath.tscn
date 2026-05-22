@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c0wpo1ltgbtb2"]
+
+[ext_resource type="Script" uid="uid://btlqvq5eepfrt" path="res://levels/components/spawn_path.gd" id="1_s514n"]
+
+[sub_resource type="Curve2D" id="Curve2D_ohqux"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -40, -30, 0, 0, 0, 0, 1190, -30, 0, 0, 0, 0, 1190, 670, 0, 0, 0, 0, -40, 670, 0, 0, 0, 0, -40, -30)
+}
+point_count = 5
+
+[node name="SpawnPath" type="Path2D" unique_id=1469162358]
+curve = SubResource("Curve2D_ohqux")
+script = ExtResource("1_s514n")
+
+[node name="SpawnPos" type="PathFollow2D" parent="." unique_id=496514313]
+position = Vector2(-40, -30)
