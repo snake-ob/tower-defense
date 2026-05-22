@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://clxww6a50qog8"]
+
+[ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="1_jdpn8"]
+[ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/Enemy.tscn" id="2_0wynk"]
+[ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/Tower.tscn" id="2_5krfb"]
+[ext_resource type="PackedScene" uid="uid://3sjyslisd0oy" path="res://entities/Bullet.tscn" id="4_x46hq"]
+
+[sub_resource type="GDScript" id="GDScript_0wynk"]
+script/source = "extends Node2D
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	$Enemy.ref.target = $Player
+	SignalBus.new_bullet.connect(spawn_bullet)
+
+func spawn_bullet(p_bullet):
+	add_child(p_bullet)
+"
+
+[node name="Test Scene" type="Node2D" unique_id=1723051521]
+script = SubResource("GDScript_0wynk")
+
+[node name="Player" parent="." unique_id=1411166111 instance=ExtResource("1_jdpn8")]
+position = Vector2(572, 318)
+
+[node name="Enemy" parent="." unique_id=1087316363 instance=ExtResource("2_0wynk")]
+position = Vector2(778, 198)
+
+[node name="Tower" parent="." unique_id=1332146881 instance=ExtResource("2_5krfb")]
+position = Vector2(298, 239)
+
+[node name="Bullet" parent="." unique_id=150744527 instance=ExtResource("4_x46hq")]
+position = Vector2(451, 162)
+
+[node name="Node" type="Node" parent="." unique_id=178557916]

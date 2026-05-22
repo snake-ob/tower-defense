@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://dvcca6s2hpicf"]
+
+[ext_resource type="Script" uid="uid://cep5okpmndios" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="Texture2D" uid="uid://p60xj8mo8k88" path="res://icon.svg" id="2_g1dw6"]
+[ext_resource type="Resource" uid="uid://dblpausq5vhi4" path="res://player/move_data.tres" id="2_g6k8r"]
+[ext_resource type="Script" uid="uid://btpfjqfhq0o86" path="res://components/input_controller.gd" id="3_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://components/PhysicsHandler.tscn" id="3_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://dwnu8wu0emtd" path="res://components/Ref.tscn" id="4_yw30f"]
+
+[sub_resource type="GDScript" id="GDScript_yw30f"]
+script/source = "extends Ref
+
+var actor
+var input_controller
+var visuals
+var physics_handler
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw30f"]
+atlas = ExtResource("2_g1dw6")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qjkh3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw30f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody2D" unique_id=1411166111]
+script = ExtResource("1_rkbax")
+move = ExtResource("2_g6k8r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=547035760]
+
+[node name="InputController" type="Node" parent="." unique_id=231094567]
+script = ExtResource("3_g1dw6")
+
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("3_qjkh3")]
+
+[node name="Ref" parent="." unique_id=88008116 instance=ExtResource("4_yw30f")]
+script = SubResource("GDScript_yw30f")
+
+[node name="Visuals" type="Node2D" parent="." unique_id=1859001339]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals" unique_id=1240261556]
+scale = Vector2(0.3359375, 0.3359375)
+sprite_frames = SubResource("SpriteFrames_qjkh3")

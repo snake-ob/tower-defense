@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://3sjyslisd0oy"]
+
+[ext_resource type="Texture2D" uid="uid://h4yi40enirtk" path="res://assets/debug/Screenshot 2026-05-19 123044.png" id="1_k50w0"]
+[ext_resource type="Script" uid="uid://su7dh46mlaiv" path="res://entities/bullet.gd" id="1_vl4bg"]
+[ext_resource type="PackedScene" uid="uid://dwnu8wu0emtd" path="res://components/Ref.tscn" id="2_r16h3"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k50w0"]
+radius = 5.0
+height = 46.0
+
+[sub_resource type="GDScript" id="GDScript_vl4bg"]
+script/source = "extends Ref
+
+var target: Node2D
+"
+
+[node name="Bullet" type="CharacterBody2D" unique_id=150744527]
+script = ExtResource("1_vl4bg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1996044331]
+rotation = -1.5707964
+scale = Vector2(0.059485525, 0.059485517)
+texture = ExtResource("1_k50w0")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1346605248]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=482817372]
+shape = SubResource("CapsuleShape2D_k50w0")
+
+[node name="Ref" parent="." unique_id=88008116 instance=ExtResource("2_r16h3")]
+script = SubResource("GDScript_vl4bg")
+
+[node name="PhysicsHandler" type="Node" parent="." unique_id=1726592184]

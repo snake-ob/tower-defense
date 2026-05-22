@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cyke11s7oivop"]
+
+[ext_resource type="Texture2D" uid="uid://cqh1f23oeylb6" path="res://assets/debug/debug-tower.png" id="1_6lyba"]
+[ext_resource type="Script" uid="uid://vjug8yftufoo" path="res://entities/tower.gd" id="1_ljppj"]
+[ext_resource type="Script" uid="uid://cjrph8r53kgf5" path="res://components/bullet_spawner.gd" id="3_l48d8"]
+[ext_resource type="PackedScene" uid="uid://dwnu8wu0emtd" path="res://components/Ref.tscn" id="4_tm4kr"]
+
+[sub_resource type="GDScript" id="GDScript_m7yij"]
+script/source = "extends Ref
+
+var actor: Node2D
+var bullet_spawner: BulletSpawner
+"
+
+[node name="Tower" type="Node2D" unique_id=1332146881]
+script = ExtResource("1_ljppj")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=189270528]
+position = Vector2(0, 0.15)
+scale = Vector2(0.196875, 0.196875)
+texture = ExtResource("1_6lyba")
+
+[node name="BulletSpawner" type="Node" parent="." unique_id=267101314]
+script = ExtResource("3_l48d8")
+
+[node name="Ref" parent="." unique_id=88008116 instance=ExtResource("4_tm4kr")]
+script = SubResource("GDScript_m7yij")

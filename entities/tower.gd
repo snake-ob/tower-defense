@@ -1,0 +1,19 @@
+extends Node2D
+class_name Tower
+
+@onready var ref: Ref = $Ref
+
+func _ready() -> void:
+	_setup_ref()
+	_setup_nodes(self)
+
+func _setup_nodes(p_node):
+	for child in p_node.get_children():
+		if child.has_method('_setup'):
+			child._setup(ref)
+		if p_node.get_child_count() > 0:
+			_setup_nodes(child)
+
+func _setup_ref():
+	ref.actor = self
+	ref.bullet_spawner = $BulletSpawner

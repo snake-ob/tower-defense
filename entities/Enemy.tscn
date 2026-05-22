@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dp1w6dtjb5n62"]
+
+[ext_resource type="Texture2D" uid="uid://dsr68dwouyi7r" path="res://assets/debug/enemy.png" id="1_ixjfo"]
+[ext_resource type="Script" uid="uid://rhkvwea4barn" path="res://entities/enemy.gd" id="1_vec32"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://components/StateMachine.tscn" id="2_d0yhi"]
+[ext_resource type="Resource" uid="uid://bu0ibi3k1ni73" path="res://entities/enemy_data.tres" id="2_pedfs"]
+[ext_resource type="PackedScene" uid="uid://dwnu8wu0emtd" path="res://components/Ref.tscn" id="3_a23sr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ixjfo"]
+radius = 16.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ixjfo"]
+size = Vector2(34, 40)
+
+[sub_resource type="GDScript" id="GDScript_vec32"]
+script/source = "extends Ref
+
+#--- Nodes ---
+var body: Node2D
+var actor: CharacterBody2D
+
+#--- Variables ---
+var target: Node2D
+"
+
+[sub_resource type="GDScript" id="GDScript_a23sr"]
+resource_name = "Chase"
+script/source = "extends State
+
+func _enter_state():
+	pass
+	
+func _setup(p_ref):
+	ref = p_ref
+	actor = ref.actor
+
+func _physics_update(delta):
+	if ref.target:
+		var target_pos = ref.target.global_position
+		var actor_pos = actor.global_position
+		
+		var direction = actor_pos.direction_to(target_pos)
+		
+		actor.velocity = direction * actor.move.speed
+		actor.move_and_slide()
+"
+
+[node name="Enemy" type="CharacterBody2D" unique_id=88513531]
+script = ExtResource("1_vec32")
+move = ExtResource("2_pedfs")
+
+[node name="Body" type="Node2D" parent="." unique_id=32919759]
+
+[node name="Sprite2D" type="Sprite2D" parent="Body" unique_id=1476095093]
+scale = Vector2(0.078125015, 0.078125015)
+texture = ExtResource("1_ixjfo")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=904138267]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=508559715]
+shape = SubResource("CircleShape2D_ixjfo")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=1471163107]
+collision_layer = 1048576
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=1662621479]
+shape = SubResource("RectangleShape2D_ixjfo")
+
+[node name="Ref" parent="." unique_id=88008116 instance=ExtResource("3_a23sr")]
+script = SubResource("GDScript_vec32")
+
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("2_d0yhi")]
+
+[node name="Chase" type="Node" parent="StateMachine" unique_id=297645285]
+script = SubResource("GDScript_a23sr")
