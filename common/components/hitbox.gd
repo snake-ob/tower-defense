@@ -6,10 +6,7 @@ var ref: Ref
 func _setup(p_ref):
 	ref = p_ref
 
-func _on_area_entered(area: Area2D) -> void:
-	if area is not Hurtbox:
-		return
-		
+func _on_area_entered(area: Area2D) -> void:		
 	var damage = ref.attack.damage
 	var knockback = ref.attack.knockback
 	var position = ref.actor.global_position

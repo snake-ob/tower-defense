@@ -4,8 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/Enemy.tscn" id="2_0wynk"]
 [ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/Tower.tscn" id="2_5krfb"]
 [ext_resource type="PackedScene" uid="uid://c0wpo1ltgbtb2" path="res://levels/components/SpawnPath.tscn" id="5_ohqux"]
-[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://components/Ref.tscn" id="6_a47p7"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="6_a47p7"]
 [ext_resource type="PackedScene" uid="uid://dx0u6xdq71b5p" path="res://levels/components/EnemySpawner.tscn" id="6_ah1fx"]
+[ext_resource type="PackedScene" uid="uid://dqbs0170lo6xl" path="res://debug/DebugHUD.tscn" id="7_ah1fx"]
 
 [sub_resource type="GDScript" id="GDScript_0wynk"]
 script/source = "extends Node2D
@@ -77,3 +78,5 @@ shape = SubResource("RectangleShape2D_a47p7")
 position = Vector2(1176, 367)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_a47p7")
+
+[node name="DebugHud" parent="." unique_id=1331341241 instance=ExtResource("7_ah1fx")]

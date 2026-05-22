@@ -2,14 +2,17 @@
 
 [ext_resource type="Script" uid="uid://cep5okpmndios" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://p60xj8mo8k88" path="res://icon.svg" id="2_g1dw6"]
-[ext_resource type="Resource" uid="uid://dblpausq5vhi4" path="res://data/move_data.tres" id="2_g6k8r"]
-[ext_resource type="Script" uid="uid://btpfjqfhq0o86" path="res://components/input_controller.gd" id="3_g1dw6"]
-[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://components/PhysicsHandler.tscn" id="3_qjkh3"]
-[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://components/Ref.tscn" id="6_gskgj"]
-[ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://components/SoftCollision.tscn" id="7_gskgj"]
+[ext_resource type="Resource" uid="uid://dblpausq5vhi4" path="res://common/data/move_data.tres" id="2_g6k8r"]
+[ext_resource type="Script" uid="uid://btpfjqfhq0o86" path="res://common/components/input_controller.gd" id="3_g1dw6"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="3_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="6_gskgj"]
+[ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://common/components/SoftCollision.tscn" id="7_gskgj"]
+[ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="8_ndjxb"]
+[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="9_mhpjh"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_ndjxb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqcbf"]
-size = Vector2(41, 40)
+size = Vector2(41, 21)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yw30f"]
 atlas = ExtResource("2_g1dw6")
@@ -26,13 +29,130 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kqn5r"]
+radius = 53.235325
+
+[sub_resource type="GDScript" id="GDScript_ndjxb"]
+script/source = "#idle.gd
+extends State
+
+var controller: Node
+var grab: Area2D
+var physics: Node
+
+func _setup(p_ref):
+	controller = p_ref.input_controller
+	grab = p_ref.grab
+	physics = p_ref.physics
+
+func _physics_update(delta):
+	if controller.get_axis() != Vector2.ZERO:
+		change_state.emit('walk')
+		return
+	if Input.is_action_just_pressed('ui_select'):
+		_process_action()
+		return
+	physics._process_friction(delta)
+	
+func _process_action():
+	if grab.grabbed_pickup != null:
+		grab._put_down()
+		return
+		
+	if grab.get_grabbable() != []:
+		change_state.emit('grab')
+"
+
+[sub_resource type="GDScript" id="GDScript_5qrx2"]
+script/source = "#walk.gd
+extends State
+
+var input_controller: Node
+var grab: Node
+var drop_distance: int = 32
+
+func _setup(p_ref: Ref):
+	actor = p_ref.actor
+	grab = p_ref.grab
+	input_controller = p_ref.input_controller
+
+func _physics_update(delta):
+	if Input.is_action_just_pressed('ui_select'):
+		_process_action()
+		
+	var axis = input_controller.get_axis()
+	update_drop(axis)
+	
+	if axis == Vector2.ZERO:
+		change_state.emit('idle')
+		return
+	
+	actor.velocity = actor.velocity.move_toward(axis * actor.move.speed, actor.move.acceleration)
+
+func update_drop(p_axis):
+	if p_axis == Vector2.ZERO:
+		return
+	
+	var drop_dir = p_axis.normalized()
+	grab.drop_pos.position = grab.drop_anchor + (drop_dir * drop_distance)
+	
+func _process_action():
+	if grab.grabbed_pickup != null:
+		grab._put_down()
+		return
+		
+	if grab.get_grabbable() != []:
+		change_state.emit('grab')
+"
+
+[sub_resource type="GDScript" id="GDScript_b32pr"]
+script/source = "extends State
+
+var grab: Node
+var pickup: Area2D
+var grab_pos: Node
+var drop_pos: Node
+
+func _setup(p_ref: Ref):
+	grab = p_ref.grab
+	actor = p_ref.actor
+	grab_pos = grab.grab_pos
+	drop_pos = grab.drop_pos
+
+func _enter_state():
+	pickup = get_closest_node(grab.get_grabbable())
+	grab._pickup_object(pickup)
+	# Could likely do an animation here
+	change_state.emit('idle')
+
+func get_closest_node(p_nodes: Array) -> Node2D:
+	if p_nodes.is_empty():
+		return null
+
+	var closest_node: Node2D = null
+	var shortest_distance: float = INF 
+	var target_pos = actor.global_position
+
+	for node in p_nodes:
+		if not node is Node2D:
+			continue
+			
+		var distance_squared = target_pos.distance_squared_to(node.global_position)
+		
+		if distance_squared < shortest_distance:
+			shortest_distance = distance_squared
+			closest_node = node
+	return closest_node
+"
+
 [node name="Player" type="CharacterBody2D" unique_id=1411166111 groups=["Player"]]
 collision_layer = 65537
+collision_mask = 513
 script = ExtResource("1_rkbax")
 move = ExtResource("2_g6k8r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=547035760]
-position = Vector2(0.5, 0)
+position = Vector2(0.5, 9.5)
 shape = SubResource("RectangleShape2D_aqcbf")
 
 [node name="InputController" type="Node" parent="." unique_id=231094567]
@@ -49,5 +169,34 @@ scale = Vector2(0.3359375, 0.3359375)
 sprite_frames = SubResource("SpriteFrames_qjkh3")
 
 [node name="SoftCollision" parent="." unique_id=1691847556 instance=ExtResource("7_gskgj")]
+
+[node name="Grab" type="Area2D" parent="." unique_id=1402749356]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("8_ndjxb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grab" unique_id=1527922279]
+shape = SubResource("CircleShape2D_kqn5r")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="GrabPos" type="Node2D" parent="Grab" unique_id=2006151343]
+position = Vector2(0, -31)
+
+[node name="DropPos" type="Marker2D" parent="Grab" unique_id=275202154]
+position = Vector2(0, 21)
+gizmo_extents = 64.8
+
+[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("9_mhpjh")]
+
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("10_ndjxb")]
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1492035985]
+script = SubResource("GDScript_ndjxb")
+
+[node name="Walk" type="Node" parent="StateMachine" unique_id=233331439]
+script = SubResource("GDScript_5qrx2")
+
+[node name="Grab" type="Node" parent="StateMachine" unique_id=762996727]
+script = SubResource("GDScript_b32pr")
 
 [editable path="SoftCollision"]

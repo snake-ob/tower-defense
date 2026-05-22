@@ -1,11 +1,12 @@
 extends Node
 
 @export var enemy_scene: PackedScene
+@export var spawning: bool = true
 
 var level: Node2D
 var enemies: Node
 var spawn_timer: Timer
-var spawn_time: float = 3.
+var spawn_time: float = 0.1
 var spawn_path: Node2D
 
 func _setup(p_ref):
@@ -20,6 +21,7 @@ func _ready():
 	spawn_timer.start(spawn_time)
 
 func _on_spawn():
+	if !spawning: return
 	var enemy = enemy_scene.instantiate()
 	enemy.global_position = spawn_path.get_random_position()
 	enemies.add_child(enemy)

@@ -9,6 +9,7 @@ class_name Tower
 func _ready() -> void:
 	_setup_ref()
 	_setup_nodes(self)
+	$StateMachine._set_state('active')
 
 func _setup_nodes(p_node):
 	for child in p_node.get_children():
@@ -21,5 +22,6 @@ func _setup_ref():
 	ref.set('actor', self)
 	ref.set('bullet_spawner', $BulletSpawner)
 	ref.set('detect_zone', $DetectZone)
+	ref.set('pickup', $Pickup)
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())

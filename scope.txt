@@ -11,6 +11,7 @@ May 19 2026
 - Player can buy upgrades or new turrets (vampire survivors style)
 - Player can add/remove components from turrets
 - Player can buy walls/barriers
+- Multipliers at cost of other stats? (3x faster shooting. 3x less damage)
 ==============================================
 May 20 2026
 - Clean up code
@@ -32,4 +33,13 @@ May 21 2026
 	- Homing enemies (regular)
 	- Shoot player enemies (slow)
 - PICK UP (pickup-able) OBJECTS
+- Y-SORT Z-INDEX
+==============================================
+| NOTE |
+- A simple SoftCollision Node made the entities feel so alive
+- They now swarm around the player - exhibiting a natural behaviour that wasn't necessarily expected
+- Beginning to see the payoff of creating reusable nodes
+- 2 or 3 nodes will produce desired behaviour
+- More nodes will produce complex interactions that I did not even plan for
+- So cool
 ==============================================

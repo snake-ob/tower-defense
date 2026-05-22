@@ -4,10 +4,11 @@ class_name BulletSpawner
 @export var Bullet: PackedScene
 
 #export out as resources
-var bullet_timing: float = 1.0
+var bullet_timing: float = 0.005
 var bullet_speed: int = 200
 var bullet_ready = false
 var enemy_detected = false
+var active: bool = false
 
 var bullet_timer: Timer
 
@@ -23,7 +24,7 @@ func _ready():
 	bullet_timer.start(bullet_timing)
 	
 func _process(_delta):
-	if bullet_ready and ref.detect_zone.active_targets != []:
+	if bullet_ready and ref.detect_zone.active_targets != [] and active:
 		spawn_bullet()
 		
 func spawn_bullet():
@@ -34,3 +35,9 @@ func spawn_bullet():
 	new_bullet.attack = ref.attack
 	new_bullet.move = ref.move
 	SignalBus.spawn_bullet.emit(new_bullet)
+
+func activate():
+	active = true
+
+func deactivate():
+	active = false

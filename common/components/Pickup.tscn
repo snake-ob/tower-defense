@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://brkgs0nuf1aaf"]
+
+[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="1_n8pa2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
+radius = 35.014282
+
+[node name="Pickup" type="Area2D" unique_id=1162784583]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_n8pa2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1697664644]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="." unique_id=639769184]

@@ -2,12 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://cqh1f23oeylb6" path="res://assets/debug/debug-tower.png" id="1_6lyba"]
 [ext_resource type="Script" uid="uid://vjug8yftufoo" path="res://entities/tower.gd" id="1_ljppj"]
-[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://data/move_data.gd" id="2_3mcmt"]
-[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://data/attack_data.gd" id="3_c12lq"]
-[ext_resource type="Script" uid="uid://cjrph8r53kgf5" path="res://components/bullet_spawner.gd" id="3_l48d8"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_3mcmt"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="3_c12lq"]
+[ext_resource type="Script" uid="uid://cjrph8r53kgf5" path="res://common/components/bullet_spawner.gd" id="3_l48d8"]
 [ext_resource type="PackedScene" uid="uid://3sjyslisd0oy" path="res://entities/Bullet.tscn" id="4_m7yij"]
-[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://components/Ref.tscn" id="4_tm4kr"]
-[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://components/detect_zone.gd" id="7_3mcmt"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="4_tm4kr"]
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="7_3mcmt"]
+[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="9_mttso"]
+[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="10_wcwdc"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="11_mttso"]
 
 [sub_resource type="Resource" id="Resource_wcwdc"]
 script = ExtResource("2_3mcmt")
@@ -22,14 +25,80 @@ metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
 radius = 380.29593
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3mcmt"]
-size = Vector2(61, 62)
+size = Vector2(43, 29)
 
-[node name="Tower" type="StaticBody2D" unique_id=1458027214]
+[sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
+radius = 57.0
+
+[sub_resource type="GDScript" id="GDScript_4qj7r"]
+script/source = "#active.gd
+extends State
+
+var bullet_spawner: Node
+var pickup: Node
+
+func _setup(p_ref: Ref):
+	bullet_spawner = p_ref.bullet_spawner
+	pickup = p_ref.pickup
+
+func _enter_state():
+	bullet_spawner.activate()
+
+func _exit_state():
+	bullet_spawner.deactivate()
+
+func _update(delta):
+	if pickup.picked_up:
+		change_state.emit('grabbed')
+"
+
+[sub_resource type="GDScript" id="GDScript_mttso"]
+script/source = "#deactive.gd
+extends State
+
+var bullet_spawner: Node
+
+func _setup(p_ref: Ref):
+	bullet_spawner = p_ref.bullet_spawner
+	
+func _enter_state():
+	bullet_spawner.deactivate()
+"
+
+[sub_resource type="GDScript" id="GDScript_vcivv"]
+script/source = "#grabbed.gd
+extends State
+
+var bullet_spawner: Node
+var pickup: Area2D
+var saved_collision_layer: int
+
+func _setup(p_ref: Ref):
+	bullet_spawner = p_ref.bullet_spawner
+	actor = p_ref.actor
+	pickup = p_ref.pickup
+
+func _enter_state():
+	bullet_spawner.deactivate()
+	saved_collision_layer = actor.collision_layer
+	actor.collision_layer = 0
+
+func _exit_state():
+	actor.collision_layer = saved_collision_layer
+
+func _update(delta):
+	if not pickup.picked_up:
+		change_state.emit('active')
+"
+
+[node name="Tower" type="StaticBody2D" unique_id=337593309]
 collision_layer = 512
 collision_mask = 0
 script = ExtResource("1_ljppj")
 move = SubResource("Resource_wcwdc")
 attack = SubResource("Resource_mttso")
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("4_tm4kr")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=189270528]
 position = Vector2(0, 0.15)
@@ -49,12 +118,35 @@ script = ExtResource("7_3mcmt")
 shape = SubResource("CircleShape2D_m7yij")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
-[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("4_tm4kr")]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=132255039]
-position = Vector2(0.5, -1)
+position = Vector2(0.5, 12.5)
 shape = SubResource("RectangleShape2D_3mcmt")
 debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("9_mttso")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup" unique_id=1697664644]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
+position = Vector2(0, 39)
+
+[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("10_wcwdc")]
+
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("11_mttso")]
+
+[node name="Active" type="Node" parent="StateMachine" unique_id=1029699589]
+script = SubResource("GDScript_4qj7r")
+
+[node name="Deactive" type="Node" parent="StateMachine" unique_id=130073470]
+script = SubResource("GDScript_mttso")
+
+[node name="Grabbed" type="Node" parent="StateMachine" unique_id=336309190]
+script = SubResource("GDScript_vcivv")
 
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

@@ -16,6 +16,8 @@ func _ready() -> void:
 	$StateMachine._set_state('chase')
 	$Health.health_depleted.connect(_on_health_depleted)
 	$Hurtbox.got_hit.connect(_on_got_hit)
+	
+	PerformanceTracker.register_enemy()
 
 func _setup_ref():
 	if move: ref.set('move', move.duplicate())
@@ -36,6 +38,7 @@ func _setup_nodes(p_node):
 			_setup_nodes(child)
 			
 func _on_health_depleted():
+	PerformanceTracker.unregister_enemy()
 	queue_free()
 
 func _on_got_hit(hit):

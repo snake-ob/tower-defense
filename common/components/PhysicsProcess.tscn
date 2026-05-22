@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d2whwbwlkflfx"]
 
-[ext_resource type="Script" uid="uid://dj7nr4vd21xws" path="res://components/physics_process.gd" id="1_uur7v"]
+[ext_resource type="Script" uid="uid://dj7nr4vd21xws" path="res://common/components/physics_process.gd" id="1_uur7v"]
 
 [node name="PhysicsProcess" type="Node" unique_id=106629907]
 script = ExtResource("1_uur7v")

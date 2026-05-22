@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cen1ofjmnye16"]
 
-[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://components/soft_collision.gd" id="1_hyq0v"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="1_hyq0v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
 radius = 16.0
@@ -9,6 +9,7 @@ radius = 16.0
 collision_layer = 128
 collision_mask = 128
 script = ExtResource("1_hyq0v")
+push_force = 1300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=750917308]
 shape = SubResource("CircleShape2D_aueyi")

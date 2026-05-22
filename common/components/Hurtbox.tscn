@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://5si34rrncmax"]
 
-[ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://components/hurtbox.gd" id="1_ek6vw"]
+[ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="1_ek6vw"]
 
 [node name="Hurtbox" type="Area2D" unique_id=88604661]
 monitoring = false

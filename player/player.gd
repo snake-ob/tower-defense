@@ -8,16 +8,18 @@ class_name Player
 func _physics_process(delta):
 	if move: ref.move = move.duplicate()
 	move_and_slide()
-
+	
 func _ready():
 	_setup_ref()
 	_setup_nodes(self)
+	$StateMachine._set_state('idle')
 	
 func _setup_ref():
-	ref.input_controller = $InputController
-	ref.visuals = $Visuals
-	ref.physics_handler = $PhysicsHandler
-	ref.actor = self
+	ref.set('input_controller', $InputController)
+	ref.set('visuals', $Visuals)
+	ref.set('physics', $PhysicsHandler)
+	ref.set('grab', $Grab)
+	ref.set('actor', self)
 	
 func _setup_nodes(p_node):
 	for child in p_node.get_children():

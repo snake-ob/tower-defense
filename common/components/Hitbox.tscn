@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://do132gbyybaq2"]
 
-[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://components/hitbox.gd" id="1_shsls"]
+[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="1_shsls"]
 
 [node name="Hitbox" type="Area2D" unique_id=1611305122]
 monitorable = false

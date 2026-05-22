@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://vgo31r8mq8bc"]
+
+[ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="1_cajne"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kqn5r"]
+radius = 53.235325
+
+[node name="Grab" type="Area2D" unique_id=1402749356]
+script = ExtResource("1_cajne")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1527922279]
+shape = SubResource("CircleShape2D_kqn5r")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="GrabPos" type="Node2D" parent="." unique_id=2006151343]
+
+[node name="DropPos" type="Marker2D" parent="." unique_id=2065304284]
