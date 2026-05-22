@@ -2,23 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://dsr68dwouyi7r" path="res://assets/debug/enemy.png" id="1_ixjfo"]
 [ext_resource type="Script" uid="uid://rhkvwea4barn" path="res://entities/enemy.gd" id="1_vec32"]
-[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://data/move_data.gd" id="2_5g4gd"]
-[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://data/attack_data.gd" id="2_66spp"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://components/StateMachine.tscn" id="2_d0yhi"]
+[ext_resource type="Resource" uid="uid://bu0ibi3k1ni73" path="res://entities/enemy_data.tres" id="2_pedfs"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://components/Ref.tscn" id="3_a23sr"]
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://components/hitbox.gd" id="6_dsp8k"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://components/hurtbox.gd" id="7_66spp"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://components/Health.tscn" id="8_66spp"]
-
-[sub_resource type="Resource" id="Resource_ijd6d"]
-script = ExtResource("2_5g4gd")
-speed = 200
-acceleration = 200
-metadata/_custom_type_script = "uid://7bxlx0bftck1"
-
-[sub_resource type="Resource" id="Resource_im3kb"]
-script = ExtResource("2_66spp")
-metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
 
 [sub_resource type="GDScript" id="GDScript_a23sr"]
 resource_name = "Chase"
@@ -37,8 +26,10 @@ func _physics_update(delta):
 		var actor_pos = actor.global_position
 		
 		var direction = actor_pos.direction_to(target_pos)
-		var target_velocity = direction * ref.move.speed		
-		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+		var target_velocity = direction * actor.move.speed
+		print(actor.velocity)
+		
+		actor.velocity = actor.velocity.move_toward(target_velocity, actor.move.acceleration * delta)
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pedfs"]
@@ -64,8 +55,7 @@ var status: Array = []
 collision_layer = 256
 collision_mask = 0
 script = ExtResource("1_vec32")
-move = SubResource("Resource_ijd6d")
-attack = SubResource("Resource_im3kb")
+move = ExtResource("2_pedfs")
 
 [node name="Body" type="Node2D" parent="." unique_id=32919759]
 

@@ -7,6 +7,7 @@ class_name BulletSpawner
 var bullet_timing: float = 1.0
 var bullet_speed: int = 200
 var bullet_ready = false
+var enemy_detected = false
 
 var bullet_timer: Timer
 
@@ -22,12 +23,14 @@ func _ready():
 	bullet_timer.start(bullet_timing)
 	
 func _process(_delta):
-	if bullet_ready:
+	if bullet_ready and ref.detect_zone.active_targets != []:
 		spawn_bullet()
 		
 func spawn_bullet():
 	bullet_ready = false
 	var new_bullet = Bullet.instantiate()
 	new_bullet.global_position = ref.actor.global_position
-	add_child(new_bullet)
-	new_bullet._setup(ref)
+	new_bullet.active_targets = ref.detect_zone.active_targets
+	new_bullet.attack = ref.attack
+	new_bullet.move = ref.move
+	SignalBus.spawn_bullet.emit(new_bullet)

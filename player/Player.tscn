@@ -2,20 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cep5okpmndios" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://p60xj8mo8k88" path="res://icon.svg" id="2_g1dw6"]
-[ext_resource type="Resource" uid="uid://dblpausq5vhi4" path="res://player/move_data.tres" id="2_g6k8r"]
+[ext_resource type="Resource" uid="uid://dblpausq5vhi4" path="res://data/move_data.tres" id="2_g6k8r"]
 [ext_resource type="Script" uid="uid://btpfjqfhq0o86" path="res://components/input_controller.gd" id="3_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://components/PhysicsHandler.tscn" id="3_qjkh3"]
-[ext_resource type="PackedScene" uid="uid://dwnu8wu0emtd" path="res://components/Ref.tscn" id="4_yw30f"]
-
-[sub_resource type="GDScript" id="GDScript_yw30f"]
-script/source = "extends Ref
-
-var actor
-var input_controller
-var visuals
-var physics_handler
-var enemy_dir
-"
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://components/Ref.tscn" id="6_gskgj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yw30f"]
 atlas = ExtResource("2_g1dw6")
@@ -43,8 +33,7 @@ script = ExtResource("3_g1dw6")
 
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("3_qjkh3")]
 
-[node name="Ref" parent="." unique_id=88008116 instance=ExtResource("4_yw30f")]
-script = SubResource("GDScript_yw30f")
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("6_gskgj")]
 
 [node name="Visuals" type="Node2D" parent="." unique_id=1859001339]
 

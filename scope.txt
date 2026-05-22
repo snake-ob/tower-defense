@@ -4,3 +4,16 @@ May 19 2026
 - Enemy chase player
 - Tower shoot enemy
 ==============================================
+| GAME SCOPE |
+- Brotato-like
+- Player runs around, enemies (generally) attack player
+- Turrets shoot enemies
+- Player can buy upgrades or new turrets (vampire survivors style)
+- Player can add/remove components from turrets
+- Player can buy walls/barriers
+==============================================
+May 20 2026
+- Clean up code
+- Composition & clean scene structure
+- Separate data & code
+==============================================

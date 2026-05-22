@@ -2,13 +2,13 @@ extends Node2D
 class_name Tower
 
 @onready var ref: Ref = $Ref
+@export_category("Bullet Data")
+@export var move: MoveData
+@export var attack: AttackData
 
 func _ready() -> void:
 	_setup_ref()
 	_setup_nodes(self)
-
-func _setup(p_ref):
-	ref.enemies = p_ref.enemies
 
 func _setup_nodes(p_node):
 	for child in p_node.get_children():
@@ -18,5 +18,8 @@ func _setup_nodes(p_node):
 			_setup_nodes(child)
 
 func _setup_ref():
-	ref.actor = self
-	ref.bullet_spawner = $BulletSpawner
+	ref.set('actor', self)
+	ref.set('bullet_spawner', $BulletSpawner)
+	ref.set('detect_zone', $DetectZone)
+	if move: ref.set('move', move.duplicate())
+	if attack: ref.set('attack', attack.duplicate())

@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://c7tjig4dbti8v"]
+
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://components/detect_zone.gd" id="1_4neok"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
+radius = 365.43674
+
+[node name="DetectZone" type="Area2D" unique_id=2106882287]
+script = ExtResource("1_4neok")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=690207711]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

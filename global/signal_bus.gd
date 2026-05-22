@@ -1,3 +1,3 @@
 extends Node
 
-signal new_bullet(bullet)
+signal spawn_bullet(bullet)

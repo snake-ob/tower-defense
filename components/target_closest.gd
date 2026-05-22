@@ -7,10 +7,8 @@ var ref: Ref
 
 func _setup(p_ref):
 	ref = p_ref
-	target = get_closest_target(ref.enemies.dir)
 
 func get_closest_target(enemy_dir):
-	print(enemy_dir)
 	var actor_pos = ref.actor.global_position
 	var closest_enemy = null
 	var closest_distance = null

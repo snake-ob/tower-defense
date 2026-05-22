@@ -2,26 +2,13 @@
 
 [ext_resource type="Texture2D" uid="uid://cqh1f23oeylb6" path="res://assets/debug/debug-tower.png" id="1_6lyba"]
 [ext_resource type="Script" uid="uid://vjug8yftufoo" path="res://entities/tower.gd" id="1_ljppj"]
-[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://data/move_data.gd" id="2_3mcmt"]
-[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://data/attack_data.gd" id="3_c12lq"]
 [ext_resource type="Script" uid="uid://cjrph8r53kgf5" path="res://components/bullet_spawner.gd" id="3_l48d8"]
 [ext_resource type="PackedScene" uid="uid://3sjyslisd0oy" path="res://entities/Bullet.tscn" id="4_m7yij"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://components/Ref.tscn" id="4_tm4kr"]
 [ext_resource type="PackedScene" uid="uid://c7tjig4dbti8v" path="res://components/DetectZone.tscn" id="6_3arqw"]
 
-[sub_resource type="Resource" id="Resource_wcwdc"]
-script = ExtResource("2_3mcmt")
-metadata/_custom_type_script = "uid://7bxlx0bftck1"
-
-[sub_resource type="Resource" id="Resource_mttso"]
-script = ExtResource("3_c12lq")
-knockback = 5.0
-metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
-
 [node name="Tower" type="Node2D" unique_id=1332146881]
 script = ExtResource("1_ljppj")
-move = SubResource("Resource_wcwdc")
-attack = SubResource("Resource_mttso")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=189270528]
 position = Vector2(0, 0.15)
