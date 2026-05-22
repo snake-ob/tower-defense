@@ -15,6 +15,7 @@ func get_closest_target(enemy_dir):
 	for enemy in enemy_dir:
 		if closest_enemy == null:
 			closest_enemy = enemy
+			closest_distance = actor_pos.distance_squared_to(enemy.global_position)
 			continue
 
 		var enemy_pos = enemy.global_position

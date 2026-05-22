@@ -24,6 +24,7 @@ func _setup_ref():
 	ref.set('data', $Data)
 	ref.set('health', $Health)
 	ref.set('hurtbox', $Hurtbox)
+	ref.set('active_targets', $DetectZone.active_targets)
 	ref.set('actor', self)
 	
 func _setup_nodes(p_node):

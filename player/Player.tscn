@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://components/PhysicsHandler.tscn" id="3_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://components/Ref.tscn" id="6_gskgj"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqcbf"]
+size = Vector2(41, 40)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_yw30f"]
 atlas = ExtResource("2_g1dw6")
 region = Rect2(0, 0, 128, 128)
@@ -22,11 +25,14 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" type="CharacterBody2D" unique_id=1411166111]
+[node name="Player" type="CharacterBody2D" unique_id=1411166111 groups=["Player"]]
+collision_layer = 65537
 script = ExtResource("1_rkbax")
 move = ExtResource("2_g6k8r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=547035760]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_aqcbf")
 
 [node name="InputController" type="Node" parent="." unique_id=231094567]
 script = ExtResource("3_g1dw6")

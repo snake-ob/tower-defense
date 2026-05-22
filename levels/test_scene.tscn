@@ -5,19 +5,23 @@
 [ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/Tower.tscn" id="2_5krfb"]
 [ext_resource type="PackedScene" uid="uid://c0wpo1ltgbtb2" path="res://levels/components/SpawnPath.tscn" id="5_ohqux"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://components/Ref.tscn" id="6_a47p7"]
+[ext_resource type="PackedScene" uid="uid://dx0u6xdq71b5p" path="res://levels/components/EnemySpawner.tscn" id="6_ah1fx"]
 
 [sub_resource type="GDScript" id="GDScript_0wynk"]
 script/source = "extends Node2D
 
-@onready var ref: Ref
+@onready var ref: Ref = $Ref
 
 func _ready() -> void:
 	SignalBus.spawn_bullet.connect(_spawn_bullet)
+	_setup_ref()
 	_setup_nodes(self)
 	
 func _setup_ref():
 	ref.set('level', self)
 	ref.set('enemies', $Enemies)
+	ref.set('spawn_path', $SpawnPath)
+	ref.set('player', $Player)
 	
 func _setup_nodes(p_node):
 	for child in p_node.get_children():
@@ -28,14 +32,14 @@ func _spawn_bullet(p_bullet):
 	$Projectiles.add_child(p_bullet)
 "
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a47p7"]
+size = Vector2(1268.5, 20)
+
 [node name="Test Scene" type="Node2D" unique_id=1723051521]
 script = SubResource("GDScript_0wynk")
 
 [node name="Player" parent="." unique_id=1411166111 instance=ExtResource("1_jdpn8")]
 position = Vector2(572, 318)
-
-[node name="Enemy" parent="." unique_id=1087316363 instance=ExtResource("2_0wynk")]
-position = Vector2(778, 198)
 
 [node name="Tower" parent="." unique_id=1332146881 instance=ExtResource("2_5krfb")]
 position = Vector2(298, 239)
@@ -44,6 +48,32 @@ position = Vector2(298, 239)
 
 [node name="Enemies" type="Node2D" parent="." unique_id=629788147]
 
-[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("6_a47p7")]
+[node name="Ref" parent="." unique_id=2053025034 instance=ExtResource("6_a47p7")]
 
 [node name="SpawnPath" parent="." unique_id=1469162358 instance=ExtResource("5_ohqux")]
+
+[node name="EnemySpawner" parent="." unique_id=2052432875 instance=ExtResource("6_ah1fx")]
+enemy_scene = ExtResource("2_0wynk")
+
+[node name="Enemy" parent="." unique_id=88513531 instance=ExtResource("2_0wynk")]
+position = Vector2(451, 198)
+
+[node name="Walls" type="StaticBody2D" parent="." unique_id=427719329]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls" unique_id=2128152737]
+position = Vector2(569.75, -19)
+shape = SubResource("RectangleShape2D_a47p7")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls" unique_id=1002911169]
+position = Vector2(579, 688)
+shape = SubResource("RectangleShape2D_a47p7")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls" unique_id=935273740]
+position = Vector2(-22, 292)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_a47p7")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Walls" unique_id=1006471905]
+position = Vector2(1176, 367)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_a47p7")

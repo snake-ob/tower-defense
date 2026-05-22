@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://cjrph8r53kgf5" path="res://components/bullet_spawner.gd" id="3_l48d8"]
 [ext_resource type="PackedScene" uid="uid://3sjyslisd0oy" path="res://entities/Bullet.tscn" id="4_m7yij"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://components/Ref.tscn" id="4_tm4kr"]
-[ext_resource type="PackedScene" uid="uid://c7tjig4dbti8v" path="res://components/DetectZone.tscn" id="6_3arqw"]
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://components/detect_zone.gd" id="7_3mcmt"]
 
 [sub_resource type="Resource" id="Resource_wcwdc"]
 script = ExtResource("2_3mcmt")
@@ -18,7 +18,15 @@ script = ExtResource("3_c12lq")
 knockback = 5.0
 metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
 
-[node name="Tower" type="Node2D" unique_id=1332146881]
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
+radius = 380.29593
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mcmt"]
+size = Vector2(61, 62)
+
+[node name="Tower" type="StaticBody2D" unique_id=1458027214]
+collision_layer = 512
+collision_mask = 0
 script = ExtResource("1_ljppj")
 move = SubResource("Resource_wcwdc")
 attack = SubResource("Resource_mttso")
@@ -32,8 +40,21 @@ texture = ExtResource("1_6lyba")
 script = ExtResource("3_l48d8")
 Bullet = ExtResource("4_m7yij")
 
-[node name="DetectZone" parent="." unique_id=2106882287 instance=ExtResource("6_3arqw")]
+[node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
 collision_layer = 0
 collision_mask = 256
+script = ExtResource("7_3mcmt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("4_tm4kr")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=132255039]
+position = Vector2(0.5, -1)
+shape = SubResource("RectangleShape2D_3mcmt")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

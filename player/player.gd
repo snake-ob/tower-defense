@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @onready var ref: Ref = $Ref
 @export_category("Player Data")

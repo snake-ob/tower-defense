@@ -22,8 +22,14 @@ May 20 2026
 - Teleports to various locations around the perimeter of the map
 - Spawns enemies
 	- Pulls from enemy pool (different for each stage)
-	- Needs stats (speed of enemy release, waves, total enemies)
+	- Needs Manager (speed of enemy release, waves, total enemies)
 - LEVEL BOUNDARIES
 	- Keep player within screen boundaries
 ==============================================
-
+May 21 2026
+- DIFFERENT ENEMY TYPES
+	- Slidey enemies (fast)
+	- Homing enemies (regular)
+	- Shoot player enemies (slow)
+- PICK UP (pickup-able) OBJECTS
+==============================================

@@ -9,10 +9,11 @@
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://components/hitbox.gd" id="6_dsp8k"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://components/hurtbox.gd" id="7_66spp"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://components/Health.tscn" id="8_66spp"]
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://components/detect_zone.gd" id="10_im3kb"]
 
 [sub_resource type="Resource" id="Resource_ijd6d"]
 script = ExtResource("2_5g4gd")
-speed = 200
+speed = 500
 acceleration = 200
 metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
@@ -23,22 +24,42 @@ metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
 [sub_resource type="GDScript" id="GDScript_a23sr"]
 resource_name = "Chase"
 script/source = "extends State
-
-func _enter_state():
-	pass
 	
 func _setup(p_ref):
 	ref = p_ref
 	actor = ref.actor
 
 func _physics_update(delta):
-	if ref.target:
-		var target_pos = ref.target.global_position
+	if ref.active_targets:
+		var target = ref.active_targets[0]
+		var target_pos = target.global_position
 		var actor_pos = actor.global_position
 		
 		var direction = actor_pos.direction_to(target_pos)
 		var target_velocity = direction * ref.move.speed		
 		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+	else:
+		change_state.emit('reset')
+"
+
+[sub_resource type="GDScript" id="GDScript_im3kb"]
+script/source = "extends State
+
+var centre_pos = Vector2(515, 320)
+
+func _setup(p_ref):
+	ref = p_ref
+	actor = ref.actor
+
+func _physics_update(delta):
+	if ref.active_targets:
+		change_state.emit('chase')
+
+	var actor_pos = actor.global_position
+		
+	var direction = actor_pos.direction_to(centre_pos)
+	var target_velocity = direction * ref.move.speed		
+	actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pedfs"]
@@ -60,6 +81,9 @@ var knockback: float = 10.0
 var status: Array = []
 "
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
+radius = 640.93
+
 [node name="Enemy" type="CharacterBody2D" unique_id=88513531]
 collision_layer = 256
 collision_mask = 0
@@ -77,6 +101,9 @@ texture = ExtResource("1_ixjfo")
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=297645285]
 script = SubResource("GDScript_a23sr")
+
+[node name="Reset" type="Node" parent="StateMachine" unique_id=1844849915]
+script = SubResource("GDScript_im3kb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=646892593]
 shape = SubResource("CircleShape2D_pedfs")
@@ -111,4 +138,15 @@ max_health = 5
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_a23sr")]
 
+[node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
+collision_layer = 0
+collision_mask = 65536
+script = ExtResource("10_im3kb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
+[connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

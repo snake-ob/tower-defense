@@ -27,6 +27,8 @@ var status: Array = []
 "
 
 [node name="Bullet" type="CharacterBody2D" unique_id=150744527]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_vl4bg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=251283894]
