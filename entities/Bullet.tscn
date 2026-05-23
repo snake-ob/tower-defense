@@ -42,7 +42,7 @@ scale = Vector2(0.033849847, 0.03384984)
 texture = ExtResource("1_k50w0")
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=88604661]
-collision_layer = 131072
+collision_layer = 0
 collision_mask = 0
 monitoring = false
 script = ExtResource("3_jngwf")
@@ -52,7 +52,7 @@ shape = SubResource("CapsuleShape2D_gxey3")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
 collision_layer = 0
-collision_mask = 262144
+collision_mask = 0
 monitorable = false
 script = ExtResource("3_a0ooq")
 

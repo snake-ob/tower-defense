@@ -6,7 +6,7 @@ extends Node
 var level: Node2D
 var enemies: Node
 var spawn_timer: Timer
-var spawn_time: float = 0.1
+@export var spawn_time: float = 1
 var spawn_path: Node2D
 
 func _setup(p_ref):

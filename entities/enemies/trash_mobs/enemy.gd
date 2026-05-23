@@ -4,6 +4,7 @@ class_name Enemy
 @export_category("Enemy Data")
 @export var move: MoveData
 @export var attack: AttackData
+@export var collision: CollisionData
 
 @onready var ref = $Ref
 
@@ -22,11 +23,15 @@ func _ready() -> void:
 func _setup_ref():
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())
+	var bullet_spawner = get_node_or_null("BulletSpawner")
 	ref.set('body', $Body)
 	ref.set('data', $Data)
 	ref.set('health', $Health)
+	ref.set('hitbox', $Hitbox)
 	ref.set('hurtbox', $Hurtbox)
 	ref.set('active_targets', $DetectZone.active_targets)
+	ref.set('detect_zone', $DetectZone)
+	ref.set('bullet_spawner', bullet_spawner)
 	ref.set('actor', self)
 	
 func _setup_nodes(p_node):

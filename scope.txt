@@ -43,3 +43,39 @@ May 21 2026
 - More nodes will produce complex interactions that I did not even plan for
 - So cool
 ==============================================
+MAY 23 2026
+- Refactor enemies to easily create variants
+- Refactor enemy spawner to spawn certain variants
+- Create wave manager
+	- Reads dataset to manage enemy spawners
+	- Conducts enemy spawners for enemy timing
+==============================================
+| GAME SCOPE |
+- Game start
+- Player walks into level 1 - countdown begins
+- Player can move their turret, spawners, and chunks of map
+- Turrets shoot enemies, and player picks up currency (currency does not last forever)
+LEVEL OVER
+- Gate opens, player enters shop
+- Can buy one of 3 items (or reroll the shop)
+- Can gamble their $ at the slots (for more money)
+- Player can upgrade their turret with items
+GAME
+- 20 levels, unlimited rush after (or maybe 10 or whatever)
+- 4 bosses (5, 10, 15 and 20)
+- 4 level types
+	- aesthetic (fire, ice, forest, ethereal + maybe a special rush one)
+	- enemies
+	- music
+- Player beats game to unlock "Daily" which has a set seed and daily highscore
+- Highscore is time survived in the daily rush (create a build in lvl 1-10)
+
+INTERFACE
+- Mickey mouse/LoL style cursor
+- Player clicks things in its range to interact
+- Player clicks and drags items into turrets and player backpack
+
+ITEM IDEAS
+- Magnet (to pull coins)
+==============================================
+

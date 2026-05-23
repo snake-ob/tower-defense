@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://8k5ujv22ie2h"]
+
+[ext_resource type="Script" uid="uid://cjrph8r53kgf5" path="res://common/components/bullet_spawner.gd" id="1_04m2t"]
+[ext_resource type="PackedScene" uid="uid://3sjyslisd0oy" path="res://entities/Bullet.tscn" id="2_22b1t"]
+[ext_resource type="Resource" uid="uid://ti0d7wqujxql" path="res://common/data/bullet_data.tres" id="2_fqcwc"]
+
+[node name="BulletSpawner" type="Node2D" unique_id=46448684]
+script = ExtResource("1_04m2t")
+BulletScene = ExtResource("2_22b1t")
+bullet = ExtResource("2_fqcwc")

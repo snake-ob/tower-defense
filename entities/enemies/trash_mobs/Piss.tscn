@@ -1,0 +1,204 @@
+[gd_scene format=3 uid="uid://bpnxkvr03pa8n"]
+
+[ext_resource type="Script" uid="uid://rhkvwea4barn" path="res://entities/enemies/trash_mobs/enemy.gd" id="1_2eku2"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_oit4x"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="3_vik6v"]
+[ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="4_lq5m8"]
+[ext_resource type="Texture2D" uid="uid://bcn3ogxujmu5q" path="res://assets/debug/Screenshot 2026-05-23 141946.png" id="5_oit4x"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="6_5qd6o"]
+[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="7_tvf6k"]
+[ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="8_7xmsk"]
+[ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="9_ut0n0"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="10_wybmi"]
+[ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://common/components/SoftCollision.tscn" id="11_yxcyt"]
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="12_1o17t"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="13_4aimc"]
+[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="14_wijky"]
+[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="15_dfglk"]
+[ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="16_oit4x"]
+
+[sub_resource type="Resource" id="Resource_ijd6d"]
+script = ExtResource("2_oit4x")
+speed = 30
+friction = 500
+acceleration = 300
+turn_speed = 50.0
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="Resource" id="Resource_im3kb"]
+script = ExtResource("3_vik6v")
+metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
+
+[sub_resource type="Resource" id="Resource_vik6v"]
+script = ExtResource("4_lq5m8")
+layer = 13
+mask = 4
+metadata/_custom_type_script = "uid://dxnywa0nlrdku"
+
+[sub_resource type="GDScript" id="GDScript_a23sr"]
+resource_name = "Chase"
+script/source = "extends State
+
+var bullet_spawner = null
+	
+func _setup(p_ref):
+	ref = p_ref
+	actor = ref.actor
+	if ref.has('bullet_spawner'):
+		bullet_spawner = ref.bullet_spawner
+	
+func _enter_state():
+	if bullet_spawner:
+		bullet_spawner.activate()
+	
+func _exit_state():
+	if bullet_spawner:
+		bullet_spawner.deactivate()
+
+func _physics_update(delta):
+	if ref.active_targets:
+		var target = ref.active_targets[0]
+		var target_pos = target.global_position
+		var actor_pos = actor.global_position
+		
+		var direction = actor_pos.direction_to(target_pos)
+		var target_velocity = direction * ref.move.speed		
+		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+	else:
+		change_state.emit('reset')
+"
+
+[sub_resource type="GDScript" id="GDScript_im3kb"]
+script/source = "extends State
+
+var centre_pos = Vector2(515, 320)
+
+func _setup(p_ref):
+	ref = p_ref
+	actor = ref.actor
+
+func _physics_update(delta):
+	if ref.active_targets:
+		change_state.emit('chase')
+
+	var actor_pos = actor.global_position
+		
+	var direction = actor_pos.direction_to(centre_pos)
+	var target_velocity = direction * ref.move.speed		
+	actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pedfs"]
+radius = 27.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5g4gd"]
+radius = 19.0
+height = 42.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_im3kb"]
+size = Vector2(45, 42)
+
+[sub_resource type="GDScript" id="GDScript_dsp8k"]
+script/source = "extends Node
+class_name Data
+
+var damage: int = 1
+var knockback: float = 10.0
+var status: Array = []
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
+radius = 640.93
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
+radius = 35.014282
+
+[node name="Piss" type="CharacterBody2D" unique_id=88513531]
+collision_layer = 256
+collision_mask = 512
+script = ExtResource("1_2eku2")
+move = SubResource("Resource_ijd6d")
+attack = SubResource("Resource_im3kb")
+collision = SubResource("Resource_vik6v")
+
+[node name="Body" type="Node2D" parent="." unique_id=32919759]
+
+[node name="Sprite2D" type="Sprite2D" parent="Body" unique_id=1476095093]
+scale = Vector2(0.078125015, 0.078125015)
+texture = ExtResource("5_oit4x")
+
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("6_5qd6o")]
+
+[node name="Chase" type="Node" parent="StateMachine" unique_id=297645285]
+script = SubResource("GDScript_a23sr")
+
+[node name="Reset" type="Node" parent="StateMachine" unique_id=1844849915]
+script = SubResource("GDScript_im3kb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=646892593]
+shape = SubResource("CircleShape2D_pedfs")
+debug_color = Color(0.9529412, 0.99215686, 1, 0)
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
+collision_layer = 0
+collision_mask = 131072
+monitorable = false
+script = ExtResource("7_tvf6k")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1488120918]
+shape = SubResource("CapsuleShape2D_5g4gd")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=88604661]
+collision_layer = 262144
+collision_mask = 0
+monitoring = false
+script = ExtResource("8_7xmsk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=630823401]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_im3kb")
+debug_color = Color(0.9411765, 0, 0, 0)
+
+[node name="Data" type="Node" parent="." unique_id=534815685]
+script = SubResource("GDScript_dsp8k")
+
+[node name="Health" parent="." unique_id=856647450 instance=ExtResource("9_ut0n0")]
+max_health = 5
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("10_wybmi")]
+
+[node name="SoftCollision" parent="." unique_id=1691847556 instance=ExtResource("11_yxcyt")]
+
+[node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
+collision_layer = 0
+collision_mask = 65536
+script = ExtResource("12_1o17t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("13_4aimc")]
+
+[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("14_wijky")]
+position = Vector2(-153.20798, -42.306595)
+
+[node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("15_dfglk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup" unique_id=1697664644]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
+
+[node name="BulletSpawner" parent="." unique_id=46448684 instance=ExtResource("16_oit4x")]
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
+[connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]
+
+[editable path="SoftCollision"]

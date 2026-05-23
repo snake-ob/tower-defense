@@ -7,3 +7,4 @@ script = ExtResource("1_h68id")
 speed = 300
 friction = 6000
 acceleration = 3000
+mass = 50

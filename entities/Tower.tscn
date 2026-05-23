@@ -4,11 +4,11 @@
 [ext_resource type="Script" uid="uid://vjug8yftufoo" path="res://entities/tower.gd" id="1_ljppj"]
 [ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_3mcmt"]
 [ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="3_c12lq"]
-[ext_resource type="Script" uid="uid://cjrph8r53kgf5" path="res://common/components/bullet_spawner.gd" id="3_l48d8"]
-[ext_resource type="PackedScene" uid="uid://3sjyslisd0oy" path="res://entities/Bullet.tscn" id="4_m7yij"]
+[ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="4_mttso"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="4_tm4kr"]
 [ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="7_3mcmt"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="9_mttso"]
+[ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="10_mttso"]
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="10_wcwdc"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="11_mttso"]
 
@@ -20,6 +20,12 @@ metadata/_custom_type_script = "uid://7bxlx0bftck1"
 script = ExtResource("3_c12lq")
 knockback = 2.0
 metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
+
+[sub_resource type="Resource" id="Resource_4qj7r"]
+script = ExtResource("4_mttso")
+layer = 18
+mask = 19
+metadata/_custom_type_script = "uid://dxnywa0nlrdku"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
 radius = 380.29593
@@ -97,6 +103,7 @@ collision_mask = 0
 script = ExtResource("1_ljppj")
 move = SubResource("Resource_wcwdc")
 attack = SubResource("Resource_mttso")
+collision = SubResource("Resource_4qj7r")
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("4_tm4kr")]
 
@@ -104,10 +111,6 @@ attack = SubResource("Resource_mttso")
 position = Vector2(0, 0.15)
 scale = Vector2(0.196875, 0.196875)
 texture = ExtResource("1_6lyba")
-
-[node name="BulletSpawner" type="Node" parent="." unique_id=267101314]
-script = ExtResource("3_l48d8")
-Bullet = ExtResource("4_m7yij")
 
 [node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
 collision_layer = 0
@@ -147,6 +150,8 @@ script = SubResource("GDScript_mttso")
 
 [node name="Grabbed" type="Node" parent="StateMachine" unique_id=336309190]
 script = SubResource("GDScript_vcivv")
+
+[node name="BulletSpawner" parent="." unique_id=46448684 instance=ExtResource("10_mttso")]
 
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

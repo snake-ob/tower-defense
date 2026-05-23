@@ -10,6 +10,8 @@
 [ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="8_ndjxb"]
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="9_mhpjh"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_ndjxb"]
+[ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="11_b32pr"]
+[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="12_hbkom"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqcbf"]
 size = Vector2(41, 21)
@@ -145,6 +147,12 @@ func get_closest_node(p_nodes: Array) -> Node2D:
 	return closest_node
 "
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_d4g0h"]
+radius = 27.018513
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v4f8b"]
+radius = 32.01562
+
 [node name="Player" type="CharacterBody2D" unique_id=1411166111 groups=["Player"]]
 collision_layer = 65537
 collision_mask = 513
@@ -198,5 +206,25 @@ script = SubResource("GDScript_5qrx2")
 
 [node name="Grab" type="Node" parent="StateMachine" unique_id=762996727]
 script = SubResource("GDScript_b32pr")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=88604661]
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("11_b32pr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=630823401]
+shape = SubResource("CircleShape2D_d4g0h")
+debug_color = Color(0.9647059, 0, 0, 0)
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
+collision_layer = 0
+collision_mask = 4096
+monitorable = false
+script = ExtResource("12_hbkom")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1488120918]
+shape = SubResource("CircleShape2D_v4f8b")
+debug_color = Color(0.85653824, 0.6675506, 0, 0)
 
 [editable path="SoftCollision"]

@@ -5,6 +5,7 @@ class_name Tower
 @export_category("Bullet Data")
 @export var move: MoveData
 @export var attack: AttackData
+@export var collision: CollisionData
 
 func _ready() -> void:
 	_setup_ref()
@@ -23,5 +24,6 @@ func _setup_ref():
 	ref.set('bullet_spawner', $BulletSpawner)
 	ref.set('detect_zone', $DetectZone)
 	ref.set('pickup', $Pickup)
+	ref.set('collision', collision)
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())

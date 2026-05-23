@@ -18,6 +18,8 @@ func _ready() -> void:
 	ref.set('health', $Health)
 	ref.set('attack', attack.duplicate())
 	ref.set('move', move.duplicate())
+	ref.set('hitbox', $Hitbox)
+	ref.set('hurtbox', $Hurtbox)
 	_setup_nodes(self)
 	$Health.health_depleted.connect(_on_health_depleted)
 	$Hurtbox.got_hit.connect(_on_got_hit)
@@ -26,7 +28,11 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	move_in_direction(delta)
 	move_and_slide()
-	
+
+func _set_collisions(p_collision):
+	$Hurtbox.set_collision_layer_value(p_collision.layer, true)
+	$Hitbox.set_collision_mask_value(p_collision.mask, true)
+
 func face_target():
 	if active_targets == []:
 		return
