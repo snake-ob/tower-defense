@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ct5ts67ugp6fj"]
+
+[ext_resource type="Script" uid="uid://bsdni0r846wkd" path="res://common/components/status_effects/spread.gd" id="1_xyogd"]
+
+[node name="Spread" type="Node2D" unique_id=374924747]
+script = ExtResource("1_xyogd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1254802709]

@@ -9,3 +9,6 @@ func _setup(p_ref):
 
 func take_hit(hit: Dictionary):
 	got_hit.emit(hit)
+
+func get_owner_actor():
+	return ref.actor

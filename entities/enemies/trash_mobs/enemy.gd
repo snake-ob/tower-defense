@@ -53,6 +53,18 @@ func _on_got_hit(hit):
 	velocity += knockback_direction * hit.knockback
 	if hit.status_effects == []:
 		return
-	for p_effect in hit.status_effects:
-		var effect_node = p_effect.instantiate()
-		ref.status_effects.add_child.call_deferred(effect_node)
+	
+	apply_status_effects(hit.status_effects)
+	
+		
+func apply_status_effects(p_effects):
+	for p_effect in p_effects:
+		var has_effect = false
+		for active_effect in ref.status_effects.get_children():
+			if active_effect.scene_file_path == p_effect.resource_path:
+				has_effect = true
+				active_effect.renew()
+		if not has_effect:		
+			var effect_node = p_effect.instantiate()
+			effect_node._setup(ref)
+			ref.status_effects.add_child.call_deferred(effect_node)
