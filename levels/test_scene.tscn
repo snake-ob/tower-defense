@@ -3,12 +3,14 @@
 [ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="1_jdpn8"]
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Fuckel.tscn" id="2_0wynk"]
 [ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/Tower.tscn" id="2_5krfb"]
+[ext_resource type="PackedScene" uid="uid://br0vmdss5oo6y" path="res://levels/components/Spawners.tscn" id="5_1b2a2"]
 [ext_resource type="PackedScene" uid="uid://c0wpo1ltgbtb2" path="res://levels/components/SpawnPath.tscn" id="5_ohqux"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="6_a47p7"]
 [ext_resource type="PackedScene" uid="uid://dx0u6xdq71b5p" path="res://levels/components/EnemySpawner.tscn" id="6_ah1fx"]
 [ext_resource type="PackedScene" uid="uid://dqbs0170lo6xl" path="res://debug/DebugHUD.tscn" id="7_ah1fx"]
 [ext_resource type="PackedScene" uid="uid://c1fjtahg2rgrr" path="res://entities/enemies/trash_mobs/Biscah.tscn" id="7_vrunm"]
 [ext_resource type="PackedScene" uid="uid://bpnxkvr03pa8n" path="res://entities/enemies/trash_mobs/Piss.tscn" id="8_f3iph"]
+[ext_resource type="PackedScene" uid="uid://djdnp5l1prw8x" path="res://levels/components/WaveManager.tscn" id="10_vehgu"]
 
 [sub_resource type="GDScript" id="GDScript_0wynk"]
 script/source = "extends Node2D
@@ -24,6 +26,7 @@ func _setup_ref():
 	ref.set('level', self)
 	ref.set('enemies', $Enemies)
 	ref.set('spawn_path', $SpawnPath)
+	ref.set('spawners', $Spawners)
 	ref.set('player', $Player)
 	
 func _setup_nodes(p_node):
@@ -55,15 +58,19 @@ position = Vector2(298, 239)
 
 [node name="SpawnPath" parent="." unique_id=1469162358 instance=ExtResource("5_ohqux")]
 
-[node name="EnemySpawner" parent="." unique_id=2052432875 instance=ExtResource("6_ah1fx")]
+[node name="Spawners" parent="." unique_id=1906730147 instance=ExtResource("5_1b2a2")]
+
+[node name="EnemySpawner" parent="Spawners" unique_id=2052432875 instance=ExtResource("6_ah1fx")]
 enemy_scene = ExtResource("2_0wynk")
 
-[node name="EnemySpawner2" parent="." unique_id=2055827926 instance=ExtResource("6_ah1fx")]
+[node name="EnemySpawner2" parent="Spawners" unique_id=2055827926 instance=ExtResource("6_ah1fx")]
 enemy_scene = ExtResource("7_vrunm")
+point_cost = 2
 spawn_time = 3.0
 
-[node name="EnemySpawner3" parent="." unique_id=46500067 instance=ExtResource("6_ah1fx")]
+[node name="EnemySpawner3" parent="Spawners" unique_id=46500067 instance=ExtResource("6_ah1fx")]
 enemy_scene = ExtResource("8_f3iph")
+point_cost = 3
 spawn_time = 5.0
 
 [node name="Enemy" parent="." unique_id=88513531 instance=ExtResource("2_0wynk")]
@@ -90,3 +97,5 @@ rotation = 1.5707964
 shape = SubResource("RectangleShape2D_a47p7")
 
 [node name="DebugHud" parent="." unique_id=1331341241 instance=ExtResource("7_ah1fx")]
+
+[node name="WaveManager" parent="." unique_id=1242516858 instance=ExtResource("10_vehgu")]

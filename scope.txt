@@ -78,4 +78,7 @@ INTERFACE
 ITEM IDEAS
 - Magnet (to pull coins)
 ==============================================
+May 23 2026
+- Add status effects and bullet types
+- Add tower upgrades (as nodes)
 
