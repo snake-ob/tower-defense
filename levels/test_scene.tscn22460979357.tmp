@@ -3,6 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="1_jdpn8"]
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Fuckel.tscn" id="2_0wynk"]
 [ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_3rm0h"]
+[ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/tower/Tower.tscn" id="2_5krfb"]
+[ext_resource type="PackedScene" uid="uid://b14mat8x3gsml" path="res://common/components/status_effects/Freeze.tscn" id="3_6n8p7"]
 [ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="3_j77uo"]
 [ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="4_yarjq"]
 [ext_resource type="PackedScene" uid="uid://br0vmdss5oo6y" path="res://levels/components/Spawners.tscn" id="5_1b2a2"]
@@ -20,9 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://cqh1f23oeylb6" path="res://assets/debug/debug-tower.png" id="15_07ypr"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="15_qtogr"]
 [ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="20_6n8p7"]
-[ext_resource type="PackedScene" uid="uid://b4vljuua8yrew" path="res://entities/tower/upgrades/Ice.tscn" id="21_6n8p7"]
 [ext_resource type="PackedScene" uid="uid://bj5dn3chh81pw" path="res://entities/tower/upgrades/Fire.tscn" id="21_07ypr"]
-[ext_resource type="PackedScene" uid="uid://bl8tfonurd26k" path="res://entities/tower/upgrades/Poison.tscn" id="23_6n8p7"]
 
 [sub_resource type="GDScript" id="GDScript_0wynk"]
 script/source = "extends Node2D
@@ -142,14 +142,16 @@ func _update(delta):
 [node name="Test Scene" type="Node2D" unique_id=1723051521]
 script = SubResource("GDScript_0wynk")
 
-[node name="WaveManager" parent="." unique_id=1242516858 instance=ExtResource("10_vehgu")]
-
 [node name="Player" parent="." unique_id=1411166111 instance=ExtResource("1_jdpn8")]
 position = Vector2(572, 318)
 
 [node name="Projectiles" type="Node2D" parent="." unique_id=94357809]
 
 [node name="Enemies" type="Node2D" parent="." unique_id=629788147]
+
+[node name="Fuckel" parent="Enemies" unique_id=88513531 instance=ExtResource("2_0wynk")]
+
+[node name="Freeze" parent="Enemies/Fuckel" unique_id=230961535 instance=ExtResource("3_6n8p7")]
 
 [node name="Ref" parent="." unique_id=2053025034 instance=ExtResource("6_a47p7")]
 
@@ -257,136 +259,16 @@ script = SubResource("GDScript_vcivv")
 
 [node name="Fire" parent="Towers/Tower/StatusUpgrades" unique_id=154696335 instance=ExtResource("21_07ypr")]
 
-[node name="Tower2" type="StaticBody2D" parent="Towers" unique_id=1146141165]
+[node name="Tower2" parent="Towers" unique_id=1146141165 instance=ExtResource("2_5krfb")]
 position = Vector2(234, 418)
-collision_layer = 512
-collision_mask = 0
-script = ExtResource("11_517cg")
-move = SubResource("Resource_wcwdc")
-attack = SubResource("Resource_mttso")
-collision = SubResource("Resource_4qj7r")
 
-[node name="Ref" parent="Towers/Tower2" unique_id=47588139 instance=ExtResource("6_a47p7")]
-
-[node name="Sprite2D" type="Sprite2D" parent="Towers/Tower2" unique_id=1901721424]
-position = Vector2(0, 0.15)
-scale = Vector2(0.196875, 0.196875)
-texture = ExtResource("15_07ypr")
-
-[node name="DetectZone" type="Area2D" parent="Towers/Tower2" unique_id=1611103925]
-collision_layer = 0
-collision_mask = 256
-script = ExtResource("12_bft6s")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower2/DetectZone" unique_id=639373418]
-shape = SubResource("CircleShape2D_m7yij")
-debug_color = Color(0, 0.6, 0.69803923, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower2" unique_id=854542926]
-position = Vector2(0.5, 13.5)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_mttso")
-debug_color = Color(0, 0.6, 0.69803923, 0)
-
-[node name="Pickup" type="Area2D" parent="Towers/Tower2" unique_id=1246620644]
-collision_layer = 4
-collision_mask = 0
-script = ExtResource("15_qtogr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower2/Pickup" unique_id=474190395]
-shape = SubResource("CircleShape2D_hg3tk")
-debug_color = Color(0.7647059, 0.16862746, 1, 0)
-
-[node name="PickupPos" type="Node2D" parent="Towers/Tower2/Pickup" unique_id=462816116]
-position = Vector2(0, 39)
-
-[node name="YSort" parent="Towers/Tower2" unique_id=346731948 instance=ExtResource("14_r3d5k")]
-
-[node name="StateMachine" parent="Towers/Tower2" unique_id=801363784 instance=ExtResource("6_4mc7e")]
-
-[node name="Active" type="Node" parent="Towers/Tower2/StateMachine" unique_id=303586306]
-script = SubResource("GDScript_4qj7r")
-
-[node name="Deactive" type="Node" parent="Towers/Tower2/StateMachine" unique_id=1971032289]
-script = SubResource("GDScript_mttso")
-
-[node name="Grabbed" type="Node" parent="Towers/Tower2/StateMachine" unique_id=2060178780]
-script = SubResource("GDScript_vcivv")
-
-[node name="BulletSpawner" parent="Towers/Tower2" unique_id=1413128577 instance=ExtResource("20_6n8p7")]
-
-[node name="StatusUpgrades" type="Node" parent="Towers/Tower2" unique_id=1128028633]
-
-[node name="Ice" parent="Towers/Tower2/StatusUpgrades" unique_id=1414524972 instance=ExtResource("21_6n8p7")]
-
-[node name="Tower3" type="StaticBody2D" parent="Towers" unique_id=1973691007]
+[node name="Tower3" parent="Towers" unique_id=1973691007 instance=ExtResource("2_5krfb")]
 position = Vector2(1006, 454)
-collision_layer = 512
-collision_mask = 0
-script = ExtResource("11_517cg")
-move = SubResource("Resource_wcwdc")
-attack = SubResource("Resource_mttso")
-collision = SubResource("Resource_4qj7r")
-
-[node name="Ref" parent="Towers/Tower3" unique_id=980403150 instance=ExtResource("6_a47p7")]
-
-[node name="Sprite2D" type="Sprite2D" parent="Towers/Tower3" unique_id=944433110]
-position = Vector2(0, 0.15)
-scale = Vector2(0.196875, 0.196875)
-texture = ExtResource("15_07ypr")
-
-[node name="DetectZone" type="Area2D" parent="Towers/Tower3" unique_id=2046893560]
-collision_layer = 0
-collision_mask = 256
-script = ExtResource("12_bft6s")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower3/DetectZone" unique_id=1327288524]
-shape = SubResource("CircleShape2D_m7yij")
-debug_color = Color(0, 0.6, 0.69803923, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower3" unique_id=1960148411]
-position = Vector2(0.5, 13.5)
-rotation = 1.5707964
-shape = SubResource("CapsuleShape2D_mttso")
-debug_color = Color(0, 0.6, 0.69803923, 0)
-
-[node name="Pickup" type="Area2D" parent="Towers/Tower3" unique_id=1435594146]
-collision_layer = 4
-collision_mask = 0
-script = ExtResource("15_qtogr")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower3/Pickup" unique_id=1279950770]
-shape = SubResource("CircleShape2D_hg3tk")
-debug_color = Color(0.7647059, 0.16862746, 1, 0)
-
-[node name="PickupPos" type="Node2D" parent="Towers/Tower3/Pickup" unique_id=1657096371]
-position = Vector2(0, 39)
-
-[node name="YSort" parent="Towers/Tower3" unique_id=50828621 instance=ExtResource("14_r3d5k")]
-
-[node name="StateMachine" parent="Towers/Tower3" unique_id=476099267 instance=ExtResource("6_4mc7e")]
-
-[node name="Active" type="Node" parent="Towers/Tower3/StateMachine" unique_id=408912444]
-script = SubResource("GDScript_4qj7r")
-
-[node name="Deactive" type="Node" parent="Towers/Tower3/StateMachine" unique_id=1057630060]
-script = SubResource("GDScript_mttso")
-
-[node name="Grabbed" type="Node" parent="Towers/Tower3/StateMachine" unique_id=25648031]
-script = SubResource("GDScript_vcivv")
-
-[node name="BulletSpawner" parent="Towers/Tower3" unique_id=1243889522 instance=ExtResource("20_6n8p7")]
-
-[node name="StatusUpgrades" type="Node" parent="Towers/Tower3" unique_id=1066939760]
-
-[node name="Poison" parent="Towers/Tower3/StatusUpgrades" unique_id=891402878 instance=ExtResource("23_6n8p7")]
 
 [node name="Disabled" type="Node" parent="." unique_id=953069425]
 process_mode = 4
 
+[node name="WaveManager" parent="Disabled" unique_id=1242516858 instance=ExtResource("10_vehgu")]
+
 [connection signal="body_entered" from="Towers/Tower/DetectZone" to="Towers/Tower/DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="Towers/Tower/DetectZone" to="Towers/Tower/DetectZone" method="_on_body_exited"]
-[connection signal="body_entered" from="Towers/Tower2/DetectZone" to="Towers/Tower2/DetectZone" method="_on_body_entered"]
-[connection signal="body_exited" from="Towers/Tower2/DetectZone" to="Towers/Tower2/DetectZone" method="_on_body_exited"]
-[connection signal="body_entered" from="Towers/Tower3/DetectZone" to="Towers/Tower3/DetectZone" method="_on_body_entered"]
-[connection signal="body_exited" from="Towers/Tower3/DetectZone" to="Towers/Tower3/DetectZone" method="_on_body_exited"]

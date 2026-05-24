@@ -43,8 +43,16 @@ func _setup_nodes(p_node):
 		if p_node.get_child_count() > 0:
 			_setup_nodes(child)
 			
+func _cleanup_nodes(p_node):
+	for child in p_node.get_children():
+		if child.has_method('_cleanup'):
+			child._cleanup()
+		if p_node.get_child_count() > 0:
+			_cleanup_nodes(child)
+			
 func _on_health_depleted():
 	PerformanceTracker.unregister_enemy()
+	_cleanup_nodes(self)
 	queue_free()
 
 func _on_got_hit(hit):

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bl8tfonurd26k"]
+
+[ext_resource type="Script" uid="uid://1s6lw3ocktk4" path="res://entities/tower/upgrades/poison.gd" id="1_cu31u"]
+[ext_resource type="PackedScene" uid="uid://bk62rt0q48qai" path="res://common/components/status_effects/Toxic.tscn" id="2_cu31u"]
+
+[node name="Poison" type="Node" unique_id=154696335]
+script = ExtResource("1_cu31u")
+status = ExtResource("2_cu31u")

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b4vljuua8yrew"]
+
+[ext_resource type="Script" uid="uid://opuk6rdb78u5" path="res://entities/tower/upgrades/ice.gd" id="1_7c8yy"]
+[ext_resource type="PackedScene" uid="uid://b14mat8x3gsml" path="res://common/components/status_effects/Freeze.tscn" id="2_oi0eu"]
+
+[node name="Ice" type="Node" unique_id=154696335]
+script = ExtResource("1_7c8yy")
+status = ExtResource("2_oi0eu")
