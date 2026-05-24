@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="12_r1qvq"]
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="13_vaswb"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="14_540xx"]
+[ext_resource type="PackedScene" uid="uid://rqbl0rtipwwt" path="res://common/components/status_effects/StatusEffects.tscn" id="16_fdgwp"]
 
 [sub_resource type="Resource" id="Resource_ijd6d"]
 script = ExtResource("2_5g4gd")
@@ -161,7 +162,7 @@ debug_color = Color(0.9411765, 0, 0, 0)
 script = SubResource("GDScript_dsp8k")
 
 [node name="Health" parent="." unique_id=856647450 instance=ExtResource("8_66spp")]
-max_health = 5
+max_health = 10
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_a23sr")]
 
@@ -191,6 +192,8 @@ shape = SubResource("CircleShape2D_hg3tk")
 debug_color = Color(0.7647059, 0.16862746, 1, 0)
 
 [node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
+
+[node name="StatusEffects" parent="." unique_id=358155270 instance=ExtResource("16_fdgwp")]
 
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]

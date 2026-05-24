@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://3sjyslisd0oy"]
+
+[ext_resource type="Texture2D" uid="uid://h4yi40enirtk" path="res://assets/debug/Screenshot 2026-05-19 123044.png" id="1_k50w0"]
+[ext_resource type="Script" uid="uid://su7dh46mlaiv" path="res://entities/tower/bullet.gd" id="1_vl4bg"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="2_r16h3"]
+[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="3_a0ooq"]
+[ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="3_jngwf"]
+[ext_resource type="Script" uid="uid://fvaoqsrvde4e" path="res://common/components/target_closest.gd" id="3_vl4bg"]
+[ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="5_a2x2l"]
+[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="8_gxey3"]
+[ext_resource type="PackedScene" uid="uid://rqbl0rtipwwt" path="res://common/components/status_effects/StatusEffects.tscn" id="9_s4mvv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jngwf"]
+radius = 4.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxey3"]
+radius = 7.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a2x2l"]
+radius = 7.0
+
+[sub_resource type="GDScript" id="GDScript_a0ooq"]
+script/source = "extends Node
+class_name Data
+
+var damage: int = 1
+var knockback: float = 10.0
+var status: Array = []
+"
+
+[node name="Bullet" type="CharacterBody2D" unique_id=150744527]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_vl4bg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=251283894]
+shape = SubResource("CapsuleShape2D_jngwf")
+debug_color = Color(1, 1, 1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1996044331]
+rotation = -1.5707964
+scale = Vector2(0.033849847, 0.03384984)
+texture = ExtResource("1_k50w0")
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=88604661]
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_jngwf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=630823401]
+shape = SubResource("CapsuleShape2D_gxey3")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
+collision_layer = 0
+collision_mask = 0
+monitorable = false
+script = ExtResource("3_a0ooq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1488120918]
+shape = SubResource("CapsuleShape2D_a2x2l")
+
+[node name="PhysicsHandler" type="Node" parent="." unique_id=1726592184]
+
+[node name="Target" type="Node" parent="." unique_id=655545523]
+script = ExtResource("3_vl4bg")
+
+[node name="Health" parent="." unique_id=856647450 instance=ExtResource("5_a2x2l")]
+
+[node name="Data" type="Node" parent="." unique_id=1997371225]
+script = SubResource("GDScript_a0ooq")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1706965492]
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("2_r16h3")]
+
+[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("8_gxey3")]
+
+[node name="StatusEffects" parent="." unique_id=358155270 instance=ExtResource("9_s4mvv")]
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exit"]

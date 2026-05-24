@@ -32,6 +32,7 @@ func _setup_ref():
 	ref.set('active_targets', $DetectZone.active_targets)
 	ref.set('detect_zone', $DetectZone)
 	ref.set('bullet_spawner', bullet_spawner)
+	ref.set('status_effects', $StatusEffects)
 	ref.set('actor', self)
 	
 func _setup_nodes(p_node):
@@ -49,6 +50,9 @@ func _on_health_depleted():
 func _on_got_hit(hit):
 	ref.health.current_health -= hit.damage
 	var knockback_direction = global_position - hit.position
-	
 	velocity += knockback_direction * hit.knockback
-	
+	if hit.status_effects == []:
+		return
+	for p_effect in hit.status_effects:
+		var effect_node = p_effect.instantiate()
+		ref.status_effects.add_child.call_deferred(effect_node)

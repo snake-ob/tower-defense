@@ -25,5 +25,6 @@ func _setup_ref():
 	ref.set('detect_zone', $DetectZone)
 	ref.set('pickup', $Pickup)
 	ref.set('collision', collision)
+	ref.set('status_upgrades', $StatusUpgrades)
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())

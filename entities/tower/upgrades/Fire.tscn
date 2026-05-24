@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bj5dn3chh81pw"]
+
+[ext_resource type="Script" uid="uid://ba82fayu03u7c" path="res://entities/tower/upgrades/fire.gd" id="1_sen2t"]
+[ext_resource type="PackedScene" uid="uid://cu5eq5hbf7hr6" path="res://common/components/status_effects/Burn.tscn" id="2_4ao1a"]
+
+[node name="Fire" type="Node" unique_id=154696335]
+script = ExtResource("1_sen2t")
+status = ExtResource("2_4ao1a")

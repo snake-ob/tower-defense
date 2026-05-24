@@ -42,16 +42,13 @@ func _on_trickle_timeout() -> void:
 		end_wave()
 		return
 		
-	# Trickle buys 1 or 2 small enemies
 	var max_spend = clampi(current_budget, 1, 3) 
 	_spend_budget(max_spend)
 
 func _on_burst_timeout() -> void:
 	if current_budget <= 0: return
 	
-	print("🚨 BURST PHASE INITIATED! 🚨")
-	# Drop a massive chunk of the budget all at once
-	var burst_spend = int(wave_budget * 0.25) # Spend 25% of total budget in a burst
+	var burst_spend = int(wave_budget * 0.25)
 	burst_spend = clampi(burst_spend, 0, current_budget)
 	
 	_spend_budget(burst_spend)
@@ -81,4 +78,3 @@ func _get_affordable_enemies(max_cost: int) -> Array[EnemySpawner]:
 func end_wave() -> void:
 	trickle_timer.stop()
 	burst_timer.stop()
-	print("Wave Budget Depleted! Waiting for player to clear remaining enemies...")

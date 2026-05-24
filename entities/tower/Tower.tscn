@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cyke11s7oivop"]
 
 [ext_resource type="Texture2D" uid="uid://cqh1f23oeylb6" path="res://assets/debug/debug-tower.png" id="1_6lyba"]
-[ext_resource type="Script" uid="uid://vjug8yftufoo" path="res://entities/tower.gd" id="1_ljppj"]
+[ext_resource type="Script" uid="uid://vjug8yftufoo" path="res://entities/tower/tower.gd" id="1_ljppj"]
 [ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_3mcmt"]
 [ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="3_c12lq"]
 [ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="4_mttso"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="10_mttso"]
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="10_wcwdc"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="11_mttso"]
+[ext_resource type="PackedScene" uid="uid://bj5dn3chh81pw" path="res://entities/tower/upgrades/Fire.tscn" id="12_8gdfe"]
 
 [sub_resource type="Resource" id="Resource_wcwdc"]
 script = ExtResource("2_3mcmt")
@@ -30,8 +31,9 @@ metadata/_custom_type_script = "uid://dxnywa0nlrdku"
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
 radius = 380.29593
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3mcmt"]
-size = Vector2(43, 29)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mttso"]
+radius = 12.5
+height = 35.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
 radius = 57.0
@@ -122,8 +124,9 @@ shape = SubResource("CircleShape2D_m7yij")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=132255039]
-position = Vector2(0.5, 12.5)
-shape = SubResource("RectangleShape2D_3mcmt")
+position = Vector2(0.5, 13.5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_mttso")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
@@ -152,6 +155,10 @@ script = SubResource("GDScript_mttso")
 script = SubResource("GDScript_vcivv")
 
 [node name="BulletSpawner" parent="." unique_id=46448684 instance=ExtResource("10_mttso")]
+
+[node name="StatusUpgrades" type="Node" parent="." unique_id=420670347]
+
+[node name="Fire" parent="StatusUpgrades" unique_id=154696335 instance=ExtResource("12_8gdfe")]
 
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

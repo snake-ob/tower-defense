@@ -19,6 +19,8 @@ func _setup_ref():
 	ref.set('visuals', $Visuals)
 	ref.set('physics', $PhysicsHandler)
 	ref.set('grab', $Grab)
+	ref.set('health', $Health)
+	ref.set('hitbox', $Hitbox)
 	ref.set('actor', self)
 	
 func _setup_nodes(p_node):

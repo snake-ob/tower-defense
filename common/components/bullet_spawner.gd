@@ -30,6 +30,8 @@ func spawn_bullet():
 	new_bullet.attack = ref.attack
 	new_bullet.move = ref.move
 	new_bullet._set_collisions(ref.actor.collision)
+	if ref.has('status_upgrades'):
+		new_bullet._set_status_upgrades(ref.status_upgrades)
 	SignalBus.spawn_bullet.emit(new_bullet)
 
 func activate():

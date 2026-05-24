@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="1_jdpn8"]
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Fuckel.tscn" id="2_0wynk"]
-[ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/Tower.tscn" id="2_5krfb"]
+[ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/tower/Tower.tscn" id="2_5krfb"]
 [ext_resource type="PackedScene" uid="uid://br0vmdss5oo6y" path="res://levels/components/Spawners.tscn" id="5_1b2a2"]
 [ext_resource type="PackedScene" uid="uid://c0wpo1ltgbtb2" path="res://levels/components/SpawnPath.tscn" id="5_ohqux"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="6_a47p7"]
@@ -47,9 +47,6 @@ script = SubResource("GDScript_0wynk")
 [node name="Player" parent="." unique_id=1411166111 instance=ExtResource("1_jdpn8")]
 position = Vector2(572, 318)
 
-[node name="Tower" parent="." unique_id=1332146881 instance=ExtResource("2_5krfb")]
-position = Vector2(298, 239)
-
 [node name="Projectiles" type="Node2D" parent="." unique_id=94357809]
 
 [node name="Enemies" type="Node2D" parent="." unique_id=629788147]
@@ -73,9 +70,6 @@ enemy_scene = ExtResource("8_f3iph")
 point_cost = 3
 spawn_time = 5.0
 
-[node name="Enemy" parent="." unique_id=88513531 instance=ExtResource("2_0wynk")]
-position = Vector2(451, 198)
-
 [node name="Walls" type="StaticBody2D" parent="." unique_id=427719329]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls" unique_id=2128152737]
@@ -98,4 +92,20 @@ shape = SubResource("RectangleShape2D_a47p7")
 
 [node name="DebugHud" parent="." unique_id=1331341241 instance=ExtResource("7_ah1fx")]
 
-[node name="WaveManager" parent="." unique_id=1242516858 instance=ExtResource("10_vehgu")]
+[node name="Fuckel" parent="." unique_id=88513531 instance=ExtResource("2_0wynk")]
+
+[node name="Tower" parent="." unique_id=1332146881 instance=ExtResource("2_5krfb")]
+position = Vector2(298, 239)
+
+[node name="Disabled" type="Node" parent="." unique_id=953069425]
+process_mode = 4
+
+[node name="Towers" type="Node" parent="Disabled" unique_id=1877579428]
+
+[node name="Tower2" parent="Disabled/Towers" unique_id=337593309 instance=ExtResource("2_5krfb")]
+position = Vector2(563, 528)
+
+[node name="Tower3" parent="Disabled/Towers" unique_id=1430905961 instance=ExtResource("2_5krfb")]
+position = Vector2(906, 270)
+
+[node name="WaveManager" parent="Disabled" unique_id=1242516858 instance=ExtResource("10_vehgu")]

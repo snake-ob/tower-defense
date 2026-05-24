@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://3sjyslisd0oy"]
 
 [ext_resource type="Texture2D" uid="uid://h4yi40enirtk" path="res://assets/debug/Screenshot 2026-05-19 123044.png" id="1_k50w0"]
-[ext_resource type="Script" uid="uid://su7dh46mlaiv" path="res://entities/bullet.gd" id="1_vl4bg"]
+[ext_resource type="Script" uid="uid://su7dh46mlaiv" path="res://entities/tower/bullet.gd" id="1_vl4bg"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="2_r16h3"]
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="3_a0ooq"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="3_jngwf"]
 [ext_resource type="Script" uid="uid://fvaoqsrvde4e" path="res://common/components/target_closest.gd" id="3_vl4bg"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="5_a2x2l"]
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="8_gxey3"]
+[ext_resource type="PackedScene" uid="uid://cwq83cpaeaqtp" path="res://entities/tower/upgrades/StatusUpgrades.tscn" id="9_s4mvv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jngwf"]
 radius = 4.0
@@ -74,6 +75,8 @@ script = SubResource("GDScript_a0ooq")
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("2_r16h3")]
 
 [node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("8_gxey3")]
+
+[node name="StatusUpgrades" parent="." unique_id=193890701 instance=ExtResource("9_s4mvv")]
 
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exit"]
