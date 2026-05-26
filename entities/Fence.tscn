@@ -1,0 +1,272 @@
+[gd_scene format=3 uid="uid://ypeggtjreve5"]
+
+[ext_resource type="Texture2D" uid="uid://deuaoxtril00c" path="res://assets/debug/stone_fences.png" id="1_88b6g"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8yh4"]
+texture = ExtResource("1_88b6g")
+0:0/0 = 0
+2:0/0 = 0
+4:0/0 = 0
+6:0/0 = 0
+8:0/0 = 0
+10:0/0 = 0
+12:0/0 = 0
+14:0/0 = 0
+0:2/0 = 0
+14:2/0 = 0
+17:2/0 = 0
+17:2/0/terrain_set = 0
+17:2/0/terrain = 0
+17:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0, 8, 0, 8, 8, -8, 8)
+17:2/0/terrains_peering_bit/right_side = 0
+25:2/0 = 0
+25:2/0/terrain_set = 0
+25:2/0/terrain = 0
+25:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0, 8, 0, 8, 8, -8, 8)
+25:2/0/terrains_peering_bit/left_side = 0
+17:3/0 = 0
+17:3/0/terrain_set = 0
+17:3/0/terrain = 0
+17:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+17:3/0/terrains_peering_bit/right_side = 0
+17:3/0/terrains_peering_bit/bottom_right_corner = 0
+17:3/0/terrains_peering_bit/bottom_side = 0
+17:3/0/terrains_peering_bit/top_side = 0
+17:3/0/terrains_peering_bit/top_right_corner = 0
+21:3/0 = 0
+21:3/0/terrain_set = 0
+21:3/0/terrain = 0
+21:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+21:3/0/terrains_peering_bit/bottom_side = 0
+21:3/0/terrains_peering_bit/top_side = 0
+25:3/0 = 0
+25:3/0/terrain_set = 0
+25:3/0/terrain = 0
+25:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+25:3/0/terrains_peering_bit/bottom_side = 0
+25:3/0/terrains_peering_bit/top_side = 0
+0:4/0 = 0
+3:4/0 = 0
+6:4/0 = 0
+14:4/0 = 0
+17:4/0 = 0
+17:4/0/terrain_set = 0
+17:4/0/terrain = 0
+17:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+17:4/0/terrains_peering_bit/bottom_side = 0
+17:4/0/terrains_peering_bit/bottom_left_corner = 0
+17:4/0/terrains_peering_bit/left_side = 0
+17:4/0/terrains_peering_bit/top_left_corner = 0
+17:4/0/terrains_peering_bit/top_side = 0
+21:4/0 = 0
+21:4/0/terrain_set = 0
+21:4/0/terrain = 0
+21:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+21:4/0/terrains_peering_bit/bottom_side = 0
+21:4/0/terrains_peering_bit/top_side = 0
+23:4/0 = 0
+23:4/0/terrain_set = 0
+23:4/0/terrain = 0
+23:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0, 8, 0, 8, 8, -8, 8)
+25:4/0 = 0
+25:4/0/terrain_set = 0
+25:4/0/terrain = 0
+25:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+25:4/0/terrains_peering_bit/bottom_side = 0
+25:4/0/terrains_peering_bit/top_side = 0
+0:6/0 = 0
+6:6/0 = 0
+14:6/0 = 0
+17:6/0 = 0
+17:6/0/terrain_set = 0
+17:6/0/terrain = 0
+17:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+17:6/0/terrains_peering_bit/bottom_side = 0
+17:6/0/terrains_peering_bit/top_side = 0
+21:6/0 = 0
+21:6/0/terrain_set = 0
+21:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+25:6/0 = 0
+25:6/0/terrain_set = 0
+25:6/0/terrain = 0
+25:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4, -8, 4, 8, -4, 8)
+25:6/0/terrains_peering_bit/bottom_side = 0
+25:6/0/terrains_peering_bit/top_side = 0
+17:7/0 = 0
+17:7/0/terrain_set = 0
+17:7/0/terrain = 0
+17:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+17:7/0/terrains_peering_bit/right_side = 0
+17:7/0/terrains_peering_bit/top_side = 0
+22:7/0 = 0
+22:7/0/terrain_set = 0
+22:7/0/terrain = 0
+22:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0, 8, 0, 8, 8, -8, 8)
+22:7/0/terrains_peering_bit/right_side = 0
+22:7/0/terrains_peering_bit/left_side = 0
+24:7/0 = 0
+24:7/0/terrain_set = 0
+24:7/0/terrain = 0
+24:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0, 8, 0, 8, 8, -8, 8)
+24:7/0/terrains_peering_bit/right_side = 0
+24:7/0/terrains_peering_bit/left_side = 0
+24:7/0/terrains_peering_bit/top_left_corner = 0
+24:7/0/terrains_peering_bit/top_side = 0
+24:7/0/terrains_peering_bit/top_right_corner = 0
+25:7/0 = 0
+25:7/0/terrain_set = 0
+25:7/0/terrain = 0
+25:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+25:7/0/terrains_peering_bit/left_side = 0
+25:7/0/terrains_peering_bit/top_side = 0
+0:8/0 = 0
+2:8/0 = 0
+4:8/0 = 0
+6:8/0 = 0
+8:8/0 = 0
+10:8/0 = 0
+12:8/0 = 0
+14:8/0 = 0
+21:5/0 = 0
+21:5/0/terrain_set = 0
+21:5/0/terrain = 0
+21:5/0/terrains_peering_bit/right_side = 0
+21:5/0/terrains_peering_bit/bottom_side = 0
+21:5/0/terrains_peering_bit/top_side = 0
+25:5/0 = 0
+25:5/0/terrain_set = 0
+25:5/0/terrain = 0
+25:5/0/terrains_peering_bit/bottom_side = 0
+25:5/0/terrains_peering_bit/left_side = 0
+25:5/0/terrains_peering_bit/top_side = 0
+17:5/0 = 0
+17:5/0/terrain_set = 0
+17:5/0/terrain = 0
+17:5/0/terrains_peering_bit/right_side = 0
+17:5/0/terrains_peering_bit/left_side = 0
+17:5/0/terrains_peering_bit/top_side = 0
+21:7/0 = 0
+21:7/0/terrain_set = 0
+21:7/0/terrain = 0
+21:7/0/terrains_peering_bit/right_side = 0
+21:7/0/terrains_peering_bit/bottom_side = 0
+21:7/0/terrains_peering_bit/left_side = 0
+23:7/0 = 0
+23:7/0/terrain_set = 0
+23:7/0/terrain = 0
+23:7/0/terrains_peering_bit/right_side = 0
+23:7/0/terrains_peering_bit/bottom_side = 0
+23:7/0/terrains_peering_bit/left_side = 0
+23:7/0/terrains_peering_bit/top_side = 0
+22:2/0 = 0
+22:2/0/terrain_set = 0
+22:2/0/terrain = 0
+22:2/0/terrains_peering_bit/right_side = 0
+22:2/0/terrains_peering_bit/bottom_right_corner = 0
+22:2/0/terrains_peering_bit/bottom_side = 0
+22:2/0/terrains_peering_bit/bottom_left_corner = 0
+22:2/0/terrains_peering_bit/left_side = 0
+23:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_8nmwg"]
+physics_layer_0/collision_layer = 1
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Fence"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_t8yh4")
+
+[sub_resource type="GDScript" id="GDScript_23x7k"]
+script/source = "extends TileMapLayer
+
+@onready var preview_layer: TileMapLayer = $PreviewLayer
+
+var first_post_coords: Vector2i = Vector2i(-1, -1)
+var is_placing_second: bool = false
+var editing_mode_enabled: bool = true
+
+# Track the last hovered tile to stop the frame-by-frame flickering
+var last_hover_cell: Vector2i = Vector2i(-1, -1)
+
+# Terrain Configuration IDs
+var terrain_set_id: int = 0
+var terrain_id: int = 0
+
+func _unhandled_input(event):
+	if not MouseMode.current == \"build_fence\":
+		return
+		
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		var clicked_cell = local_to_map(get_local_mouse_position())
+		
+		if not is_placing_second:
+			first_post_coords = clicked_cell
+			is_placing_second = true
+			last_hover_cell = Vector2i(-1, -1) # Reset to force immediate preview update
+			print(\"Point A locked.\")
+		else:
+			build_fence_terrain(first_post_coords, clicked_cell)
+			is_placing_second = false
+			preview_layer.clear()
+
+func _process(_delta):
+	if not editing_mode_enabled or not is_placing_second:
+		return
+		
+	var hover_cell = local_to_map(get_local_mouse_position())
+	
+	# 🛑 FIX FLASHING: Only calculate if the mouse actually moved to a NEW tile
+	if hover_cell != last_hover_cell:
+		last_hover_cell = hover_cell
+		update_preview(first_post_coords, hover_cell)
+
+func update_preview(start: Vector2i, end: Vector2i):
+	preview_layer.clear()
+	
+	var is_straight_line = (start.x == end.x) or (start.y == end.y)
+	
+	if is_straight_line:
+		# If they align, draw the whole connected fence sequence
+		var cells_to_preview = get_line_cells(start, end)
+		preview_layer.set_cells_terrain_connect(cells_to_preview, terrain_set_id, terrain_id, true)
+	else:
+		# ✨ NEW UX: If they don't align, just show the two independent posts
+		# Passing them as separate cells ensures they don't try to auto-connect to each other
+		var independent_cells: Array[Vector2i] = [start, end]
+		preview_layer.set_cells_terrain_connect(independent_cells, terrain_set_id, terrain_id, true)
+
+func build_fence_terrain(start: Vector2i, end: Vector2i):
+	# We still enforce strict straight lines for the actual final build placement
+	if start.x != end.x and start.y != end.y:
+		print(\"Fences must be straight lines to build!\")
+		return
+		
+	var cells_to_paint = get_line_cells(start, end)
+	set_cells_terrain_connect(cells_to_paint, terrain_set_id, terrain_id, true)
+	print(\"Fence built permanently!\")
+
+# Helper function to generate the list of cells between point A and point B
+func get_line_cells(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
+	var cells: Array[Vector2i] = []
+	var dir_x = sign(end.x - start.x)
+	var dir_y = sign(end.y - start.y)                 
+	
+	if dir_x == 0 and dir_y == 0:
+		cells.append(start)
+		return cells
+		
+	var current = start
+	while current != end + Vector2i(dir_x, dir_y):
+		cells.append(current)
+		current.x += dir_x
+		current.y += dir_y
+		
+	return cells
+"
+
+[node name="FenceBuilder" type="TileMapLayer" unique_id=1898883992]
+tile_set = SubResource("TileSet_8nmwg")
+script = SubResource("GDScript_23x7k")
+
+[node name="PreviewLayer" type="TileMapLayer" parent="." unique_id=1373003239]
+modulate = Color(1, 1, 1, 0.2)
+tile_set = SubResource("TileSet_8nmwg")

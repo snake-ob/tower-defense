@@ -1,0 +1,155 @@
+[gd_scene format=3 uid="uid://cugv18q13sw6f"]
+
+[ext_resource type="Script" uid="uid://vjug8yftufoo" path="res://entities/tower/tower.gd" id="1_17lac"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_dd17g"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="3_licsk"]
+[ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="4_u8j45"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_h6gae"]
+[ext_resource type="Texture2D" uid="uid://3qyaytrgnrck" path="res://assets/debug/smg.png" id="6_dd17g"]
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="7_ayi1q"]
+[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="8_slstm"]
+[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="9_tcxqh"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_fa4e0"]
+[ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="11_43kon"]
+[ext_resource type="Script" uid="uid://w1v2g7vbqlwu" path="res://common/data/bullet_data.gd" id="12_dd17g"]
+
+[sub_resource type="Resource" id="Resource_wcwdc"]
+script = ExtResource("2_dd17g")
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="Resource" id="Resource_mttso"]
+script = ExtResource("3_licsk")
+knockback = 2.0
+metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
+
+[sub_resource type="Resource" id="Resource_4qj7r"]
+script = ExtResource("4_u8j45")
+layer = 18
+mask = 19
+metadata/_custom_type_script = "uid://dxnywa0nlrdku"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
+radius = 380.29593
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mttso"]
+radius = 12.5
+height = 35.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
+radius = 57.0
+
+[sub_resource type="GDScript" id="GDScript_4qj7r"]
+script/source = "#active.gd
+extends State
+
+var bullet_spawner: Node
+var pickup: Node
+
+func _setup(p_ref: Ref):
+	bullet_spawner = p_ref.bullet_spawner
+	pickup = p_ref.pickup
+
+func _enter_state():
+	bullet_spawner.deactivate()
+
+func _exit_state():
+	bullet_spawner.activate()
+
+func _update(delta):
+	if pickup.picked_up:
+		change_state.emit('grabbed')
+"
+
+[sub_resource type="GDScript" id="GDScript_vcivv"]
+script/source = "#grabbed.gd
+extends State
+
+var bullet_spawner: Node
+var pickup: Area2D
+var saved_collision_layer: int
+
+func _setup(p_ref: Ref):
+	bullet_spawner = p_ref.bullet_spawner
+	actor = p_ref.actor
+	pickup = p_ref.pickup
+
+func _enter_state():
+	bullet_spawner.activate()
+	saved_collision_layer = actor.collision_layer
+	actor.collision_layer = 0
+
+func _exit_state():
+	actor.collision_layer = saved_collision_layer
+	bullet_spawner.deactivate()
+
+func _update(delta):
+	if not pickup.picked_up:
+		change_state.emit('active')
+"
+
+[sub_resource type="Resource" id="Resource_licsk"]
+script = ExtResource("12_dd17g")
+speed = 500
+timing = 0.2
+knockback = 50.0
+acceleration = 700
+metadata/_custom_type_script = "uid://w1v2g7vbqlwu"
+
+[node name="Gun" type="StaticBody2D" unique_id=337593309]
+collision_layer = 512
+collision_mask = 0
+script = ExtResource("1_17lac")
+move = SubResource("Resource_wcwdc")
+attack = SubResource("Resource_mttso")
+collision = SubResource("Resource_4qj7r")
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("5_h6gae")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=189270528]
+scale = Vector2(0.04902344, 0.04902344)
+texture = ExtResource("6_dd17g")
+
+[node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("7_ayi1q")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=132255039]
+position = Vector2(0.5, 13.5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_mttso")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("8_slstm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup" unique_id=1697664644]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
+position = Vector2(0, 4)
+
+[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("9_tcxqh")]
+
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("10_fa4e0")]
+
+[node name="Active" type="Node" parent="StateMachine" unique_id=1029699589]
+script = SubResource("GDScript_4qj7r")
+
+[node name="Grabbed" type="Node" parent="StateMachine" unique_id=336309190]
+script = SubResource("GDScript_vcivv")
+
+[node name="BulletSpawner" parent="." unique_id=46448684 instance=ExtResource("11_43kon")]
+bullet = SubResource("Resource_licsk")
+
+[node name="StatusUpgrades" type="Node" parent="." unique_id=420670347]
+
+[connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

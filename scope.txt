@@ -71,7 +71,7 @@ GAME
 - Highscore is time survived in the daily rush (create a build in lvl 1-10)
 
 INTERFACE
-- Mickey mouse/LoL style cursor
+- Mickey -mouse/LoL style cursor
 - Player clicks things in its range to interact
 - Player clicks and drags items into turrets and player backpack
 
@@ -81,4 +81,30 @@ ITEM IDEAS
 May 23 2026
 - Add status effects and bullet types
 - Add tower upgrades (as nodes)
+==============================================
+| KING's HAND - Protect your little king from goblins and ghouls! |
+- Enemies target king
+- Player can pick up and move king and towers
+- Player can place walls and traps
+- Enemies drop coins
+- King drops blueprints for items at the end of round - can be purchased for $
+- Turrets can be bought and upgraded. Walls and traps can be purchased
+PICKING UP:
+- Object must be in proximity to player character
+- Player clicks object, and it is picked up above character
+- Player can throw object to place it back down
+PLACING WALLS:
+- Click the bag/pile of bricks (with total left "3" or something)
+- Cursor will turn into a post
+- Place one wall down
+- Place second wall down (can only be 90 degrees)
+- Right click to cancel
+PLACING TRAPS:
+- Also affect the player
+- Can place mines, spikes, mustard gas (Geneva crime)
+RIGHT CLICK WALL TO REPAIR
+==============================================
+May 24 2026
+- Design walling system (ideally with tilemap)
+==============================================
 

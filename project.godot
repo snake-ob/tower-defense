@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Tower Defense"
-run/main_scene="res://levels/test_scene.tscn"
+run/main_scene="res://levels/test_scene_may19.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 SignalBus="*uid://ckdkprqyqugan"
 PerformanceTracker="*uid://svxctl7h1prt"
+MouseMode="*uid://buwx3sub4avu3"
+
+[display]
+
+mouse_cursor/custom_image="uid://b3loms8koco5f"
 
 [global_group]
 

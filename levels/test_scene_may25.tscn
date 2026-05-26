@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://c4ynrou4cc2wg"]
+
+[ext_resource type="PackedScene" uid="uid://bdq4ph1gycrhj" path="res://entities/BuildBag.tscn" id="1_e1lui"]
+[ext_resource type="PackedScene" uid="uid://ypeggtjreve5" path="res://entities/Fence.tscn" id="1_srqqq"]
+
+[node name="TestSceneMay25" type="Node2D" unique_id=1874997478]
+
+[node name="BuildBag" parent="." unique_id=2000449592 instance=ExtResource("1_e1lui")]
+position = Vector2(257, 120)
+
+[node name="FenceBuilder" parent="." unique_id=1898883992 instance=ExtResource("1_srqqq")]

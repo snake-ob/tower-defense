@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://b7hhelvattnsn"]
+
+[ext_resource type="Texture2D" uid="uid://b3loms8koco5f" path="res://assets/debug/gauntlet.png" id="1_wbkk5"]
+
+[sub_resource type="GDScript" id="GDScript_wbkk5"]
+script/source = "extends Node2D
+
+func _ready():
+	# Hide the default Windows/Mac arrow pointer immediately
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+
+func _process(_delta):
+	# Make this sprite perfectly follow the invisible mouse hardware position
+	global_position = get_global_mouse_position()
+"
+
+[node name="Cursor" type="Node2D" unique_id=237479233]
+script = SubResource("GDScript_wbkk5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1751712266]
+position = Vector2(24, 30)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("1_wbkk5")
