@@ -44,7 +44,6 @@ func _process_friction(delta):
 	actor.velocity = actor.velocity.move_toward(Vector2.ZERO, actor.move.friction * delta)
 
 func start_25d_throw(direction: Vector2, speed: float, arc_strength: float):
-	print(direction)
 	if actor is CharacterBody2D:
 		actor.velocity = Vector2.ZERO
 	horizontal_velocity = direction * speed

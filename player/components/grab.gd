@@ -1,13 +1,18 @@
+# Grab.gd
 extends Area2D
+class_name Grab
+
+# --- Grab interface node. Detects grabbable objects in vicinity. Contains the grab slot. Speaks to Pickup interface.
 
 @onready var grab_pos = $GrabPos
 @onready var drop_pos = $DropPos
 @onready var drop_anchor: Vector2 = $DropPos.position
 
 var grabbable_objects: Array = []
-var grabbed_pickup: Node2D
-var axis: Vector2 = Vector2.ZERO
+var grabbed_pickup: Node2D = null
+var direction: Vector2 = Vector2.ZERO
 var actor: Node2D
+var drop_distance: int = 32
 
 func _ready():
 	if not area_entered.is_connected(_on_area_entered):
@@ -17,6 +22,17 @@ func _ready():
 
 func _setup(p_ref: Ref):
 	actor = p_ref.actor
+
+func _physics_process(deltad):
+	direction = actor.global_position.direction_to(get_global_mouse_position())
+	drop_pos.position = drop_anchor + (drop_distance * direction)
+	
+func _unhandled_input(event: InputEvent) -> void:
+	if grabbed_pickup == null:
+		return
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		if event.pressed:
+			_throw()
 
 func _on_area_entered(area: Node2D):
 	if area not in grabbable_objects:
@@ -42,7 +58,5 @@ func _put_down():
 	grabbed_pickup = null
 
 func _throw():
-	print(axis)
-	var direction = axis
 	grabbed_pickup._get_thrown({'direction': direction})
 	grabbed_pickup = null

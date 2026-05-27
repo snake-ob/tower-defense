@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="11_b32pr"]
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="12_hbkom"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="14_d4g0h"]
-[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="14_v4f8b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqcbf"]
 size = Vector2(41, 21)
@@ -68,8 +67,6 @@ func _process_action():
 		change_state.emit('grab')
 
 func _on_object_clicked(p_actor):
-	if ! p_actor.ref.has('pickup'):
-		return
 	if p_actor.ref.pickup in grab.get_grabbable():
 		grab.grabbed_pickup = p_actor.ref.pickup
 		change_state.emit('grab')
@@ -98,6 +95,8 @@ func _physics_update(delta):
 		return
 	actor.velocity = actor.velocity.move_toward(axis * actor.move.speed, actor.move.acceleration)
 
+
+	
 func _process_action():
 	if grab.grabbed_pickup != null:
 		grab._throw()
@@ -152,9 +151,6 @@ radius = 27.018513
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v4f8b"]
 radius = 32.01562
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
-radius = 365.43674
 
 [node name="Player" type="CharacterBody2D" unique_id=1411166111 groups=["Player"]]
 collision_layer = 65536
@@ -238,15 +234,5 @@ debug_color = Color(0.85653824, 0.6675506, 0, 0)
 
 [node name="Health" parent="." unique_id=856647450 instance=ExtResource("14_d4g0h")]
 max_health = 10
-
-[node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
-script = ExtResource("14_v4f8b")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]
-shape = SubResource("CircleShape2D_m7yij")
-debug_color = Color(0, 0.6, 0.69803923, 0)
-
-[connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
-[connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]
 
 [editable path="SoftCollision"]

@@ -55,4 +55,3 @@ func _get_thrown(throw: Dictionary):
 	picked_up = false
 	grab_pos = null
 	physics.start_25d_throw(dir, speed, arc)
-	print("THROW DIRECTION: ", dir) # <--- ADD THIS TEMP PRINT

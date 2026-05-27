@@ -1,40 +1,45 @@
 [gd_scene format=3 uid="uid://bdq4ph1gycrhj"]
 
 [ext_resource type="Texture2D" uid="uid://cc08abpvpwshy" path="res://assets/debug/pile.png" id="1_7hq8g"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="2_bpuxm"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="3_7auqe"]
+[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="4_ad08e"]
 
 [sub_resource type="GDScript" id="GDScript_7hq8g"]
 script/source = "extends Node2D
 class_name BuildBag
 
+@onready var ref: Ref = $Ref
+
 func _ready():
 	for child in get_children():
 		if child.has_signal('clicked'):
 			child.clicked.connect(_on_clicked)
+	GlobalClick.clicked.connect(_on_clicked)
+	_setup_ref()
+	_setup_nodes(self)
+
+func _setup_ref():
+	ref.set('actor', self)
+
+func _setup_nodes(p_node):
+	for node in p_node.get_children():
+		if node.has_method(\"_setup\"):
+			node._setup(ref)
+		if node.get_child_count() > 0:
+			_setup_nodes(node)
 
 func trigger_edit_mode():
-	print(\"Mouse mode\")
 	if MouseMode.current != \"build_fence\":
 		MouseMode.current = \"build_fence\"
 	else:
 		MouseMode.current = \"\"
 
 func _on_clicked(p_node):
-	trigger_edit_mode()
+	if p_node == self:
+		trigger_edit_mode()
+		print(\"Clicked\")
 "
-
-[sub_resource type="GDScript" id="GDScript_bpuxm"]
-resource_name = "click_area.gd"
-script/source = "extends Area2D
-
-signal clicked(caller)
-
-func _input_event(viewport: Viewport, event: InputEvent, shape_idx: int):
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		clicked.emit(self)
-"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_7hq8g"]
-radius = 27.073973
 
 [node name="BuildBag" type="Node2D" unique_id=2000449592]
 script = SubResource("GDScript_7hq8g")
@@ -43,8 +48,9 @@ script = SubResource("GDScript_7hq8g")
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("1_7hq8g")
 
-[node name="ClickArea" type="Area2D" parent="." unique_id=540250396]
-script = SubResource("GDScript_bpuxm")
+[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("2_bpuxm")]
+collision_layer = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea" unique_id=1594822553]
-shape = SubResource("CircleShape2D_7hq8g")
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_7auqe")]
+
+[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("4_ad08e")]

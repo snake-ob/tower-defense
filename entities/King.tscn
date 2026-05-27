@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="7_01d4n"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="7_5x2kh"]
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="8_5x2kh"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="9_ahdhg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5x2kh"]
 radius = 16.0
@@ -89,3 +90,6 @@ script = SubResource("GDScript_ahdhg")
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("7_5x2kh")]
 
 [node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("8_5x2kh")]
+
+[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("9_ahdhg")]
+collision_layer = 1

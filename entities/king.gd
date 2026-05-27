@@ -23,3 +23,6 @@ func _setup_nodes(p_node):
 			node._setup(ref)
 		if node.get_child_count() > 0:
 			_setup_nodes(node)
+
+func _clicked():
+	pass

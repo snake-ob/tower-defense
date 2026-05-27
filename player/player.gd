@@ -4,6 +4,7 @@ class_name Player
 @onready var ref: Ref = $Ref
 @export_category("Player Data")
 @export var move: MoveData
+@export var build_radius: int = 200
 
 func _physics_process(delta):
 	if move: ref.move = move.duplicate()
@@ -12,6 +13,7 @@ func _physics_process(delta):
 func _ready():
 	_setup_ref()
 	_setup_nodes(self)
+	GlobalClick.register_player(self, build_radius)
 	$StateMachine._set_state('idle')
 	
 func _setup_ref():

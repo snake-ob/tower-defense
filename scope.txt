@@ -108,7 +108,7 @@ May 24 2026
 - Design walling system (ideally with tilemap)
 ==============================================
 May 26 2026
-- Refactor enemy + targeting
 - Incorporate pathfinding to chase King around walls
-- TargetKing, TargetPlayer, TargetWalls
-
+- Throw objects
+- Change interact system to point and click
+==============================================
