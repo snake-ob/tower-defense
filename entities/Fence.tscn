@@ -182,9 +182,7 @@ script/source = "extends TileMapLayer
 
 var first_post_coords: Vector2i = Vector2i(-1, -1)
 var is_placing_second: bool = false
-var editing_mode_enabled: bool = true
 
-# Track the last hovered tile to stop the frame-by-frame flickering
 var last_hover_cell: Vector2i = Vector2i(-1, -1)
 
 # Terrain Configuration IDs
@@ -209,12 +207,11 @@ func _unhandled_input(event):
 			preview_layer.clear()
 
 func _process(_delta):
-	if not editing_mode_enabled or not is_placing_second:
+	if not MouseMode.current == \"build_fence\" or not is_placing_second:
 		return
 		
 	var hover_cell = local_to_map(get_local_mouse_position())
 	
-	# 🛑 FIX FLASHING: Only calculate if the mouse actually moved to a NEW tile
 	if hover_cell != last_hover_cell:
 		last_hover_cell = hover_cell
 		update_preview(first_post_coords, hover_cell)
@@ -225,26 +222,20 @@ func update_preview(start: Vector2i, end: Vector2i):
 	var is_straight_line = (start.x == end.x) or (start.y == end.y)
 	
 	if is_straight_line:
-		# If they align, draw the whole connected fence sequence
 		var cells_to_preview = get_line_cells(start, end)
 		preview_layer.set_cells_terrain_connect(cells_to_preview, terrain_set_id, terrain_id, true)
 	else:
-		# ✨ NEW UX: If they don't align, just show the two independent posts
-		# Passing them as separate cells ensures they don't try to auto-connect to each other
 		var independent_cells: Array[Vector2i] = [start, end]
 		preview_layer.set_cells_terrain_connect(independent_cells, terrain_set_id, terrain_id, true)
 
 func build_fence_terrain(start: Vector2i, end: Vector2i):
-	# We still enforce strict straight lines for the actual final build placement
 	if start.x != end.x and start.y != end.y:
-		print(\"Fences must be straight lines to build!\")
 		return
 		
 	var cells_to_paint = get_line_cells(start, end)
 	set_cells_terrain_connect(cells_to_paint, terrain_set_id, terrain_id, true)
-	print(\"Fence built permanently!\")
+	MouseMode.reset()
 
-# Helper function to generate the list of cells between point A and point B
 func get_line_cells(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
 	var cells: Array[Vector2i] = []
 	var dir_x = sign(end.x - start.x)

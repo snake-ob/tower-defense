@@ -59,7 +59,7 @@ func _physics_update(delta):
 	
 func _process_action():
 	if grab.grabbed_pickup != null:
-		grab._put_down()
+		grab._throw()
 		return
 		
 	if grab.get_grabbable() != []:
@@ -83,13 +83,13 @@ func _physics_update(delta):
 	if Input.is_action_just_pressed('ui_select'):
 		_process_action()
 		
-	var axis = input_controller.get_axis()
+	var axis = input_controller.get_axis()		
 	update_drop(axis)
 	
 	if axis == Vector2.ZERO:
 		change_state.emit('idle')
 		return
-	
+	grab.axis = axis.normalized()
 	actor.velocity = actor.velocity.move_toward(axis * actor.move.speed, actor.move.acceleration)
 
 func update_drop(p_axis):
@@ -101,7 +101,7 @@ func update_drop(p_axis):
 	
 func _process_action():
 	if grab.grabbed_pickup != null:
-		grab._put_down()
+		grab._throw()
 		return
 		
 	if grab.get_grabbable() != []:
@@ -155,7 +155,7 @@ radius = 27.018513
 radius = 32.01562
 
 [node name="Player" type="CharacterBody2D" unique_id=1411166111 groups=["Player"]]
-collision_layer = 65537
+collision_layer = 65536
 collision_mask = 513
 script = ExtResource("1_rkbax")
 move = ExtResource("2_g6k8r")

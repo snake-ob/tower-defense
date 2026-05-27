@@ -107,4 +107,8 @@ RIGHT CLICK WALL TO REPAIR
 May 24 2026
 - Design walling system (ideally with tilemap)
 ==============================================
+May 26 2026
+- Refactor enemy + targeting
+- Incorporate pathfinding to chase King around walls
+- TargetKing, TargetPlayer, TargetWalls
 

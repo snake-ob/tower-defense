@@ -6,6 +6,7 @@ extends Area2D
 
 var grabbable_objects: Array = []
 var grabbed_pickup: Node2D
+var axis: Vector2 = Vector2.ZERO
 var actor: Node2D
 
 func _ready():
@@ -38,4 +39,10 @@ func _pickup_object(pickup):
 	
 func _put_down():
 	grabbed_pickup._get_put_down()
+	grabbed_pickup = null
+
+func _throw():
+	print(axis)
+	var direction = axis
+	grabbed_pickup._get_thrown({'direction': direction})
 	grabbed_pickup = null

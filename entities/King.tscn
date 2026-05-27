@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://bmxpcj677arg0"]
+
+[ext_resource type="PackedScene" uid="uid://brkgs0nuf1aaf" path="res://common/components/Pickup.tscn" id="1_3o21c"]
+[ext_resource type="Script" uid="uid://sa1n1ri1p25e" path="res://entities/king.gd" id="1_ij6gk"]
+[ext_resource type="Texture2D" uid="uid://buojn30llo5u0" path="res://assets/debug/crown.png" id="3_gpg3b"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="4_5x2kh"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_lkjmf"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="7_01d4n"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="7_5x2kh"]
+[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="8_5x2kh"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5x2kh"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
+radius = 12.0
+
+[sub_resource type="GDScript" id="GDScript_5x2kh"]
+script/source = "extends State
+
+var pickup: Area2D
+var soft_collision: Area2D
+
+func _setup(p_ref):
+	pickup = p_ref.pickup
+	soft_collision = p_ref.soft_collision
+
+func _update(delta):
+	if pickup.picked_up:
+		change_state.emit('picked')
+
+func _enter_state():
+	soft_collision.enable()
+"
+
+[sub_resource type="GDScript" id="GDScript_ahdhg"]
+script/source = "extends State
+
+var pickup: Area2D
+var soft_collision
+
+func _setup(p_ref):
+	soft_collision = p_ref.soft_collision
+	pickup = p_ref.pickup
+
+func _update(delta):
+	if not pickup.picked_up:
+		change_state.emit('idle')
+
+func _enter_state():
+	soft_collision.disable()
+
+func exit_state():
+	soft_collision.enable()
+"
+
+[node name="King" type="CharacterBody2D" unique_id=463850158]
+collision_layer = 0
+script = ExtResource("1_ij6gk")
+
+[node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("1_3o21c")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1700961463]
+scale = Vector2(0.06054686, 0.06054686)
+texture = ExtResource("3_gpg3b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=656951933]
+shape = SubResource("CircleShape2D_5x2kh")
+
+[node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("4_5x2kh")
+push_force = 1300.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
+shape = SubResource("CircleShape2D_aueyi")
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("5_lkjmf")]
+
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("7_01d4n")]
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=315808705]
+script = SubResource("GDScript_5x2kh")
+
+[node name="Picked" type="Node" parent="StateMachine" unique_id=128277756]
+script = SubResource("GDScript_ahdhg")
+
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("7_5x2kh")]
+
+[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("8_5x2kh")]

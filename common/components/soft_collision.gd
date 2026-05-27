@@ -52,7 +52,7 @@ func calculate_push(other_area: Area2D, delta) -> void:
 		var other_vel = other.actor.velocity if "velocity" in other.actor else Vector2.ZERO
 		
 		var my_approach_speed = my_vel.dot(push_direction)
-		var other_approach_speed = other_vel.dot(-push_direction) # From their perspective
+		var other_approach_speed = other_vel.dot(-push_direction)
 		
 		if my_approach_speed > other_approach_speed:
 			velocity_bonus = my_approach_speed - other_approach_speed
@@ -65,3 +65,9 @@ func calculate_push(other_area: Area2D, delta) -> void:
 
 func _get_push(p_shove):
 	actor.velocity += p_shove
+
+func enable():
+	$CollisionShape2D.disabled = false
+
+func disable():
+	$CollisionShape2D.disabled = true

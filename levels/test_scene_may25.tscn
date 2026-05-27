@@ -2,6 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://bdq4ph1gycrhj" path="res://entities/BuildBag.tscn" id="1_e1lui"]
 [ext_resource type="PackedScene" uid="uid://ypeggtjreve5" path="res://entities/Fence.tscn" id="1_srqqq"]
+[ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="3_8k61s"]
+[ext_resource type="PackedScene" uid="uid://bmxpcj677arg0" path="res://entities/King.tscn" id="4_buj8u"]
 
 [node name="TestSceneMay25" type="Node2D" unique_id=1874997478]
 
@@ -9,3 +11,9 @@
 position = Vector2(257, 120)
 
 [node name="FenceBuilder" parent="." unique_id=1898883992 instance=ExtResource("1_srqqq")]
+
+[node name="Player" parent="." unique_id=1411166111 instance=ExtResource("3_8k61s")]
+position = Vector2(433, 390)
+
+[node name="King" parent="." unique_id=463850158 instance=ExtResource("4_buj8u")]
+position = Vector2(630, 223)
