@@ -17,7 +17,6 @@ func _physics_process(delta: float) -> void:
 func _setup(p_ref: Ref):
 	actor = p_ref.actor
 	physics = p_ref.physics
-	
 
 func _get_picked_up(p_grab_pos, p_drop_pos):
 	actor.velocity = Vector2.ZERO
@@ -27,7 +26,7 @@ func _get_picked_up(p_grab_pos, p_drop_pos):
 
 func pickup_pos():
 	return $PickupPos.global_position
-	
+
 func follow_grab():
 	var grab_target = grab_pos.global_position
 	var pickup_offset = actor.global_position - pickup_pos()
@@ -39,9 +38,9 @@ func _get_put_down():
 
 	var drop_target = drop_pos.global_position
 	var pickup_offset = actor.global_position - pickup_pos()
-	
+
 	actor.global_position = drop_target + pickup_offset
-	
+
 	grab_pos = null
 	picked_up = false
 

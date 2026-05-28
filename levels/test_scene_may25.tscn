@@ -4,6 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://ypeggtjreve5" path="res://entities/Fence.tscn" id="1_srqqq"]
 [ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="3_8k61s"]
 [ext_resource type="PackedScene" uid="uid://bmxpcj677arg0" path="res://entities/King.tscn" id="4_buj8u"]
+[ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="5_buj8u"]
+[ext_resource type="PackedScene" uid="uid://g6qbjrnunvag" path="res://entities/Bomb.tscn" id="6_rbeei"]
 
 [node name="TestSceneMay25" type="Node2D" unique_id=1874997478]
 
@@ -17,3 +19,9 @@ position = Vector2(433, 390)
 
 [node name="King" parent="." unique_id=463850158 instance=ExtResource("4_buj8u")]
 position = Vector2(630, 223)
+
+[node name="Fuckel" parent="." unique_id=88513531 instance=ExtResource("5_buj8u")]
+position = Vector2(937, 380)
+
+[node name="Bomb" parent="." unique_id=2117611068 instance=ExtResource("6_rbeei")]
+position = Vector2(454, 218)

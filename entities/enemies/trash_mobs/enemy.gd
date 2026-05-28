@@ -33,6 +33,9 @@ func _setup_ref():
 	ref.set('detect_zone', $DetectZone)
 	ref.set('bullet_spawner', bullet_spawner)
 	ref.set('status_effects', $StatusEffects)
+	ref.set('physics', $PhysicsHandler)
+	ref.set('pickup', $Pickup)
+	ref.set('sprite', $Body/Sprite2D)
 	ref.set('actor', self)
 	
 func _setup_nodes(p_node):

@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="13_vaswb"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="14_540xx"]
 [ext_resource type="PackedScene" uid="uid://rqbl0rtipwwt" path="res://common/components/status_effects/StatusEffects.tscn" id="16_fdgwp"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="17_86smx"]
 
 [sub_resource type="Resource" id="Resource_ijd6d"]
 script = ExtResource("2_5g4gd")
@@ -111,7 +112,7 @@ radius = 640.93
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
 radius = 35.014282
 
-[node name="Fuckel" type="CharacterBody2D" unique_id=88513531]
+[node name="Enemy" type="CharacterBody2D" unique_id=88513531]
 collision_layer = 256
 collision_mask = 512
 script = ExtResource("1_vec32")
@@ -194,6 +195,9 @@ debug_color = Color(0.7647059, 0.16862746, 1, 0)
 [node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
 
 [node name="StatusEffects" parent="." unique_id=358155270 instance=ExtResource("16_fdgwp")]
+
+[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("17_86smx")]
+collision_layer = 1
 
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]

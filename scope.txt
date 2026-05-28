@@ -108,7 +108,15 @@ May 24 2026
 - Design walling system (ideally with tilemap)
 ==============================================
 May 26 2026
-- Incorporate pathfinding to chase King around walls
 - Throw objects
 - Change interact system to point and click
 ==============================================
+May 27 2026
+- Make traps
+	- Bomb, tacks, landmines
+- Determine scale
+- Pixel/tile size. Entity size. Screen size
+- Make gems/runes to throw into towers
+	- FIFO system. Rune pops out
+==============================================
+

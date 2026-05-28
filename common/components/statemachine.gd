@@ -20,7 +20,6 @@ func setup_states(actor, p_data):
 			state._setup_state(actor, p_data)
 	_set_state('idle')
 	
-
 func _process(delta):
 	if current_state:
 		current_state._update(delta)

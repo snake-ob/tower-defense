@@ -14,7 +14,7 @@
 radius = 16.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
-radius = 12.0
+radius = 6.0827627
 
 [sub_resource type="GDScript" id="GDScript_5x2kh"]
 script/source = "extends State
