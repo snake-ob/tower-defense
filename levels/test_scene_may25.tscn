@@ -6,8 +6,33 @@
 [ext_resource type="PackedScene" uid="uid://bmxpcj677arg0" path="res://entities/King.tscn" id="4_buj8u"]
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="5_buj8u"]
 [ext_resource type="PackedScene" uid="uid://g6qbjrnunvag" path="res://entities/Bomb.tscn" id="6_rbeei"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="7_t21s6"]
+
+[sub_resource type="GDScript" id="GDScript_rbeei"]
+script/source = "extends Node2D
+
+@onready var ref: Ref = $Ref
+
+func _ready() -> void:
+	SignalBus.spawn_bullet.connect(_spawn_bullet)
+	_setup_ref()
+	_setup_nodes(self)
+	
+func _setup_ref():
+	ref.set('level', self)
+	ref.set('player', $Player)
+	
+func _setup_nodes(p_node):
+	for child in p_node.get_children():
+		if child.has_method('_setup'):
+			child._setup(ref)
+
+func _spawn_bullet(p_bullet):
+	$Projectiles.add_child(p_bullet)
+"
 
 [node name="TestSceneMay25" type="Node2D" unique_id=1874997478]
+script = SubResource("GDScript_rbeei")
 
 [node name="BuildBag" parent="." unique_id=2000449592 instance=ExtResource("1_e1lui")]
 position = Vector2(257, 120)
@@ -20,8 +45,11 @@ position = Vector2(433, 390)
 [node name="King" parent="." unique_id=463850158 instance=ExtResource("4_buj8u")]
 position = Vector2(630, 223)
 
-[node name="Fuckel" parent="." unique_id=88513531 instance=ExtResource("5_buj8u")]
-position = Vector2(937, 380)
-
 [node name="Bomb" parent="." unique_id=2117611068 instance=ExtResource("6_rbeei")]
 position = Vector2(454, 218)
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("7_t21s6")]
+
+[node name="Projectiles" type="Node" parent="." unique_id=1884160503]
+
+[node name="Enemy" parent="." unique_id=88513531 instance=ExtResource("5_buj8u")]

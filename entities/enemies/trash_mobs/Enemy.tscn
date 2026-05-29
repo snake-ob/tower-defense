@@ -140,7 +140,7 @@ debug_color = Color(0.9529412, 0.99215686, 1, 0)
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
 collision_layer = 0
-collision_mask = 131072
+collision_mask = 131080
 monitorable = false
 script = ExtResource("6_dsp8k")
 
@@ -149,7 +149,7 @@ shape = SubResource("CapsuleShape2D_5g4gd")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=88604661]
-collision_layer = 262144
+collision_layer = 266240
 collision_mask = 0
 monitoring = false
 script = ExtResource("7_66spp")

@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_h3l1c"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="2_ycqfv"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="3_7df25"]
+[ext_resource type="PackedScene" uid="uid://c57yfugrsyc1d" path="res://common/components/Explosion.tscn" id="3_kuyaw"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_xre7m"]
 [ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="7_2kjrx"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="8_dtqr1"]
@@ -45,8 +46,38 @@ func exit_state():
 [sub_resource type="GDScript" id="GDScript_kuyaw"]
 script/source = "extends State
 
+var explode_timer: Timer
+var explode_time: float = 3.0
+
+func _ready():
+	explode_timer = Timer.new()
+	explode_timer.one_shot = true
+	explode_timer.timeout.connect(_on_explode)
+	add_child(explode_timer)
+
 func _enter_state():
-	print(\"Thrown\")
+	explode_timer.start(explode_time)
+	
+func _on_explode():
+	change_state.emit('explode')
+"
+
+[sub_resource type="GDScript" id="GDScript_ofy1l"]
+script/source = "extends State
+
+var explode_timer: Timer
+var explode_time: float = 3.0
+
+func _setup(p_node):
+	actor = p_node.actor
+
+func _ready():
+	explode_timer = Timer.new()
+	explode_timer.one_shot = true
+	add_child(explode_timer)
+
+func _enter_state():
+	actor.explode()
 "
 
 [node name="Bomb" type="CharacterBody2D" unique_id=2117611068]
@@ -54,6 +85,7 @@ collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_e7o24")
 move = SubResource("Resource_kuyaw")
+ExplodeScene = ExtResource("3_kuyaw")
 
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("2_ycqfv")]
 
@@ -91,3 +123,6 @@ script = SubResource("GDScript_h3l1c")
 
 [node name="Thrown" type="Node" parent="StateMachine" unique_id=1052120613]
 script = SubResource("GDScript_kuyaw")
+
+[node name="Explode" type="Node" parent="StateMachine" unique_id=41943366]
+script = SubResource("GDScript_ofy1l")

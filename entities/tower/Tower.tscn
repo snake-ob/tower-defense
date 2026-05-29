@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="10_mttso"]
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="10_wcwdc"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="11_mttso"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="12_8gdfe"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="13_te46s"]
 
 [sub_resource type="Resource" id="Resource_wcwdc"]
 script = ExtResource("2_3mcmt")
@@ -156,6 +158,10 @@ script = SubResource("GDScript_vcivv")
 [node name="BulletSpawner" parent="." unique_id=46448684 instance=ExtResource("10_mttso")]
 
 [node name="StatusUpgrades" type="Node" parent="." unique_id=420670347]
+
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("12_8gdfe")]
+
+[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("13_te46s")]
 
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

@@ -118,5 +118,7 @@ May 27 2026
 - Pixel/tile size. Entity size. Screen size
 - Make gems/runes to throw into towers
 	- FIFO system. Rune pops out
+- Make modular 'workbench' to pull items
+- Make blueprints that throw out items
 ==============================================
 

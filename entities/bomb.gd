@@ -3,6 +3,7 @@ class_name Bomb
 
 @onready var ref: Ref = $Ref
 @export var move: MoveData
+@export var ExplodeScene: PackedScene
 
 func _ready():
 	_setup_ref()
@@ -27,3 +28,11 @@ func _setup_nodes(p_node):
 		if node.get_child_count() > 0:
 			_setup_nodes(node)
 	
+func explode():
+	_spawn_explosion()
+	queue_free()
+
+func _spawn_explosion():
+	var explosion = ExplodeScene.instantiate()
+	explosion.global_position = ref.actor.global_position
+	SignalBus.spawn_bullet.emit(explosion)

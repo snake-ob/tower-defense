@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://c57yfugrsyc1d"]
+
+[ext_resource type="Script" uid="uid://dvuda8ubslafm" path="res://common/components/explosion.gd" id="1_lopgb"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="2_gvve4"]
+[ext_resource type="Texture2D" uid="uid://wkr802umf17x" path="res://assets/debug/explosion.jpg" id="3_oef2w"]
+[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="4_lopgb"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_gvve4"]
+
+[sub_resource type="Resource" id="Resource_enhwb"]
+script = ExtResource("2_gvve4")
+damage = 3
+knockback = 100.0
+metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gvve4"]
+radius = 20.22375
+
+[node name="Explosion" type="Node2D" unique_id=933911819]
+script = ExtResource("1_lopgb")
+attack = SubResource("Resource_enhwb")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=271253178]
+position = Vector2(-3.0517578e-05, 2.9999695)
+scale = Vector2(0.074489795, 0.074489795)
+texture = ExtResource("3_oef2w")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
+collision_layer = 0
+collision_mask = 4104
+monitorable = false
+script = ExtResource("4_lopgb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1488120918]
+shape = SubResource("CircleShape2D_gvve4")
+debug_color = Color(0.85653824, 0.6675506, 0, 0)
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("5_gvve4")]
