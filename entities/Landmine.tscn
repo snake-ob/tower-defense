@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://du5cdtsl68l3"]
+
+[ext_resource type="Script" uid="uid://bww0d1hqweos2" path="res://entities/landmine.gd" id="1_567sl"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_yd5nl"]
+[ext_resource type="PackedScene" uid="uid://c57yfugrsyc1d" path="res://common/components/Explosion.tscn" id="3_rc06d"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="4_ugehn"]
+[ext_resource type="PackedScene" uid="uid://brkgs0nuf1aaf" path="res://common/components/Pickup.tscn" id="5_kla8e"]
+[ext_resource type="Texture2D" uid="uid://bdt6juwx7471n" path="res://assets/debug/Screenshot 2026-05-30 091108.png" id="6_dh1iw"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="8_wnerl"]
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="9_567sl"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_24raj"]
+
+[sub_resource type="Resource" id="Resource_qgv8u"]
+script = ExtResource("2_yd5nl")
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e7o24"]
+radius = 13.0
+
+[sub_resource type="GDScript" id="GDScript_567sl"]
+script/source = "extends State
+
+var detect_zone
+
+func _ready():
+	pass
+
+func _enter_state():
+	pass
+	
+func _setup(p_ref):
+	detect_zone = p_ref.detect_zone
+
+func _update(delta):
+	if detect_zone.active_targets != []:
+		print(detect_zone.active_targets)
+		_on_explode()
+
+func _on_explode():
+	change_state.emit('explode')
+"
+
+[sub_resource type="GDScript" id="GDScript_h3l1c"]
+script/source = "extends State
+
+var pickup: Area2D
+var soft_collision
+
+func _setup(p_ref):
+	pickup = p_ref.pickup
+
+func _update(delta):
+	if not pickup.picked_up:
+		change_state.emit('thrown')
+"
+
+[sub_resource type="GDScript" id="GDScript_kuyaw"]
+script/source = "extends State
+
+var detect_zone
+
+func _ready():
+	pass
+
+func _enter_state():
+	pass
+	
+func _setup(p_ref):
+	detect_zone = p_ref.detect_zone
+
+func _update(delta):
+	if detect_zone.active_targets != []:
+		_on_explode()
+
+func _on_explode():
+	change_state.emit('explode')
+"
+
+[sub_resource type="GDScript" id="GDScript_ofy1l"]
+script/source = "extends State
+
+var explode_timer: Timer
+var explode_time: float = 3.0
+
+func _setup(p_node):
+	actor = p_node.actor
+
+func _ready():
+	explode_timer = Timer.new()
+	explode_timer.one_shot = true
+	add_child(explode_timer)
+
+func _enter_state():
+	actor.explode()
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
+radius = 13.892444
+
+[node name="Landmine" type="CharacterBody2D" unique_id=2117611068]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_567sl")
+move = SubResource("Resource_qgv8u")
+ExplodeScene = ExtResource("3_rc06d")
+
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("4_ugehn")]
+
+[node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("5_kla8e")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=503450944]
+shape = SubResource("CircleShape2D_e7o24")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1976486479]
+scale = Vector2(0.04848537, 0.047181442)
+texture = ExtResource("6_dh1iw")
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("8_wnerl")]
+
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("10_24raj")]
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1388803235]
+script = SubResource("GDScript_567sl")
+
+[node name="Picked" type="Node" parent="StateMachine" unique_id=1389617850]
+script = SubResource("GDScript_h3l1c")
+
+[node name="Thrown" type="Node" parent="StateMachine" unique_id=1052120613]
+script = SubResource("GDScript_kuyaw")
+
+[node name="Explode" type="Node" parent="StateMachine" unique_id=41943366]
+script = SubResource("GDScript_ofy1l")
+
+[node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
+collision_layer = 0
+collision_mask = 257
+script = ExtResource("9_567sl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

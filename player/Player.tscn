@@ -6,7 +6,7 @@
 [ext_resource type="Script" uid="uid://btpfjqfhq0o86" path="res://common/components/input_controller.gd" id="3_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="3_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="6_gskgj"]
-[ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://common/components/SoftCollision.tscn" id="7_gskgj"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_d4g0h"]
 [ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="8_ndjxb"]
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="9_mhpjh"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_ndjxb"]
@@ -32,6 +32,9 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
+radius = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kqn5r"]
 radius = 53.235325
@@ -157,7 +160,7 @@ radius = 32.01562
 radius = 365.43674
 
 [node name="Player" type="CharacterBody2D" unique_id=1411166111 groups=["Player"]]
-collision_layer = 65536
+collision_layer = 65537
 collision_mask = 513
 script = ExtResource("1_rkbax")
 move = ExtResource("2_g6k8r")
@@ -179,7 +182,14 @@ script = ExtResource("3_g1dw6")
 scale = Vector2(0.3359375, 0.3359375)
 sprite_frames = SubResource("SpriteFrames_qjkh3")
 
-[node name="SoftCollision" parent="." unique_id=1691847556 instance=ExtResource("7_gskgj")]
+[node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("7_d4g0h")
+push_force = 400.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
+shape = SubResource("CircleShape2D_aueyi")
 
 [node name="Grab" type="Area2D" parent="." unique_id=1402749356]
 collision_layer = 0
@@ -251,5 +261,3 @@ debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]
-
-[editable path="SoftCollision"]

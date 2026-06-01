@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://bran34damew6s"]
+
+[ext_resource type="Script" uid="uid://5o7xx3bhtq5q" path="res://entities/baggie.gd" id="1_a2oed"]
+[ext_resource type="PackedScene" uid="uid://brkgs0nuf1aaf" path="res://common/components/Pickup.tscn" id="1_ufcce"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_k8dxv"]
+[ext_resource type="Texture2D" uid="uid://dy6kbgp7g7g74" path="res://assets/debug/Screenshot 2026-05-31 213358.png" id="2_t2wsk"]
+[ext_resource type="PackedScene" uid="uid://eqqpp8ob8jy8" path="res://entities/Caltropes.tscn" id="3_roukr"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="3_t2wsk"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="4_a36vo"]
+[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="4_xh07e"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="6_1o8ba"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="7_ggnc5"]
+[ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://common/components/SoftCollision.tscn" id="10_roukr"]
+
+[sub_resource type="Resource" id="Resource_xh07e"]
+script = ExtResource("2_k8dxv")
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ufcce"]
+size = Vector2(28, 28)
+
+[sub_resource type="GDScript" id="GDScript_a2oed"]
+script/source = "extends State
+
+var pickup: Area2D
+var soft_collision: Area2D
+var physics: Node
+
+func _setup(p_ref):
+	pickup = p_ref.pickup
+	soft_collision = p_ref.soft_collision
+	physics = p_ref.physics
+
+func _update(delta):
+	if pickup.picked_up:
+		change_state.emit('picked')
+
+func _enter_state():
+	soft_collision.enable()
+
+func _physics_update(delta):
+	physics._process_friction(delta)
+"
+
+[sub_resource type="GDScript" id="GDScript_7qorx"]
+script/source = "extends State
+
+var pickup: Area2D
+var soft_collision
+
+func _setup(p_ref):
+	soft_collision = p_ref.soft_collision
+	pickup = p_ref.pickup
+
+func _update(delta):
+	if not pickup.picked_up:
+		change_state.emit('thrown')
+
+func _enter_state():
+	soft_collision.disable()
+
+func exit_state():
+	soft_collision.enable()
+"
+
+[sub_resource type="GDScript" id="GDScript_1o8ba"]
+script/source = "extends State
+
+var explode_timer: Timer
+var explode_time: float = 1
+var physics: Node
+
+func _setup(p_ref):
+	physics = p_ref.physics
+
+func _ready():
+	explode_timer = Timer.new()
+	explode_timer.one_shot = true
+	explode_timer.timeout.connect(_on_explode)
+	add_child(explode_timer)
+
+func _enter_state():
+	explode_timer.start(explode_time)
+	
+func _on_explode():
+	change_state.emit('explode')
+
+func _physics_update(delta):
+	physics._process_friction(delta)
+"
+
+[sub_resource type="GDScript" id="GDScript_ggnc5"]
+script/source = "extends State
+
+var explode_timer: Timer
+var explode_time: float = 3.0
+
+func _setup(p_node):
+	actor = p_node.actor
+
+func _ready():
+	explode_timer = Timer.new()
+	explode_timer.one_shot = true
+	add_child(explode_timer)
+
+func _enter_state():
+	actor.explode()
+"
+
+[node name="Baggie" type="CharacterBody2D" unique_id=2045395561]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_a2oed")
+move = SubResource("Resource_xh07e")
+ExplodeScene = ExtResource("3_roukr")
+
+[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("4_xh07e")]
+
+[node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("1_ufcce")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1510251085]
+position = Vector2(4.7683716e-07, -9.536743e-07)
+scale = Vector2(0.30219775, 0.3021978)
+texture = ExtResource("2_t2wsk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=952060633]
+shape = SubResource("RectangleShape2D_ufcce")
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_t2wsk")]
+
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("4_a36vo")]
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=407251364]
+script = SubResource("GDScript_a2oed")
+
+[node name="Picked" type="Node" parent="StateMachine" unique_id=947905434]
+script = SubResource("GDScript_7qorx")
+
+[node name="Thrown" type="Node" parent="StateMachine" unique_id=1524807262]
+script = SubResource("GDScript_1o8ba")
+
+[node name="Explode" type="Node" parent="StateMachine" unique_id=1150056328]
+script = SubResource("GDScript_ggnc5")
+
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("6_1o8ba")]
+
+[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("7_ggnc5")]
+collision_layer = 1
+
+[node name="SoftCollision" parent="." unique_id=1691847556 instance=ExtResource("10_roukr")]

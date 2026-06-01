@@ -1,15 +1,19 @@
 extends State
 
-var pickup: Area2D
-var soft_collision: Area2D
+var detect_zone
 
-func _setup(p_ref):
-	pickup = p_ref.pickup
-	soft_collision = p_ref.soft_collision
-
-func _update(delta):
-	if pickup.picked_up:
-		change_state.emit('picked')
+func _ready():
+	pass
 
 func _enter_state():
-	soft_collision.enable()
+	pass
+	
+func _setup(p_ref):
+	detect_zone = p_ref.detect_zone
+
+func _update(delta):
+	if detect_zone.active_targets > 0:
+		_on_explode()
+
+func _on_explode():
+	change_state.emit('explode')

@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="5_buj8u"]
 [ext_resource type="PackedScene" uid="uid://g6qbjrnunvag" path="res://entities/Bomb.tscn" id="6_rbeei"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="7_t21s6"]
+[ext_resource type="PackedScene" uid="uid://du5cdtsl68l3" path="res://entities/Landmine.tscn" id="8_al25t"]
+[ext_resource type="PackedScene" uid="uid://eqqpp8ob8jy8" path="res://entities/Caltropes.tscn" id="9_dny0r"]
+[ext_resource type="PackedScene" uid="uid://bran34damew6s" path="res://entities/Baggie.tscn" id="10_0nd8g"]
 
 [sub_resource type="GDScript" id="GDScript_rbeei"]
 script/source = "extends Node2D
@@ -53,3 +56,19 @@ position = Vector2(454, 218)
 [node name="Projectiles" type="Node" parent="." unique_id=1884160503]
 
 [node name="Enemy" parent="." unique_id=88513531 instance=ExtResource("5_buj8u")]
+position = Vector2(50, 95)
+
+[node name="Landmine" parent="." unique_id=1239683946 instance=ExtResource("8_al25t")]
+position = Vector2(945, 254)
+
+[node name="Caltropes" parent="." unique_id=872904016 instance=ExtResource("9_dny0r")]
+position = Vector2(267, 248)
+
+[node name="Caltropes2" parent="." unique_id=875553665 instance=ExtResource("9_dny0r")]
+position = Vector2(278, 239)
+
+[node name="Caltropes3" parent="." unique_id=1752470679 instance=ExtResource("9_dny0r")]
+position = Vector2(279, 255)
+
+[node name="Baggie" parent="." unique_id=2045395561 instance=ExtResource("10_0nd8g")]
+position = Vector2(255, 458)

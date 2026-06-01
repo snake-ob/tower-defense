@@ -1,5 +1,5 @@
 extends CharacterBody2D
-class_name Landmine
+class_name Bomb
 
 @onready var ref: Ref = $Ref
 @export var move: MoveData
@@ -19,7 +19,7 @@ func _setup_ref():
 	ref.set('pickup', $Pickup)
 	ref.set('sprite', $Sprite2D)
 	ref.set('SM', $StateMachine)
-	ref.set('soft_collision', $SoftCollision)
+	ref.set('detect_zone', $DetectZone)
 
 func _setup_nodes(p_node):
 	for node in p_node.get_children():
