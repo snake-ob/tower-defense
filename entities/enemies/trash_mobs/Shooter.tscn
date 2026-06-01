@@ -1,36 +1,38 @@
-[gd_scene format=3 uid="uid://dp1w6dtjb5n62"]
+[gd_scene format=3 uid="uid://d3rbgmlp5jacf"]
 
-[ext_resource type="Texture2D" uid="uid://dsr68dwouyi7r" path="res://assets/debug/enemy.png" id="1_ixjfo"]
-[ext_resource type="Script" uid="uid://rhkvwea4barn" path="res://entities/enemies/trash_mobs/enemy.gd" id="1_vec32"]
-[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_5g4gd"]
-[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="2_66spp"]
-[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="2_d0yhi"]
-[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="3_a23sr"]
-[ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="4_7b7q7"]
-[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="6_dsp8k"]
-[ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="7_66spp"]
-[ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="8_66spp"]
-[ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://common/components/SoftCollision.tscn" id="10_ijd6d"]
-[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="10_im3kb"]
-[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="12_r1qvq"]
-[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="13_vaswb"]
-[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="14_540xx"]
-[ext_resource type="PackedScene" uid="uid://rqbl0rtipwwt" path="res://common/components/status_effects/StatusEffects.tscn" id="16_fdgwp"]
-[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="17_86smx"]
+[ext_resource type="Script" uid="uid://rhkvwea4barn" path="res://entities/enemies/trash_mobs/enemy.gd" id="1_btbxx"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_3ct2h"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="3_k8d34"]
+[ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="4_4bc74"]
+[ext_resource type="Texture2D" uid="uid://bcn3ogxujmu5q" path="res://assets/debug/Screenshot 2026-05-23 141946.png" id="5_btbxx"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="6_1mk7n"]
+[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="7_q6sjn"]
+[ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="8_docaw"]
+[ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="9_vftay"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="10_gx7ka"]
+[ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://common/components/SoftCollision.tscn" id="11_w4cg5"]
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="12_gm1ub"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="13_bgege"]
+[ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="13_k8d34"]
+[ext_resource type="Script" uid="uid://w1v2g7vbqlwu" path="res://common/data/bullet_data.gd" id="14_4bc74"]
+[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="14_vb0ue"]
+[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="15_hmyru"]
+[ext_resource type="PackedScene" uid="uid://rqbl0rtipwwt" path="res://common/components/status_effects/StatusEffects.tscn" id="16_yqt32"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="17_nld11"]
 
 [sub_resource type="Resource" id="Resource_ijd6d"]
-script = ExtResource("2_5g4gd")
+script = ExtResource("2_3ct2h")
 friction = 500
 acceleration = 300
 metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
 [sub_resource type="Resource" id="Resource_opqqp"]
-script = ExtResource("2_66spp")
+script = ExtResource("3_k8d34")
 knockback = 5.0
 metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
 
 [sub_resource type="Resource" id="Resource_86smx"]
-script = ExtResource("4_7b7q7")
+script = ExtResource("4_4bc74")
 layer = 19
 mask = 18
 metadata/_custom_type_script = "uid://dxnywa0nlrdku"
@@ -111,12 +113,17 @@ var status: Array = []
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
 radius = 640.93
 
+[sub_resource type="Resource" id="Resource_xpdpy"]
+script = ExtResource("14_4bc74")
+timing = 2.0
+metadata/_custom_type_script = "uid://w1v2g7vbqlwu"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
 radius = 35.014282
 
 [node name="Enemy" type="CharacterBody2D" unique_id=88513531]
 collision_layer = 256
-script = ExtResource("1_vec32")
+script = ExtResource("1_btbxx")
 move = SubResource("Resource_ijd6d")
 attack = SubResource("Resource_opqqp")
 collision = SubResource("Resource_86smx")
@@ -125,9 +132,9 @@ collision = SubResource("Resource_86smx")
 
 [node name="Sprite2D" type="Sprite2D" parent="Body" unique_id=1476095093]
 scale = Vector2(0.078125015, 0.078125015)
-texture = ExtResource("1_ixjfo")
+texture = ExtResource("5_btbxx")
 
-[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("2_d0yhi")]
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("6_1mk7n")]
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=297645285]
 script = SubResource("GDScript_a23sr")
@@ -143,7 +150,7 @@ debug_color = Color(0.9529412, 0.99215686, 1, 0)
 collision_layer = 0
 collision_mask = 131076
 monitorable = false
-script = ExtResource("6_dsp8k")
+script = ExtResource("7_q6sjn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1488120918]
 shape = SubResource("CapsuleShape2D_5g4gd")
@@ -153,7 +160,7 @@ debug_color = Color(0, 0.6, 0.69803923, 0)
 collision_layer = 262656
 collision_mask = 0
 monitoring = false
-script = ExtResource("7_66spp")
+script = ExtResource("8_docaw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=630823401]
 position = Vector2(0.5, 0)
@@ -163,31 +170,34 @@ debug_color = Color(0.9411765, 0, 0, 0)
 [node name="Data" type="Node" parent="." unique_id=534815685]
 script = SubResource("GDScript_dsp8k")
 
-[node name="Health" parent="." unique_id=856647450 instance=ExtResource("8_66spp")]
+[node name="Health" parent="." unique_id=856647450 instance=ExtResource("9_vftay")]
 max_health = 10
 
-[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_a23sr")]
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("10_gx7ka")]
 
-[node name="SoftCollision" parent="." unique_id=1691847556 instance=ExtResource("10_ijd6d")]
+[node name="SoftCollision" parent="." unique_id=1691847556 instance=ExtResource("11_w4cg5")]
 
 [node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
 collision_layer = 0
-collision_mask = 64
-script = ExtResource("10_im3kb")
+collision_mask = 2
+script = ExtResource("12_gm1ub")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]
 shape = SubResource("CircleShape2D_m7yij")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
-[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("12_r1qvq")]
+[node name="BulletSpawner" parent="." unique_id=46448684 instance=ExtResource("13_k8d34")]
+bullet = SubResource("Resource_xpdpy")
 
-[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("13_vaswb")]
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("13_bgege")]
+
+[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("14_vb0ue")]
 position = Vector2(0, 5)
 
 [node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
 collision_layer = 8192
 collision_mask = 0
-script = ExtResource("14_540xx")
+script = ExtResource("15_hmyru")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup" unique_id=1697664644]
 shape = SubResource("CircleShape2D_hg3tk")
@@ -195,9 +205,9 @@ debug_color = Color(0.7647059, 0.16862746, 1, 0)
 
 [node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
 
-[node name="StatusEffects" parent="." unique_id=358155270 instance=ExtResource("16_fdgwp")]
+[node name="StatusEffects" parent="." unique_id=358155270 instance=ExtResource("16_yqt32")]
 
-[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("17_86smx")]
+[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("17_nld11")]
 
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]

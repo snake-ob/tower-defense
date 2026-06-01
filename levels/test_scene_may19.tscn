@@ -7,12 +7,29 @@
 [ext_resource type="PackedScene" uid="uid://br0vmdss5oo6y" path="res://levels/components/Spawners.tscn" id="5_wovpe"]
 [ext_resource type="PackedScene" uid="uid://dx0u6xdq71b5p" path="res://levels/components/EnemySpawner.tscn" id="6_6qm7d"]
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="7_0ms8l"]
+[ext_resource type="PackedScene" uid="uid://d3rbgmlp5jacf" path="res://entities/enemies/trash_mobs/Shooter.tscn" id="8_0ms8l"]
 [ext_resource type="PackedScene" uid="uid://dqbs0170lo6xl" path="res://debug/DebugHUD.tscn" id="8_ll433"]
-[ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/tower/Tower.tscn" id="9_s7vgm"]
+[ext_resource type="Script" uid="uid://vjug8yftufoo" path="res://entities/tower/tower.gd" id="9_s6bmx"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="10_wovpe"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="11_6qm7d"]
+[ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="12_0ms8l"]
 [ext_resource type="PackedScene" uid="uid://bmxpcj677arg0" path="res://entities/King.tscn" id="13_kq4c5"]
+[ext_resource type="Texture2D" uid="uid://cqh1f23oeylb6" path="res://assets/debug/debug-tower.png" id="13_ll433"]
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="14_o5kle"]
+[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="15_3kj30"]
+[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="16_7j85t"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="17_0tlcm"]
+[ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="18_3v6kd"]
+[ext_resource type="PackedScene" uid="uid://bj5dn3chh81pw" path="res://entities/tower/upgrades/Fire.tscn" id="19_83d8u"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="20_jt1x0"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="21_4oq5a"]
+[ext_resource type="PackedScene" uid="uid://bl8tfonurd26k" path="res://entities/tower/upgrades/Poison.tscn" id="22_a0kfw"]
 [ext_resource type="PackedScene" uid="uid://c1fjtahg2rgrr" path="res://entities/enemies/trash_mobs/Biscah.tscn" id="22_ocxck"]
-[ext_resource type="PackedScene" uid="uid://bpnxkvr03pa8n" path="res://entities/enemies/trash_mobs/Piss.tscn" id="23_ggmbk"]
+[ext_resource type="PackedScene" uid="uid://b4vljuua8yrew" path="res://entities/tower/upgrades/Ice.tscn" id="23_6vo8q"]
+[ext_resource type="Script" uid="uid://cjrph8r53kgf5" path="res://common/components/bullet_spawner.gd" id="24_0ms8l"]
 [ext_resource type="PackedScene" uid="uid://cugv18q13sw6f" path="res://entities/tower/Gun.tscn" id="24_6ff2l"]
+[ext_resource type="PackedScene" uid="uid://3sjyslisd0oy" path="res://entities/tower/Bullet.tscn" id="25_ll433"]
+[ext_resource type="Script" uid="uid://w1v2g7vbqlwu" path="res://common/data/bullet_data.gd" id="26_o5kle"]
 
 [sub_resource type="GDScript" id="GDScript_0wynk"]
 script/source = "extends Node2D
@@ -37,20 +54,111 @@ func _setup_nodes(p_node):
 			child._setup(ref)
 
 func _spawn_bullet(p_bullet):
-	print(\"boom\")
 	$Projectiles.add_child(p_bullet)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a47p7"]
 size = Vector2(1268.5, 20)
 
+[sub_resource type="Resource" id="Resource_wcwdc"]
+script = ExtResource("10_wovpe")
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="Resource" id="Resource_mttso"]
+script = ExtResource("11_6qm7d")
+knockback = 2.0
+metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
+
+[sub_resource type="Resource" id="Resource_4qj7r"]
+script = ExtResource("12_0ms8l")
+layer = 18
+mask = 19
+metadata/_custom_type_script = "uid://dxnywa0nlrdku"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
+radius = 171.65663
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mttso"]
+radius = 12.5
+height = 35.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
+radius = 57.0
+
+[sub_resource type="GDScript" id="GDScript_4qj7r"]
+script/source = "#active.gd
+extends State
+
+var bullet_spawner: Node
+var pickup: Node
+
+func _setup(p_ref: Ref):
+	bullet_spawner = p_ref.bullet_spawner
+	pickup = p_ref.pickup
+
+func _enter_state():
+	bullet_spawner.activate()
+
+func _exit_state():
+	bullet_spawner.deactivate()
+
+func _update(delta):
+	if pickup.picked_up:
+		change_state.emit('grabbed')
+"
+
+[sub_resource type="GDScript" id="GDScript_mttso"]
+script/source = "#deactive.gd
+extends State
+
+var bullet_spawner: Node
+
+func _setup(p_ref: Ref):
+	bullet_spawner = p_ref.bullet_spawner
+	
+func _enter_state():
+	bullet_spawner.deactivate()
+"
+
+[sub_resource type="GDScript" id="GDScript_vcivv"]
+script/source = "#grabbed.gd
+extends State
+
+var bullet_spawner: Node
+var pickup: Area2D
+var saved_collision_layer: int
+
+func _setup(p_ref: Ref):
+	bullet_spawner = p_ref.bullet_spawner
+	actor = p_ref.actor
+	pickup = p_ref.pickup
+
+func _enter_state():
+	bullet_spawner.deactivate()
+	saved_collision_layer = actor.collision_layer
+	actor.collision_layer = 0
+
+func _exit_state():
+	actor.collision_layer = saved_collision_layer
+
+func _update(delta):
+	if not pickup.picked_up:
+		change_state.emit('active')
+"
+
+[sub_resource type="Resource" id="Resource_3kj30"]
+script = ExtResource("26_o5kle")
+timing = 0.2
+metadata/_custom_type_script = "uid://w1v2g7vbqlwu"
+
 [node name="Test Scene" type="Node2D" unique_id=1723051521]
 script = SubResource("GDScript_0wynk")
 
 [node name="WaveManager" parent="." unique_id=1242516858 instance=ExtResource("1_ctnw4")]
+wave_budget = 100
 
 [node name="Player" parent="." unique_id=1411166111 instance=ExtResource("2_b6tl4")]
-position = Vector2(572, 318)
+position = Vector2(916, 424)
 
 [node name="Projectiles" type="Node2D" parent="." unique_id=94357809]
 
@@ -66,11 +174,13 @@ position = Vector2(572, 318)
 enemy_scene = ExtResource("7_0ms8l")
 
 [node name="EnemySpawner3" parent="Spawners" unique_id=46500067 instance=ExtResource("6_6qm7d")]
-enemy_scene = ExtResource("23_ggmbk")
-point_cost = 3
+enemy_scene = ExtResource("8_0ms8l")
+point_cost = 10
 spawn_time = 5.0
 
 [node name="Walls" type="StaticBody2D" parent="." unique_id=427719329]
+collision_layer = 4096
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls" unique_id=2128152737]
 position = Vector2(569.75, -19)
@@ -94,8 +204,277 @@ shape = SubResource("RectangleShape2D_a47p7")
 
 [node name="Towers" type="Node" parent="." unique_id=1877579428]
 
-[node name="Tower" parent="Towers" unique_id=337593309 instance=ExtResource("9_s7vgm")]
-position = Vector2(349, 440)
+[node name="Tower" type="CharacterBody2D" parent="Towers" unique_id=337593309]
+modulate = Color(1, 0.2901961, 0.28235295, 1)
+position = Vector2(597, 473)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("9_s6bmx")
+move = SubResource("Resource_wcwdc")
+attack = SubResource("Resource_mttso")
+collision = SubResource("Resource_4qj7r")
+metadata/_edit_group_ = true
+
+[node name="Ref" parent="Towers/Tower" unique_id=1818294794 instance=ExtResource("3_he381")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Towers/Tower" unique_id=189270528]
+position = Vector2(0, 0.15)
+scale = Vector2(0.196875, 0.196875)
+texture = ExtResource("13_ll433")
+
+[node name="DetectZone" type="Area2D" parent="Towers/Tower" unique_id=2106882287]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("14_o5kle")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower/DetectZone" unique_id=690207711]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower" unique_id=132255039]
+position = Vector2(0.5, 13.5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_mttso")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="Pickup" type="Area2D" parent="Towers/Tower" unique_id=1162784583]
+collision_layer = 8192
+collision_mask = 0
+script = ExtResource("15_3kj30")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower/Pickup" unique_id=1697664644]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="Towers/Tower/Pickup" unique_id=639769184]
+position = Vector2(0, 39)
+
+[node name="YSort" parent="Towers/Tower" unique_id=1574641889 instance=ExtResource("16_7j85t")]
+
+[node name="StateMachine" parent="Towers/Tower" unique_id=784147820 instance=ExtResource("17_0tlcm")]
+
+[node name="Active" type="Node" parent="Towers/Tower/StateMachine" unique_id=1029699589]
+script = SubResource("GDScript_4qj7r")
+
+[node name="Deactive" type="Node" parent="Towers/Tower/StateMachine" unique_id=130073470]
+script = SubResource("GDScript_mttso")
+
+[node name="Grabbed" type="Node" parent="Towers/Tower/StateMachine" unique_id=336309190]
+script = SubResource("GDScript_vcivv")
+
+[node name="BulletSpawner" parent="Towers/Tower" unique_id=46448684 instance=ExtResource("18_3v6kd")]
+
+[node name="StatusUpgrades" type="Node" parent="Towers/Tower" unique_id=420670347]
+
+[node name="Fire" parent="Towers/Tower/StatusUpgrades" unique_id=154696335 instance=ExtResource("19_83d8u")]
+
+[node name="PhysicsHandler" parent="Towers/Tower" unique_id=100467294 instance=ExtResource("20_jt1x0")]
+
+[node name="ClickArea" parent="Towers/Tower" unique_id=1628655608 instance=ExtResource("21_4oq5a")]
+
+[node name="Tower4" type="CharacterBody2D" parent="Towers" unique_id=514054859]
+modulate = Color(0.7607843, 0.24705882, 1, 1)
+position = Vector2(338, 214)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("9_s6bmx")
+move = SubResource("Resource_wcwdc")
+attack = SubResource("Resource_mttso")
+collision = SubResource("Resource_4qj7r")
+metadata/_edit_group_ = true
+
+[node name="Ref" parent="Towers/Tower4" unique_id=1584599564 instance=ExtResource("3_he381")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Towers/Tower4" unique_id=274014043]
+position = Vector2(0, 0.15)
+scale = Vector2(0.196875, 0.196875)
+texture = ExtResource("13_ll433")
+
+[node name="DetectZone" type="Area2D" parent="Towers/Tower4" unique_id=1903708027]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("14_o5kle")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower4/DetectZone" unique_id=551891087]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower4" unique_id=249475318]
+position = Vector2(0.5, 13.5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_mttso")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="Pickup" type="Area2D" parent="Towers/Tower4" unique_id=1567313201]
+collision_layer = 8192
+collision_mask = 0
+script = ExtResource("15_3kj30")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower4/Pickup" unique_id=1577496439]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="Towers/Tower4/Pickup" unique_id=472063281]
+position = Vector2(0, 39)
+
+[node name="YSort" parent="Towers/Tower4" unique_id=887207481 instance=ExtResource("16_7j85t")]
+
+[node name="StateMachine" parent="Towers/Tower4" unique_id=1771316972 instance=ExtResource("17_0tlcm")]
+
+[node name="Active" type="Node" parent="Towers/Tower4/StateMachine" unique_id=903840207]
+script = SubResource("GDScript_4qj7r")
+
+[node name="Deactive" type="Node" parent="Towers/Tower4/StateMachine" unique_id=1441532429]
+script = SubResource("GDScript_mttso")
+
+[node name="Grabbed" type="Node" parent="Towers/Tower4/StateMachine" unique_id=803895816]
+script = SubResource("GDScript_vcivv")
+
+[node name="BulletSpawner" parent="Towers/Tower4" unique_id=1504759500 instance=ExtResource("18_3v6kd")]
+
+[node name="StatusUpgrades" type="Node" parent="Towers/Tower4" unique_id=109260900]
+
+[node name="Poison" parent="Towers/Tower4/StatusUpgrades" unique_id=1932182809 instance=ExtResource("22_a0kfw")]
+
+[node name="PhysicsHandler" parent="Towers/Tower4" unique_id=1741398537 instance=ExtResource("20_jt1x0")]
+
+[node name="ClickArea" parent="Towers/Tower4" unique_id=1139756082 instance=ExtResource("21_4oq5a")]
+
+[node name="Tower2" type="CharacterBody2D" parent="Towers" unique_id=1450328308]
+modulate = Color(0.34901962, 0.80784315, 1, 1)
+position = Vector2(874, 205)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("9_s6bmx")
+move = SubResource("Resource_wcwdc")
+attack = SubResource("Resource_mttso")
+collision = SubResource("Resource_4qj7r")
+metadata/_edit_group_ = true
+
+[node name="Ref" parent="Towers/Tower2" unique_id=463833678 instance=ExtResource("3_he381")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Towers/Tower2" unique_id=419991574]
+position = Vector2(0, 0.15)
+scale = Vector2(0.196875, 0.196875)
+texture = ExtResource("13_ll433")
+
+[node name="DetectZone" type="Area2D" parent="Towers/Tower2" unique_id=351085729]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("14_o5kle")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower2/DetectZone" unique_id=1555326111]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower2" unique_id=759676064]
+position = Vector2(0.5, 13.5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_mttso")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="Pickup" type="Area2D" parent="Towers/Tower2" unique_id=327381159]
+collision_layer = 8192
+collision_mask = 0
+script = ExtResource("15_3kj30")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower2/Pickup" unique_id=1438639574]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="Towers/Tower2/Pickup" unique_id=1659197471]
+position = Vector2(0, 39)
+
+[node name="YSort" parent="Towers/Tower2" unique_id=477865518 instance=ExtResource("16_7j85t")]
+
+[node name="StateMachine" parent="Towers/Tower2" unique_id=505426190 instance=ExtResource("17_0tlcm")]
+
+[node name="Active" type="Node" parent="Towers/Tower2/StateMachine" unique_id=822759800]
+script = SubResource("GDScript_4qj7r")
+
+[node name="Deactive" type="Node" parent="Towers/Tower2/StateMachine" unique_id=406449377]
+script = SubResource("GDScript_mttso")
+
+[node name="Grabbed" type="Node" parent="Towers/Tower2/StateMachine" unique_id=1074931563]
+script = SubResource("GDScript_vcivv")
+
+[node name="BulletSpawner" parent="Towers/Tower2" unique_id=941120545 instance=ExtResource("18_3v6kd")]
+
+[node name="StatusUpgrades" type="Node" parent="Towers/Tower2" unique_id=1055975993]
+
+[node name="Ice" parent="Towers/Tower2/StatusUpgrades" unique_id=1632297525 instance=ExtResource("23_6vo8q")]
+
+[node name="PhysicsHandler" parent="Towers/Tower2" unique_id=828942718 instance=ExtResource("20_jt1x0")]
+
+[node name="ClickArea" parent="Towers/Tower2" unique_id=556021614 instance=ExtResource("21_4oq5a")]
+
+[node name="Tower3" type="CharacterBody2D" parent="Towers" unique_id=1850202941]
+position = Vector2(591, 261)
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("9_s6bmx")
+move = SubResource("Resource_wcwdc")
+attack = SubResource("Resource_mttso")
+collision = SubResource("Resource_4qj7r")
+metadata/_edit_group_ = true
+
+[node name="Ref" parent="Towers/Tower3" unique_id=1533726718 instance=ExtResource("3_he381")]
+
+[node name="Sprite2D" type="Sprite2D" parent="Towers/Tower3" unique_id=818083642]
+position = Vector2(0, 0.15)
+scale = Vector2(0.196875, 0.196875)
+texture = ExtResource("13_ll433")
+
+[node name="DetectZone" type="Area2D" parent="Towers/Tower3" unique_id=2072905937]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("14_o5kle")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower3/DetectZone" unique_id=1322405838]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower3" unique_id=221691660]
+position = Vector2(0.5, 13.5)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_mttso")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="Pickup" type="Area2D" parent="Towers/Tower3" unique_id=1544540912]
+collision_layer = 8192
+collision_mask = 0
+script = ExtResource("15_3kj30")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Towers/Tower3/Pickup" unique_id=355172250]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="Towers/Tower3/Pickup" unique_id=74598075]
+position = Vector2(0, 39)
+
+[node name="YSort" parent="Towers/Tower3" unique_id=2075010904 instance=ExtResource("16_7j85t")]
+
+[node name="StateMachine" parent="Towers/Tower3" unique_id=850046846 instance=ExtResource("17_0tlcm")]
+
+[node name="Active" type="Node" parent="Towers/Tower3/StateMachine" unique_id=588360877]
+script = SubResource("GDScript_4qj7r")
+
+[node name="Deactive" type="Node" parent="Towers/Tower3/StateMachine" unique_id=61872830]
+script = SubResource("GDScript_mttso")
+
+[node name="Grabbed" type="Node" parent="Towers/Tower3/StateMachine" unique_id=100089765]
+script = SubResource("GDScript_vcivv")
+
+[node name="BulletSpawner" type="Node2D" parent="Towers/Tower3" unique_id=138835291]
+script = ExtResource("24_0ms8l")
+BulletScene = ExtResource("25_ll433")
+bullet = SubResource("Resource_3kj30")
+
+[node name="StatusUpgrades" type="Node" parent="Towers/Tower3" unique_id=185598119]
+
+[node name="PhysicsHandler" parent="Towers/Tower3" unique_id=1962401195 instance=ExtResource("20_jt1x0")]
+
+[node name="ClickArea" parent="Towers/Tower3" unique_id=156174171 instance=ExtResource("21_4oq5a")]
 
 [node name="Disabled" type="Node" parent="." unique_id=953069425]
 process_mode = 4
@@ -106,7 +485,16 @@ point_cost = 2
 spawn_time = 3.0
 
 [node name="King" parent="." unique_id=463850158 instance=ExtResource("13_kq4c5")]
-position = Vector2(737, 168)
+position = Vector2(598, 375)
 
 [node name="Gun" parent="." unique_id=1235901002 instance=ExtResource("24_6ff2l")]
-position = Vector2(458, 265)
+position = Vector2(254, 465)
+
+[connection signal="body_entered" from="Towers/Tower/DetectZone" to="Towers/Tower/DetectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="Towers/Tower/DetectZone" to="Towers/Tower/DetectZone" method="_on_body_exited"]
+[connection signal="body_entered" from="Towers/Tower4/DetectZone" to="Towers/Tower4/DetectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="Towers/Tower4/DetectZone" to="Towers/Tower4/DetectZone" method="_on_body_exited"]
+[connection signal="body_entered" from="Towers/Tower2/DetectZone" to="Towers/Tower2/DetectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="Towers/Tower2/DetectZone" to="Towers/Tower2/DetectZone" method="_on_body_exited"]
+[connection signal="body_entered" from="Towers/Tower3/DetectZone" to="Towers/Tower3/DetectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="Towers/Tower3/DetectZone" to="Towers/Tower3/DetectZone" method="_on_body_exited"]

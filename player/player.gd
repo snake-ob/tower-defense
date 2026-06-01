@@ -15,6 +15,7 @@ func _ready():
 	_setup_nodes(self)
 	GlobalClick.register_player(self, build_radius)
 	$StateMachine._set_state('idle')
+	$Hurtbox.got_hit.connect(_on_got_hit)
 	
 func _setup_ref():
 	ref.set('input_controller', $InputController)
@@ -34,3 +35,7 @@ func _setup_nodes(p_node):
 			
 func take_hit(hit):
 	pass
+
+func _on_got_hit(hit):
+	var knockback_direction = global_position - hit.position
+	velocity += knockback_direction * hit.knockback

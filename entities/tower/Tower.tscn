@@ -30,7 +30,7 @@ mask = 19
 metadata/_custom_type_script = "uid://dxnywa0nlrdku"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
-radius = 380.29593
+radius = 171.65663
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mttso"]
 radius = 12.5

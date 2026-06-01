@@ -78,6 +78,7 @@ ui_down={
 2d_physics/layer_9="Enemies"
 2d_physics/layer_10="Enemy Hurtbox"
 2d_physics/layer_11="Projectile Hurtbox"
+2d_physics/layer_13="Boundaries"
 2d_physics/layer_14="Pickups"
 
 [physics]
