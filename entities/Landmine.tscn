@@ -133,7 +133,7 @@ script = SubResource("GDScript_ofy1l")
 
 [node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
 collision_layer = 0
-collision_mask = 257
+collision_mask = 258
 script = ExtResource("9_567sl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]

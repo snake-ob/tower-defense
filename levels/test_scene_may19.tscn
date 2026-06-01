@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="7_0ms8l"]
 [ext_resource type="PackedScene" uid="uid://dqbs0170lo6xl" path="res://debug/DebugHUD.tscn" id="8_ll433"]
 [ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/tower/Tower.tscn" id="9_s7vgm"]
+[ext_resource type="PackedScene" uid="uid://bmxpcj677arg0" path="res://entities/King.tscn" id="13_kq4c5"]
 [ext_resource type="PackedScene" uid="uid://c1fjtahg2rgrr" path="res://entities/enemies/trash_mobs/Biscah.tscn" id="22_ocxck"]
 [ext_resource type="PackedScene" uid="uid://bpnxkvr03pa8n" path="res://entities/enemies/trash_mobs/Piss.tscn" id="23_ggmbk"]
 [ext_resource type="PackedScene" uid="uid://cugv18q13sw6f" path="res://entities/tower/Gun.tscn" id="24_6ff2l"]
@@ -64,6 +65,11 @@ position = Vector2(572, 318)
 [node name="EnemySpawner" parent="Spawners" unique_id=2052432875 instance=ExtResource("6_6qm7d")]
 enemy_scene = ExtResource("7_0ms8l")
 
+[node name="EnemySpawner3" parent="Spawners" unique_id=46500067 instance=ExtResource("6_6qm7d")]
+enemy_scene = ExtResource("23_ggmbk")
+point_cost = 3
+spawn_time = 5.0
+
 [node name="Walls" type="StaticBody2D" parent="." unique_id=427719329]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Walls" unique_id=2128152737]
@@ -99,10 +105,8 @@ enemy_scene = ExtResource("22_ocxck")
 point_cost = 2
 spawn_time = 3.0
 
-[node name="EnemySpawner3" parent="Disabled" unique_id=46500067 instance=ExtResource("6_6qm7d")]
-enemy_scene = ExtResource("23_ggmbk")
-point_cost = 3
-spawn_time = 5.0
+[node name="King" parent="." unique_id=463850158 instance=ExtResource("13_kq4c5")]
+position = Vector2(737, 168)
 
-[node name="Gun" parent="." unique_id=1228859849 instance=ExtResource("24_6ff2l")]
-position = Vector2(461, 156)
+[node name="Gun" parent="." unique_id=1235901002 instance=ExtResource("24_6ff2l")]
+position = Vector2(458, 265)

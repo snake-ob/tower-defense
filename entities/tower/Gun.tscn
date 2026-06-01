@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="11_43kon"]
 [ext_resource type="Script" uid="uid://w1v2g7vbqlwu" path="res://common/data/bullet_data.gd" id="12_dd17g"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="13_licsk"]
+[ext_resource type="Script" uid="uid://dptqb2fjb1mat" path="res://common/components/click_area.gd" id="15_h6gae"]
 
 [sub_resource type="Resource" id="Resource_wcwdc"]
 script = ExtResource("2_dd17g")
@@ -96,8 +97,11 @@ knockback = 50.0
 acceleration = 700
 metadata/_custom_type_script = "uid://w1v2g7vbqlwu"
 
-[node name="Gun" type="StaticBody2D" unique_id=337593309]
-collision_layer = 512
+[sub_resource type="CircleShape2D" id="CircleShape2D_7hq8g"]
+radius = 26.019224
+
+[node name="Gun" type="CharacterBody2D" unique_id=539335050]
+collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_17lac")
 move = SubResource("Resource_wcwdc")
@@ -126,7 +130,7 @@ shape = SubResource("CapsuleShape2D_mttso")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
-collision_layer = 4
+collision_layer = 8192
 collision_mask = 0
 script = ExtResource("8_slstm")
 
@@ -153,6 +157,14 @@ bullet = SubResource("Resource_licsk")
 [node name="StatusUpgrades" type="Node" parent="." unique_id=420670347]
 
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("13_licsk")]
+
+[node name="ClickArea" type="Area2D" parent="." unique_id=1628655608]
+collision_layer = 8192
+collision_mask = 0
+script = ExtResource("15_h6gae")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea" unique_id=1080806075]
+shape = SubResource("CircleShape2D_7hq8g")
 
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

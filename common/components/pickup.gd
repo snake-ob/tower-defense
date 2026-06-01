@@ -19,7 +19,8 @@ func _setup(p_ref: Ref):
 	physics = p_ref.physics
 
 func _get_picked_up(p_grab_pos, p_drop_pos):
-	actor.velocity = Vector2.ZERO
+	if "velocity" in actor:
+		actor.velocity = Vector2.ZERO
 	grab_pos = p_grab_pos
 	drop_pos = p_drop_pos
 	picked_up = true
@@ -43,9 +44,13 @@ func _get_put_down():
 
 	grab_pos = null
 	picked_up = false
+	
+
+
 
 func _get_thrown(throw: Dictionary):
-	actor.velocity = Vector2.ZERO
+	if "velocity" in actor:
+		actor.velocity = Vector2.ZERO
 
 	var dir = throw.get("direction", Vector2.DOWN)
 	var speed = throw.get("speed", 500.0)

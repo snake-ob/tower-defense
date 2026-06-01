@@ -31,3 +31,6 @@ func _setup_nodes(p_node):
 			child._setup(ref)
 		if p_node.get_child_count() > 0:
 			_setup_nodes(child)
+			
+func take_hit(hit):
+	pass

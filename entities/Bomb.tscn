@@ -113,7 +113,6 @@ func _enter_state():
 
 [node name="Bomb" type="CharacterBody2D" unique_id=2117611068]
 collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_e7o24")
 move = SubResource("Resource_kuyaw")
 ExplodeScene = ExtResource("3_kuyaw")
@@ -142,7 +141,6 @@ shape = SubResource("CircleShape2D_aueyi")
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("5_xre7m")]
 
 [node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("7_2kjrx")]
-collision_layer = 1
 
 [node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("8_dtqr1")]
 

@@ -6,6 +6,8 @@
 radius = 365.43674
 
 [node name="DetectZone" type="Area2D" unique_id=2106882287]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_4neok")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=690207711]

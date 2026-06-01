@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Tower Defense"
-run/main_scene="uid://c4ynrou4cc2wg"
+run/main_scene="uid://clxww6a50qog8"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -67,7 +67,18 @@ ui_down={
 
 [layer_names]
 
+2d_physics/layer_1="Walls"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="Player Hurtbox"
+2d_physics/layer_4="Towers"
+2d_physics/layer_5="Projectiles"
+2d_physics/layer_6="Traps"
+2d_physics/layer_7="King"
 2d_physics/layer_8="SoftCollision"
+2d_physics/layer_9="Enemies"
+2d_physics/layer_10="Enemy Hurtbox"
+2d_physics/layer_11="Projectile Hurtbox"
+2d_physics/layer_14="Pickups"
 
 [physics]
 

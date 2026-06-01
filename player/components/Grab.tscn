@@ -6,6 +6,8 @@
 radius = 53.235325
 
 [node name="Grab" type="Area2D" unique_id=1402749356]
+collision_layer = 0
+collision_mask = 8192
 script = ExtResource("1_cajne")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1527922279]

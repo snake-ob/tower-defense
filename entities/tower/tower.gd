@@ -27,5 +27,6 @@ func _setup_ref():
 	ref.set('collision', collision)
 	ref.set('physics', $PhysicsHandler)
 	ref.set('status_upgrades', $StatusUpgrades)
+	ref.set('sprite', $Sprite2D)
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())

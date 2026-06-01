@@ -38,28 +38,25 @@ func _spawn_bullet(p_bullet):
 script = SubResource("GDScript_rbeei")
 
 [node name="BuildBag" parent="." unique_id=2000449592 instance=ExtResource("1_e1lui")]
-position = Vector2(257, 120)
+position = Vector2(547, 181)
 
 [node name="FenceBuilder" parent="." unique_id=1898883992 instance=ExtResource("1_srqqq")]
 
 [node name="Player" parent="." unique_id=1411166111 instance=ExtResource("3_8k61s")]
-position = Vector2(433, 390)
+position = Vector2(1001, 465)
 
 [node name="King" parent="." unique_id=463850158 instance=ExtResource("4_buj8u")]
-position = Vector2(630, 223)
+position = Vector2(531, 273)
 
 [node name="Bomb" parent="." unique_id=2117611068 instance=ExtResource("6_rbeei")]
-position = Vector2(454, 218)
+position = Vector2(447, 180)
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("7_t21s6")]
 
 [node name="Projectiles" type="Node" parent="." unique_id=1884160503]
 
-[node name="Enemy" parent="." unique_id=88513531 instance=ExtResource("5_buj8u")]
-position = Vector2(50, 95)
-
 [node name="Landmine" parent="." unique_id=1239683946 instance=ExtResource("8_al25t")]
-position = Vector2(945, 254)
+position = Vector2(551, 377)
 
 [node name="Caltropes" parent="." unique_id=872904016 instance=ExtResource("9_dny0r")]
 position = Vector2(267, 248)
@@ -71,4 +68,7 @@ position = Vector2(278, 239)
 position = Vector2(279, 255)
 
 [node name="Baggie" parent="." unique_id=2045395561 instance=ExtResource("10_0nd8g")]
-position = Vector2(255, 458)
+position = Vector2(651, 180)
+
+[node name="Enemy" parent="." unique_id=88513531 instance=ExtResource("5_buj8u")]
+position = Vector2(-486, 94)

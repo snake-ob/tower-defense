@@ -29,7 +29,7 @@ func _setup(p_ref):
 func _physics_update(delta):
 	physics._process_friction(delta)
 	for body in detect_zone.active_targets:
-		body.velocity = body.velocity / 1.2
+		body.velocity = body.velocity / 1.05
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
@@ -40,7 +40,6 @@ radius = 1.0
 
 [node name="Caltropes" type="CharacterBody2D" unique_id=872904016]
 collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_83ndg")
 move = SubResource("Resource_wai3g")
 
@@ -63,7 +62,7 @@ script = SubResource("GDScript_ti15s")
 
 [node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
 collision_layer = 0
-collision_mask = 257
+collision_mask = 258
 script = ExtResource("6_7svj1")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]

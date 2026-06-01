@@ -109,7 +109,6 @@ func _enter_state():
 
 [node name="Baggie" type="CharacterBody2D" unique_id=2045395561]
 collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_a2oed")
 move = SubResource("Resource_xh07e")
 ExplodeScene = ExtResource("3_roukr")
@@ -145,6 +144,5 @@ script = SubResource("GDScript_ggnc5")
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("6_1o8ba")]
 
 [node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("7_ggnc5")]
-collision_layer = 1
 
 [node name="SoftCollision" parent="." unique_id=1691847556 instance=ExtResource("10_roukr")]

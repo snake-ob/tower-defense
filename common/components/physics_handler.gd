@@ -16,7 +16,6 @@ var is_active: bool = false
 func _setup(p_ref):
 	actor = p_ref.actor
 	if p_ref.has('sprite'):
-		
 		sprite = p_ref.sprite
 
 func _physics_process(delta: float) -> void:

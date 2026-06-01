@@ -100,8 +100,8 @@ func _update(delta):
 		change_state.emit('active')
 "
 
-[node name="Tower" type="StaticBody2D" unique_id=337593309]
-collision_layer = 512
+[node name="Tower" type="CharacterBody2D" unique_id=514054859]
+collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_ljppj")
 move = SubResource("Resource_wcwdc")
@@ -131,7 +131,7 @@ shape = SubResource("CapsuleShape2D_mttso")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
-collision_layer = 4
+collision_layer = 8192
 collision_mask = 0
 script = ExtResource("9_mttso")
 

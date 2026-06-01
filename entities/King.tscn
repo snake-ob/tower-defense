@@ -56,7 +56,7 @@ func exit_state():
 "
 
 [node name="King" type="CharacterBody2D" unique_id=463850158]
-collision_layer = 0
+collision_layer = 64
 script = ExtResource("1_ij6gk")
 
 [node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("1_3o21c")]
@@ -92,4 +92,3 @@ script = SubResource("GDScript_ahdhg")
 [node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("8_5x2kh")]
 
 [node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("9_ahdhg")]
-collision_layer = 1

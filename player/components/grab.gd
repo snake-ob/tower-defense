@@ -26,13 +26,6 @@ func _setup(p_ref: Ref):
 func _physics_process(deltad):
 	direction = actor.global_position.direction_to(get_global_mouse_position())
 	drop_pos.position = drop_anchor + (drop_distance * direction)
-	
-func _unhandled_input(event: InputEvent) -> void:
-	if grabbed_pickup == null:
-		return
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		if event.pressed:
-			_throw()
 
 func _on_area_entered(area: Node2D):
 	if area not in grabbable_objects:
@@ -55,6 +48,15 @@ func _pickup_object(pickup):
 	
 func _put_down():
 	grabbed_pickup._get_put_down()
+	grabbed_pickup = null
+	
+func _drop():
+	var random_angle: float = randf_range(0, TAU)
+	var throw_dir: Vector2 = Vector2.RIGHT.rotated(random_angle)
+	var random_speed: float = randf_range(100.0, 150)
+	
+	var drop_throw = {"direction": throw_dir, "speed": random_speed, "arc": 300}
+	grabbed_pickup._get_thrown(drop_throw)
 	grabbed_pickup = null
 
 func _throw():

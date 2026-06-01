@@ -61,21 +61,23 @@ func _physics_update(delta):
 		return
 		
 	physics._process_friction(delta)
-	
-func _process_action():
-	if grab.grabbed_pickup != null:
-		grab._throw()
-		return
-	
-	if grab.get_grabbable() != []:
-		change_state.emit('grab')
 
 func _on_object_clicked(p_actor):
-	if ! p_actor.ref.has('pickup'):
+	if p_actor == null:
+		if grab.grabbed_pickup != null:
+			grab._throw()
 		return
+
+	if !p_actor.ref.has('pickup'):
+		return
+		
 	if p_actor.ref.pickup in grab.get_grabbable():
+		if grab.grabbed_pickup != null: 
+			grab._drop()
+			
 		grab.grabbed_pickup = p_actor.ref.pickup
 		change_state.emit('grab')
+		get_viewport().set_input_as_handled()
 "
 
 [sub_resource type="GDScript" id="GDScript_5qrx2"]
@@ -160,8 +162,7 @@ radius = 32.01562
 radius = 365.43674
 
 [node name="Player" type="CharacterBody2D" unique_id=1411166111 groups=["Player"]]
-collision_layer = 65537
-collision_mask = 513
+collision_layer = 65538
 script = ExtResource("1_rkbax")
 move = ExtResource("2_g6k8r")
 
@@ -193,7 +194,7 @@ shape = SubResource("CircleShape2D_aueyi")
 
 [node name="Grab" type="Area2D" parent="." unique_id=1402749356]
 collision_layer = 0
-collision_mask = 4
+collision_mask = 8192
 script = ExtResource("8_ndjxb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Grab" unique_id=1527922279]
@@ -227,7 +228,7 @@ script = SubResource("GDScript_5qrx2")
 script = SubResource("GDScript_b32pr")
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=88604661]
-collision_layer = 0
+collision_layer = 4
 collision_mask = 0
 input_pickable = false
 monitoring = false
@@ -252,6 +253,8 @@ debug_color = Color(0.85653824, 0.6675506, 0, 0)
 max_health = 10
 
 [node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
+collision_layer = 0
+collision_mask = 0
 input_pickable = false
 script = ExtResource("14_v4f8b")
 
