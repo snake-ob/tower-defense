@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="4_mttso"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="4_tm4kr"]
 [ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="7_3mcmt"]
+[ext_resource type="Script" uid="uid://dljhspfti72ng" path="res://entities/tower/slots.gd" id="7_6bp5w"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="9_mttso"]
 [ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="10_mttso"]
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="10_wcwdc"]
@@ -28,6 +29,9 @@ script = ExtResource("4_mttso")
 layer = 18
 mask = 19
 metadata/_custom_type_script = "uid://dxnywa0nlrdku"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_te46s"]
+radius = 35.22783
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
 radius = 171.65663
@@ -110,10 +114,26 @@ collision = SubResource("Resource_4qj7r")
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("4_tm4kr")]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=189270528]
+[node name="Body" type="Node2D" parent="." unique_id=1797290680]
+
+[node name="Sprite2D" type="Sprite2D" parent="Body" unique_id=189270528]
 position = Vector2(0, 0.15)
 scale = Vector2(0.196875, 0.196875)
 texture = ExtResource("1_6lyba")
+
+[node name="Slots" type="Area2D" parent="Body" unique_id=1304174111]
+collision_layer = 0
+collision_mask = 16384
+script = ExtResource("7_6bp5w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Slots" unique_id=129321855]
+shape = SubResource("CircleShape2D_te46s")
+
+[node name="PosTwo" type="Marker2D" parent="Body/Slots" unique_id=2029374884]
+position = Vector2(9, 0)
+
+[node name="PosOne" type="Marker2D" parent="Body/Slots" unique_id=651003117]
+position = Vector2(-7, 0)
 
 [node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
 collision_layer = 0

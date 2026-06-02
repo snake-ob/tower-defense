@@ -1,0 +1,17 @@
+ENGINES
+Keeping a running document of systems since I keep forgetting how they are built
+================================================================================
+CLICK AREAS
+
+Grab looks to Pickups and keeps list of Pickups in proximity
+ClickArea Signals up to GlobalClick bus.
+Player's Idle and walk state listen to GlobalClick bus signal.
+If Clicked actor has Pickup AND in proximity: Grab Pickup
+================================================================================
+GEM UPGRADES
+
+Gem contains a reference to a "Rune" scene
+"Rune" scene slots into the tower (in slots)
+"Rune" contain reference to Gem scenes, and gem pops out when tower is overloaded
+Tower runes pass "fire", "ice", "poison" to bullets
+================================================================================

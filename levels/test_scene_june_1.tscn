@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://d2j6wh6p530b3"]
+
+[ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="1_i44b8"]
+[ext_resource type="PackedScene" uid="uid://dlxx53128g2u2" path="res://pickups/Gem.tscn" id="2_8siyk"]
+[ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/tower/Tower.tscn" id="3_8siyk"]
+[ext_resource type="Script" uid="uid://blwvvhftqidth" path="res://levels/components/items.gd" id="4_m1ovu"]
+
+[node name="TestSceneJune1" type="Node2D" unique_id=1179969449]
+
+[node name="Player" parent="." unique_id=1411166111 instance=ExtResource("1_i44b8")]
+position = Vector2(611, 289)
+
+[node name="Gem2" parent="." unique_id=613466188 instance=ExtResource("2_8siyk")]
+position = Vector2(450, 191)
+
+[node name="Gem3" parent="." unique_id=1103657790 instance=ExtResource("2_8siyk")]
+position = Vector2(343, 184)
+
+[node name="Gem" parent="." unique_id=32548241 instance=ExtResource("2_8siyk")]
+position = Vector2(165, 206)
+
+[node name="Tower" parent="." unique_id=514054859 instance=ExtResource("3_8siyk")]
+position = Vector2(352, 394)
+
+[node name="Items" type="Node2D" parent="." unique_id=908024208]
+script = ExtResource("4_m1ovu")

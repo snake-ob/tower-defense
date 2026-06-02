@@ -1,7 +1,7 @@
 extends Node
 
 var actor: Node2D
-var sprite: Sprite2D
+var sprite: Node
 
 @export var gravity: float = 1200.0
 @export var bounce_elasticity: float = 0.5
@@ -15,7 +15,9 @@ var is_active: bool = false
 
 func _setup(p_ref):
 	actor = p_ref.actor
-	if p_ref.has('sprite'):
+	if p_ref.has('body'):
+		sprite = p_ref.body
+	elif p_ref.has('sprite'):
 		sprite = p_ref.sprite
 
 func _physics_process(delta: float) -> void:

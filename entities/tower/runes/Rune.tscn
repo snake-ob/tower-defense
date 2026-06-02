@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cct5068qu0bqo"]
+
+[ext_resource type="Texture2D" uid="uid://dp4bjniljpirk" path="res://assets/debug/Screenshot 2026-06-01 185553.png" id="1_cqd1o"]
+[ext_resource type="Script" uid="uid://dnd2ofy8ufxih" path="res://entities/tower/runes/rune.gd" id="1_dphmr"]
+
+[node name="Rune" type="Node2D" unique_id=1065490657]
+script = ExtResource("1_dphmr")
+GemScene = "uid://dlxx53128g2u2"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1562138296]
+position = Vector2(-3.5762787e-07, 0)
+scale = Vector2(0.21610169, 0.1655844)
+texture = ExtResource("1_cqd1o")
