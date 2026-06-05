@@ -53,9 +53,10 @@ func _put_down():
 func _drop():
 	var random_angle: float = randf_range(0, TAU)
 	var throw_dir: Vector2 = Vector2.RIGHT.rotated(random_angle)
-	var random_speed: float = randf_range(100.0, 150)
+	var random_speed: float = randf_range(1.0, 1.5)
 	
 	var drop_throw = {"direction": throw_dir, "speed": random_speed, "arc": 300}
+	print(random_speed)
 	grabbed_pickup._get_thrown(drop_throw)
 	grabbed_pickup = null
 

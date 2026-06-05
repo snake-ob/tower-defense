@@ -53,7 +53,7 @@ func _get_thrown(throw: Dictionary):
 		actor.velocity = Vector2.ZERO
 
 	var dir = throw.get("direction", Vector2.DOWN)
-	var speed = throw.get("speed", 500.0)
+	var speed = throw.get("speed", 100.0)
 	var arc = throw.get("arc", 300.0)
 	thrown = true
 	picked_up = false

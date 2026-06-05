@@ -8,15 +8,15 @@
 [ext_resource type="Texture2D" uid="uid://spyncwb82vxs" path="res://assets/sprites/characters/Player-Sheet.png" id="6_v4f8b"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_d4g0h"]
 [ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="8_ndjxb"]
+[ext_resource type="Script" uid="uid://ywkx148opncf" path="res://player/ani_manager.gd" id="8_v4f8b"]
 [ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="9_mhpjh"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_ndjxb"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="11_b32pr"]
-[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="12_hbkom"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="14_d4g0h"]
-[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="14_v4f8b"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqcbf"]
-size = Vector2(41, 21)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d4g0h"]
+radius = 3.0
+height = 14.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d4g0h"]
 atlas = ExtResource("6_v4f8b")
@@ -114,7 +114,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_uewl2")
 }],
 "loop": true,
-"name": &"B_Carry",
+"name": &"b_carry",
 "speed": 5.0
 }, {
 "frames": [{
@@ -122,7 +122,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_ofhxi")
 }],
 "loop": true,
-"name": &"B_Hold",
+"name": &"b_hold",
 "speed": 5.0
 }, {
 "frames": [{
@@ -130,7 +130,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_yu5hk")
 }],
 "loop": true,
-"name": &"B_Idle",
+"name": &"b_idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -147,7 +147,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_8nth8")
 }],
 "loop": true,
-"name": &"B_Walk",
+"name": &"b_walk",
 "speed": 5.0
 }, {
 "frames": [{
@@ -164,7 +164,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_8eyfg")
 }],
 "loop": true,
-"name": &"Carry",
+"name": &"f_carry",
 "speed": 5.0
 }, {
 "frames": [{
@@ -172,7 +172,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_76mgg")
 }],
 "loop": true,
-"name": &"Hold",
+"name": &"f_hold",
 "speed": 5.0
 }, {
 "frames": [{
@@ -180,7 +180,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_t8epa")
 }],
 "loop": true,
-"name": &"Idle",
+"name": &"f_idle",
 "speed": 5.0
 }, {
 "frames": [{
@@ -197,15 +197,15 @@ animations = [{
 "texture": SubResource("AtlasTexture_u8vxv")
 }],
 "loop": true,
-"name": &"Walk",
+"name": &"f_walk",
 "speed": 5.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
-radius = 1.0
+radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kqn5r"]
-radius = 53.235325
+radius = 16.0
 
 [sub_resource type="GDScript" id="GDScript_ndjxb"]
 script/source = "#idle.gd
@@ -260,6 +260,9 @@ func _setup(p_ref: Ref):
 	actor = p_ref.actor
 	grab = p_ref.grab
 	input_controller = p_ref.input_controller
+	
+func _enter_state():
+	print('walk')
 
 func _physics_update(delta):
 	if Input.is_action_just_pressed('ui_select'):
@@ -293,10 +296,12 @@ func _setup(p_ref: Ref):
 	actor = p_ref.actor
 	grab_pos = grab.grab_pos
 	drop_pos = grab.drop_pos
+	actor = p_ref.actor
 
 func _enter_state():
 	pickup = grab.grabbed_pickup
 	grab._pickup_object(pickup)
+	actor.holding = true
 	# Could likely do an animation here
 	change_state.emit('idle')
 
@@ -321,13 +326,7 @@ func get_closest_node(p_nodes: Array) -> Node2D:
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_d4g0h"]
-radius = 27.018513
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_v4f8b"]
-radius = 32.01562
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
-radius = 365.43674
+radius = 5.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1411166111 groups=["Player"]]
 collision_layer = 2
@@ -336,8 +335,9 @@ script = ExtResource("1_rkbax")
 move = ExtResource("2_g6k8r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=547035760]
-position = Vector2(0.5, 9.5)
-shape = SubResource("RectangleShape2D_aqcbf")
+position = Vector2(0, 7)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_d4g0h")
 
 [node name="InputController" type="Node" parent="." unique_id=231094567]
 script = ExtResource("3_g1dw6")
@@ -350,7 +350,10 @@ script = ExtResource("3_g1dw6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals" unique_id=1240261556]
 sprite_frames = SubResource("SpriteFrames_qjkh3")
-animation = &"Hold"
+animation = &"b_carry"
+
+[node name="AniManager" type="Node" parent="Visuals" unique_id=863580820]
+script = ExtResource("8_v4f8b")
 
 [node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
 collision_layer = 128
@@ -359,6 +362,7 @@ script = ExtResource("7_d4g0h")
 push_force = 400.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
+position = Vector2(0, 3)
 shape = SubResource("CircleShape2D_aueyi")
 
 [node name="Grab" type="Area2D" parent="." unique_id=1402749356]
@@ -371,15 +375,15 @@ shape = SubResource("CircleShape2D_kqn5r")
 debug_color = Color(0.7647059, 0.16862746, 1, 0)
 
 [node name="GrabPos" type="Node2D" parent="Grab" unique_id=2006151343]
-position = Vector2(0, -31)
+position = Vector2(0, -10)
 
 [node name="DropPos" type="Marker2D" parent="Grab" unique_id=275202154]
 gizmo_extents = 64.8
 
 [node name="ColorRect" type="ColorRect" parent="Grab/DropPos" unique_id=978890504]
-offset_left = -5.0
-offset_top = -4.0
-offset_right = 4.0
+offset_left = -3.0
+offset_top = 1.0
+offset_right = 2.0
 offset_bottom = 6.0
 color = Color(0.29411766, 1, 1, 0.5372549)
 
@@ -407,29 +411,5 @@ script = ExtResource("11_b32pr")
 shape = SubResource("CircleShape2D_d4g0h")
 debug_color = Color(0.9647059, 0, 0, 0)
 
-[node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
-collision_layer = 0
-collision_mask = 0
-input_pickable = false
-monitorable = false
-script = ExtResource("12_hbkom")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1488120918]
-shape = SubResource("CircleShape2D_v4f8b")
-debug_color = Color(0.85653824, 0.6675506, 0, 0)
-
 [node name="Health" parent="." unique_id=856647450 instance=ExtResource("14_d4g0h")]
 max_health = 10
-
-[node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
-collision_layer = 0
-collision_mask = 0
-input_pickable = false
-script = ExtResource("14_v4f8b")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]
-shape = SubResource("CircleShape2D_m7yij")
-debug_color = Color(0, 0.6, 0.69803923, 0)
-
-[connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
-[connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

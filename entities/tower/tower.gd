@@ -19,6 +19,9 @@ func _setup_nodes(p_node):
 		if p_node.get_child_count() > 0:
 			_setup_nodes(child)
 
+func _physics_process(delta):
+	global_position = global_position.round()
+
 func _setup_ref():
 	ref.set('actor', self)
 	ref.set('bullet_spawner', $BulletSpawner)

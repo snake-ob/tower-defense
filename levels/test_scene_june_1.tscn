@@ -8,19 +8,19 @@
 [node name="TestSceneJune1" type="Node2D" unique_id=1179969449]
 
 [node name="Player" parent="." unique_id=1411166111 instance=ExtResource("1_i44b8")]
-position = Vector2(611, 289)
+position = Vector2(46, 31)
 
 [node name="Gem2" parent="." unique_id=613466188 instance=ExtResource("2_8siyk")]
-position = Vector2(450, 191)
+position = Vector2(193, 103)
 
 [node name="Gem3" parent="." unique_id=1103657790 instance=ExtResource("2_8siyk")]
-position = Vector2(343, 184)
+position = Vector2(224, 40)
 
 [node name="Gem" parent="." unique_id=32548241 instance=ExtResource("2_8siyk")]
-position = Vector2(165, 206)
+position = Vector2(146, 48)
 
 [node name="Tower" parent="." unique_id=514054859 instance=ExtResource("3_8siyk")]
-position = Vector2(352, 394)
+position = Vector2(94, 85)
 
 [node name="Items" type="Node2D" parent="." unique_id=908024208]
 script = ExtResource("4_m1ovu")

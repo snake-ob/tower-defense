@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_h68id")
-speed = 75
+speed = 50
 friction = 1000
-acceleration = 100
 mass = 50

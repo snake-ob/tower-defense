@@ -5,7 +5,7 @@ var sprite: Node
 
 @export var gravity: float = 1200.0
 @export var bounce_elasticity: float = 0.5
-@export var min_bounce_velocity: float = 50.0
+@export var min_bounce_velocity: float = 10
 @export var wall_bounce: float = 0.7
 
 var horizontal_velocity: Vector2 = Vector2.ZERO

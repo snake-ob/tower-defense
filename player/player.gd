@@ -6,6 +6,8 @@ class_name Player
 @export var move: MoveData
 @export var build_radius: int = 200
 
+var holding: bool = false
+
 func _physics_process(delta):
 	if move: ref.move = move.duplicate()
 	move_and_slide()
@@ -21,11 +23,12 @@ func _ready():
 func _setup_ref():
 	ref.set('input_controller', $InputController)
 	ref.set('visuals', $Visuals)
+	ref.set('sprite', $Visuals/AnimatedSprite2D)
 	ref.set('physics', $PhysicsHandler)
 	ref.set('grab', $Grab)
 	ref.set('health', $Health)
-	ref.set('hitbox', $Hitbox)
 	ref.set('actor', self)
+	ref.set('target', $Grab/DropPos)
 	
 func _setup_nodes(p_node):
 	for child in p_node.get_children():

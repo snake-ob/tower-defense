@@ -3,13 +3,16 @@ class_name Gem
 
 @onready var ref: Ref = $Ref
 @export var RuneScene: PackedScene
+@export var move: MoveData
 
 func _ready():
 	_setup_ref()
 	_setup_nodes(self)
+	$StateMachine._set_state('idle')
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()
+	global_position = global_position.round()
 
 func _setup_ref():
 	ref.set('actor', self)
