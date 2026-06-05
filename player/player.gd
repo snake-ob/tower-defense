@@ -9,6 +9,7 @@ class_name Player
 func _physics_process(delta):
 	if move: ref.move = move.duplicate()
 	move_and_slide()
+	global_position = global_position.round()
 	
 func _ready():
 	_setup_ref()

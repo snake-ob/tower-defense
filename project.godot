@@ -24,6 +24,11 @@ GlobalClick="*uid://7o4xr67wtc1f"
 
 [display]
 
+window/size/viewport_width=256
+window/size/viewport_height=144
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="viewport"
 mouse_cursor/custom_image="uid://b3loms8koco5f"
 
 [global_group]
@@ -88,6 +93,7 @@ ui_down={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
