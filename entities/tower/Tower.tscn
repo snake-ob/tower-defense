@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://dljhspfti72ng" path="res://entities/tower/slots.gd" id="7_6bp5w"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="9_mttso"]
 [ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="10_mttso"]
-[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="10_wcwdc"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="11_mttso"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="12_8gdfe"]
 [ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="13_te46s"]
@@ -105,6 +104,8 @@ func _update(delta):
 "
 
 [node name="Tower" type="CharacterBody2D" unique_id=514054859]
+y_sort_enabled = true
+position = Vector2(0, -3)
 collision_layer = 8
 collision_mask = 0
 script = ExtResource("1_ljppj")
@@ -159,8 +160,6 @@ debug_color = Color(0.7647059, 0.16862746, 1, 0)
 
 [node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
 position = Vector2(0, 2)
-
-[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("10_wcwdc")]
 
 [node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("11_mttso")]
 

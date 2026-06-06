@@ -7,7 +7,6 @@
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="3_jngwf"]
 [ext_resource type="Script" uid="uid://fvaoqsrvde4e" path="res://common/components/target_closest.gd" id="3_vl4bg"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="5_a2x2l"]
-[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="8_gxey3"]
 [ext_resource type="PackedScene" uid="uid://cwq83cpaeaqtp" path="res://entities/tower/upgrades/StatusUpgrades.tscn" id="9_s4mvv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jngwf"]
@@ -29,6 +28,7 @@ var status: Array = []
 "
 
 [node name="Bullet" type="CharacterBody2D" unique_id=150744527]
+y_sort_enabled = true
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_vl4bg")
@@ -73,8 +73,6 @@ script = SubResource("GDScript_a0ooq")
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1706965492]
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("2_r16h3")]
-
-[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("8_gxey3")]
 
 [node name="StatusUpgrades" parent="." unique_id=193890701 instance=ExtResource("9_s4mvv")]
 

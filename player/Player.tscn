@@ -9,7 +9,6 @@
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_d4g0h"]
 [ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="8_ndjxb"]
 [ext_resource type="Script" uid="uid://ywkx148opncf" path="res://player/ani_manager.gd" id="8_v4f8b"]
-[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="9_mhpjh"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_ndjxb"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="11_b32pr"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="14_d4g0h"]
@@ -329,6 +328,8 @@ func get_closest_node(p_nodes: Array) -> Node2D:
 radius = 5.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1411166111 groups=["Player"]]
+y_sort_enabled = true
+position = Vector2(0, -8)
 collision_layer = 2
 collision_mask = 4097
 script = ExtResource("1_rkbax")
@@ -386,9 +387,7 @@ offset_top = 1.0
 offset_right = 2.0
 offset_bottom = 6.0
 color = Color(0.29411766, 1, 1, 0.5372549)
-
-[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("9_mhpjh")]
-position = Vector2(0, 7)
+metadata/_edit_use_anchors_ = true
 
 [node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("10_ndjxb")]
 

@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://ddo6ig334ryco"]
-
-[ext_resource type="Script" uid="uid://bg7onkjw8ar3c" path="res://common/components/y_sort.gd" id="1_2tfqn"]
-
-[node name="YSort" type="Node2D" unique_id=1574641889]
-script = ExtResource("1_2tfqn")

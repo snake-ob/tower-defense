@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bj5dn3chh81pw" path="res://entities/tower/upgrades/Fire.tscn" id="2_veu8e"]
 [ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="3_271a0"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="4_fb273"]
-[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="5_cya6d"]
 [ext_resource type="Texture2D" uid="uid://cbskv48p13nnv" path="res://assets/sprites/gem.png" id="6_5i8wa"]
 [ext_resource type="PackedScene" uid="uid://brkgs0nuf1aaf" path="res://common/components/Pickup.tscn" id="6_nof30"]
 [ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="7_fb273"]
@@ -73,6 +72,8 @@ func exit_state():
 "
 
 [node name="Gem" type="CharacterBody2D" unique_id=613466188]
+y_sort_enabled = true
+position = Vector2(0, -3)
 collision_layer = 16384
 script = ExtResource("1_cya6d")
 RuneScene = ExtResource("2_qbkta")
@@ -102,8 +103,6 @@ shape = SubResource("CircleShape2D_aueyi")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1746182329]
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_271a0")
-
-[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("5_cya6d")]
 
 [node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("6_nof30")]
 
