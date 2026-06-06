@@ -388,6 +388,7 @@ offset_bottom = 6.0
 color = Color(0.29411766, 1, 1, 0.5372549)
 
 [node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("9_mhpjh")]
+position = Vector2(0, 7)
 
 [node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("10_ndjxb")]
 

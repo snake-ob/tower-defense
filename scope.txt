@@ -121,4 +121,10 @@ May 27 2026
 - Make modular 'workbench' to pull items
 - Make blueprints that throw out items
 ==============================================
-
+June 5 2026
+--VARIETY--
+Level 1 - Regular grasslands
+Level 2 - Autumn (falling leaves)
+Level 3 - Storm (rain + occasional thunder)
+Level 4 - Hellscape
+==============================================
