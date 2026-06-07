@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="1_cajne"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kqn5r"]
-radius = 53.235325
+radius = 20.248457
 
 [node name="Grab" type="Area2D" unique_id=1402749356]
 collision_layer = 0

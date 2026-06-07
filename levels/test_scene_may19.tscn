@@ -17,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://cqh1f23oeylb6" path="res://assets/debug/debug-tower.png" id="13_ll433"]
 [ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="14_o5kle"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="15_3kj30"]
-[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="16_7j85t"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="17_0tlcm"]
 [ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="18_3v6kd"]
 [ext_resource type="PackedScene" uid="uid://bj5dn3chh81pw" path="res://entities/tower/upgrades/Fire.tscn" id="19_83d8u"]
@@ -249,7 +248,7 @@ debug_color = Color(0.7647059, 0.16862746, 1, 0)
 [node name="PickupPos" type="Node2D" parent="Towers/Tower/Pickup" unique_id=639769184]
 position = Vector2(0, 39)
 
-[node name="YSort" parent="Towers/Tower" unique_id=1574641889 instance=ExtResource("16_7j85t")]
+[node name="YSort" parent="Towers/Tower" unique_id=1574641889]
 
 [node name="StateMachine" parent="Towers/Tower" unique_id=784147820 instance=ExtResource("17_0tlcm")]
 
@@ -317,7 +316,7 @@ debug_color = Color(0.7647059, 0.16862746, 1, 0)
 [node name="PickupPos" type="Node2D" parent="Towers/Tower4/Pickup" unique_id=472063281]
 position = Vector2(0, 39)
 
-[node name="YSort" parent="Towers/Tower4" unique_id=887207481 instance=ExtResource("16_7j85t")]
+[node name="YSort" parent="Towers/Tower4" unique_id=887207481]
 
 [node name="StateMachine" parent="Towers/Tower4" unique_id=1771316972 instance=ExtResource("17_0tlcm")]
 
@@ -385,7 +384,7 @@ debug_color = Color(0.7647059, 0.16862746, 1, 0)
 [node name="PickupPos" type="Node2D" parent="Towers/Tower2/Pickup" unique_id=1659197471]
 position = Vector2(0, 39)
 
-[node name="YSort" parent="Towers/Tower2" unique_id=477865518 instance=ExtResource("16_7j85t")]
+[node name="YSort" parent="Towers/Tower2" unique_id=477865518]
 
 [node name="StateMachine" parent="Towers/Tower2" unique_id=505426190 instance=ExtResource("17_0tlcm")]
 
@@ -452,7 +451,7 @@ debug_color = Color(0.7647059, 0.16862746, 1, 0)
 [node name="PickupPos" type="Node2D" parent="Towers/Tower3/Pickup" unique_id=74598075]
 position = Vector2(0, 39)
 
-[node name="YSort" parent="Towers/Tower3" unique_id=2075010904 instance=ExtResource("16_7j85t")]
+[node name="YSort" parent="Towers/Tower3" unique_id=2075010904]
 
 [node name="StateMachine" parent="Towers/Tower3" unique_id=850046846 instance=ExtResource("17_0tlcm")]
 

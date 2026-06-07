@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://d3bfew6tg4p6d"]
+
+[ext_resource type="Script" uid="uid://ywkx148opncf" path="res://player/ani_manager.gd" id="1_fvrqq"]
+
+[node name="AniManager" type="Node" unique_id=170788171]
+script = ExtResource("1_fvrqq")

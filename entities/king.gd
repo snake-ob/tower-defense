@@ -15,6 +15,7 @@ func _setup_ref():
 	ref.set('pickup', $Pickup)
 	ref.set('collision', $CollisionShape2D)
 	ref.set('soft_collision', $SoftCollision)
+	ref.set('collisions', [$SoftCollision/CollisionShape2D, $Pickup/CollisionShape2D])
 
 func _setup_nodes(p_node):
 	for node in p_node.get_children():

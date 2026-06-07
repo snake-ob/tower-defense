@@ -9,6 +9,7 @@ var grab_pos: Node2D
 var drop_pos: Node2D
 var actor: Node2D
 var physics: Node
+var collisions: Array
 
 func _physics_process(delta: float) -> void:
 	if picked_up:
@@ -17,6 +18,7 @@ func _physics_process(delta: float) -> void:
 func _setup(p_ref: Ref):
 	actor = p_ref.actor
 	physics = p_ref.physics
+	collisions = p_ref.collisions
 
 func _get_picked_up(p_grab_pos, p_drop_pos):
 	if "velocity" in actor:
@@ -24,6 +26,7 @@ func _get_picked_up(p_grab_pos, p_drop_pos):
 	grab_pos = p_grab_pos
 	drop_pos = p_drop_pos
 	picked_up = true
+	_disable_collisions(true)
 
 func pickup_pos():
 	return $PickupPos.global_position
@@ -44,9 +47,7 @@ func _get_put_down():
 
 	grab_pos = null
 	picked_up = false
-	
-
-
+	_disable_collisions(false)
 
 func _get_thrown(throw: Dictionary):
 	if "velocity" in actor:
@@ -59,3 +60,8 @@ func _get_thrown(throw: Dictionary):
 	picked_up = false
 	grab_pos = null
 	physics.start_25d_throw(dir, speed, arc)
+	_disable_collisions(false)
+
+func _disable_collisions(setting: bool):
+	for collision in collisions:
+		collision.disabled = setting

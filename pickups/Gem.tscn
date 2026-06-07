@@ -42,8 +42,6 @@ func _update(delta):
 
 func _enter_state():
 	soft_collision.enable()
-	print(\"Gem: Idle\")
-
 
 func _physics_update(delta):
 	physics._process_friction(delta)
@@ -65,7 +63,6 @@ func _update(delta):
 
 func _enter_state():
 	soft_collision.disable()
-	print(\"Gem: Picked\")
 
 func exit_state():
 	soft_collision.enable()
@@ -75,6 +72,7 @@ func exit_state():
 y_sort_enabled = true
 position = Vector2(0, -3)
 collision_layer = 16384
+collision_mask = 4097
 script = ExtResource("1_cya6d")
 RuneScene = ExtResource("2_qbkta")
 move = SubResource("Resource_ovftl")

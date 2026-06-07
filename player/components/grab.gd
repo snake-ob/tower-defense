@@ -29,6 +29,8 @@ func _physics_process(deltad):
 
 func _on_area_entered(area: Node2D):
 	if area not in grabbable_objects:
+		if area.owner == owner:
+			return
 		grabbable_objects.append(area)
 		area.tree_exited.connect(func(): grabbable_objects.erase(area))
 
@@ -56,7 +58,6 @@ func _drop():
 	var random_speed: float = randf_range(1.0, 1.5)
 	
 	var drop_throw = {"direction": throw_dir, "speed": random_speed, "arc": 300}
-	print(random_speed)
 	grabbed_pickup._get_thrown(drop_throw)
 	grabbed_pickup = null
 

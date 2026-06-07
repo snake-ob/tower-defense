@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://3sjyslisd0oy"]
 
-[ext_resource type="Texture2D" uid="uid://h4yi40enirtk" path="res://assets/debug/Screenshot 2026-05-19 123044.png" id="1_k50w0"]
 [ext_resource type="Script" uid="uid://su7dh46mlaiv" path="res://entities/tower/bullet.gd" id="1_vl4bg"]
+[ext_resource type="Texture2D" uid="uid://bd886tlbdf12j" path="res://assets/debug/bullet.png" id="2_cre23"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="2_r16h3"]
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="3_a0ooq"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="3_jngwf"]
@@ -10,13 +10,16 @@
 [ext_resource type="PackedScene" uid="uid://cwq83cpaeaqtp" path="res://entities/tower/upgrades/StatusUpgrades.tscn" id="9_s4mvv"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jngwf"]
-radius = 4.0
+radius = 3.0
+height = 6.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxey3"]
-radius = 7.0
+radius = 3.0
+height = 8.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a2x2l"]
-radius = 7.0
+radius = 4.0
+height = 12.0
 
 [sub_resource type="GDScript" id="GDScript_a0ooq"]
 script/source = "extends Node
@@ -34,15 +37,17 @@ collision_mask = 0
 script = ExtResource("1_vl4bg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=251283894]
+position = Vector2(-0.5, -3.5)
 shape = SubResource("CapsuleShape2D_jngwf")
 debug_color = Color(1, 1, 1, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1996044331]
+position = Vector2(-0.5, -3.5)
 rotation = -1.5707964
-scale = Vector2(0.033849847, 0.03384984)
-texture = ExtResource("1_k50w0")
+texture = ExtResource("2_cre23")
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=88604661]
+position = Vector2(-0.5, -3.5)
 collision_layer = 0
 collision_mask = 0
 monitoring = false
@@ -52,6 +57,7 @@ script = ExtResource("3_jngwf")
 shape = SubResource("CapsuleShape2D_gxey3")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
+position = Vector2(-0.5, -3.5)
 collision_layer = 0
 collision_mask = 1024
 monitorable = false
@@ -71,6 +77,7 @@ script = ExtResource("3_vl4bg")
 script = SubResource("GDScript_a0ooq")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1706965492]
+position = Vector2(0, -2)
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("2_r16h3")]
 

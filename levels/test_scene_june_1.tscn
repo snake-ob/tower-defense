@@ -3,27 +3,42 @@
 [ext_resource type="Script" uid="uid://v2oxrnxnhkrf" path="res://levels/test_scene_june_1.gd" id="1_7kywp"]
 [ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="1_i44b8"]
 [ext_resource type="Texture2D" uid="uid://dm7u6qfn18ug0" path="res://assets/sprites/forest.png" id="1_khdl5"]
+[ext_resource type="Script" uid="uid://dkiad1vqiop6j" path="res://levels/forest-fade.gd" id="2_2qqjb"]
+[ext_resource type="Script" uid="uid://cj6oyfnsgnl5a" path="res://levels/enemies.gd" id="2_4ahhn"]
 [ext_resource type="PackedScene" uid="uid://dlxx53128g2u2" path="res://pickups/Gem.tscn" id="2_8siyk"]
 [ext_resource type="TileSet" uid="uid://c5vaf5jjk0c4g" path="res://TerrainTiles.tres" id="2_if2gl"]
+[ext_resource type="PackedScene" uid="uid://dx0u6xdq71b5p" path="res://levels/components/EnemySpawner.tscn" id="2_nlvqi"]
 [ext_resource type="Texture2D" uid="uid://cejaj54x0wejr" path="res://assets/sprites/Terrain-Tilesheet.png" id="2_w0nxt"]
+[ext_resource type="PackedScene" uid="uid://djdnp5l1prw8x" path="res://levels/components/WaveManager.tscn" id="3_6msqe"]
 [ext_resource type="PackedScene" uid="uid://cyke11s7oivop" path="res://entities/tower/Tower.tscn" id="3_8siyk"]
 [ext_resource type="Texture2D" uid="uid://dyq6riv5vrtko" path="res://assets/sprites/castle-sheet.png" id="3_khdl5"]
 [ext_resource type="Script" uid="uid://blwvvhftqidth" path="res://levels/components/items.gd" id="4_m1ovu"]
 [ext_resource type="Script" uid="uid://btwiae8k74fhe" path="res://levels/camera.gd" id="6_05e8d"]
 [ext_resource type="Texture2D" uid="uid://dixs2pulf6f2a" path="res://assets/sprites/log.png" id="7_0fhvi"]
 [ext_resource type="Script" uid="uid://b2rtgh86yf0l7" path="res://levels/components/blocks.gd" id="7_qu3mx"]
+[ext_resource type="PackedScene" uid="uid://br0vmdss5oo6y" path="res://levels/components/Spawners.tscn" id="8_d108y"]
 [ext_resource type="Texture2D" uid="uid://ddea2ijxjy0wv" path="res://assets/sprites/rock.png" id="9_qu3mx"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="10_khdl5"]
+[ext_resource type="Script" uid="uid://btlqvq5eepfrt" path="res://levels/components/spawn_path.gd" id="10_l84gf"]
 [ext_resource type="Script" uid="uid://csiix06k8f1qy" path="res://levels/camera-manager.gd" id="14_pjh4y"]
+[ext_resource type="PackedScene" uid="uid://bmxpcj677arg0" path="res://entities/King.tscn" id="16_pjh4y"]
+[ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="19_6msqe"]
+[ext_resource type="PackedScene" uid="uid://dqbs0170lo6xl" path="res://debug/DebugHUD.tscn" id="22_l84gf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jgomo"]
 texture = ExtResource("1_khdl5")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, 16, 32, 16, 32, 32, -32, 32)
 
 [sub_resource type="TileSet" id="TileSet_7kywp"]
 tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 4096
+physics_layer_0/collision_mask = 0
 sources/1 = SubResource("TileSetAtlasSource_jgomo")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ahhn"]
+size = Vector2(450, 29)
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_w0nxt"]
 tile_data = PackedInt32Array(0, 786432, 0, 65536, 786432, 1, 131072, 786432, 2, 196608, 786432, 3, 1, 851968, 0, 65537, 851968, 1, 131073, 851968, 2, 196609, 851968, 3, 2, 917504, 0, 65538, 917504, 1, 131074, 917504, 2, 196610, 917504, 3, 3, 983040, 0, 65539, 983040, 1, 131075, 983040, 2, 196611, 983040, 3)
@@ -337,6 +352,12 @@ terrain_set_0/terrain_0/name = "Walls"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_05e8d")
 
+[sub_resource type="Curve2D" id="Curve2D_ohqux"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -41.000008, -46.433426, 0, 0, 0, 0, 449.518, -48.29178, 0, 0, 0, 0, 448.71118, 337.3173, 0, 0, 0, 0, -41.000008, 335.45892, 0, 0, 0, 0, -41.000008, -46.433426)
+}
+point_count = 5
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_khdl5"]
 radius = 4.0
 height = 13.999985
@@ -345,12 +366,31 @@ height = 13.999985
 y_sort_enabled = true
 script = ExtResource("1_7kywp")
 
-[node name="Tiles" type="Node2D" parent="." unique_id=1468698765]
+[node name="Enemies" type="Node2D" parent="." unique_id=2129450642]
 y_sort_enabled = true
+script = ExtResource("2_4ahhn")
 
-[node name="Foest" type="TileMapLayer" parent="Tiles" unique_id=247339832]
+[node name="EnemySpawner" parent="." unique_id=2052432875 instance=ExtResource("2_nlvqi")]
+
+[node name="WaveManager" parent="." unique_id=1242516858 instance=ExtResource("3_6msqe")]
+wave_budget = 100
+
+[node name="Foest" type="TileMapLayer" parent="." unique_id=247339832]
+y_sort_enabled = true
 tile_map_data = PackedByteArray("AAD///7/AQAAAAAAAAAAAP7/AQAAAAAAAAABAP7/AQAAAAAAAAACAP7/AQAAAAAAAAADAP7/AQAAAAAAAAAEAP7/AQAAAAAAAAAFAP7/AQAAAAAAAAA=")
 tile_set = SubResource("TileSet_7kywp")
+
+[node name="EmergeEffect" type="Area2D" parent="Foest" unique_id=479346855]
+collision_layer = 0
+collision_mask = 256
+script = ExtResource("2_2qqjb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Foest/EmergeEffect" unique_id=873946131]
+position = Vector2(157, -85.5)
+shape = SubResource("RectangleShape2D_4ahhn")
+
+[node name="Tiles" type="Node2D" parent="." unique_id=1468698765]
+y_sort_enabled = true
 
 [node name="Grass" type="TileMapLayer" parent="Tiles" unique_id=1989714381]
 z_index = -1
@@ -378,20 +418,35 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AAABAAQAAAAJAAYAAAAAAAcAAAAIAAMAAAAAAAgAAAAIAAEAAAAAAAkAAAAIAAQAAAABAAkAAAALAAYAAAACAAkAAAAKAAYAAAADAAkAAAALAAAAAAADAAgAAAAKAAQAAAAEAAgAAAAJAAYAAAAFAAgAAAAOAAAAAAAFAAcAAAAIAAAAAAAGAAYAAAAIAAQAAAAGAAUAAAAIAAAAAAAFAAQAAAALAAQAAAAEAAQAAAAJAAYAAAADAAQAAAALAAYAAAACAAQAAAALAAYAAAAAAAQAAAAKAAAAAAAAAAUAAAAKAAEAAAAAAAYAAAAKAAIAAAA=")
 tile_set = SubResource("TileSet_jgomo")
 
+[node name="Spawners" parent="." unique_id=1906730147 instance=ExtResource("8_d108y")]
+
+[node name="EnemySpawner" parent="Spawners" unique_id=2060132037 instance=ExtResource("2_nlvqi")]
+enemy_scene = ExtResource("19_6msqe")
+
+[node name="SpawnPath" type="Path2D" parent="." unique_id=1469162358]
+position = Vector2(-96.180244, -86.027435)
+scale = Vector2(1.2395061, 1.0762196)
+curve = SubResource("Curve2D_ohqux")
+script = ExtResource("10_l84gf")
+
+[node name="SpawnPos" type="PathFollow2D" parent="SpawnPath" unique_id=496514313]
+position = Vector2(-41.000008, -46.433426)
+rotation = -0.0037885334
+
 [node name="Player" parent="." unique_id=1411166111 instance=ExtResource("1_i44b8")]
 position = Vector2(127, 44)
 
 [node name="Gem2" parent="." unique_id=613466188 instance=ExtResource("2_8siyk")]
-position = Vector2(37, 63)
+position = Vector2(72, 101)
 
 [node name="Gem3" parent="." unique_id=1103657790 instance=ExtResource("2_8siyk")]
-position = Vector2(102, -3)
+position = Vector2(32, 102)
 
 [node name="Gem" parent="." unique_id=32548241 instance=ExtResource("2_8siyk")]
-position = Vector2(149, 24)
+position = Vector2(51, 118)
 
 [node name="Tower" parent="." unique_id=514054859 instance=ExtResource("3_8siyk")]
-position = Vector2(91, 71)
+position = Vector2(73, 36)
 
 [node name="Items" type="Node2D" parent="." unique_id=908024208]
 script = ExtResource("4_m1ovu")
@@ -462,3 +517,18 @@ position = Vector2(-45, -128)
 position = Vector2(349, 219)
 
 [node name="Ref" parent="Camera" unique_id=716487066 instance=ExtResource("10_khdl5")]
+
+[node name="King" parent="." unique_id=463850158 instance=ExtResource("16_pjh4y")]
+position = Vector2(114, 57)
+
+[node name="Enemy" parent="." unique_id=88513531 instance=ExtResource("19_6msqe")]
+position = Vector2(112, -84)
+
+[node name="Ref" parent="." unique_id=592402756 instance=ExtResource("10_khdl5")]
+
+[node name="Projectiles" type="Node2D" parent="." unique_id=1664266761]
+
+[node name="DebugHud" parent="." unique_id=1331341241 instance=ExtResource("22_l84gf")]
+
+[node name="Centre" type="Marker2D" parent="." unique_id=834910990]
+position = Vector2(154, 58)

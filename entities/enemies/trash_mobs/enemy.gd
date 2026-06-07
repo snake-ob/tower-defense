@@ -7,6 +7,8 @@ class_name Enemy
 @export var collision: CollisionData
 
 @onready var ref = $Ref
+var target: Vector2
+var centre_pos: Vector2
 
 func _physics_process(delta: float) -> void :
 	move_and_slide()
@@ -35,7 +37,10 @@ func _setup_ref():
 	ref.set('status_effects', $StatusEffects)
 	ref.set('physics', $PhysicsHandler)
 	ref.set('pickup', $Pickup)
-	ref.set('sprite', $Body/Sprite2D)
+	ref.set('sprite', $Body/AnimatedSprite2D)
+	ref.set('target', Vector2.ZERO)
+	ref.set('grab', $Grab)
+	ref.set('collisions', [$CollisionShape2D, $SoftCollision/CollisionShape2D])
 	ref.set('actor', self)
 	
 func _setup_nodes(p_node):
@@ -79,3 +84,10 @@ func apply_status_effects(p_effects):
 			var effect_node = p_effect.instantiate()
 			effect_node._setup(ref)
 			ref.status_effects.add_child.call_deferred(effect_node)
+			
+func update_target(p_target):
+	ref.set('target', p_target)
+
+func catch_exit_pos(p_pos):
+	target = p_pos
+	ref.target = p_pos

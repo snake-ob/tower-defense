@@ -19,6 +19,9 @@ func _ready():
 	GlobalClick.register_player(self, build_radius)
 	$StateMachine._set_state('idle')
 	$Hurtbox.got_hit.connect(_on_got_hit)
+
+func _process(delta):
+	ref.set('target', $Grab/DropPos.global_position)
 	
 func _setup_ref():
 	ref.set('input_controller', $InputController)
@@ -28,7 +31,7 @@ func _setup_ref():
 	ref.set('grab', $Grab)
 	ref.set('health', $Health)
 	ref.set('actor', self)
-	ref.set('target', $Grab/DropPos)
+	ref.set('target', $Grab/DropPos.global_position)
 	
 func _setup_nodes(p_node):
 	for child in p_node.get_children():

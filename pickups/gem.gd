@@ -20,6 +20,7 @@ func _setup_ref():
 	ref.set('physics', $PhysicsHandler)
 	ref.set('pickup', $Pickup)
 	ref.set('sprite', $Sprite2D)
+	ref.set('collisions', [$SoftCollision/CollisionShape2D])
 	
 func _setup_nodes(p_node):
 	for child in p_node.get_children():

@@ -29,7 +29,7 @@ window/size/viewport_height=144
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
-mouse_cursor/custom_image="uid://b3loms8koco5f"
+mouse_cursor/custom_image="uid://caybsyolj2pg4"
 
 [global_group]
 
@@ -83,7 +83,8 @@ ui_down={
 2d_physics/layer_9="Enemies"
 2d_physics/layer_10="Enemy Hurtbox"
 2d_physics/layer_11="Projectile Hurtbox"
-2d_physics/layer_13="Boundaries"
+2d_physics/layer_12="King's Pickup"
+2d_physics/layer_13="World Boundaries"
 2d_physics/layer_14="Pickups"
 2d_physics/layer_15="Gems"
 

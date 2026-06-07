@@ -1,27 +1,29 @@
 [gd_scene format=3 uid="uid://dp1w6dtjb5n62"]
 
-[ext_resource type="Texture2D" uid="uid://dsr68dwouyi7r" path="res://assets/debug/enemy.png" id="1_ixjfo"]
 [ext_resource type="Script" uid="uid://rhkvwea4barn" path="res://entities/enemies/trash_mobs/enemy.gd" id="1_vec32"]
 [ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_5g4gd"]
 [ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="2_66spp"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="2_d0yhi"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="3_a23sr"]
 [ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="4_7b7q7"]
+[ext_resource type="Texture2D" uid="uid://ccevxbxpeo262" path="res://assets/sprites/characters/Goblin-1-Sheet.png" id="5_7b7q7"]
+[ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="5_opqqp"]
+[ext_resource type="PackedScene" uid="uid://d3bfew6tg4p6d" path="res://common/components/AniManager.tscn" id="6_86smx"]
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="6_dsp8k"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="7_66spp"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="8_66spp"]
-[ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://common/components/SoftCollision.tscn" id="10_ijd6d"]
 [ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="10_im3kb"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="12_r1qvq"]
-[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="13_vaswb"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="13_11bei"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="14_540xx"]
 [ext_resource type="PackedScene" uid="uid://rqbl0rtipwwt" path="res://common/components/status_effects/StatusEffects.tscn" id="16_fdgwp"]
 [ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="17_86smx"]
 
 [sub_resource type="Resource" id="Resource_ijd6d"]
 script = ExtResource("2_5g4gd")
-friction = 500
-acceleration = 300
+speed = 25
+friction = 20
+acceleration = 80
 metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
 [sub_resource type="Resource" id="Resource_opqqp"]
@@ -35,19 +37,212 @@ layer = 19
 mask = 18
 metadata/_custom_type_script = "uid://dxnywa0nlrdku"
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kqn5r"]
+radius = 9.055386
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xyou"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne5xp"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v22bd"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fobem"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7b7q7"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0csy"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huei1"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugoym"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy4wy"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqslw"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86smx"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(256, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opqqp"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(272, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11bei"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(288, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu3yx"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(304, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3aqql"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtyd1"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ip3sx"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tam15"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6avs"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6nqd"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e0csy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xyou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne5xp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v22bd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fobem")
+}],
+"loop": true,
+"name": &"b_carry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7b7q7")
+}],
+"loop": true,
+"name": &"b_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0csy")
+}],
+"loop": true,
+"name": &"b_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_huei1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugoym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy4wy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqslw")
+}],
+"loop": true,
+"name": &"b_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86smx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opqqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11bei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu3yx")
+}],
+"loop": true,
+"name": &"f_carry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3aqql")
+}],
+"loop": true,
+"name": &"f_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtyd1")
+}],
+"loop": true,
+"name": &"f_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ip3sx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tam15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6avs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6nqd")
+}],
+"loop": true,
+"name": &"f_walk",
+"speed": 5.0
+}]
+
 [sub_resource type="GDScript" id="GDScript_a23sr"]
 resource_name = "Chase"
 script/source = "extends State
 
 var bullet_spawner = null
+var physics: Node
+var grab: Node
+
+var target: Node = null
 	
 func _setup(p_ref):
 	ref = p_ref
-	actor = ref.actor
+	actor = p_ref.actor
+	physics = p_ref.physics
+	grab = p_ref.grab
 	if ref.has('bullet_spawner'):
 		bullet_spawner = ref.bullet_spawner
 	
 func _enter_state():
+	target = null
 	if bullet_spawner:
 		bullet_spawner.activate()
 	
@@ -56,22 +251,67 @@ func _exit_state():
 		bullet_spawner.deactivate()
 
 func _physics_update(delta):
-	if ref.active_targets:
+	if ref.active_targets and target == null:
 		var target = ref.active_targets[0]
 		var target_pos = target.global_position
 		var actor_pos = actor.global_position
 		
 		var direction = actor_pos.direction_to(target_pos)
-		var target_velocity = direction * ref.move.speed		
+		var target_velocity = direction * ref.move.speed
+		actor.update_target(target_pos)
 		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
 	else:
 		change_state.emit('reset')
+		
+	physics._process_friction(delta)
+
+func _update(delta):
+	var pickups = grab.get_grabbable()
+	if pickups != []:
+		grab.grabbed_pickup = pickups[0]
+		grab._pickup_object(pickups[0])
+		print(pickups[0])
+		change_state.emit('carry')
+"
+
+[sub_resource type="GDScript" id="GDScript_opqqp"]
+script/source = "extends State
+
+var physics: Node
+var grab: Node
+
+var target_pos: Vector2
+	
+func _setup(p_ref):
+	ref = p_ref
+	actor = p_ref.actor
+	physics = p_ref.physics
+	grab = p_ref.grab
+	
+func _enter_state():
+	actor.ref.target = Vector2.ZERO
+	SignalBus.request_closest_exit.emit(actor)
+	
+func _exit_state():
+	grab._drop()
+
+func _physics_update(delta):
+	var actor_pos = actor.global_position
+	var target_pos = actor.ref.target
+	var direction = actor_pos.direction_to(target_pos)
+	var target_velocity = direction * ref.move.speed
+	actor.update_target(target_pos)
+	actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+		
+	physics._process_friction(delta)
+
+func catch_exit_pos(p_pos):
+	target_pos = p_pos
+	actor.ref.target = p_pos
 "
 
 [sub_resource type="GDScript" id="GDScript_im3kb"]
 script/source = "extends State
-
-var centre_pos = Vector2(515, 320)
 
 func _setup(p_ref):
 	ref = p_ref
@@ -81,23 +321,23 @@ func _physics_update(delta):
 	if ref.active_targets:
 		change_state.emit('chase')
 		return
-
 	var actor_pos = actor.global_position
-		
-	var direction = actor_pos.direction_to(centre_pos)
-	var target_velocity = direction * ref.move.speed		
+	
+	var direction = actor_pos.direction_to(actor.centre_pos)
+	var target_velocity = direction * ref.move.speed
+	actor.update_target(Vector2.ZERO)
 	actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pedfs"]
-radius = 27.0
+radius = 7.071068
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5g4gd"]
-radius = 19.0
-height = 42.0
+radius = 5.0
+height = 14.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_im3kb"]
-size = Vector2(45, 42)
+size = Vector2(16, 16)
 
 [sub_resource type="GDScript" id="GDScript_dsp8k"]
 script/source = "extends Node
@@ -108,34 +348,61 @@ var knockback: float = 10.0
 var status: Array = []
 "
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
+radius = 6.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
-radius = 640.93
+radius = 218.50629
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
-radius = 35.014282
+radius = 26.076809
 
 [node name="Enemy" type="CharacterBody2D" unique_id=88513531]
+y_sort_enabled = true
 collision_layer = 256
 script = ExtResource("1_vec32")
 move = SubResource("Resource_ijd6d")
 attack = SubResource("Resource_opqqp")
 collision = SubResource("Resource_86smx")
 
-[node name="Body" type="Node2D" parent="." unique_id=32919759]
+[node name="Grab" type="Area2D" parent="." unique_id=1402749356]
+position = Vector2(0, -1)
+collision_layer = 0
+collision_mask = 2048
+script = ExtResource("5_opqqp")
 
-[node name="Sprite2D" type="Sprite2D" parent="Body" unique_id=1476095093]
-scale = Vector2(0.078125015, 0.078125015)
-texture = ExtResource("1_ixjfo")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Grab" unique_id=1527922279]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_kqn5r")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="GrabPos" type="Node2D" parent="Grab" unique_id=2006151343]
+position = Vector2(0, -17)
+
+[node name="DropPos" type="Marker2D" parent="Grab" unique_id=2065304284]
+
+[node name="Body" type="Node2D" parent="." unique_id=32919759]
+position = Vector2(0, -7)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body" unique_id=670041104]
+sprite_frames = SubResource("SpriteFrames_e0csy")
+animation = &"b_carry"
+
+[node name="AniManager" parent="Body" unique_id=170788171 instance=ExtResource("6_86smx")]
 
 [node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("2_d0yhi")]
 
 [node name="Chase" type="Node" parent="StateMachine" unique_id=297645285]
 script = SubResource("GDScript_a23sr")
 
+[node name="Carry" type="Node" parent="StateMachine" unique_id=1778624492]
+script = SubResource("GDScript_opqqp")
+
 [node name="Reset" type="Node" parent="StateMachine" unique_id=1844849915]
 script = SubResource("GDScript_im3kb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=646892593]
+position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_pedfs")
 debug_color = Color(0.9529412, 0.99215686, 1, 0)
 
@@ -146,6 +413,7 @@ monitorable = false
 script = ExtResource("6_dsp8k")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1488120918]
+position = Vector2(0, -6)
 shape = SubResource("CapsuleShape2D_5g4gd")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
@@ -156,7 +424,7 @@ monitoring = false
 script = ExtResource("7_66spp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=630823401]
-position = Vector2(0.5, 0)
+position = Vector2(0, -6)
 shape = SubResource("RectangleShape2D_im3kb")
 debug_color = Color(0.9411765, 0, 0, 0)
 
@@ -168,7 +436,15 @@ max_health = 10
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_a23sr")]
 
-[node name="SoftCollision" parent="." unique_id=1691847556 instance=ExtResource("10_ijd6d")]
+[node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("13_11bei")
+push_force = 0.2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_aueyi")
 
 [node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
 collision_layer = 0
@@ -176,13 +452,11 @@ collision_mask = 64
 script = ExtResource("10_im3kb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]
+position = Vector2(13, -43)
 shape = SubResource("CircleShape2D_m7yij")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("12_r1qvq")]
-
-[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("13_vaswb")]
-position = Vector2(0, 5)
 
 [node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
 collision_layer = 8192
@@ -190,6 +464,7 @@ collision_mask = 0
 script = ExtResource("14_540xx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup" unique_id=1697664644]
+position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_hg3tk")
 debug_color = Color(0.7647059, 0.16862746, 1, 0)
 
@@ -198,9 +473,8 @@ debug_color = Color(0.7647059, 0.16862746, 1, 0)
 [node name="StatusEffects" parent="." unique_id=358155270 instance=ExtResource("16_fdgwp")]
 
 [node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("17_86smx")]
+position = Vector2(0, -4)
 
 [connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]
-
-[editable path="SoftCollision"]

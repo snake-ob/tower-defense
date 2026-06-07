@@ -28,6 +28,7 @@ func _setup_ref():
 	ref.set('detect_zone', $DetectZone)
 	ref.set('pickup', $Pickup)
 	ref.set('collision', collision)
+	ref.set('collisions', [])
 	ref.set('physics', $PhysicsHandler)
 	ref.set('status_upgrades', $StatusUpgrades)
 	ref.set('sprite', $Body/Sprite2D)

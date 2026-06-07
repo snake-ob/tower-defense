@@ -6,9 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="3_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="6_gskgj"]
 [ext_resource type="Texture2D" uid="uid://spyncwb82vxs" path="res://assets/sprites/characters/Player-Sheet.png" id="6_v4f8b"]
+[ext_resource type="PackedScene" uid="uid://d3bfew6tg4p6d" path="res://common/components/AniManager.tscn" id="7_b32pr"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_d4g0h"]
 [ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="8_ndjxb"]
-[ext_resource type="Script" uid="uid://ywkx148opncf" path="res://player/ani_manager.gd" id="8_v4f8b"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_ndjxb"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="11_b32pr"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="14_d4g0h"]
@@ -230,6 +230,8 @@ func _physics_update(delta):
 	physics._process_friction(delta)
 
 func _on_object_clicked(p_actor):
+	# This actually runs no matter which state the actor is in
+	# This is technically a bug.. but also has the intended behaviour
 	if p_actor == null:
 		if grab.grabbed_pickup != null:
 			grab._throw()
@@ -245,6 +247,11 @@ func _on_object_clicked(p_actor):
 		grab.grabbed_pickup = p_actor.ref.pickup
 		change_state.emit('grab')
 		get_viewport().set_input_as_handled()
+		return
+	
+	elif grab.grabbed_pickup != null:
+		grab._throw()
+		return
 "
 
 [sub_resource type="GDScript" id="GDScript_5qrx2"]
@@ -259,27 +266,14 @@ func _setup(p_ref: Ref):
 	actor = p_ref.actor
 	grab = p_ref.grab
 	input_controller = p_ref.input_controller
-	
-func _enter_state():
-	print('walk')
 
 func _physics_update(delta):
-	if Input.is_action_just_pressed('ui_select'):
-		_process_action()
-		
+
 	var axis = input_controller.get_axis()			
 	if axis == Vector2.ZERO:
 		change_state.emit('idle')
 		return
 	actor.velocity = actor.velocity.move_toward(axis * actor.move.speed, actor.move.acceleration)
-
-func _process_action():
-	if grab.grabbed_pickup != null:
-		grab._throw()
-		return
-		
-	if grab.get_grabbable() != []:
-		change_state.emit('grab')
 "
 
 [sub_resource type="GDScript" id="GDScript_b32pr"]
@@ -353,14 +347,13 @@ script = ExtResource("3_g1dw6")
 sprite_frames = SubResource("SpriteFrames_qjkh3")
 animation = &"b_carry"
 
-[node name="AniManager" type="Node" parent="Visuals" unique_id=863580820]
-script = ExtResource("8_v4f8b")
+[node name="AniManager" parent="Visuals" unique_id=170788171 instance=ExtResource("7_b32pr")]
 
 [node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
 collision_layer = 128
 collision_mask = 128
 script = ExtResource("7_d4g0h")
-push_force = 400.0
+push_force = 0.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
 position = Vector2(0, 3)

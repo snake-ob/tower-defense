@@ -128,3 +128,8 @@ Level 2 - Autumn (falling leaves)
 Level 3 - Storm (rain + occasional thunder)
 Level 4 - Hellscape
 ==============================================
+June 7 2026
+- Create king
+- King cheers on the player
+- Goblins carry off the king
+==============================================
