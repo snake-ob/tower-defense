@@ -21,6 +21,7 @@ SignalBus="*uid://ckdkprqyqugan"
 PerformanceTracker="*uid://svxctl7h1prt"
 MouseMode="*uid://buwx3sub4avu3"
 GlobalClick="*uid://7o4xr67wtc1f"
+SceneLoader="*uid://b2qy3a2vm5fk7"
 
 [display]
 
@@ -87,6 +88,7 @@ ui_down={
 2d_physics/layer_13="World Boundaries"
 2d_physics/layer_14="Pickups"
 2d_physics/layer_15="Gems"
+2d_physics/layer_16="World Escape"
 
 [physics]
 

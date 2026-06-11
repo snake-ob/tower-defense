@@ -1,0 +1,408 @@
+[gd_scene format=3 uid="uid://7k6keh8pn85d"]
+
+[ext_resource type="Texture2D" uid="uid://c8hb4tq1axcj" path="res://assets/splash-screens/title/stars.png" id="2_u0fnu"]
+[ext_resource type="Texture2D" uid="uid://b7tubniay3ccm" path="res://assets/splash-screens/title/sunset.png" id="3_qtfsa"]
+[ext_resource type="Texture2D" uid="uid://co36chafwywbh" path="res://assets/splash-screens/title/back-trees.png" id="4_la86q"]
+[ext_resource type="Texture2D" uid="uid://bbi2jlwxio63e" path="res://assets/splash-screens/title/castle.png" id="5_m1n6c"]
+[ext_resource type="Texture2D" uid="uid://dcbq63jpuc6wh" path="res://assets/splash-screens/title/mid-trees.png" id="6_rg4fn"]
+[ext_resource type="Texture2D" uid="uid://cdgs8fy5kdac" path="res://assets/splash-screens/title/front-trees.png" id="7_p3up6"]
+[ext_resource type="Texture2D" uid="uid://dhjdcrywysrm8" path="res://assets/splash-screens/title/title.png" id="8_05tt1"]
+[ext_resource type="Texture2D" uid="uid://b1y8clhc6j5sr" path="res://assets/splash-screens/title/button.png" id="8_qtfsa"]
+
+[sub_resource type="GDScript" id="GDScript_qtfsa"]
+script/source = "extends Node2D
+
+const RETRO_FPS: float = 12.0
+var time_since_last_frame: float = 0.0
+
+# Dictionary to store the frozen states for every child
+var stepped_transforms: Dictionary = {}
+
+func _ready() -> void:
+	# Save the starting state of every single child node
+	for child in get_children():
+		if child is CanvasItem and not child is AnimationPlayer:
+			_save_child_state(child)
+
+func _process(delta: float) -> void:
+	time_since_last_frame += delta
+	var frame_duration = 1.0 / RETRO_FPS
+	
+	if time_since_last_frame >= frame_duration:
+		for child in get_children():
+			if child is CanvasItem and not child is AnimationPlayer:
+				_save_child_state(child)
+				
+		time_since_last_frame = fmod(time_since_last_frame, frame_duration)
+	else:
+		for child in get_children():
+			if child is CanvasItem and not child is AnimationPlayer and stepped_transforms.has(child):
+				var state = stepped_transforms[child]
+				child.position = state[\"pos\"]
+				child.rotation = state[\"rot\"]
+				child.scale = state[\"scale\"]
+				child.modulate = state[\"mod\"]
+
+func _save_child_state(child: CanvasItem) -> void:
+	stepped_transforms[child] = {
+		\"pos\": child.position,
+		\"rot\": child.rotation,
+		\"scale\": child.scale,
+		\"mod\": child.modulate # <─── Caches the transparency value
+	}
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6e2l2"]
+atlas = ExtResource("2_u0fnu")
+region = Rect2(0, 0, 256, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtfsa"]
+atlas = ExtResource("2_u0fnu")
+region = Rect2(256, 0, 256, 288)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_la86q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6e2l2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtfsa")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_6e2l2"]
+script/source = "extends AnimatedSprite2D
+
+const RETRO_FPS: float = 2
+var time_since_last_frame: float = 0.0
+var stepped_modulate: Color
+
+var is_first_frame: bool = true
+
+func _ready() -> void:
+	stepped_modulate = modulate
+
+func _process(delta: float) -> void:
+	time_since_last_frame += delta
+	var frame_duration = 1.0 / RETRO_FPS
+	if is_first_frame:
+		stepped_modulate = modulate
+		is_first_frame = false
+		return
+
+	if time_since_last_frame >= frame_duration:
+		stepped_modulate = modulate
+		time_since_last_frame = fmod(time_since_last_frame, frame_duration)
+	else:
+		modulate = stepped_modulate
+"
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_la86q"]
+
+[sub_resource type="GDScript" id="GDScript_m1n6c"]
+script/source = "extends Sprite2D
+
+const RETRO_FPS: float = 3.0
+var time_since_last_frame: float = 0.0
+
+var stepped_modulate: Color
+
+func _ready() -> void:
+	# Start completely invisible to match the animation beginning
+	modulate.a = 0.0
+	stepped_modulate = modulate
+
+func _process(delta: float) -> void:
+	time_since_last_frame += delta
+	var frame_duration = 1.0 / RETRO_FPS
+	
+	if time_since_last_frame >= frame_duration:
+		# 1. Grab the smooth value from self_modulate (driven by AnimationPlayer)
+		stepped_modulate = self_modulate
+		time_since_last_frame = fmod(time_since_last_frame, frame_duration)
+	else:
+		# 2. Force the actual visibility to stay locked to our choppy step
+		modulate = stepped_modulate
+		
+		# 3. Clear self_modulate to full white so it doesn't double-multiply the fade
+		self_modulate = Color.WHITE
+"
+
+[sub_resource type="Animation" id="Animation_ftu3f"]
+resource_name = "IntroSlide"
+length = 8.033334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items/Stars:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3.9666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 144), Vector2(128, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Items/Sunset:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.66666675, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(129, 227), Vector2(129, 73)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Items/Castle:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 3.98),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 242), Vector2(128, 73)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Items/BackTrees:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3.98),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 220), Vector2(128, 73.03)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Items/MidTrees:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1.3666667, 3.98),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 247), Vector2(128, 69)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Items/FrontTrees:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(2.4666667, 3.97),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(128, 247), Vector2(128, 74)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Items/KingsHand:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0, 4.4333334, 5.4333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Items/Stars:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0, 1.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Items/KingsHand:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(-0.13333333, 0, 3.9333334),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_4b7l1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Items/Stars:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 144)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Items/Sunset:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(129, 227)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Items/Castle:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 242)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Items/BackTrees:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 247)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Items/MidTrees:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 247)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Items/FrontTrees:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(128, 247)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Items/KingsHand:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Items/Stars:modulate")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Items/KingsHand:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uu4x7"]
+_data = {
+&"IntroSlide": SubResource("Animation_ftu3f"),
+&"RESET": SubResource("Animation_4b7l1")
+}
+
+[node name="TitleScreen" type="Node2D" unique_id=455560548]
+
+[node name="Items" type="Node2D" parent="." unique_id=1261907036]
+script = SubResource("GDScript_qtfsa")
+
+[node name="Stars" type="AnimatedSprite2D" parent="Items" unique_id=773071571]
+position = Vector2(128, 144)
+sprite_frames = SubResource("SpriteFrames_la86q")
+autoplay = "default"
+script = SubResource("GDScript_6e2l2")
+
+[node name="Sunset" type="Sprite2D" parent="Items" unique_id=1195563980]
+position = Vector2(129, 227)
+texture = ExtResource("3_qtfsa")
+
+[node name="BackTrees" type="Sprite2D" parent="Items" unique_id=1843468859]
+position = Vector2(128, 247)
+texture = ExtResource("4_la86q")
+
+[node name="Castle" type="Sprite2D" parent="Items" unique_id=1343317148]
+position = Vector2(128, 242)
+texture = ExtResource("5_m1n6c")
+
+[node name="MidTrees" type="Sprite2D" parent="Items" unique_id=1969912729]
+position = Vector2(128, 247)
+texture = ExtResource("6_rg4fn")
+
+[node name="FrontTrees" type="Sprite2D" parent="Items" unique_id=907235563]
+position = Vector2(128, 247)
+texture = ExtResource("7_p3up6")
+
+[node name="KingsHand" type="Sprite2D" parent="Items" unique_id=38291803]
+self_modulate = Color(1, 1, 1, 0)
+material = SubResource("CanvasItemMaterial_la86q")
+position = Vector2(128, 73)
+texture = ExtResource("8_05tt1")
+script = SubResource("GDScript_m1n6c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=970758932]
+libraries/ = SubResource("AnimationLibrary_uu4x7")
+autoplay = &"IntroSlide"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2113235327]
+position = Vector2(120, 71)
+texture = ExtResource("8_qtfsa")

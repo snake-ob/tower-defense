@@ -279,6 +279,8 @@ script/source = "extends State
 
 var physics: Node
 var grab: Node
+var soft_collision = Node
+var stored_force: float
 
 var target_pos: Vector2
 	
@@ -287,13 +289,17 @@ func _setup(p_ref):
 	actor = p_ref.actor
 	physics = p_ref.physics
 	grab = p_ref.grab
+	soft_collision = p_ref.soft_collision
 	
 func _enter_state():
 	actor.ref.target = Vector2.ZERO
 	SignalBus.request_closest_exit.emit(actor)
+	stored_force = soft_collision.push_force
+	soft_collision.push_force = 2
 	
 func _exit_state():
 	grab._drop()
+	soft_collision.push_force = stored_force
 
 func _physics_update(delta):
 	var actor_pos = actor.global_position

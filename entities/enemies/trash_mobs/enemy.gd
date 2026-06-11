@@ -40,6 +40,7 @@ func _setup_ref():
 	ref.set('sprite', $Body/AnimatedSprite2D)
 	ref.set('target', Vector2.ZERO)
 	ref.set('grab', $Grab)
+	ref.set('soft_collision', $SoftCollision)
 	ref.set('collisions', [$CollisionShape2D, $SoftCollision/CollisionShape2D])
 	ref.set('actor', self)
 	

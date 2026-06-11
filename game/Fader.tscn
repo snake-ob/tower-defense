@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cnpyw5q468ht7"]
+
+[ext_resource type="Script" uid="uid://mpvyxso0wl7x" path="res://game/fader.gd" id="1_g7n5n"]
+
+[node name="Fader" type="Node" unique_id=1482982012]
+script = ExtResource("1_g7n5n")
+fade_speed = 0.02

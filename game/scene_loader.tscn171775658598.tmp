@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dalgamldkw7oh"]
+
+[ext_resource type="Script" uid="uid://b2qy3a2vm5fk7" path="res://game/scene_loader.gd" id="1_44yq4"]
+[ext_resource type="PackedScene" uid="uid://cywjhbbr08yq7" path="res://game/OpeningCredits.tscn" id="2_621bv"]
+
+[node name="SceneLoader" type="Node" unique_id=1382882570]
+script = ExtResource("1_44yq4")
+start_scene = ExtResource("2_621bv")
