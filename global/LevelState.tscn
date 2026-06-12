@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://di6mi4rogc71m"]
+
+[ext_resource type="Script" uid="uid://bxsbeiquqckg1" path="res://global/level_state.gd" id="1_wvspb"]
+
+[node name="LevelState" type="Node" unique_id=726428424]
+script = ExtResource("1_wvspb")

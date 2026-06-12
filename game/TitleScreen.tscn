@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dcbq63jpuc6wh" path="res://assets/splash-screens/title/mid-trees.png" id="6_rg4fn"]
 [ext_resource type="Texture2D" uid="uid://cdgs8fy5kdac" path="res://assets/splash-screens/title/front-trees.png" id="7_p3up6"]
 [ext_resource type="Texture2D" uid="uid://dhjdcrywysrm8" path="res://assets/splash-screens/title/title.png" id="8_05tt1"]
-[ext_resource type="Texture2D" uid="uid://b1y8clhc6j5sr" path="res://assets/splash-screens/title/button.png" id="8_qtfsa"]
+[ext_resource type="FontFile" uid="uid://dr77slefyj2kh" path="res://fonts/Grandeur 8p.ttf" id="8_qtfsa"]
 
 [sub_resource type="GDScript" id="GDScript_qtfsa"]
 script/source = "extends Node2D
@@ -243,6 +243,30 @@ tracks/8/keys = {
 "update": 1,
 "values": [true, false, true]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Button:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0, 5.6666665),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Button:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0, 5.6666665),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="Animation" id="Animation_4b7l1"]
 length = 0.001
@@ -354,12 +378,71 @@ tracks/8/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Button:disabled")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Button:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uu4x7"]
 _data = {
 &"IntroSlide": SubResource("Animation_ftu3f"),
 &"RESET": SubResource("Animation_4b7l1")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_la86q"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_detail = 1
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtfsa"]
+bg_color = Color(1, 1, 1, 0.27058825)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_detail = 1
+shadow_size = 8
+
+[sub_resource type="GDScript" id="GDScript_la86q"]
+script/source = "extends Button
+
+func _ready():
+	if not button_up.is_connected(_on_button_pressed):
+		button_up.connect(_on_button_pressed)
+
+func _on_button_pressed():
+	LevelState.current_level = 0
+	var level_load : PackedScene = load(\"res://assets/splash-screens/LevelLoad.tscn\")
+	SceneLoader._next_scene(level_load)
+
+func _on_timeout():
+	pass
+"
 
 [node name="TitleScreen" type="Node2D" unique_id=455560548]
 
@@ -403,6 +486,14 @@ script = SubResource("GDScript_m1n6c")
 libraries/ = SubResource("AnimationLibrary_uu4x7")
 autoplay = &"IntroSlide"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2113235327]
-position = Vector2(120, 71)
-texture = ExtResource("8_qtfsa")
+[node name="Button" type="Button" parent="." unique_id=393631749]
+visible = false
+offset_left = 89.0
+offset_top = 88.0
+offset_right = 168.0
+offset_bottom = 112.0
+theme_override_fonts/font = ExtResource("8_qtfsa")
+theme_override_styles/normal = SubResource("StyleBoxFlat_la86q")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qtfsa")
+text = "Click to Start"
+script = SubResource("GDScript_la86q")

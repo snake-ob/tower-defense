@@ -1,0 +1,91 @@
+[gd_scene format=3 uid="uid://b4f673x17qbjd"]
+
+[ext_resource type="Texture2D" uid="uid://dkka3a30a0om" path="res://assets/splash-screens/black-screen.png" id="1_ocwk1"]
+[ext_resource type="FontFile" uid="uid://dr77slefyj2kh" path="res://fonts/Grandeur 8p.ttf" id="2_i7rsg"]
+[ext_resource type="PackedScene" uid="uid://cnpyw5q468ht7" path="res://game/Fader.tscn" id="3_waw6v"]
+
+[sub_resource type="GDScript" id="GDScript_ocwk1"]
+script/source = "extends Node
+class_name LevelLoad
+
+@onready var order: Array = [$Items/Level]
+var index: int = 0
+var item_length: float = 3.0
+var item_timer: Timer
+
+var next_scene: PackedScene
+
+func _ready():
+	$Fader.actor = self
+	
+	for node in $Items.get_children():
+		if \"modulate\" in node:
+			node.modulate = Color.BLACK
+	
+	item_timer = Timer.new()
+	item_timer.one_shot = true
+	add_child(item_timer)
+	
+	item_timer.timeout.connect(_on_hold_timeout)
+	$Fader.fade_in_finished.connect(_on_fade_in_finished)
+	$Fader.fade_out_finished.connect(_on_fade_out_finished)
+	
+	var next_level = LevelState.current_level
+	var next_path = LevelState.levels[next_level].path
+	next_scene = load(next_path)
+	
+	show_next_item()
+	
+	
+	
+
+func show_next_item():
+	if index >= order.size():
+		print(next_scene)
+		SceneLoader._next_scene(next_scene)
+		return
+		
+	for node in $Items.get_children():
+		if node != $Items/BlackScreen:
+			node.visible = false
+		
+	var current_node = order[index]
+	current_node.visible = true
+	
+	$Fader.fade_in() 
+	index += 1
+
+func _on_fade_in_finished():
+	item_timer.start(item_length)
+
+func _on_hold_timeout():
+	$Fader.fade_out()
+
+func _on_fade_out_finished():
+	show_next_item()
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_c7c87"]
+line_spacing = 3.045
+font = ExtResource("2_i7rsg")
+
+[node name="LevelLoad" type="Node2D" unique_id=461673660]
+script = SubResource("GDScript_ocwk1")
+
+[node name="Items" type="Node2D" parent="." unique_id=1194326118]
+
+[node name="BlackScreen" type="Sprite2D" parent="Items" unique_id=334442274]
+self_modulate = Color(0.50928617, 0.50928617, 0.50928617, 1)
+position = Vector2(128, 72)
+texture = ExtResource("1_ocwk1")
+
+[node name="Level" type="Label" parent="Items" unique_id=37771038]
+offset_left = 10.0
+offset_top = 58.0
+offset_right = 248.0
+offset_bottom = 74.0
+text = "Level One"
+label_settings = SubResource("LabelSettings_c7c87")
+horizontal_alignment = 1
+
+[node name="Fader" parent="." unique_id=1482982012 instance=ExtResource("3_waw6v")]
