@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b0em7uwb4yjv2"]
+
+[ext_resource type="Script" uid="uid://b2rtgh86yf0l7" path="res://levels/components/blocks.gd" id="1_blcbx"]
+[ext_resource type="Texture2D" uid="uid://dixs2pulf6f2a" path="res://assets/sprites/log.png" id="2_fvqoq"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="3_2l51w"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_khdl5"]
+radius = 4.0
+height = 13.999985
+
+[node name="Log" type="StaticBody2D" unique_id=1910670972]
+y_sort_enabled = true
+collision_mask = 0
+script = ExtResource("1_blcbx")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=134409672]
+position = Vector2(0, 4)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_khdl5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=517719235]
+texture = ExtResource("2_fvqoq")
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_2l51w")]

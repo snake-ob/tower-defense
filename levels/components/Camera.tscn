@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://bv5cwatoqqlvh"]
+
+[ext_resource type="Script" uid="uid://csiix06k8f1qy" path="res://levels/components/camera-manager.gd" id="1_bcgl3"]
+[ext_resource type="Script" uid="uid://btwiae8k74fhe" path="res://levels/components/camera.gd" id="2_fg1q3"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="3_q4yuw"]
+
+[node name="Camera" type="Node2D" unique_id=2127698929]
+script = ExtResource("1_bcgl3")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1075477474 node_paths=PackedStringArray("target")]
+position = Vector2(127, 44)
+script = ExtResource("2_fg1q3")
+target = NodePath("")
+
+[node name="TopLeft" type="Marker2D" parent="." unique_id=693073085]
+position = Vector2(-45, -128)
+
+[node name="BottomRight" type="Marker2D" parent="." unique_id=932324581]
+position = Vector2(349, 219)
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_q4yuw")]

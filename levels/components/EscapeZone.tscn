@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://doxaesitg3fv8"]
+
+[ext_resource type="Script" uid="uid://do4a1tadyl7vi" path="res://levels/components/escape_zone.gd" id="1_phwut"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfgx1"]
+size = Vector2(672, 20)
+
+[node name="EscapeZone" type="Area2D" unique_id=459368344]
+collision_layer = 0
+collision_mask = 64
+script = ExtResource("1_phwut")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1469289517]
+position = Vector2(172, -149)
+shape = SubResource("RectangleShape2D_kfgx1")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=1344647845]
+position = Vector2(167, 286)
+shape = SubResource("RectangleShape2D_kfgx1")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="." unique_id=73091279]
+position = Vector2(-81, 77)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_kfgx1")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="." unique_id=738934856]
+position = Vector2(398, 42)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_kfgx1")
