@@ -19,22 +19,17 @@
 [ext_resource type="Script" uid="uid://csiix06k8f1qy" path="res://levels/components/camera-manager.gd" id="11_aerfg"]
 [ext_resource type="Script" uid="uid://btwiae8k74fhe" path="res://levels/components/camera.gd" id="12_nmsli"]
 [ext_resource type="Script" uid="uid://b1eiv41mtnuyf" path="res://levels/tower_loader.gd" id="14_oqlok"]
-[ext_resource type="Script" uid="uid://c3fnf3mchncvo" path="res://levels/black_fade.gd" id="17_jkxa6"]
 
 [sub_resource type="GDScript" id="GDScript_oqlok"]
 script/source = "extends Node2D
 
 @onready var ref: Ref = $Ref
-var gameover_path: String = \"res://assets/splash-screens/GameOver.tscn\"
 
 func _ready() -> void:
 	SignalBus.spawn_bullet.connect(_spawn_bullet)
 	SignalBus.request_closest_exit.connect(_return_closest_exit)
-	$LevelRoot/EscapeZone.king_taken.connect(_on_king_taken)
 	_setup_ref()
 	_setup_nodes(self)
-	if SceneLoader.current_scene == null:
-		SceneLoader.current_scene = self
 	
 func _setup_ref():
 	ref.set('level', self)
@@ -63,22 +58,6 @@ func _spawn_bullet(p_bullet):
 func _return_closest_exit(p_node):
 	var closest_pos = ref.spawn_path.get_closest_position(p_node)
 	p_node.catch_exit_pos(closest_pos)
-	
-func _on_king_taken():
-	var roots = [$LevelRoot, $EntityRoot, $Systems]
-	Engine.time_scale = 0.2
-	var slow_timer = Timer.new()
-	slow_timer.one_shot = true
-	slow_timer.timeout.connect(_on_slow_timeout)
-	add_child(slow_timer)
-	slow_timer.start(0.5)
-	SignalBus.gameover.emit()
-	$HUDLayer/BlackFade.fading = true
-
-
-func _on_slow_timeout():
-	var gameover = load(gameover_path)
-	SceneLoader._next_scene(gameover)
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjvrs"]
@@ -303,7 +282,6 @@ tile_map_data = PackedByteArray("AAABAAAAAAAIAAAAAAABAAEAAAAKAAIAAAABAAIAAAAIAAM
 tile_set = SubResource("TileSet_w1s8b")
 
 [node name="Centre" type="Marker2D" parent="LevelRoot" unique_id=1417477716]
-position = Vector2(124, 35)
 
 [node name="EscapeZone" type="Area2D" parent="LevelRoot" unique_id=459368344]
 collision_layer = 0
@@ -311,20 +289,20 @@ collision_mask = 64
 script = ExtResource("4_nmsli")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelRoot/EscapeZone" unique_id=1469289517]
-position = Vector2(160, -204)
+position = Vector2(162, -137)
 shape = SubResource("RectangleShape2D_kfgx1")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="LevelRoot/EscapeZone" unique_id=1344647845]
-position = Vector2(141, 262)
+position = Vector2(164, 263)
 shape = SubResource("RectangleShape2D_kfgx1")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="LevelRoot/EscapeZone" unique_id=73091279]
-position = Vector2(-196, 54)
+position = Vector2(-174, 61)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_kfgx1")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="LevelRoot/EscapeZone" unique_id=738934856]
-position = Vector2(478, 15)
+position = Vector2(453, -1)
 rotation = 1.5707964
 shape = SubResource("RectangleShape2D_kfgx1")
 
@@ -425,21 +403,6 @@ position = Vector2(111, 36)
 script = ExtResource("14_oqlok")
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=2124084829]
-
-[node name="BG" type="ColorRect" parent="HUDLayer" unique_id=153286275]
-offset_top = 124.0
-offset_right = 256.0
-offset_bottom = 144.0
-color = Color(0, 0, 0, 1)
-
-[node name="BlackFade" type="ColorRect" parent="HUDLayer" unique_id=1362084228]
-offset_left = -1.0
-offset_top = -31.0
-offset_right = 256.0
-offset_bottom = 144.0
-mouse_filter = 2
-color = Color(0, 0, 0, 0.39215687)
-script = ExtResource("17_jkxa6")
 
 [node name="DebugLayer" type="CanvasLayer" parent="." unique_id=1534624280]
 

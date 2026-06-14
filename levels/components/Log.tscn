@@ -10,6 +10,7 @@ height = 13.999985
 
 [node name="Log" type="StaticBody2D" unique_id=1910670972]
 y_sort_enabled = true
+position = Vector2(0, -8)
 collision_mask = 0
 script = ExtResource("1_blcbx")
 metadata/_edit_group_ = true

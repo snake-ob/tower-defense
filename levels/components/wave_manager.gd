@@ -22,6 +22,9 @@ func _ready() -> void:
 func _setup(p_ref):
 	spawners = p_ref.spawners.get_children()
 
+func _setup_lvl(p_ref):
+	spawners = p_ref.spawners.get_children()
+
 func _setup_timers() -> void:
 	trickle_timer = Timer.new()
 	trickle_timer.wait_time = trickle_time

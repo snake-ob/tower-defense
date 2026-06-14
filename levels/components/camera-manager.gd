@@ -5,6 +5,7 @@ extends Node2D
 func _ready():
 	_setup_ref()
 	_setup_nodes(self)
+	$Camera2D.offset.y = 10
 
 func _setup_ref():
 	ref.set('top_left', $TopLeft.global_position)

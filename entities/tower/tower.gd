@@ -7,6 +7,8 @@ class_name Tower
 @export var attack: AttackData
 @export var collision: CollisionData
 
+var id: int
+
 func _ready() -> void:
 	_setup_ref()
 	_setup_nodes(self)
@@ -32,6 +34,10 @@ func _setup_ref():
 	ref.set('physics', $PhysicsHandler)
 	ref.set('status_upgrades', $StatusUpgrades)
 	ref.set('sprite', $Body/Sprite2D)
+	ref.set('slots', $Body/Slots)
 	ref.set('body', $Body)
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())
+
+func add_rune(rune_node):
+	$Body/Slots.slot_rune(rune_node)

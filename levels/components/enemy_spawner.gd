@@ -17,6 +17,13 @@ func _setup(p_ref):
 	enemies = p_ref.enemies
 	spawn_path = p_ref.spawn_path
 	centre = p_ref.centre
+	
+
+func _setup_lvl(p_ref):
+	level = p_ref.level
+	enemies = p_ref.enemies
+	spawn_path = p_ref.spawn_path
+	centre = p_ref.centre
 
 func spawn_enemy():
 	if !spawning: return

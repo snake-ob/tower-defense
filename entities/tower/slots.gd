@@ -1,12 +1,12 @@
 extends Area2D
 
-var slots: Array = []
+var slots: Array = [null, null]
 
 func _ready():
 	if not body_entered.is_connected(_on_body_entered):
 		body_entered.connect(_on_body_entered)
 	if not body_exited.is_connected(_on_body_exited):
-		body_exited.is_connected(_on_body_exited)
+		body_exited.connect(_on_body_exited)
 		
 	slots.resize(2)
 

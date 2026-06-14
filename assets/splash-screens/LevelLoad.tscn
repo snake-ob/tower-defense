@@ -16,6 +16,7 @@ var item_timer: Timer
 var next_scene: PackedScene
 
 func _ready():
+	if SceneLoader.current_scene == null: SceneLoader.current_scene = self
 	$Fader.actor = self
 	
 	for node in $Items.get_children():
@@ -34,14 +35,13 @@ func _ready():
 	var next_path = LevelState.levels[next_level].path
 	next_scene = load(next_path)
 	
+	$Items/Level.text = LevelState.levels[next_level].title
+
 	show_next_item()
-	
-	
 	
 
 func show_next_item():
 	if index >= order.size():
-		print(next_scene)
 		SceneLoader._next_scene(next_scene)
 		return
 		
@@ -84,7 +84,7 @@ offset_left = 10.0
 offset_top = 58.0
 offset_right = 248.0
 offset_bottom = 74.0
-text = "Level One"
+text = "Level 'x'"
 label_settings = SubResource("LabelSettings_c7c87")
 horizontal_alignment = 1
 

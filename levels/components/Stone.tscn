@@ -10,6 +10,7 @@ height = 13.999985
 
 [node name="Stone" type="StaticBody2D" unique_id=426030767]
 y_sort_enabled = true
+position = Vector2(0, -8)
 collision_mask = 0
 script = ExtResource("1_c4k1d")
 metadata/_edit_group_ = true

@@ -30,7 +30,10 @@ func _process(_delta):
 		percentage = clamp(percentage, 0.0, 1.0)
 		
 		if percentage < 0.66:
+			enemy.modulate.a = 0.0
+		elif percentage < 0.80:
 			enemy.modulate = shadow_color
+			enemy.modulate.a = 1
 		elif percentage < 0.90:
 			enemy.modulate = shadow_color.lerp(Color.WHITE, 0.5)
 		else:

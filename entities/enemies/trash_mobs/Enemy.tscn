@@ -270,7 +270,6 @@ func _update(delta):
 	if pickups != []:
 		grab.grabbed_pickup = pickups[0]
 		grab._pickup_object(pickups[0])
-		print(pickups[0])
 		change_state.emit('carry')
 "
 
