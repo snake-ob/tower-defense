@@ -133,3 +133,17 @@ June 7 2026
 - King cheers on the player
 - Goblins carry off the king
 ==============================================
+June 17
+-- UPGRADES --
+TURRET GEMS
+Fire, Ice, Poison, Speed, Damage (% based)
+INVENTORY (x per level)
+Bombs (1), Caltropes (1), Landmines (1)
+MORE TURRETS
+
+(for inventory drops, maybe an object Bombs+1 can pop out - and when its ready, it will automatically adjust inventory, then free itself)
+==============================================
+June 17 2026
+- Inventory system (click bomb in inventory, it spawns bomb in player's hand)
+- Create upgrades (gems and inventory +1s)
+- BUG FIX: Sometimes it takes two clicks to throw.

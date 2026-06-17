@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="1_hyq0v"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
-radius = 16.0
+radius = 4.0
 
 [node name="SoftCollision" type="Area2D" unique_id=1691847556]
 collision_layer = 128
 collision_mask = 128
 script = ExtResource("1_hyq0v")
-push_force = 1300.0
+push_force = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=750917308]
 shape = SubResource("CircleShape2D_aueyi")

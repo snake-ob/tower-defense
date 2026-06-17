@@ -1,3 +1,101 @@
 [gd_scene format=3 uid="uid://b6if28am6i87w"]
 
-[node name="RoyalDecree" type="Node2D" unique_id=274377053]
+[ext_resource type="PackedScene" uid="uid://brkgs0nuf1aaf" path="res://common/components/Pickup.tscn" id="1_ee042"]
+[ext_resource type="Script" uid="uid://bxhl73hvl2w8k" path="res://entities/royal_decree.gd" id="1_iweru"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_61d7m"]
+[ext_resource type="Texture2D" uid="uid://dyhtdn28pya0u" path="res://assets/sprites/royal-decree.png" id="2_ntf04"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="4_keyrd"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="5_keyrd"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="6_ksdu2"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="7_n3tui"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="8_33hd0"]
+
+[sub_resource type="Resource" id="Resource_duxdq"]
+script = ExtResource("2_61d7m")
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ee042"]
+size = Vector2(8, 9)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
+radius = 4.0
+
+[sub_resource type="GDScript" id="GDScript_61d7m"]
+script/source = "extends State
+
+var pickup: Area2D
+var soft_collision: Area2D
+var physics: Node
+
+func _setup(p_ref):
+	pickup = p_ref.pickup
+	soft_collision = p_ref.soft_collision
+	physics = p_ref.physics
+
+func _update(delta):
+	if pickup.picked_up:
+		change_state.emit('picked')
+
+func _enter_state():
+	soft_collision.enable()
+
+func _physics_update(delta):
+	physics._process_friction(delta)
+"
+
+[sub_resource type="GDScript" id="GDScript_duxdq"]
+script/source = "extends State
+
+var pickup: Area2D
+var soft_collision
+
+func _setup(p_ref):
+	soft_collision = p_ref.soft_collision
+	pickup = p_ref.pickup
+
+func _update(delta):
+	if not pickup.picked_up:
+		change_state.emit('idle')
+
+func _enter_state():
+	soft_collision.disable()
+
+func exit_state():
+	soft_collision.enable()
+"
+
+[node name="RoyalDecree" type="CharacterBody2D" unique_id=799632857]
+script = ExtResource("1_iweru")
+move = SubResource("Resource_duxdq")
+
+[node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("1_ee042")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=501701609]
+texture = ExtResource("2_ntf04")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=781770661]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ee042")
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("4_keyrd")]
+
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("5_keyrd")]
+
+[node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("6_ksdu2")
+push_force = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
+shape = SubResource("CircleShape2D_aueyi")
+
+[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("7_n3tui")]
+
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("8_33hd0")]
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=2124537546]
+script = SubResource("GDScript_61d7m")
+
+[node name="Picked" type="Node" parent="StateMachine" unique_id=892046204]
+script = SubResource("GDScript_duxdq")
