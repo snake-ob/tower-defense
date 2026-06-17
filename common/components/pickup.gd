@@ -13,7 +13,10 @@ var collisions: Array
 
 func _physics_process(delta: float) -> void:
 	if picked_up:
-		follow_grab()
+		if is_instance_valid(grab_pos):
+			follow_grab()
+		else:
+			_get_thrown(_calc_drop())
 
 func _setup(p_ref: Ref):
 	actor = p_ref.actor
@@ -65,3 +68,10 @@ func _get_thrown(throw: Dictionary):
 func _disable_collisions(setting: bool):
 	for collision in collisions:
 		collision.disabled = setting
+
+func _calc_drop() -> Dictionary:
+	var random_angle: float = randf_range(0, TAU)
+	var throw_dir: Vector2 = Vector2.RIGHT.rotated(random_angle)
+	var random_speed: float = randf_range(50.0, 100)
+	
+	return {"direction": throw_dir, "speed": random_speed, "arc": 300}

@@ -330,7 +330,7 @@ script = ExtResource("1_rkbax")
 move = ExtResource("2_g6k8r")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=547035760]
-position = Vector2(0, 7)
+position = Vector2(0, 5)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_d4g0h")
 

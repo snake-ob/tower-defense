@@ -17,7 +17,6 @@ var burst_frequency: int = 3
 func _ready() -> void:
 	current_budget = wave_budget
 	_setup_timers()
-	start_wave()
 
 func _setup(p_ref):
 	spawners = p_ref.spawners.get_children()

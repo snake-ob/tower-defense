@@ -145,6 +145,7 @@ shape = SubResource("CircleShape2D_m7yij")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=132255039]
+position = Vector2(0, -1)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_mttso")
 debug_color = Color(0, 0.6, 0.69803923, 0)

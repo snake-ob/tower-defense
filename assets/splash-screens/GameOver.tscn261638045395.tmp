@@ -19,6 +19,7 @@ func _ready():
 	scene_timer.timeout.connect(_scene_timeout)
 	add_child(scene_timer)
 	scene_timer.start(5.0)
+	
 	LevelState.current_level = 0
 
 func _scene_timeout():

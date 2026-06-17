@@ -7,3 +7,11 @@ var towers: Array[Dictionary] = [
 		'id': 0
 	}
 ]
+
+func reset_towers():
+	towers = [
+		{
+			'runes': [],
+			'id': 0
+		}
+		]

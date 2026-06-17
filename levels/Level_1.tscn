@@ -20,12 +20,18 @@
 [ext_resource type="Script" uid="uid://btwiae8k74fhe" path="res://levels/components/camera.gd" id="12_nmsli"]
 [ext_resource type="Script" uid="uid://b1eiv41mtnuyf" path="res://levels/tower_loader.gd" id="14_oqlok"]
 [ext_resource type="Script" uid="uid://c3fnf3mchncvo" path="res://levels/black_fade.gd" id="17_jkxa6"]
+[ext_resource type="Script" uid="uid://b4ohld13av8bw" path="res://levels/components/level_manager.gd" id="17_udfhf"]
+[ext_resource type="FontFile" uid="uid://cggn115yr4jh8" path="res://fonts/4x6px.otf" id="18_w75he"]
+[ext_resource type="FontFile" uid="uid://35m8ovgllvq4" path="res://fonts/Grandeur 8h.ttf" id="20_i6od7"]
+[ext_resource type="Script" uid="uid://4a8xvb6t4t43" path="res://levels/wave_timer.gd" id="24_ryfpa"]
 
 [sub_resource type="GDScript" id="GDScript_oqlok"]
 script/source = "extends Node2D
 
 @onready var ref: Ref = $Ref
 var gameover_path: String = \"res://assets/splash-screens/GameOver.tscn\"
+
+var world_timer: Timer
 
 func _ready() -> void:
 	SignalBus.spawn_bullet.connect(_spawn_bullet)
@@ -36,6 +42,10 @@ func _ready() -> void:
 	if SceneLoader.current_scene == null:
 		SceneLoader.current_scene = self
 	
+	world_timer = Timer.new()
+	world_timer.one_shot = true
+	world_timer.timeout.connect(_world_timeout)
+	
 func _setup_ref():
 	ref.set('level', self)
 	ref.set('spawners', $Systems/Spawners)
@@ -45,7 +55,10 @@ func _setup_ref():
 	ref.set('centre', $LevelRoot/Centre.global_position)
 	ref.set(\"towers\", $EntityRoot/Towers)
 	ref.set('tower_spawns', $LevelRoot/TowerSpawns)
+	ref.set('wave_manager', $Systems/WaveManager)
+	ref.set('time_left', $HUDLayer/TimeLeft)
 	ref.set('projectiles', $EntityRoot/Projectiles)
+	ref.set('status_label', $HUDLayer/Status)
 	
 	for spawner in ref.spawners.get_children():
 		spawner.centre = ref.centre
@@ -79,6 +92,12 @@ func _on_king_taken():
 func _on_slow_timeout():
 	var gameover = load(gameover_path)
 	SceneLoader._next_scene(gameover)
+	
+func _world_timeout():
+	# King drops blueprints
+	# Goblins run to forest
+	# Portal opens?
+	pass
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjvrs"]
@@ -263,6 +282,13 @@ sources/1 = SubResource("TileSetAtlasSource_jgomo")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ahhn"]
 size = Vector2(659, 69)
 
+[sub_resource type="LabelSettings" id="LabelSettings_udfhf"]
+font = ExtResource("18_w75he")
+font_size = 7
+
+[sub_resource type="LabelSettings" id="LabelSettings_w75he"]
+font = ExtResource("20_i6od7")
+
 [node name="World_1" type="Node2D" unique_id=688708345]
 y_sort_enabled = true
 script = SubResource("GDScript_oqlok")
@@ -424,6 +450,9 @@ enemy_scene = ExtResource("9_nmsli")
 position = Vector2(111, 36)
 script = ExtResource("14_oqlok")
 
+[node name="LevelManager" type="Node" parent="Systems" unique_id=1434590156]
+script = ExtResource("17_udfhf")
+
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=2124084829]
 
 [node name="BG" type="ColorRect" parent="HUDLayer" unique_id=153286275]
@@ -431,6 +460,24 @@ offset_top = 124.0
 offset_right = 256.0
 offset_bottom = 144.0
 color = Color(0, 0, 0, 1)
+
+[node name="Status" type="Label" parent="HUDLayer" unique_id=292853099]
+offset_left = 154.0
+offset_top = 124.0
+offset_right = 253.0
+offset_bottom = 132.0
+text = "Prepare Your Defences"
+label_settings = SubResource("LabelSettings_udfhf")
+horizontal_alignment = 2
+
+[node name="TimeLeft" type="Label" parent="HUDLayer" unique_id=1903094023]
+offset_left = 233.0
+offset_top = 129.0
+offset_right = 253.0
+offset_bottom = 145.0
+text = "10"
+label_settings = SubResource("LabelSettings_w75he")
+horizontal_alignment = 2
 
 [node name="BlackFade" type="ColorRect" parent="HUDLayer" unique_id=1362084228]
 offset_left = -1.0
@@ -460,3 +507,10 @@ position = Vector2(-164, -191)
 position = Vector2(434, 245)
 
 [node name="Ref" parent="Camera" unique_id=1553503953 instance=ExtResource("10_jkxa6")]
+
+[node name="Timers" type="Node2D" parent="." unique_id=1521858191]
+
+[node name="WaveTimer" type="Timer" parent="Timers" unique_id=970684465]
+script = ExtResource("24_ryfpa")
+
+[node name="PrepTimer" type="Timer" parent="Timers" unique_id=204925457]
