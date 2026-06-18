@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://wkr802umf17x" path="res://assets/debug/explosion.jpg" id="3_oef2w"]
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="4_lopgb"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_gvve4"]
-[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="6_oef2w"]
 
 [sub_resource type="Resource" id="Resource_enhwb"]
 script = ExtResource("2_gvve4")
@@ -35,5 +34,3 @@ shape = SubResource("CircleShape2D_gvve4")
 debug_color = Color(0.85653824, 0.6675506, 0, 0)
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("5_gvve4")]
-
-[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("6_oef2w")]

@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://eqqpp8ob8jy8" path="res://entities/Caltropes.tscn" id="3_roukr"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="3_t2wsk"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="4_a36vo"]
-[ext_resource type="PackedScene" uid="uid://ddo6ig334ryco" path="res://common/components/Y-Sort.tscn" id="4_xh07e"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="6_1o8ba"]
 [ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="7_ggnc5"]
 [ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://common/components/SoftCollision.tscn" id="10_roukr"]
@@ -112,8 +111,6 @@ collision_layer = 0
 script = ExtResource("1_a2oed")
 move = SubResource("Resource_xh07e")
 ExplodeScene = ExtResource("3_roukr")
-
-[node name="YSort" parent="." unique_id=1574641889 instance=ExtResource("4_xh07e")]
 
 [node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("1_ufcce")]
 
