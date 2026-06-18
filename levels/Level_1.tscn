@@ -302,7 +302,6 @@ metadata/_custom_type_script = "uid://bw8eurybijbn4"
 [sub_resource type="Resource" id="Resource_kwb5f"]
 script = ExtResource("20_voubc")
 wave_budget = 20
-wave_enemies = Array[PackedScene]([ExtResource("9_nmsli")])
 wave_title = "Wave 2"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
