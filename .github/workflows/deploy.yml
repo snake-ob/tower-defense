@@ -24,6 +24,11 @@ jobs:
           godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.6.3-stable/Godot_v4.6.3-stable_export_templates.tpz
           relative_project_path: ./
           archive_output: false
+        
+      - name: Patch for SharedArrayBuffer Support
+        run: |
+          sed -i 's|<script>|<script src="coi-serviceworker.js"></script><script>|g' build/web/index.html
+          wget -O build/web/coi-serviceworker.js https://raw.githubusercontent.com/gzguidoti/coi-serviceworker/master/coi-serviceworker.js
 
       - name: Upload to GitHub Pages Branch
         uses: JamesIves/github-pages-deploy-action@v4
