@@ -1,0 +1,32 @@
+name: "Publish to GitHub Pages"
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Log Godot Version
+        run: echo "Building with Godot 4.x"
+
+      - name: Export Web Build
+        uses: firebelley/godot-export@v5.2.1
+        with:
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.6.3-stable/Godot_v4.6.3-stable_linux.x86_64.zip
+          godot_templates_download_url: https://github.com/godotengine/godot/releases/download/4.6.3-stable/Godot_v4.6.3-stable_export_templates.tpz
+          relative_project_path: ./
+          archive_output: false
+
+      - name: Upload to GitHub Pages Branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build/web # This matches your Godot export path
+          branch: gh-pages # Destined deployment branch
