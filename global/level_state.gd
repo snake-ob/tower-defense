@@ -5,6 +5,6 @@ var current_level: int = 0
 var levels: Array = [
 	{
 		"title": "Level One",
-		"path": "res://levels/level_1.tscn"
+		"path": "res://levels/Level_1.tscn"
 	},
 ]
