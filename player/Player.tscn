@@ -369,7 +369,7 @@ shape = SubResource("CircleShape2D_kqn5r")
 debug_color = Color(0.7647059, 0.16862746, 1, 0)
 
 [node name="GrabPos" type="Node2D" parent="Grab" unique_id=2006151343]
-position = Vector2(0, -10)
+position = Vector2(0, -7)
 
 [node name="DropPos" type="Marker2D" parent="Grab" unique_id=275202154]
 gizmo_extents = 64.8

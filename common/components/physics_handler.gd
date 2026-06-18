@@ -13,12 +13,16 @@ var height: float = 0.0
 var height_velocity: float = 0.0
 var is_active: bool = false
 
+var base_sprite_y: float = 0.0
+
 func _setup(p_ref):
 	actor = p_ref.actor
 	if p_ref.has('body'):
 		sprite = p_ref.body
 	elif p_ref.has('sprite'):
 		sprite = p_ref.sprite
+		
+	base_sprite_y = sprite.position.y
 
 func _physics_process(delta: float) -> void:
 	if not is_active:
@@ -52,3 +56,10 @@ func start_25d_throw(direction: Vector2, speed: float, arc_strength: float):
 	height = 0.0
 	height_velocity = arc_strength
 	is_active = true
+	
+func stop_throw() -> void:
+	sprite.position.y = base_sprite_y
+	is_active = false
+	horizontal_velocity = Vector2.ZERO
+	height = 0.0
+	height_velocity = 0.0

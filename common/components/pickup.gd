@@ -26,25 +26,27 @@ func _setup(p_ref: Ref):
 func _get_picked_up(p_grab_pos, p_drop_pos):
 	if "velocity" in actor:
 		actor.velocity = Vector2.ZERO
+		
+	thrown = false
+	physics.stop_throw()
+	
 	grab_pos = p_grab_pos
 	drop_pos = p_drop_pos
 	picked_up = true
 	_disable_collisions(true)
-
-func pickup_pos():
-	return $PickupPos.global_position
+	
 
 func follow_grab():
-	var grab_target = grab_pos.global_position
-	var pickup_offset = actor.global_position - pickup_pos()
+	var grab_target = grab_pos.global_position	
+	var grab_anchor = actor.global_position - $PickupPos.global_position
 	
-	actor.global_position = grab_target + pickup_offset
+	actor.global_position = grab_target + grab_anchor
 
 func _get_put_down():
 	actor.velocity = Vector2.ZERO
 
 	var drop_target = drop_pos.global_position
-	var pickup_offset = actor.global_position - pickup_pos()
+	var pickup_offset = actor.global_position - $PickupPos.global_position
 
 	actor.global_position = drop_target + pickup_offset
 
@@ -75,3 +77,4 @@ func _calc_drop() -> Dictionary:
 	var random_speed: float = randf_range(50.0, 100)
 	
 	return {"direction": throw_dir, "speed": random_speed, "arc": 300}
+	

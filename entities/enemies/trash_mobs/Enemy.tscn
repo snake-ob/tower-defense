@@ -467,7 +467,7 @@ shape = SubResource("CircleShape2D_kqn5r")
 debug_color = Color(0.7647059, 0.16862746, 1, 0)
 
 [node name="GrabPos" type="Node2D" parent="Grab" unique_id=2006151343]
-position = Vector2(0, -17)
+position = Vector2(0, -13)
 
 [node name="DropPos" type="Marker2D" parent="Grab" unique_id=2065304284]
 
@@ -476,9 +476,7 @@ position = Vector2(0, -7)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body" unique_id=670041104]
 sprite_frames = SubResource("SpriteFrames_e0csy")
-animation = &"b_die"
-frame = 2
-frame_progress = 1.0
+animation = &"b_carry"
 
 [node name="AniManager" parent="Body" unique_id=170788171 instance=ExtResource("6_86smx")]
 

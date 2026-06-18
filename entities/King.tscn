@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://sa1n1ri1p25e" path="res://entities/king.gd" id="1_ij6gk"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="2_5x2kh"]
-[ext_resource type="Texture2D" uid="uid://c1uhmtomddfaj" path="res://assets/debug/king.png" id="3_5x2kh"]
+[ext_resource type="Texture2D" uid="uid://ds37wcxj2mvps" path="res://assets/sprites/characters/king-Sheet.png" id="3_5x2kh"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="4_5x2kh"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_lkjmf"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="7_01d4n"]
@@ -11,6 +11,118 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
 radius = 12.0415945
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahdhg"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtof8"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1uij"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7csw0"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkhkv"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4pa5"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_epab5"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_186lm"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_elusw"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0504b"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ko6ly"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmx6m"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bwf1t"]
+animations = [{
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_ahdhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtof8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1uij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7csw0")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_wkhkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4pa5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epab5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_186lm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahdhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d4pa5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_epab5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_186lm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahdhg")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_elusw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0504b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ko6ly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmx6m")
+}],
+"loop": true,
+"name": &"picked",
+"speed": 10.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5x2kh"]
 radius = 9.055386
@@ -24,9 +136,12 @@ script/source = "extends State
 var pickup: Area2D
 var soft_collision: Area2D
 
+var sprite: AnimatedSprite2D
+
 func _setup(p_ref):
 	pickup = p_ref.pickup
 	soft_collision = p_ref.soft_collision
+	sprite = p_ref.sprite
 
 func _update(delta):
 	if pickup.picked_up:
@@ -34,6 +149,7 @@ func _update(delta):
 
 func _enter_state():
 	soft_collision.enable()
+	sprite.play('idle')
 "
 
 [sub_resource type="GDScript" id="GDScript_ahdhg"]
@@ -42,9 +158,12 @@ script/source = "extends State
 var pickup: Area2D
 var soft_collision
 
+var sprite: AnimatedSprite2D
+
 func _setup(p_ref):
 	soft_collision = p_ref.soft_collision
 	pickup = p_ref.pickup
+	sprite = p_ref.sprite
 
 func _update(delta):
 	if not pickup.picked_up:
@@ -52,6 +171,7 @@ func _update(delta):
 
 func _enter_state():
 	soft_collision.disable()
+	sprite.play('picked')
 
 func exit_state():
 	soft_collision.enable()
@@ -64,6 +184,7 @@ collision_mask = 4097
 script = ExtResource("1_ij6gk")
 
 [node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
+position = Vector2(0, -8)
 collision_layer = 10240
 collision_mask = 0
 script = ExtResource("2_5x2kh")
@@ -73,14 +194,20 @@ shape = SubResource("CircleShape2D_hg3tk")
 debug_color = Color(0.7647059, 0.16862746, 1, 0)
 
 [node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
+position = Vector2(0, 8)
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1700961463]
-texture = ExtResource("3_5x2kh")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=408510659]
+position = Vector2(0, -8)
+sprite_frames = SubResource("SpriteFrames_bwf1t")
+animation = &"picked"
+frame_progress = 0.35552186
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=656951933]
+position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_5x2kh")
 
 [node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
+position = Vector2(0, -8)
 collision_layer = 128
 collision_mask = 128
 script = ExtResource("4_5x2kh")
@@ -102,3 +229,4 @@ script = SubResource("GDScript_ahdhg")
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("7_5x2kh")]
 
 [node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("9_ahdhg")]
+position = Vector2(0, -8)
