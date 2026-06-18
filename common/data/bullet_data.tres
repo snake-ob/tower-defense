@@ -4,3 +4,4 @@
 
 [resource]
 script = ExtResource("1_jvcj4")
+timing = 0.5

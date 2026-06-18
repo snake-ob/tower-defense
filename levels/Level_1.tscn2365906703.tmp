@@ -294,14 +294,13 @@ metadata/_custom_type_script = "uid://d1tqs23iyetw5"
 
 [sub_resource type="Resource" id="Resource_0x1rk"]
 script = ExtResource("20_voubc")
-wave_budget = 15
 wave_enemies = Array[ExtResource("19_kwb5f")]([SubResource("Resource_tb0r5")])
 wave_title = "Wave 1"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
 [sub_resource type="Resource" id="Resource_kwb5f"]
 script = ExtResource("20_voubc")
-wave_budget = 20
+wave_budget = 45
 wave_enemies = Array[PackedScene]([ExtResource("9_nmsli")])
 wave_title = "Wave 2"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
@@ -458,7 +457,7 @@ y_sort_enabled = true
 script = ExtResource("12_mtdfy")
 
 [node name="King" parent="EntityRoot" unique_id=463850158 instance=ExtResource("6_bgw3c")]
-position = Vector2(108, 61)
+position = Vector2(135, 37)
 
 [node name="Player" parent="EntityRoot" unique_id=1411166111 instance=ExtResource("7_lrvbd")]
 position = Vector2(94, 35)
@@ -503,6 +502,15 @@ text = "10"
 label_settings = SubResource("LabelSettings_w75he")
 horizontal_alignment = 2
 
+[node name="BlackFade" type="ColorRect" parent="HUDLayer" unique_id=1362084228]
+offset_left = -1.0
+offset_top = -31.0
+offset_right = 256.0
+offset_bottom = 144.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0.39215687)
+script = ExtResource("17_jkxa6")
+
 [node name="Inv1" type="Sprite2D" parent="HUDLayer" unique_id=397050913]
 position = Vector2(10, 134)
 texture = ExtResource("23_feml0")
@@ -514,15 +522,6 @@ texture = ExtResource("23_feml0")
 [node name="Inv3" type="Sprite2D" parent="HUDLayer" unique_id=1696237363]
 position = Vector2(56, 134)
 texture = ExtResource("23_feml0")
-
-[node name="BlackFade" type="ColorRect" parent="HUDLayer" unique_id=1362084228]
-offset_left = -1.0
-offset_top = -31.0
-offset_right = 256.0
-offset_bottom = 144.0
-mouse_filter = 2
-color = Color(0, 0, 0, 0.39215687)
-script = ExtResource("17_jkxa6")
 
 [node name="DebugLayer" type="CanvasLayer" parent="." unique_id=1534624280]
 

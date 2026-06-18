@@ -2,18 +2,7 @@ extends CharacterBody2D
 
 @onready var ref: Ref = $Ref
 @export var move: MoveData
-
-var upgrades = [
-	{'upgrade': 'fire', 'path': ''},
-	{'upgrade': 'ice', 'path': ''},
-	{'upgrade': 'poison', 'path': ''},
-	{'upgrade': 'speed', 'path': ''},
-	{'upgrade': 'damage', 'path': ''},
-	{'upgrade': 'tower', 'path': ''},
-	{'upgrade': 'bombs', 'path': ''},
-	{'upgrade': 'caltropes', 'path': ''},
-	{'upgrade': 'landmines', 'path': ''}
-]
+@export var upgrade: String
 
 func _ready():
 	_setup_ref()

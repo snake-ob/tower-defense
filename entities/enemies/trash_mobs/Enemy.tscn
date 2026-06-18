@@ -56,6 +56,18 @@ region = Rect2(112, 0, 16, 16)
 atlas = ExtResource("5_7b7q7")
 region = Rect2(128, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtlln"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(368, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cic75"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(384, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jublk"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(400, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7b7q7"]
 atlas = ExtResource("5_7b7q7")
 region = Rect2(144, 0, 16, 16)
@@ -95,6 +107,18 @@ region = Rect2(288, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_qu3yx"]
 atlas = ExtResource("5_7b7q7")
 region = Rect2(304, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3gpb"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(320, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evmrn"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(336, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d33w4"]
+atlas = ExtResource("5_7b7q7")
+region = Rect2(352, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3aqql"]
 atlas = ExtResource("5_7b7q7")
@@ -138,6 +162,20 @@ animations = [{
 "loop": true,
 "name": &"b_carry",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtlln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cic75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jublk")
+}],
+"loop": false,
+"name": &"b_die",
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -188,6 +226,20 @@ animations = [{
 "loop": true,
 "name": &"f_carry",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3gpb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evmrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d33w4")
+}],
+"loop": false,
+"name": &"f_die",
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -334,6 +386,39 @@ func _physics_update(delta):
 	actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
 "
 
+[sub_resource type="GDScript" id="GDScript_11bei"]
+script/source = "#Die.gd
+
+extends State
+
+var animanager: Node
+var collision: Node
+var death_speed: float = 2.0
+
+func _setup(p_ref):
+	actor = p_ref.actor
+	animanager = p_ref.animanager
+	collision = p_ref.collision
+
+func _enter_state():
+	collision.disabled = true
+	animanager.play_death()
+	actor.velocity = Vector2.ZERO
+	await get_tree().create_timer(death_speed).timeout
+	flicker()
+	
+func flicker():
+	var flicker_count = 8
+	var flicker_speed = 0.05
+	
+	for i in range(flicker_count):
+		actor.visible = !actor.visible
+		await get_tree().create_timer(flicker_speed).timeout
+	
+	actor.emit_drop()
+	actor.queue_free()
+"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_pedfs"]
 radius = 7.071068
 
@@ -391,7 +476,9 @@ position = Vector2(0, -7)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body" unique_id=670041104]
 sprite_frames = SubResource("SpriteFrames_e0csy")
-animation = &"b_carry"
+animation = &"b_die"
+frame = 2
+frame_progress = 1.0
 
 [node name="AniManager" parent="Body" unique_id=170788171 instance=ExtResource("6_86smx")]
 
@@ -405,6 +492,9 @@ script = SubResource("GDScript_opqqp")
 
 [node name="Reset" type="Node" parent="StateMachine" unique_id=1844849915]
 script = SubResource("GDScript_im3kb")
+
+[node name="Die" type="Node" parent="StateMachine" unique_id=1144145870]
+script = SubResource("GDScript_11bei")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=646892593]
 position = Vector2(0, -6)
@@ -437,7 +527,7 @@ debug_color = Color(0.9411765, 0, 0, 0)
 script = SubResource("GDScript_dsp8k")
 
 [node name="Health" parent="." unique_id=856647450 instance=ExtResource("8_66spp")]
-max_health = 10
+max_health = 4
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_a23sr")]
 

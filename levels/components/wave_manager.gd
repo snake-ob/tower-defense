@@ -5,12 +5,11 @@ class_name WaveManager
 @export_category("Wave Settings")
 @export var wave_budget: int = 50
 @export var wave_duration: float = 60.0
-@export var waves: Array[Dictionary] = [{"budget": 0}]
 
 var current_budget: int = 0
 var trickle_timer: Timer
 var burst_timer: Timer
-var spawners: Array
+var spawners: Node
 
 var trickle_time: float = 2.5
 var burst_frequency: int = 3
@@ -20,10 +19,10 @@ func _ready() -> void:
 	_setup_timers()
 
 func _setup(p_ref):
-	spawners = p_ref.spawners.get_children()
+	spawners = p_ref.spawners
 
 func _setup_lvl(p_ref):
-	spawners = p_ref.spawners.get_children()
+	spawners = p_ref.spawners
 
 func _setup_timers() -> void:
 	trickle_timer = Timer.new()
@@ -73,7 +72,7 @@ func _spend_budget(amount_to_spend: int) -> void:
 
 func _get_affordable_enemies(max_cost: int) -> Array[EnemySpawner]:
 	var affordable_spawners: Array[EnemySpawner] = []
-	for spawner in spawners:
+	for spawner in spawners.get_children():
 		if spawner.point_cost <= max_cost and spawner.point_cost <= current_budget:
 			affordable_spawners.append(spawner)
 	return affordable_spawners
@@ -81,3 +80,7 @@ func _get_affordable_enemies(max_cost: int) -> Array[EnemySpawner]:
 func end_wave() -> void:
 	trickle_timer.stop()
 	burst_timer.stop()
+
+func setup_wave(p_wave: WaveData):
+	wave_budget = p_wave.wave_budget
+	wave_duration = p_wave.wave_duration

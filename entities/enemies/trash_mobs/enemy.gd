@@ -42,6 +42,8 @@ func _setup_ref():
 	ref.set('grab', $Grab)
 	ref.set('soft_collision', $SoftCollision)
 	ref.set('collisions', [$CollisionShape2D, $SoftCollision/CollisionShape2D])
+	ref.set('collision', $CollisionShape2D)
+	ref.set('animanager', $Body/AniManager)
 	ref.set('actor', self)
 	
 func _setup_nodes(p_node):
@@ -62,7 +64,8 @@ func _cleanup_nodes(p_node):
 func _on_health_depleted():
 	PerformanceTracker.unregister_enemy()
 	_cleanup_nodes(self)
-	queue_free()
+	_die()
+	
 
 func _on_got_hit(hit):
 	ref.health.current_health -= hit.damage
@@ -92,3 +95,13 @@ func update_target(p_target):
 func catch_exit_pos(p_pos):
 	target = p_pos
 	ref.target = p_pos
+	
+func _die():
+	# Emit a drop and fade away
+	$StateMachine._set_state('die')
+	
+func emit_drop():
+	print("DROP COIN")
+	
+func sacrifice():
+	$StateMachine._set_state('die')

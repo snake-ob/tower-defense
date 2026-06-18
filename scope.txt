@@ -147,3 +147,4 @@ June 17 2026
 - Inventory system (click bomb in inventory, it spawns bomb in player's hand)
 - Create upgrades (gems and inventory +1s)
 - BUG FIX: Sometimes it takes two clicks to throw.
+- ENEMIES: Goblin, Shooter (skeleton with bone throw), Ghost (phase through walls), Brute (break through walls)

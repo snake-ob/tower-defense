@@ -8,6 +8,8 @@ var actor: Node
 var sprite: Node
 var grab: Node
 
+var dead: bool = false
+
 func _setup(p_ref):
 	target = p_ref.target
 	actor = p_ref.actor
@@ -15,6 +17,9 @@ func _setup(p_ref):
 	grab = p_ref.grab
 		
 func _physics_process(delta):
+	if dead:
+		return
+		
 	target = actor.ref.target
 	var look_dir = Vector2.ZERO
 	if target:
@@ -52,3 +57,16 @@ func update_animation_state(velocity: Vector2, direction: Vector2):
 		sprite.play(state_string)
 
 		sprite.set_frame_and_progress(current_frame, current_progress)
+		
+func play_death():
+	if dead: 
+		return
+		
+	dead = true
+	var dir = "f"
+	if target:
+		var look_dir = actor.global_position.direction_to(target)
+		if look_dir.y < -0.1:
+			dir = "b"
+			
+	sprite.play(dir + "_die")
