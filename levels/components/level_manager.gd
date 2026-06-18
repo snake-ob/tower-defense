@@ -2,8 +2,10 @@ extends Node
 class_name LevelManager
 
 # Control when the wave appears, and notify HUD
-# Control when the wave ends, notify HUD and spawn blueprints
+# Control when the wave ends, notify HUD and spawn blueprints  
 # Control rest. After rest, next level transitions automatically
+
+@export var waves: Array[WaveData] = []
 
 var time_label: Label
 var status_label: Label
@@ -41,7 +43,7 @@ func _setup_lvl(p_ref):
 	wave_manager = p_ref.wave_manager
 	time_label = p_ref.time_left
 	status_label = p_ref.status_label
-	status_label.text = "Prepare Your Defences"
+	status_label.text = "Prepare.."
 	entity_root = p_ref.entity_root
 	
 func _prep_timeout():
@@ -52,7 +54,6 @@ func _prep_timeout():
 	
 func _wave_timeout():
 	var king_pos = entity_root.get_king_pos()
-	print('King pos:', king_pos)
 	for i in range(3):
 		var decree_scene = load(decree_path)
 		var decree = decree_scene.instantiate()

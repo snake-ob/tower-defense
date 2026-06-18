@@ -5,6 +5,7 @@ class_name WaveManager
 @export_category("Wave Settings")
 @export var wave_budget: int = 50
 @export var wave_duration: float = 60.0
+@export var waves: Array[Dictionary] = [{"budget": 0}]
 
 var current_budget: int = 0
 var trickle_timer: Timer
