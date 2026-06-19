@@ -164,6 +164,7 @@ func _setup(p_ref):
 	soft_collision = p_ref.soft_collision
 	pickup = p_ref.pickup
 	sprite = p_ref.sprite
+	actor = p_ref.actor
 
 func _update(delta):
 	if not pickup.picked_up:
@@ -172,9 +173,11 @@ func _update(delta):
 func _enter_state():
 	soft_collision.disable()
 	sprite.play('picked')
+	actor.y_sort_enabled = false
 
 func exit_state():
 	soft_collision.enable()
+	actor.y_sort_enabled = true
 "
 
 [node name="King" type="CharacterBody2D" unique_id=463850158]

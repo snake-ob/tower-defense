@@ -148,3 +148,12 @@ June 17 2026
 - Create upgrades (gems and inventory +1s)
 - BUG FIX: Sometimes it takes two clicks to throw.
 - ENEMIES: Goblin, Shooter (skeleton with bone throw), Ghost (phase through walls), Brute (break through walls)
+==============================================
+June 19 2026
+-- Inventory System --
+- Global inventory
+- Local inventory reads from global and creates the scrolling menu
+- Player clicks one of the objects in the local inventory to spawn it into their hand
+- Current held -= 1
+- Holding a wall activates build mode
+	- Should also limit wall length

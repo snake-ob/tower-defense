@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://127gkwcut858"]
+
+[ext_resource type="Script" uid="uid://cffkekcshvjjw" path="res://UI/Inventory/item_data.gd" id="1_gnj01"]
+[ext_resource type="PackedScene" uid="uid://g6qbjrnunvag" path="res://entities/Bomb.tscn" id="1_rb1ax"]
+[ext_resource type="Texture2D" uid="uid://c8mmt7cs4e8ft" path="res://assets/sprites/objects/bomb-icon.png" id="3_w26x2"]
+
+[resource]
+script = ExtResource("1_gnj01")
+item_name = "bomb"
+texture = ExtResource("3_w26x2")
+item_scene = ExtResource("1_rb1ax")
+metadata/_custom_type_script = "uid://cffkekcshvjjw"

@@ -44,3 +44,14 @@ func _adjust_zoom(amount: float) -> void:
 	tween.set_ease(Tween.EASE_OUT)
 	tween.set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(self, "zoom", target_zoom, zoom_duration)
+	
+func zoom_all_the_way_out(custom_duration: float = 3.0) -> void:
+	target_zoom = Vector2(min_zoom, min_zoom)
+	var zoom_tween: Tween
+		
+	zoom_tween = create_tween()
+	zoom_tween.set_ease(Tween.EASE_OUT)
+	
+	zoom_tween.set_trans(Tween.TRANS_SINE) 
+	
+	zoom_tween.tween_property(self, "zoom", target_zoom, custom_duration)

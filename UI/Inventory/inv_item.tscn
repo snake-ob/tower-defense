@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://ceqqkxjkplcrv"]
+
+[ext_resource type="Script" uid="uid://c81peejusur78" path="res://UI/Inventory/inv_item.gd" id="1_il1nu"]
+[ext_resource type="Texture2D" uid="uid://cwhgkbjug1i70" path="res://assets/sprites/inv_border.png" id="8_ue4lb"]
+
+[node name="InvSlot" type="Node2D" unique_id=1122369839]
+script = ExtResource("1_il1nu")
+
+[node name="Item" type="Sprite2D" parent="." unique_id=1493188671]
+modulate = Color(0.34509805, 0.34509805, 0.34509805, 0.4745098)
+
+[node name="BG" type="Sprite2D" parent="." unique_id=1184933027]
+texture = ExtResource("8_ue4lb")

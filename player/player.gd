@@ -46,3 +46,9 @@ func take_hit(hit):
 func _on_got_hit(hit):
 	var knockback_direction = global_position - hit.position
 	velocity += knockback_direction * hit.knockback
+	
+func spawn_in_hand(p_item):
+	if ref.grab.grabbed_pickup != null:
+		ref.grab._put_down()
+	var p_pickup = p_item.ref.pickup
+	ref.grab._pickup_object(p_pickup)

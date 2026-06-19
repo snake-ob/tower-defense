@@ -1,9 +1,8 @@
 extends Node
 
-var max_bombs: int = 1
-var max_caltropes: int = 1
-var max_landmines: int = 1
-
-var current_bombs: int = 1
-var current_caltropes: int = 1
-var current_landmines: int = 1
+var items: Dictionary = {
+	'bombs': {'unlocked': true, 'max': 1, 'current': 1},
+	'caltropes': {'unlocked': true, 'max': 1, 'current': 1},
+	'landmines': {'unlocked': true, 'max': 1, 'current': 1},
+	'walls': {'unlocked': true, 'max': 1, 'current': 1},
+}

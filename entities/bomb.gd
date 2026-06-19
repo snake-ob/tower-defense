@@ -20,6 +20,7 @@ func _setup_ref():
 	ref.set('sprite', $Sprite2D)
 	ref.set('SM', $StateMachine)
 	ref.set('soft_collision', $SoftCollision)
+	ref.set('collisions', [$SoftCollision/CollisionShape2D, $CollisionShape2D])
 
 func _setup_nodes(p_node):
 	for node in p_node.get_children():
@@ -36,3 +37,6 @@ func _spawn_explosion():
 	var explosion = ExplodeScene.instantiate()
 	explosion.global_position = ref.actor.global_position
 	SignalBus.spawn_bullet.emit(explosion)
+	
+func in_picked_state():
+	$StateMachine._set_state('picked')
