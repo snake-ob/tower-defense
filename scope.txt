@@ -157,3 +157,4 @@ June 19 2026
 - Current held -= 1
 - Holding a wall activates build mode
 	- Should also limit wall length
+BUG: Now that player is moved up in the scene, the cursor does not track
