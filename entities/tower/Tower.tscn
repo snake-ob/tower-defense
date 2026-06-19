@@ -105,7 +105,6 @@ func _update(delta):
 
 [node name="Tower" type="CharacterBody2D" unique_id=514054859]
 y_sort_enabled = true
-position = Vector2(0, -3)
 collision_layer = 8
 collision_mask = 4097
 script = ExtResource("1_ljppj")
@@ -116,12 +115,15 @@ collision = SubResource("Resource_4qj7r")
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("4_tm4kr")]
 
 [node name="Body" type="Node2D" parent="." unique_id=1797290680]
+y_sort_enabled = true
+position = Vector2(0, -3)
 
 [node name="Sprite2D" type="Sprite2D" parent="Body" unique_id=189270528]
 position = Vector2(0, -4.85)
 texture = ExtResource("6_6bp5w")
 
 [node name="Slots" type="Area2D" parent="Body" unique_id=1304174111]
+y_sort_enabled = true
 collision_layer = 0
 collision_mask = 16384
 script = ExtResource("7_6bp5w")
@@ -145,12 +147,13 @@ shape = SubResource("CircleShape2D_m7yij")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=132255039]
-position = Vector2(0, -1)
+position = Vector2(0, -3)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_mttso")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
+position = Vector2(0, -4)
 collision_layer = 8192
 collision_mask = 0
 script = ExtResource("9_mttso")
@@ -174,12 +177,14 @@ script = SubResource("GDScript_mttso")
 script = SubResource("GDScript_vcivv")
 
 [node name="BulletSpawner" parent="." unique_id=46448684 instance=ExtResource("10_mttso")]
+position = Vector2(0, -5)
 
 [node name="StatusUpgrades" type="Node" parent="." unique_id=420670347]
 
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("12_8gdfe")]
 
 [node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("13_te46s")]
+position = Vector2(0, -4)
 
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

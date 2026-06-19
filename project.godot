@@ -24,6 +24,7 @@ GlobalClick="*uid://7o4xr67wtc1f"
 SceneLoader="*uid://b2qy3a2vm5fk7"
 LevelState="*uid://bxsbeiquqckg1"
 GameData="*uid://dtjsj0b8y3vg8"
+Inventory="*uid://cpq55itkfdqeq"
 
 [display]
 
