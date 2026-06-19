@@ -22,6 +22,7 @@ func _setup_ref():
 	ref.set('sprite', $Sprite2D)
 	ref.set('SM', $StateMachine)
 	ref.set('soft_collision', $SoftCollision)
+	ref.set('collisions', [$SoftCollision/CollisionShape2D, $CollisionShape2D])
 
 func _setup_nodes(p_node):
 	for node in p_node.get_children():
@@ -41,7 +42,7 @@ func _spawn_explosion():
 	
 	var random_angle: float = randf_range(0, TAU)
 	var move_direction: Vector2 = Vector2.RIGHT.rotated(random_angle)
-	var random_speed: float = randf_range(100.0, 150)
+	var random_speed: float = randf_range(20,50) #Apparently this does nothing? Hm
 
 	caltrope.velocity = move_direction * random_speed
 	SignalBus.spawn_bullet.emit(caltrope)

@@ -22,6 +22,7 @@ func _ready():
 
 func _process(delta):
 	ref.set('target', $Grab/DropPos.global_position)
+	print("PLAYER VELOCITY: ", velocity)
 	
 func _setup_ref():
 	ref.set('input_controller', $InputController)
