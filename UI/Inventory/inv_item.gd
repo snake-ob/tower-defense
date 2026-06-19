@@ -1,7 +1,7 @@
 extends Node2D
 class_name InvSlot
 
-var unavailable_color = Color(0.34, 0.34, 0.34, 0.47)
+var unavailable_color = Color(1, 1, 1, 0.3)
 var inv_manager: InventoryManager
 
 func _ready():
@@ -41,3 +41,10 @@ func _on_scroll(vp: Node, event: InputEvent, shape_idx: int, dir: int) -> void:
 		return
 	elif event.button_index == MOUSE_BUTTON_LEFT:
 		inv_manager._change_slot(dir)
+
+func _update_label(p_label: int) -> void:
+	var label: String = str(p_label)
+	if p_label:
+		$Label.text = label
+	else:
+		$Label.text = "0"

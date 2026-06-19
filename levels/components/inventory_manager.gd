@@ -26,12 +26,14 @@ func _change_slot(direction: int):
 
 	if not Inventory.items[current_item].unlocked:
 		_change_slot(direction)
+		
 	_update_ui()
 	
 func _update_ui():
 	var current_item = items[index].item_name
 	var item_texture = items[index].texture
 	item_ui.set_item_ui(item_texture)
+	item_ui._update_label(Inventory.items[current_item].current)
 	if Inventory.items[current_item].current <= 0:
 		item_ui.set_modulation(true)
 	else:
@@ -47,7 +49,7 @@ func _spawn_in_hand(item_scene):
 func item_clicked():
 	var current_item = items[index].item_name
 	var item_scene = items[index].item_scene
-	if Inventory.items[current_item].current <= 0:
-		print(Inventory.items[current_item].current)
-	else:
+	if Inventory.items[current_item].current > 0:
 		_spawn_in_hand(item_scene)
+		Inventory.items[current_item].current -= 1
+	_update_ui()

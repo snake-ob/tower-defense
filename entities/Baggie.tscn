@@ -1,22 +1,25 @@
 [gd_scene format=3 uid="uid://bran34damew6s"]
 
 [ext_resource type="Script" uid="uid://5o7xx3bhtq5q" path="res://entities/baggie.gd" id="1_a2oed"]
-[ext_resource type="PackedScene" uid="uid://brkgs0nuf1aaf" path="res://common/components/Pickup.tscn" id="1_ufcce"]
 [ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_k8dxv"]
-[ext_resource type="Texture2D" uid="uid://dy6kbgp7g7g74" path="res://assets/debug/Screenshot 2026-05-31 213358.png" id="2_t2wsk"]
 [ext_resource type="PackedScene" uid="uid://eqqpp8ob8jy8" path="res://entities/Caltropes.tscn" id="3_roukr"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="3_t2wsk"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="4_a36vo"]
+[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="4_roukr"]
+[ext_resource type="Texture2D" uid="uid://dr847udolfyel" path="res://assets/sprites/objects/baggie.png" id="5_xh07e"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="6_1o8ba"]
 [ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="7_ggnc5"]
-[ext_resource type="PackedScene" uid="uid://cen1ofjmnye16" path="res://common/components/SoftCollision.tscn" id="10_roukr"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="10_mkiwh"]
 
 [sub_resource type="Resource" id="Resource_xh07e"]
 script = ExtResource("2_k8dxv")
 metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
+radius = 18.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ufcce"]
-size = Vector2(28, 28)
+size = Vector2(8, 10)
 
 [sub_resource type="GDScript" id="GDScript_a2oed"]
 script/source = "extends State
@@ -106,20 +109,34 @@ func _enter_state():
 	actor.explode()
 "
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
+radius = 3.0
+
 [node name="Baggie" type="CharacterBody2D" unique_id=2045395561]
 collision_layer = 0
 script = ExtResource("1_a2oed")
 move = SubResource("Resource_xh07e")
 ExplodeScene = ExtResource("3_roukr")
 
-[node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("1_ufcce")]
+[node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
+position = Vector2(0, -5.999999)
+collision_layer = 8192
+collision_mask = 0
+script = ExtResource("4_roukr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup" unique_id=1697664644]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
+position = Vector2(0, 5.999999)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1510251085]
-position = Vector2(4.7683716e-07, -9.536743e-07)
-scale = Vector2(0.30219775, 0.3021978)
-texture = ExtResource("2_t2wsk")
+position = Vector2(4.7683716e-07, -6)
+texture = ExtResource("5_xh07e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=952060633]
+position = Vector2(0, -5.999999)
 shape = SubResource("RectangleShape2D_ufcce")
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_t2wsk")]
@@ -141,5 +158,14 @@ script = SubResource("GDScript_ggnc5")
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("6_1o8ba")]
 
 [node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("7_ggnc5")]
+position = Vector2(0, -5.999999)
 
-[node name="SoftCollision" parent="." unique_id=1691847556 instance=ExtResource("10_roukr")]
+[node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
+position = Vector2(0, -5.999999)
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("10_mkiwh")
+push_force = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
+shape = SubResource("CircleShape2D_aueyi")

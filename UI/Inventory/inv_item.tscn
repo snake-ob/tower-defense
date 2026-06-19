@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c81peejusur78" path="res://UI/Inventory/inv_item.gd" id="1_il1nu"]
 [ext_resource type="Texture2D" uid="uid://d3yrx6ah20wo3" path="res://assets/sprites/scroll_left.png" id="3_p2ukg"]
 [ext_resource type="Texture2D" uid="uid://cu7srs3exb4k4" path="res://assets/sprites/scroll_right.png" id="4_jyvu5"]
+[ext_resource type="FontFile" uid="uid://35m8ovgllvq4" path="res://fonts/Grandeur 8h.ttf" id="5_jyvu5"]
 [ext_resource type="Texture2D" uid="uid://cwhgkbjug1i70" path="res://assets/sprites/inv_border.png" id="8_ue4lb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_alcx8"]
@@ -10,6 +11,12 @@ size = Vector2(14, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hmxov"]
 size = Vector2(5, 5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hmxov"]
+font = ExtResource("5_jyvu5")
+outline_size = 2
+outline_color = Color(0, 0, 0, 0)
+shadow_color = Color(0, 0, 0, 1)
 
 [node name="InvSlot" type="Node2D" unique_id=1122369839]
 script = ExtResource("1_il1nu")
@@ -49,6 +56,15 @@ texture = ExtResource("4_jyvu5")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScrollRight/Area2D" unique_id=1316807187]
 position = Vector2(-0.5, 0.5)
 shape = SubResource("RectangleShape2D_hmxov")
+
+[node name="Label" type="Label" parent="." unique_id=1048366189]
+offset_left = -12.0
+offset_top = -13.0
+offset_right = 28.0
+offset_bottom = 10.0
+text = "0"
+label_settings = SubResource("LabelSettings_hmxov")
+horizontal_alignment = 1
 
 [connection signal="input_event" from="Area2D" to="." method="_clicked"]
 [connection signal="input_event" from="ScrollLeft/Area2D" to="." method="_on_scroll" binds= [-1]]

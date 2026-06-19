@@ -5,6 +5,7 @@ class_name Baggie
 @export var move: MoveData
 @export var ExplodeScene: PackedScene
 @export var num_caltropes: int = 15
+@export var explode_speed: Vector2 = Vector2(0.5, 0.5)
 
 func _ready():
 	_setup_ref()
@@ -44,3 +45,6 @@ func _spawn_explosion():
 
 	caltrope.velocity = move_direction * random_speed
 	SignalBus.spawn_bullet.emit(caltrope)
+	
+func in_picked_state():
+	$StateMachine._set_state('picked')

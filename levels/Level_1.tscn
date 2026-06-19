@@ -27,7 +27,14 @@
 [ext_resource type="FontFile" uid="uid://35m8ovgllvq4" path="res://fonts/Grandeur 8h.ttf" id="20_i6od7"]
 [ext_resource type="Script" uid="uid://bw8eurybijbn4" path="res://common/data/wave_data.gd" id="20_voubc"]
 [ext_resource type="PackedScene" uid="uid://bqr34gmbsbjxr" path="res://levels/components/inventory_manager.tscn" id="21_tb0r5"]
+[ext_resource type="Script" uid="uid://cffkekcshvjjw" path="res://UI/Inventory/item_data.gd" id="22_8f7xe"]
+[ext_resource type="Texture2D" uid="uid://c8mmt7cs4e8ft" path="res://assets/sprites/objects/bomb-icon.png" id="23_06ecp"]
+[ext_resource type="PackedScene" uid="uid://g6qbjrnunvag" path="res://entities/Bomb.tscn" id="23_geh62"]
 [ext_resource type="Script" uid="uid://4a8xvb6t4t43" path="res://levels/wave_timer.gd" id="24_ryfpa"]
+[ext_resource type="Texture2D" uid="uid://btj3kwq7ioof0" path="res://assets/sprites/objects/landmine-icon.png" id="25_06ecp"]
+[ext_resource type="Texture2D" uid="uid://who5k5med3eh" path="res://assets/sprites/objects/caltropes-icon.png" id="26_ohjdc"]
+[ext_resource type="PackedScene" uid="uid://bran34damew6s" path="res://entities/Baggie.tscn" id="27_8f7xe"]
+[ext_resource type="PackedScene" uid="uid://du5cdtsl68l3" path="res://entities/Landmine.tscn" id="27_68jde"]
 [ext_resource type="PackedScene" uid="uid://ceqqkxjkplcrv" path="res://UI/Inventory/inv_item.tscn" id="29_vb600"]
 
 [sub_resource type="GDScript" id="GDScript_oqlok"]
@@ -309,6 +316,27 @@ wave_budget = 20
 wave_title = "Wave 2"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
+[sub_resource type="Resource" id="Resource_wxquy"]
+script = ExtResource("22_8f7xe")
+item_name = "bombs"
+texture = ExtResource("23_06ecp")
+item_scene = ExtResource("23_geh62")
+metadata/_custom_type_script = "uid://cffkekcshvjjw"
+
+[sub_resource type="Resource" id="Resource_v1luo"]
+script = ExtResource("22_8f7xe")
+item_name = "landmines"
+texture = ExtResource("25_06ecp")
+item_scene = ExtResource("27_68jde")
+metadata/_custom_type_script = "uid://cffkekcshvjjw"
+
+[sub_resource type="Resource" id="Resource_geh62"]
+script = ExtResource("22_8f7xe")
+item_name = "caltropes"
+texture = ExtResource("26_ohjdc")
+item_scene = ExtResource("27_8f7xe")
+metadata/_custom_type_script = "uid://cffkekcshvjjw"
+
 [sub_resource type="LabelSettings" id="LabelSettings_udfhf"]
 font = ExtResource("18_w75he")
 font_size = 7
@@ -481,6 +509,7 @@ script = ExtResource("17_udfhf")
 waves = Array[ExtResource("20_voubc")]([SubResource("Resource_0x1rk"), SubResource("Resource_kwb5f")])
 
 [node name="InventoryManager" parent="Systems" unique_id=295766526 instance=ExtResource("21_tb0r5")]
+items = Array[ExtResource("22_8f7xe")]([SubResource("Resource_wxquy"), SubResource("Resource_v1luo"), SubResource("Resource_geh62")])
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=2124084829]
 

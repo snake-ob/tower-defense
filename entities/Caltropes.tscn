@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="1_7svj1"]
 [ext_resource type="Script" uid="uid://bokjtabi7ldf7" path="res://entities/caltropes.gd" id="1_83ndg"]
-[ext_resource type="Texture2D" uid="uid://c36no7fkeuyvm" path="res://assets/debug/Screenshot 2026-05-31 142400.png" id="1_f1k6q"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="2_2n31m"]
 [ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_h1ujl"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="3_ti15s"]
+[ext_resource type="Texture2D" uid="uid://bbxesc3yc1rol" path="res://assets/sprites/objects/caltropes-sheet.png" id="4_h1ujl"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="4_mqjn6"]
 [ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="6_7svj1"]
 
@@ -13,8 +13,44 @@
 script = ExtResource("2_h1ujl")
 metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_wai3g"]
+atlas = ExtResource("4_h1ujl")
+region = Rect2(0, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxjm6"]
+atlas = ExtResource("4_h1ujl")
+region = Rect2(5, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5gfe"]
+atlas = ExtResource("4_h1ujl")
+region = Rect2(10, 0, 5, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8v806"]
+atlas = ExtResource("4_h1ujl")
+region = Rect2(15, 0, 5, 5)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5ks1g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wai3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxjm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5gfe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8v806")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_f1k6q"]
-radius = 3.0
+radius = 2.0
 
 [sub_resource type="GDScript" id="GDScript_ti15s"]
 script/source = "extends State
@@ -45,10 +81,9 @@ move = SubResource("Resource_wai3g")
 
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("1_7svj1")]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=572194790]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=2131706987]
 position = Vector2(1.1920929e-07, 1.1920929e-07)
-scale = Vector2(0.017713904, 0.017713904)
-texture = ExtResource("1_f1k6q")
+sprite_frames = SubResource("SpriteFrames_5ks1g")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=957728090]
 shape = SubResource("CircleShape2D_f1k6q")
