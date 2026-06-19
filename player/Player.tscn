@@ -365,6 +365,7 @@ position = Vector2(0, -8)
 collision_layer = 0
 collision_mask = 8192
 script = ExtResource("8_ndjxb")
+hand_offset_y = 8.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Grab" unique_id=1527922279]
 shape = SubResource("CircleShape2D_kqn5r")

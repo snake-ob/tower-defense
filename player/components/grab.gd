@@ -14,6 +14,8 @@ var direction: Vector2 = Vector2.ZERO
 var actor: Node2D
 var drop_distance: int = 32
 
+@export var hand_offset_y: float = 0.0
+
 func _ready():
 	if not area_entered.is_connected(_on_area_entered):
 		area_entered.connect(_on_area_entered)
@@ -23,8 +25,10 @@ func _ready():
 func _setup(p_ref: Ref):
 	actor = p_ref.actor
 
-func _physics_process(deltad):
-	direction = actor.global_position.direction_to(get_global_mouse_position())
+func _physics_process(delta):
+	var actor_pos = Vector2(actor.global_position.x, actor.global_position.y - hand_offset_y)
+
+	direction = actor_pos.direction_to(get_global_mouse_position())
 	drop_pos.position = drop_anchor + (drop_distance * direction)
 
 func _on_area_entered(area: Node2D):
