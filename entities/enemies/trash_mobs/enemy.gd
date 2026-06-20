@@ -10,6 +10,8 @@ class_name Enemy
 var target: Vector2
 var centre_pos: Vector2
 
+var slowed_down: bool = false
+
 func _physics_process(delta: float) -> void :
 	move_and_slide()
 

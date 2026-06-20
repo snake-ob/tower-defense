@@ -282,19 +282,20 @@ script/source = "extends State
 var bullet_spawner = null
 var physics: Node
 var grab: Node
-
-var target: Node = null
+var stutter_step: bool = false
+var sprite: AnimatedSprite2D
+var current_speed: float
 	
 func _setup(p_ref):
 	ref = p_ref
 	actor = p_ref.actor
 	physics = p_ref.physics
 	grab = p_ref.grab
+	sprite = p_ref.sprite
 	if ref.has('bullet_spawner'):
 		bullet_spawner = ref.bullet_spawner
 	
 func _enter_state():
-	target = null
 	if bullet_spawner:
 		bullet_spawner.activate()
 	
@@ -303,19 +304,40 @@ func _exit_state():
 		bullet_spawner.deactivate()
 
 func _physics_update(delta):
-	if ref.active_targets and target == null:
-		var target = ref.active_targets[0]
-		var target_pos = target.global_position
-		var actor_pos = actor.global_position
-		
-		var direction = actor_pos.direction_to(target_pos)
-		var target_velocity = direction * ref.move.speed
-		actor.update_target(target_pos)
-		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
-	else:
+	sprite.speed_scale = 1
+	current_speed = actor.move.speed
+	if ref.active_targets == []:
 		change_state.emit('reset')
+		return
 		
 	physics._process_friction(delta)
+	_check_slow()
+	_move_actor(delta)
+
+func _check_slow():
+	if actor.slowed_down:
+		sprite.speed_scale = 0.5
+		if stutter_step:
+			current_speed = 0.1
+			stutter_step = false
+		else:
+			stutter_step = true
+
+func _move_actor(delta):
+	var target = ref.active_targets[0]
+	var target_pos = target.global_position
+	var actor_pos = actor.global_position
+
+	var direction = actor_pos.direction_to(target_pos)
+	var target_velocity = direction * current_speed
+	actor.update_target(target_pos)
+	
+	if actor.slowed_down:
+		actor.velocity = target_velocity
+	else:
+		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+	
+	
 
 func _update(delta):
 	var pickups = grab.get_grabbable()
@@ -333,6 +355,9 @@ var grab: Node
 var soft_collision = Node
 var stored_force: float
 var pickup: Node
+var sprite: AnimatedSprite2D
+var current_speed: float
+var stutter_step: bool = false
 
 var target_pos: Vector2
 	
@@ -343,6 +368,7 @@ func _setup(p_ref):
 	grab = p_ref.grab
 	soft_collision = p_ref.soft_collision
 	pickup = p_ref.pickup
+	sprite = p_ref.sprite
 	
 func _enter_state():
 	actor.ref.target = Vector2.ZERO
@@ -357,14 +383,37 @@ func _exit_state():
 	pickup.monitorable = true
 
 func _physics_update(delta):
-	var actor_pos = actor.global_position
-	var target_pos = actor.ref.target
-	var direction = actor_pos.direction_to(target_pos)
-	var target_velocity = direction * ref.move.speed
-	actor.update_target(target_pos)
-	actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+	sprite.speed_scale = 1
+	current_speed = actor.move.speed
+	if ref.active_targets == []:
+		change_state.emit('reset')
+		return
 		
 	physics._process_friction(delta)
+	_check_slow()
+	_move_actor(delta)
+
+func _check_slow():
+	if actor.slowed_down:
+		sprite.speed_scale = 0.5
+		if stutter_step:
+			current_speed = 0.1
+			stutter_step = false
+		else:
+			stutter_step = true
+
+func _move_actor(delta):
+	var target_pos = ref.target
+	var actor_pos = actor.global_position
+
+	var direction = actor_pos.direction_to(target_pos)
+	var target_velocity = direction * current_speed
+	actor.update_target(target_pos)
+	
+	if actor.slowed_down:
+		actor.velocity = target_velocity
+	else:
+		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
 
 func catch_exit_pos(p_pos):
 	target_pos = p_pos
@@ -373,21 +422,49 @@ func catch_exit_pos(p_pos):
 
 [sub_resource type="GDScript" id="GDScript_im3kb"]
 script/source = "extends State
+var sprite: AnimatedSprite2D
+var current_speed: float
+var physics: PhysicsHandler
+var stutter_step: bool = false
 
 func _setup(p_ref):
 	ref = p_ref
 	actor = ref.actor
+	sprite = p_ref.sprite
+	physics = p_ref.physics
 
 func _physics_update(delta):
 	if ref.active_targets:
 		change_state.emit('chase')
 		return
-	var actor_pos = actor.global_position
 	
+	sprite.speed_scale = 1
+	current_speed = actor.move.speed
+		
+	physics._process_friction(delta)
+	_check_slow()
+	_move_actor(delta)
+
+func _check_slow():
+	if actor.slowed_down:
+		sprite.speed_scale = 0.5
+		if stutter_step:
+			current_speed = 0.1
+			stutter_step = false
+		else:
+			stutter_step = true
+
+func _move_actor(delta):
+	var actor_pos = actor.global_position
+
 	var direction = actor_pos.direction_to(actor.centre_pos)
-	var target_velocity = direction * ref.move.speed
-	actor.update_target(Vector2.ZERO)
-	actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+	var target_velocity = direction * current_speed
+	actor.update_target(actor.centre_pos)
+	
+	if actor.slowed_down:
+		actor.velocity = target_velocity
+	else:
+		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
 "
 
 [sub_resource type="GDScript" id="GDScript_11bei"]

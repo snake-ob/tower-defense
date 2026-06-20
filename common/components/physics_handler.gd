@@ -1,4 +1,5 @@
 extends Node
+class_name PhysicsHandler
 
 var actor: Node2D
 var sprite: Node

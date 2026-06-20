@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://wbefovy53mxt"]
+[gd_scene format=4 uid="uid://b6gh6fvlkdd2e"]
 
 [ext_resource type="PackedScene" uid="uid://c0wpo1ltgbtb2" path="res://levels/components/SpawnPath.tscn" id="2_aerfg"]
 [ext_resource type="TileSet" uid="uid://c5vaf5jjk0c4g" path="res://TerrainTiles.tres" id="3_nmsli"]
