@@ -92,6 +92,7 @@ ui_down={
 2d_physics/layer_14="Pickups"
 2d_physics/layer_15="Gems"
 2d_physics/layer_16="World Escape"
+2d_physics/layer_17="Caltrope Collision"
 
 [physics]
 

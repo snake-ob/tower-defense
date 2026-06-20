@@ -481,6 +481,7 @@ script = ExtResource("11_vf61l")
 y_sort_enabled = true
 
 [node name="Projectiles" type="Node2D" parent="EntityRoot" unique_id=493237370]
+y_sort_enabled = true
 
 [node name="Towers" type="Node2D" parent="EntityRoot" unique_id=335403268]
 y_sort_enabled = true
@@ -559,6 +560,7 @@ script = ExtResource("11_aerfg")
 
 [node name="Camera2D" type="Camera2D" parent="Camera" unique_id=1075477474 node_paths=PackedStringArray("target")]
 position = Vector2(127, 44)
+position_smoothing_speed = 10.0
 script = ExtResource("12_nmsli")
 target = NodePath("../../EntityRoot/Player")
 

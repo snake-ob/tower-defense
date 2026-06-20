@@ -6,6 +6,8 @@ class_name Player
 @export var move: MoveData
 @export var build_radius: int = 200
 
+var slowed_down: bool = false
+
 var holding: bool = false
 
 func _physics_process(delta):
@@ -22,7 +24,7 @@ func _ready():
 
 func _process(delta):
 	ref.set('target', $Grab/DropPos.global_position)
-	print("PLAYER VELOCITY: ", velocity)
+
 	
 func _setup_ref():
 	ref.set('input_controller', $InputController)

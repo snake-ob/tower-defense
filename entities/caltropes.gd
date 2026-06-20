@@ -9,6 +9,7 @@ func _ready():
 	_setup_nodes(self)
 	$StateMachine._set_state('idle')
 	_set_random_sprite()
+	$SoftCollision/CollisionShape2D.disabled = true
 	
 func _physics_process(delta: float) -> void:
 	move_and_slide()

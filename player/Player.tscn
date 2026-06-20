@@ -261,19 +261,47 @@ extends State
 var input_controller: Node
 var grab: Node
 var drop_distance: int = 32
+var current_speed: float
+var sprite: Node
+
+var stutter_step: bool = false
+
+@export var slow_speed: float = 2
 
 func _setup(p_ref: Ref):
 	actor = p_ref.actor
 	grab = p_ref.grab
 	input_controller = p_ref.input_controller
+	sprite = p_ref.sprite
 
 func _physics_update(delta):
+	var axis = input_controller.get_axis()
 
-	var axis = input_controller.get_axis()			
+	sprite.speed_scale = 1
+	current_speed = actor.move.speed
+	
 	if axis == Vector2.ZERO:
 		change_state.emit('idle')
 		return
-	actor.velocity = actor.velocity.move_toward(axis * actor.move.speed, actor.move.acceleration)
+	
+	if actor.slowed_down:
+		sprite.speed_scale = 0.5
+		if stutter_step:
+			stutter_step = false
+		else:
+			current_speed = 0.1 # Not 0, we need velocity > 0 to not break the animation
+			stutter_step = true
+	_move_actor(axis, delta)
+
+
+func _move_actor(axis, delta):
+	if actor.slowed_down:
+		actor.velocity = axis * current_speed
+		return
+	actor.velocity = actor.velocity.move_toward(axis * actor.move.speed, actor.move.acceleration * delta)
+	
+func _exit_state():
+	sprite.speed_scale = 1.0
 "
 
 [sub_resource type="GDScript" id="GDScript_b32pr"]

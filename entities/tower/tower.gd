@@ -22,8 +22,7 @@ func _setup_nodes(p_node):
 			_setup_nodes(child)
 
 func _physics_process(delta):
-	global_position = global_position.round()
-
+	pass
 func _setup_ref():
 	ref.set('actor', self)
 	ref.set('bullet_spawner', $BulletSpawner)

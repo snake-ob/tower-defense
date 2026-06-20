@@ -12,7 +12,7 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()
-	global_position = global_position.round()
+	pass
 
 func _setup_ref():
 	ref.set('actor', self)
