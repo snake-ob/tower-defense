@@ -1,39 +1,53 @@
 [gd_scene format=3 uid="uid://du5cdtsl68l3"]
 
-[ext_resource type="Script" uid="uid://bww0d1hqweos2" path="res://entities/landmine.gd" id="1_567sl"]
+[ext_resource type="Script" uid="uid://dlgj2dc4ljax6" path="res://entities/bomb.gd" id="1_567sl"]
 [ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_yd5nl"]
 [ext_resource type="PackedScene" uid="uid://c57yfugrsyc1d" path="res://common/components/Explosion.tscn" id="3_rc06d"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="4_ugehn"]
-[ext_resource type="PackedScene" uid="uid://brkgs0nuf1aaf" path="res://common/components/Pickup.tscn" id="5_kla8e"]
-[ext_resource type="Texture2D" uid="uid://bdt6juwx7471n" path="res://assets/debug/Screenshot 2026-05-30 091108.png" id="6_dh1iw"]
+[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="5_567sl"]
+[ext_resource type="Texture2D" uid="uid://btj3kwq7ioof0" path="res://assets/sprites/objects/landmine-icon.png" id="6_dh1iw"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="8_wnerl"]
 [ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="9_567sl"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_24raj"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="10_dh1iw"]
 
 [sub_resource type="Resource" id="Resource_qgv8u"]
 script = ExtResource("2_yd5nl")
 metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
+radius = 19.026299
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_e7o24"]
-radius = 13.0
+radius = 5.0990195
 
 [sub_resource type="GDScript" id="GDScript_567sl"]
 script/source = "extends State
 
 var detect_zone
+var pickup
+var physics: PhysicsHandler
 
 func _ready():
 	pass
 
 func _enter_state():
-	pass
-	
+	detect_zone.monitoring = false
+	if pickup.picked_up:
+		change_state.emit('picked')
+
+func _physics_update(delta):
+	physics._process_friction(delta)
+	if pickup.picked_up:
+		change_state.emit('picked')
+
 func _setup(p_ref):
 	detect_zone = p_ref.detect_zone
+	pickup = p_ref.pickup
+	physics = p_ref.physics
 
 func _update(delta):
 	if detect_zone.active_targets != []:
-		print(detect_zone.active_targets)
 		_on_explode()
 
 func _on_explode():
@@ -45,9 +59,16 @@ script/source = "extends State
 
 var pickup: Area2D
 var soft_collision
+var detect_zone
 
 func _setup(p_ref):
 	pickup = p_ref.pickup
+	detect_zone = p_ref.detect_zone
+	
+func _enter_state():
+	detect_zone.monitoring = false
+	print(\"Landmine: Picked\")
+	
 
 func _update(delta):
 	if not pickup.picked_up:
@@ -58,15 +79,23 @@ func _update(delta):
 script/source = "extends State
 
 var detect_zone
+var physics
 
 func _ready():
 	pass
+	
+func _physics_update(delta):
+	physics._process_friction(delta)
 
 func _enter_state():
-	pass
+	await get_tree().create_timer(3).timeout
+	detect_zone.monitoring = true
+	print(\"Landmine: Thrown\")
+
 	
 func _setup(p_ref):
 	detect_zone = p_ref.detect_zone
+	physics = p_ref.physics
 
 func _update(delta):
 	if detect_zone.active_targets != []:
@@ -95,24 +124,41 @@ func _enter_state():
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
-radius = 13.892444
+radius = 13.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
+radius = 4.0
 
 [node name="Landmine" type="CharacterBody2D" unique_id=2117611068]
+y_sort_enabled = true
 collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_567sl")
 move = SubResource("Resource_qgv8u")
 ExplodeScene = ExtResource("3_rc06d")
 
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("4_ugehn")]
 
-[node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("5_kla8e")]
+[node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
+position = Vector2(0, -3)
+collision_layer = 8192
+collision_mask = 0
+script = ExtResource("5_567sl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup" unique_id=1697664644]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
+position = Vector2(0, 5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=503450944]
+position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_e7o24")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1976486479]
-scale = Vector2(0.04848537, 0.047181442)
+y_sort_enabled = true
+position = Vector2(0, -3)
+scale = Vector2(1.021, 1)
 texture = ExtResource("6_dh1iw")
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("8_wnerl")]
@@ -132,6 +178,7 @@ script = SubResource("GDScript_kuyaw")
 script = SubResource("GDScript_ofy1l")
 
 [node name="DetectZone" type="Area2D" parent="." unique_id=2106882287]
+position = Vector2(0, -3)
 collision_layer = 0
 collision_mask = 258
 script = ExtResource("9_567sl")
@@ -139,6 +186,16 @@ script = ExtResource("9_567sl")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=690207711]
 shape = SubResource("CircleShape2D_m7yij")
 debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
+position = Vector2(0, -3)
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("10_dh1iw")
+push_force = 0.3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
+shape = SubResource("CircleShape2D_aueyi")
 
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

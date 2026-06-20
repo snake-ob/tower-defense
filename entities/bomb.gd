@@ -21,6 +21,7 @@ func _setup_ref():
 	ref.set('SM', $StateMachine)
 	ref.set('soft_collision', $SoftCollision)
 	ref.set('collisions', [$SoftCollision/CollisionShape2D, $CollisionShape2D])
+	ref.set('detect_zone', get_node_or_null('DetectZone'))
 
 func _setup_nodes(p_node):
 	for node in p_node.get_children():
