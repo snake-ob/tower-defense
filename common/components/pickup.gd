@@ -69,7 +69,7 @@ func _get_thrown(throw: Dictionary):
 
 func _disable_collisions(setting: bool):
 	for collision in collisions:
-		collision.disabled = setting
+		collision.set_deferred('disabled', setting)
 
 func _calc_drop() -> Dictionary:
 	var random_angle: float = randf_range(0, TAU)

@@ -18,7 +18,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Fire" type="Node2D" unique_id=1065490657]
+[node name="FireRune" type="Node2D" unique_id=1065490657]
 script = ExtResource("1_bcbk2")
 GemScene = "uid://db41isjq62umb"
 upgrade = "uid://bj5dn3chh81pw"

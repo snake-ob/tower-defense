@@ -2,12 +2,22 @@
 
 [ext_resource type="Script" uid="uid://su7dh46mlaiv" path="res://entities/tower/bullet.gd" id="1_vl4bg"]
 [ext_resource type="Texture2D" uid="uid://bd886tlbdf12j" path="res://assets/debug/bullet.png" id="2_cre23"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="2_k3jxg"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="2_r16h3"]
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="3_a0ooq"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="3_hwxmk"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="3_jngwf"]
 [ext_resource type="Script" uid="uid://fvaoqsrvde4e" path="res://common/components/target_closest.gd" id="3_vl4bg"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="5_a2x2l"]
 [ext_resource type="PackedScene" uid="uid://cwq83cpaeaqtp" path="res://entities/tower/upgrades/StatusUpgrades.tscn" id="9_s4mvv"]
+
+[sub_resource type="Resource" id="Resource_q5mak"]
+script = ExtResource("2_k3jxg")
+metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
+
+[sub_resource type="Resource" id="Resource_tljn8"]
+script = ExtResource("3_hwxmk")
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jngwf"]
 radius = 3.0
@@ -35,6 +45,8 @@ y_sort_enabled = true
 collision_layer = 16
 collision_mask = 0
 script = ExtResource("1_vl4bg")
+attack = SubResource("Resource_q5mak")
+move = SubResource("Resource_tljn8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=251283894]
 position = Vector2(-0.5, -3.5)

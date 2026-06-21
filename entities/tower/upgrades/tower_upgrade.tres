@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="TowerUpgrade" format=3 uid="uid://bfwdijgmsuvlm"]
+
+[ext_resource type="Script" uid="uid://0vi3nxfxv1b7" path="res://entities/tower/upgrades/tower_upgrade.gd" id="1_x321m"]
+
+[resource]
+script = ExtResource("1_x321m")
+metadata/_custom_type_script = "uid://0vi3nxfxv1b7"

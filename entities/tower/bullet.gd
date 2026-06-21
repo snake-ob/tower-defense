@@ -7,8 +7,8 @@ var target: Vector2
 var active_targets: Array[Node2D] = []
 var direction: Vector2
 
-var attack: AttackData
-var move: MoveData
+@export var attack: AttackData
+@export var move: MoveData
 var status_upgrades: Array = []
 
 @export var turn_speed: float = 5.0

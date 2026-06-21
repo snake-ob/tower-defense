@@ -1,7 +1,8 @@
 extends Area2D
 
-var slots: Array = [null, null]
+var slots: Array[Rune] = [null, null]
 var upgrades: Node
+var bullet_spawner: BulletSpawner
 
 func _ready():
 	if not body_entered.is_connected(_on_body_entered):
@@ -13,6 +14,7 @@ func _ready():
 
 func _setup(p_ref):
 	upgrades = p_ref.upgrades
+	bullet_spawner = p_ref.bullet_spawner
 
 func _on_body_entered(body):
 	body.transfer_gem(self)
@@ -32,10 +34,10 @@ func slot_rune(p_rune):
 	slots[0].position = $PosOne.position
 	
 	add_upgrade(p_rune)
+	_upgrade_spawner.call_deferred()
 	
 func add_upgrade(p_rune):
 	var upgrade_scene = load(p_rune.upgrade)
-	print(p_rune, p_rune.upgrade)
 	var upgrade = upgrade_scene.instantiate()
 	upgrade.unique_id = p_rune.unique_id
 	upgrades.add_child(upgrade)
@@ -45,4 +47,11 @@ func remove_upgrade(p_rune):
 	for upgrade in upgrades.get_children():
 		if upgrade.unique_id == p_rune.unique_id:
 			upgrade.queue_free()
-	
+
+func _upgrade_spawner():
+	var tower_upgrades: Array[TowerUpgrade] = []
+	for upgrade in upgrades.get_children():
+		if upgrade.is_queued_for_deletion(): continue
+		var tower_upgrade = upgrade._get_upgrade()
+		if tower_upgrade != null: tower_upgrades.append(tower_upgrade)
+	bullet_spawner.upgrade(tower_upgrades)

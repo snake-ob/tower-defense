@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://dau6ylnailw46"]
+
+[ext_resource type="Script" uid="uid://bjqorhvpd3nfu" path="res://entities/tower/upgrades/status_upgrade.gd" id="1_awq4h"]
+[ext_resource type="Script" uid="uid://0vi3nxfxv1b7" path="res://entities/tower/upgrades/tower_upgrade.gd" id="2_bke1b"]
+
+[sub_resource type="Resource" id="Resource_awq4h"]
+script = ExtResource("2_bke1b")
+freq_multiplier = 3.0
+metadata/_custom_type_script = "uid://0vi3nxfxv1b7"
+
+[node name="SpeedUp" type="Node" unique_id=1233583217]
+script = ExtResource("1_awq4h")
+upgrade = SubResource("Resource_awq4h")

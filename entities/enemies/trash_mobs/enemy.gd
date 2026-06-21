@@ -60,6 +60,7 @@ func _setup_nodes(p_node):
 			
 func _cleanup_nodes(p_node):
 	for child in p_node.get_children():
+		if not is_instance_valid(child): pass
 		if child.has_method('_cleanup'):
 			child._cleanup()
 		if p_node.get_child_count() > 0:
@@ -73,13 +74,13 @@ func _on_health_depleted():
 
 func _on_got_hit(hit):
 	ref.sprite.trigger_flicker()
-	ref.health.current_health -= hit.damage
 	var knockback_direction = global_position - hit.position
 	velocity += knockback_direction * hit.knockback
-	if hit.status_effects == []:
-		return
-	
-	apply_status_effects(hit.status_effects)
+	if hit.status_effects != []:
+		apply_status_effects(hit.status_effects)
+
+	ref.health._take_damage(hit.damage)
+
 	
 		
 func apply_status_effects(p_effects):
@@ -103,10 +104,11 @@ func catch_exit_pos(p_pos):
 	
 func _die():
 	# Emit a drop and fade away
+	
 	$StateMachine._set_state('die')
 	
 func emit_drop():
-	print("DROP COIN")
-	
+	pass
+
 func sacrifice():
 	$StateMachine._set_state('die')
