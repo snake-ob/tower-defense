@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://v2oxrnxnhkrf" path="res://levels/test_scene_june_1.gd" id="1_7kywp"]
 [ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="1_i44b8"]
 [ext_resource type="Script" uid="uid://cj6oyfnsgnl5a" path="res://levels/components/enemies.gd" id="2_4ahhn"]
-[ext_resource type="PackedScene" uid="uid://dlxx53128g2u2" path="res://pickups/Gem.tscn" id="2_8siyk"]
+[ext_resource type="PackedScene" uid="uid://dlxx53128g2u2" path="res://entities/tower/gems/Gem.tscn" id="2_8siyk"]
 [ext_resource type="TileSet" uid="uid://c5vaf5jjk0c4g" path="res://TerrainTiles.tres" id="2_if2gl"]
 [ext_resource type="PackedScene" uid="uid://dx0u6xdq71b5p" path="res://levels/components/EnemySpawner.tscn" id="2_nlvqi"]
 [ext_resource type="PackedScene" uid="uid://djdnp5l1prw8x" path="res://levels/components/WaveManager.tscn" id="3_6msqe"]

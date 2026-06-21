@@ -23,6 +23,7 @@ func _setup_nodes(p_node):
 
 func _physics_process(delta):
 	pass
+
 func _setup_ref():
 	ref.set('actor', self)
 	ref.set('bullet_spawner', $BulletSpawner)
@@ -35,6 +36,7 @@ func _setup_ref():
 	ref.set('sprite', $Body/Sprite2D)
 	ref.set('slots', $Body/Slots)
 	ref.set('body', $Body)
+	ref.set('upgrades', $StatusUpgrades)
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())
 

@@ -3,7 +3,7 @@ class_name PersistentData
 
 var towers: Array[Dictionary] = [
 	{
-		'runes': ['res://entities/tower/runes/Rune.tscn', 'res://entities/tower/runes/Rune.tscn'],
+		'runes': [],
 		'id': 0
 	}
 ]

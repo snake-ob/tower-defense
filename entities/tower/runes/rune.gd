@@ -2,6 +2,11 @@ extends Node2D
 class_name Rune
 
 @export_file("*.tscn") var GemScene: String
+@export_file("*.tscn") var upgrade: String
+var unique_id: int
+
+func _ready():
+	unique_id = ResourceUID.create_id()
 
 func eject():
 	if GemScene == "":

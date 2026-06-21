@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dlxx53128g2u2"]
 
 [ext_resource type="PackedScene" uid="uid://cwq83cpaeaqtp" path="res://entities/tower/upgrades/StatusUpgrades.tscn" id="1_56l4k"]
-[ext_resource type="Script" uid="uid://dwxskhvp36fi2" path="res://pickups/gem.gd" id="1_cya6d"]
+[ext_resource type="Script" uid="uid://dwxskhvp36fi2" path="res://entities/tower/gems/gem.gd" id="1_cya6d"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="2_def36"]
 [ext_resource type="PackedScene" uid="uid://cct5068qu0bqo" path="res://entities/tower/runes/Rune.tscn" id="2_qbkta"]
 [ext_resource type="PackedScene" uid="uid://bj5dn3chh81pw" path="res://entities/tower/upgrades/Fire.tscn" id="2_veu8e"]
@@ -70,7 +70,6 @@ func exit_state():
 
 [node name="Gem" type="CharacterBody2D" unique_id=613466188]
 y_sort_enabled = true
-position = Vector2(0, -3)
 collision_layer = 16384
 collision_mask = 4097
 script = ExtResource("1_cya6d")
@@ -84,11 +83,12 @@ move = SubResource("Resource_ovftl")
 [node name="Fire" parent="StatusUpgrades" unique_id=154696335 instance=ExtResource("2_veu8e")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1330881693]
-position = Vector2(0, -5)
+position = Vector2(0, -8)
 scale = Vector2(0.938, 1)
 texture = ExtResource("6_5i8wa")
 
 [node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
+position = Vector2(0, -3)
 collision_layer = 128
 collision_mask = 128
 script = ExtResource("4_fb273")
@@ -99,12 +99,15 @@ position = Vector2(0, -2)
 shape = SubResource("CircleShape2D_aueyi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1746182329]
+position = Vector2(0, -3)
 rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_271a0")
 
 [node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("6_nof30")]
+position = Vector2(0, -3)
 
 [node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("7_fb273")]
+position = Vector2(0, -3)
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("9_def36")]
 

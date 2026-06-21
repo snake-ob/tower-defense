@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://1oaknvubcwky"]
+
+[ext_resource type="Script" uid="uid://dnd2ofy8ufxih" path="res://entities/tower/runes/rune.gd" id="1_bcbk2"]
+[ext_resource type="Texture2D" uid="uid://bmr3gsi82snwe" path="res://assets/sprites/objects/gems-Sheet.png" id="2_bcbk2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjwsd"]
+atlas = ExtResource("2_bcbk2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rfxcx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjwsd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Fire" type="Node2D" unique_id=1065490657]
+script = ExtResource("1_bcbk2")
+GemScene = "uid://db41isjq62umb"
+upgrade = "uid://bj5dn3chh81pw"
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=117200049]
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_rfxcx")

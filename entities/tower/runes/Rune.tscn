@@ -6,6 +6,7 @@
 [node name="Rune" type="Node2D" unique_id=1065490657]
 script = ExtResource("1_dphmr")
 GemScene = "uid://dlxx53128g2u2"
+upgrade = "uid://bl8tfonurd26k"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1562138296]
 position = Vector2(-3.5762787e-07, 0)
