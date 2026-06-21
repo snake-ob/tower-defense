@@ -20,7 +20,8 @@ func _ready():
 	_setup_nodes(self)
 	GlobalClick.register_player(self, build_radius)
 	$StateMachine._set_state('idle')
-	$Hurtbox.got_hit.connect(_on_got_hit)
+	$Hurtbox.got_hit.connect(_take_hit)
+	$Health.health_depleted.connect(_health_depleted)
 
 func _process(delta):
 	ref.set('target', $Grab/DropPos.global_position)
@@ -35,6 +36,8 @@ func _setup_ref():
 	ref.set('health', $Health)
 	ref.set('actor', self)
 	ref.set('target', $Grab/DropPos.global_position)
+	ref.set('animanager', $Visuals/AniManager)
+	ref.set('collision', $CollisionShape2D)
 	
 func _setup_nodes(p_node):
 	for child in p_node.get_children():
@@ -43,15 +46,24 @@ func _setup_nodes(p_node):
 		if p_node.get_child_count() > 0:
 			_setup_nodes(child)
 			
-func take_hit(hit):
-	pass
-
-func _on_got_hit(hit):
+func _take_hit(hit):
 	var knockback_direction = global_position - hit.position
 	velocity += knockback_direction * hit.knockback
+	$Health._take_damage(hit.damage)
+	ref.sprite.trigger_flicker()
+	$Hurtbox.enable_iframes()
+	# Health damage
+	# Disable hurtbox (maybe hurtbox has iframes function that resets on timer)
+	# Sprite flashes white	
 	
 func spawn_in_hand(p_item):
 	if ref.grab.grabbed_pickup != null:
 		ref.grab._put_down()
 	var p_pickup = p_item.ref.pickup
 	ref.grab._pickup_object(p_pickup)
+	
+func _health_depleted():
+	_player_die()
+	
+func _player_die():
+	$StateMachine._set_state('die')

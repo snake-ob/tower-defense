@@ -5,11 +5,9 @@
 [ext_resource type="Script" uid="uid://btpfjqfhq0o86" path="res://common/components/input_controller.gd" id="3_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="3_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="6_gskgj"]
-[ext_resource type="Shader" uid="uid://xhgadr8idsan" path="res://player/flicker.gdshader" id="6_hbkom"]
 [ext_resource type="Texture2D" uid="uid://spyncwb82vxs" path="res://assets/sprites/characters/Player-Sheet.png" id="6_v4f8b"]
 [ext_resource type="PackedScene" uid="uid://d3bfew6tg4p6d" path="res://common/components/AniManager.tscn" id="7_b32pr"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_d4g0h"]
-[ext_resource type="Script" uid="uid://cft2bf8lomomh" path="res://player/sprite.gd" id="8_d4g0h"]
 [ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="8_ndjxb"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_ndjxb"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="11_b32pr"]
@@ -18,13 +16,6 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d4g0h"]
 radius = 3.0
 height = 14.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d4g0h"]
-shader = ExtResource("6_hbkom")
-shader_parameter/active = false
-shader_parameter/target_color = Color(0, 0, 0, 1)
-shader_parameter/flash_color = Color(1, 1, 1, 1)
-shader_parameter/tolerance = 0.1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d4g0h"]
 atlas = ExtResource("6_v4f8b")
@@ -415,20 +406,16 @@ extends State
 var animanager: Node
 var collision: Node
 var death_speed: float = 2.0
-var physics: PhysicsHandler
 
 func _setup(p_ref):
 	actor = p_ref.actor
 	animanager = p_ref.animanager
 	collision = p_ref.collision
-	physics = p_ref.physics
-	
-func _physics_update(delta):
-	physics._process_friction(delta)
 
 func _enter_state():
 	collision.disabled = true
 	animanager.play_death()
+	actor.velocity = Vector2.ZERO
 	await get_tree().create_timer(death_speed).timeout
 	flicker()
 	
@@ -471,10 +458,8 @@ script = ExtResource("3_g1dw6")
 position = Vector2(0, -8)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals" unique_id=1240261556]
-material = SubResource("ShaderMaterial_d4g0h")
 sprite_frames = SubResource("SpriteFrames_qjkh3")
 animation = &"f_die"
-script = ExtResource("8_d4g0h")
 
 [node name="AniManager" parent="Visuals" unique_id=170788171 instance=ExtResource("7_b32pr")]
 
@@ -535,11 +520,10 @@ collision_mask = 0
 input_pickable = false
 monitoring = false
 script = ExtResource("11_b32pr")
-iframe_length = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=630823401]
 shape = SubResource("CircleShape2D_d4g0h")
 debug_color = Color(0.9647059, 0, 0, 0)
 
 [node name="Health" parent="." unique_id=856647450 instance=ExtResource("14_d4g0h")]
-max_health = 3
+max_health = 10

@@ -28,7 +28,6 @@ metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
 [sub_resource type="Resource" id="Resource_opqqp"]
 script = ExtResource("2_66spp")
-knockback = 5.0
 metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
 
 [sub_resource type="Resource" id="Resource_86smx"]
@@ -475,13 +474,16 @@ extends State
 var animanager: Node
 var collision: Node
 var death_speed: float = 2.0
+var hitbox: Hitbox
 
 func _setup(p_ref):
 	actor = p_ref.actor
 	animanager = p_ref.animanager
 	collision = p_ref.collision
+	hitbox = p_ref.hitbox
 
 func _enter_state():
+	hitbox.monitoring = false
 	collision.disabled = true
 	animanager.play_death()
 	actor.velocity = Vector2.ZERO
