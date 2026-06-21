@@ -6,9 +6,7 @@ class_name Health
 
 signal health_depleted()
 
-func _process(_delta) -> void:
-	if current_health <= 0:
-		health_depleted.emit()
-
 func _take_damage(damage):
 	current_health -= damage
+	if current_health <= 0:
+		health_depleted.emit()

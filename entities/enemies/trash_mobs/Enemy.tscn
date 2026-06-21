@@ -10,8 +10,10 @@
 [ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="5_opqqp"]
 [ext_resource type="PackedScene" uid="uid://d3bfew6tg4p6d" path="res://common/components/AniManager.tscn" id="6_86smx"]
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="6_dsp8k"]
+[ext_resource type="Shader" uid="uid://xhgadr8idsan" path="res://player/flicker.gdshader" id="6_qu3yx"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="7_66spp"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="8_66spp"]
+[ext_resource type="Script" uid="uid://cft2bf8lomomh" path="res://player/sprite.gd" id="8_qu3yx"]
 [ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="10_im3kb"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="12_r1qvq"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="13_11bei"]
@@ -38,6 +40,13 @@ metadata/_custom_type_script = "uid://dxnywa0nlrdku"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kqn5r"]
 radius = 9.055386
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qu3yx"]
+shader = ExtResource("6_qu3yx")
+shader_parameter/active = false
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/tolerance = 0.1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7xyou"]
 atlas = ExtResource("5_7b7q7")
@@ -475,14 +484,19 @@ var animanager: Node
 var collision: Node
 var death_speed: float = 2.0
 var hitbox: Hitbox
+var sprite: AnimatedSprite2D
 
 func _setup(p_ref):
 	actor = p_ref.actor
 	animanager = p_ref.animanager
 	collision = p_ref.collision
 	hitbox = p_ref.hitbox
+	sprite = p_ref.sprite
 
 func _enter_state():
+	print(actor, \" entered Death State)\")
+	if sprite.material:
+		sprite.material.set_shader_parameter('active', false)
 	hitbox.monitoring = false
 	collision.disabled = true
 	animanager.play_death()
@@ -558,8 +572,11 @@ position = Vector2(0, -13)
 position = Vector2(0, -7)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body" unique_id=670041104]
+material = SubResource("ShaderMaterial_qu3yx")
 sprite_frames = SubResource("SpriteFrames_e0csy")
 animation = &"b_carry"
+script = ExtResource("8_qu3yx")
+flicker_amount = 1
 
 [node name="AniManager" parent="Body" unique_id=170788171 instance=ExtResource("6_86smx")]
 

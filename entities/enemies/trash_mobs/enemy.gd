@@ -18,6 +18,8 @@ func _physics_process(delta: float) -> void :
 func _ready() -> void:
 	_setup_ref()
 	_setup_nodes(self)
+	if ref.sprite.material:
+		ref.sprite.material = ref.sprite.material.duplicate()
 	$StateMachine._set_state('chase')
 	$Health.health_depleted.connect(_on_health_depleted)
 	$Hurtbox.got_hit.connect(_on_got_hit)
@@ -70,6 +72,7 @@ func _on_health_depleted():
 	
 
 func _on_got_hit(hit):
+	ref.sprite.trigger_flicker()
 	ref.health.current_health -= hit.damage
 	var knockback_direction = global_position - hit.position
 	velocity += knockback_direction * hit.knockback
