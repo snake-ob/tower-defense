@@ -111,4 +111,4 @@ func emit_drop():
 	pass
 
 func sacrifice():
-	$StateMachine._set_state('die')
+	$StateMachine._set_state('retreat')

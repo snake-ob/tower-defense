@@ -504,6 +504,9 @@ func _enter_state():
 	await get_tree().create_timer(death_speed).timeout
 	flicker()
 	
+func _physics_update(delta):
+	actor.velocity = Vector2.ZERO
+	
 func flicker():
 	var flicker_count = 8
 	var flicker_speed = 0.05
@@ -514,6 +517,68 @@ func flicker():
 	
 	actor.emit_drop()
 	actor.queue_free()
+"
+
+[sub_resource type="GDScript" id="GDScript_qu3yx"]
+script/source = "extends State
+
+var physics: Node
+var grab: Node
+var soft_collision = Node
+var stored_force: float
+var pickup: Node
+var sprite: AnimatedSprite2D
+var current_speed: float
+var stutter_step: bool = false
+
+var target_pos: Vector2
+	
+func _setup(p_ref):
+	ref = p_ref
+	actor = p_ref.actor
+	physics = p_ref.physics
+	grab = p_ref.grab
+	soft_collision = p_ref.soft_collision
+	pickup = p_ref.pickup
+	sprite = p_ref.sprite
+	
+func _enter_state():
+	actor.ref.target = Vector2.ZERO
+	SignalBus.request_closest_exit.emit(actor)
+
+func _physics_update(delta):
+	sprite.speed_scale = 1
+	current_speed = actor.move.speed
+		
+	physics._process_friction(delta)
+	_check_slow()
+	_move_actor(delta)
+
+func _check_slow():
+	if actor.slowed_down:
+		sprite.speed_scale = 0.5
+		if stutter_step:
+			current_speed = 0.1
+			stutter_step = false
+		else:
+			stutter_step = true
+
+func _move_actor(delta):
+	var target_pos = ref.target
+	var actor_pos = actor.global_position
+
+	var direction = actor_pos.direction_to(target_pos)
+	var target_velocity = direction * current_speed
+	actor.update_target(target_pos)
+	
+	if actor.slowed_down:
+		actor.velocity = target_velocity
+	else:
+		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+
+func catch_exit_pos(p_pos):
+	target_pos = p_pos
+	actor.ref.target = p_pos
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_pedfs"]
@@ -593,6 +658,9 @@ script = SubResource("GDScript_im3kb")
 
 [node name="Die" type="Node" parent="StateMachine" unique_id=1144145870]
 script = SubResource("GDScript_11bei")
+
+[node name="Retreat" type="Node" parent="StateMachine" unique_id=1204078734]
+script = SubResource("GDScript_qu3yx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=646892593]
 position = Vector2(0, -6)
