@@ -2,6 +2,7 @@
 extends Node
 
 signal clicked(actor)
+signal rmb_click()
 
 var player_node: Node2D = null
 var zone_radius: float = 200.0
@@ -15,6 +16,8 @@ func register_player(player: CharacterBody2D, radius: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		_process_click()
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT and event.pressed:
+		rmb_click.emit()
 
 func _process_click() -> void:
 	if not is_instance_valid(player_node):

@@ -1,17 +1,17 @@
-[gd_scene format=3 uid="uid://dvcsknmrhh2vi"]
+[gd_scene format=3 uid="uid://c7qeu66gjgxoy"]
 
-[ext_resource type="Script" uid="uid://drxjhqqup3w4y" path="res://pickups/bomb_upgrade.gd" id="1_w5ymr"]
-[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_ruids"]
-[ext_resource type="PackedScene" uid="uid://brkgs0nuf1aaf" path="res://common/components/Pickup.tscn" id="3_rmic2"]
-[ext_resource type="Texture2D" uid="uid://c3jdnjioc2dfb" path="res://assets/debug/bomb_upgrade.png" id="4_w5ymr"]
-[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_7e1rb"]
-[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="6_ohvap"]
-[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_ys25n"]
-[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="8_jdf4h"]
-[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="9_hkn0e"]
+[ext_resource type="Script" uid="uid://drxjhqqup3w4y" path="res://pickups/bomb_upgrade.gd" id="1_f2hsh"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_n037x"]
+[ext_resource type="PackedScene" uid="uid://brkgs0nuf1aaf" path="res://common/components/Pickup.tscn" id="3_nlmtu"]
+[ext_resource type="Texture2D" uid="uid://c2pwpkextmejm" path="res://assets/debug/landmine-upgrade.png" id="4_f2hsh"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_1am27"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="6_losch"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_7xwqa"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="8_6kgmd"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="9_2e2ya"]
 
 [sub_resource type="Resource" id="Resource_grblh"]
-script = ExtResource("2_ruids")
+script = ExtResource("2_n037x")
 metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aunc7"]
@@ -64,36 +64,36 @@ func exit_state():
 	soft_collision.enable()
 "
 
-[node name="BombUpgrade" type="CharacterBody2D" unique_id=1578281118]
-script = ExtResource("1_w5ymr")
+[node name="LandmineUpgrade" type="CharacterBody2D" unique_id=1578281118]
+script = ExtResource("1_f2hsh")
 move = SubResource("Resource_grblh")
-upgrade = "bombs"
+upgrade = "landmines"
 
-[node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("3_rmic2")]
+[node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("3_nlmtu")]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=756151008]
-texture = ExtResource("4_w5ymr")
+texture = ExtResource("4_f2hsh")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1959170815]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_aunc7")
 
-[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("5_7e1rb")]
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("5_1am27")]
 
-[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("6_ohvap")]
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("6_losch")]
 
 [node name="SoftCollision" type="Area2D" parent="." unique_id=1545341311]
 collision_layer = 128
 collision_mask = 128
-script = ExtResource("7_ys25n")
+script = ExtResource("7_7xwqa")
 push_force = 5.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=1582408808]
 shape = SubResource("CircleShape2D_15v4s")
 
-[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("8_jdf4h")]
+[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("8_6kgmd")]
 
-[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("9_hkn0e")]
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("9_2e2ya")]
 
 [node name="Idle" type="Node" parent="StateMachine" unique_id=115960588]
 script = SubResource("GDScript_8kmde")

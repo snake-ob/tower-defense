@@ -320,6 +320,7 @@ metadata/_custom_type_script = "uid://d1tqs23iyetw5"
 
 [sub_resource type="Resource" id="Resource_0x1rk"]
 script = ExtResource("20_voubc")
+wave_duration = 5.0
 wave_budget = 15
 wave_enemies = Array[ExtResource("19_kwb5f")]([SubResource("Resource_tb0r5")])
 wave_title = "Wave 1"
@@ -505,7 +506,6 @@ y_sort_enabled = true
 y_sort_enabled = true
 
 [node name="Items" type="Node2D" parent="EntityRoot" unique_id=1808440553]
-position = Vector2(79, 7)
 script = ExtResource("12_mtdfy")
 
 [node name="SpeedGem" parent="EntityRoot/Items" unique_id=1798935767 instance=ExtResource("16_xapae")]

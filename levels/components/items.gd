@@ -1,11 +1,18 @@
 extends Node2D
 
+var towers: Node2D
+
+func _setup_lvl(p_ref):
+	towers = p_ref.towers
 
 func _ready():
 	SignalBus.spawned.connect(_on_item_spawn)
 
 func _on_item_spawn(item):
-	add_child.call_deferred(item)
+	var item_parent: Node2D = self
+	if item is Tower:
+		item_parent = towers
+	item_parent.add_child.call_deferred(item)
 	await get_tree().process_frame
 	if item.ref.pickup.picked_up:
 		return

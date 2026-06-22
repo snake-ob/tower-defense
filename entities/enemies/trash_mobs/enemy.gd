@@ -112,3 +112,6 @@ func emit_drop():
 
 func sacrifice():
 	$StateMachine._set_state('retreat')
+	
+func reset():
+	$StateMachine._set_state('reset')

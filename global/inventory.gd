@@ -7,6 +7,8 @@ var items: Dictionary = {
 	'walls': {'unlocked': false, 'max': 5, 'current': 5},
 }
 
+var wallet: int = 0
+
 func _ready():
 	_debug_items()
 
@@ -24,6 +26,7 @@ func _reset_items() -> void:
 		item.unlocked = false
 		item.max = 0
 		item.current = 0
+	wallet = 0
 
 func _debug_items() -> void:
 	for key in items:
@@ -31,3 +34,9 @@ func _debug_items() -> void:
 		item.unlocked = true
 		item.max = 5
 		item.current = 5
+
+func upgrade(p_item: String):
+	var item = items[p_item]
+	item.unlocked = true
+	item.max += 3
+	item.current += 3

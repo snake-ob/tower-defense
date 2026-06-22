@@ -7,6 +7,7 @@ extends CharacterBody2D
 func _ready():
 	_setup_ref()
 	_setup_nodes(self)
+	Inventory.upgrade(upgrade)
 	$StateMachine._set_state('idle')
 	await get_tree().create_timer(2).timeout
 	_die()

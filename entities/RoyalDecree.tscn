@@ -48,10 +48,15 @@ script/source = "extends State
 
 var pickup: Area2D
 var soft_collision
+var state_active: bool = false
+
+func _ready():
+	GlobalClick.rmb_click.connect(_on_rmb_click)
 
 func _setup(p_ref):
 	soft_collision = p_ref.soft_collision
 	pickup = p_ref.pickup
+	actor = p_ref.actor
 
 func _update(delta):
 	if not pickup.picked_up:
@@ -59,9 +64,15 @@ func _update(delta):
 
 func _enter_state():
 	soft_collision.disable()
+	state_active = true
 
-func exit_state():
+func _exit_state():
 	soft_collision.enable()
+	state_active = false
+
+func _on_rmb_click():
+	if not state_active: return
+	actor.purchase_requested()
 "
 
 [node name="RoyalDecree" type="CharacterBody2D" unique_id=799632857]
