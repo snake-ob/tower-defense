@@ -21,5 +21,5 @@ func _on_item_spawn(item):
 	var random_speed: float = randf_range(50.0, 100)
 	
 	var drop_throw = {"direction": throw_dir, "speed": random_speed, "arc": 300}
-
+	
 	item.ref.pickup._get_thrown(drop_throw)

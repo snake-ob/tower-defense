@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://car7jvt132djb"]
 
 [ext_resource type="Texture2D" uid="uid://bou1n1ug45jq4" path="res://assets/debug/purchase_screen.png" id="1_luoml"]
+[ext_resource type="Script" uid="uid://b27n4t2bxogn7" path="res://entities/purchase_screen.gd" id="1_uh4ex"]
 [ext_resource type="Texture2D" uid="uid://c3jdnjioc2dfb" path="res://assets/debug/bomb_upgrade.png" id="2_npl8x"]
 [ext_resource type="FontFile" uid="uid://35m8ovgllvq4" path="res://fonts/Grandeur 8h.ttf" id="3_npl8x"]
 [ext_resource type="FontFile" uid="uid://cggn115yr4jh8" path="res://fonts/4x6px.otf" id="3_sqv0l"]
@@ -18,48 +19,51 @@ font_size = 4
 [sub_resource type="LabelSettings" id="LabelSettings_uh4ex"]
 font = ExtResource("3_npl8x")
 font_color = Color(0.9882353, 0.84705883, 0.5176471, 1)
+outline_size = 5
+outline_color = Color(1, 1, 1, 0)
 shadow_color = Color(0.9882353, 0.72156864, 0, 1)
 
 [node name="PurchaseScreen" type="Node2D" unique_id=351827832]
+position = Vector2(89, 65)
+script = ExtResource("1_uh4ex")
 
 [node name="BG" type="Sprite2D" parent="." unique_id=1344127655]
-position = Vector2(41, -30)
+position = Vector2(35, -0.5)
 texture = ExtResource("1_luoml")
 
 [node name="Item" type="Sprite2D" parent="." unique_id=485496805]
-position = Vector2(19, -43)
+position = Vector2(13, -13.5)
 texture = ExtResource("2_npl8x")
 
 [node name="coin" type="Sprite2D" parent="." unique_id=1178978970]
-position = Vector2(60, -38)
+position = Vector2(75, -6)
 texture = ExtResource("3_x83rn")
 
 [node name="Name" type="Label" parent="." unique_id=916702717]
-offset_left = 19.0
-offset_top = -36.0
-offset_right = 60.0
-offset_bottom = -27.0
+offset_left = 24.0
+offset_top = -12.0
+offset_right = 65.0
+offset_bottom = -3.0
 text = "Caltropes"
 label_settings = SubResource("LabelSettings_x83rn")
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="Desc" type="Label" parent="." unique_id=657177858]
-offset_left = 14.0
-offset_top = -25.0
-offset_right = 74.0
-offset_bottom = -16.0
+offset_left = 13.0
+offset_top = 1.0
+offset_right = 73.0
+offset_bottom = 10.0
 text = "Throw at your enemies"
 label_settings = SubResource("LabelSettings_sqv0l")
-horizontal_alignment = 1
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Cost" type="Label" parent="." unique_id=698928215]
-offset_left = 61.0
-offset_top = -48.0
-offset_right = 74.0
-offset_bottom = -32.0
+offset_left = 76.0
+offset_top = -15.0
+offset_right = 89.0
+offset_bottom = 1.0
 text = "1"
 label_settings = SubResource("LabelSettings_uh4ex")
 horizontal_alignment = 1

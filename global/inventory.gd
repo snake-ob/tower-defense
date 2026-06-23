@@ -7,7 +7,7 @@ var items: Dictionary = {
 	'walls': {'unlocked': false, 'max': 5, 'current': 5},
 }
 
-var wallet: int = 0
+var wallet: int = -1
 
 func _ready():
 	_debug_items()
