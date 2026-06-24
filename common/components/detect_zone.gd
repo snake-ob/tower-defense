@@ -22,3 +22,9 @@ func _on_body_entered(body: Node2D) -> void:
 func _on_body_exited(body: Node2D) -> void:
 	if active_targets.has(body):
 		active_targets.erase(body)
+		
+func get_primary_target():
+	if active_targets.size() > 0:
+		return active_targets[0]
+	else:
+		return null

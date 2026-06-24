@@ -1,5 +1,6 @@
 extends Node
 
+signal coin_added
 var items: Dictionary = {
 	'bombs': {'unlocked': true, 'max': 5, 'current': 5},
 	'caltropes': {'unlocked': false, 'max': 5, 'current': 5},
@@ -7,10 +8,11 @@ var items: Dictionary = {
 	'walls': {'unlocked': false, 'max': 5, 'current': 5},
 }
 
-var wallet: int = -1
+var wallet: int = 0
 
 func _ready():
 	_debug_items()
+	SignalBus.coin_collected.connect(_on_coin_collect)
 
 func get_unlocked_items() -> Array:
 	var unlocks: Array = []
@@ -40,3 +42,7 @@ func upgrade(p_item: String):
 	item.unlocked = true
 	item.max += 3
 	item.current += 3
+
+func _on_coin_collect():
+	wallet += 1
+	coin_added.emit()

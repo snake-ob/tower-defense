@@ -106,4 +106,3 @@ func _set_spawners():
 		spawner.spawn_path = spawn_path
 		spawner.centre = centre
 		spawner.enemies = enemies
-		

@@ -7,6 +7,10 @@ func _setup_lvl(p_ref):
 
 func _ready():
 	SignalBus.spawned.connect(_on_item_spawn)
+	SignalBus.add_object_to_scene.connect(_add_object)
+	
+func _add_object(item):
+	add_child(item)
 
 func _on_item_spawn(item):
 	var item_parent: Node2D = self

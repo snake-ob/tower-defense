@@ -5,6 +5,9 @@ class_name Enemy
 @export var move: MoveData
 @export var attack: AttackData
 @export var collision: CollisionData
+@export var coins_held: int = 100
+
+var coin_path: String = "res://entities/CoinEmitter.tscn"
 
 @onready var ref = $Ref
 var target: Vector2
@@ -103,12 +106,16 @@ func catch_exit_pos(p_pos):
 	ref.target = p_pos
 	
 func _die():
-	# Emit a drop and fade away
-	
+	emit_drop()
 	$StateMachine._set_state('die')
 	
 func emit_drop():
-	pass
+	var coin_scene = load(coin_path)
+	var coin_emitter: CoinEmitter = coin_scene.instantiate()
+	var parent = get_parent()
+	coin_emitter.global_position = global_position
+	SignalBus.add_object_to_scene.emit(coin_emitter)
+	coin_emitter.stagger_drop(coins_held)
 
 func sacrifice():
 	$StateMachine._set_state('retreat')

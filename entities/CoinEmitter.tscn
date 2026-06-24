@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dlqgmje5uwdat"]
+
+[ext_resource type="Script" uid="uid://c0u4gru3j46lm" path="res://entities/coin_emitter.gd" id="1_6pddt"]
+
+[node name="CoinEmitter" type="StaticBody2D" unique_id=1930022335]
+script = ExtResource("1_6pddt")

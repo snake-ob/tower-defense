@@ -1,0 +1,130 @@
+[gd_scene format=3 uid="uid://ln6s0dkjchte"]
+
+[ext_resource type="Script" uid="uid://dpeoltgafrfj0" path="res://entities/coin.gd" id="1_8o8c7"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_5ettv"]
+[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="3_5ettv"]
+[ext_resource type="Texture2D" uid="uid://curtwvrjrp5yc" path="res://assets/sprites/objects/coin-sheet.png" id="3_jl2gm"]
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="4_r21wx"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_vnxuf"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="6_r21wx"]
+
+[sub_resource type="Resource" id="Resource_jl2gm"]
+script = ExtResource("2_5ettv")
+speed = 300.0
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vnxuf"]
+atlas = ExtResource("3_jl2gm")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nm5so"]
+atlas = ExtResource("3_jl2gm")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xocn7"]
+atlas = ExtResource("3_jl2gm")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_on3wm"]
+atlas = ExtResource("3_jl2gm")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfgyd"]
+atlas = ExtResource("3_jl2gm")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41xt3"]
+atlas = ExtResource("3_jl2gm")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2762p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vnxuf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nm5so")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xocn7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_on3wm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfgyd")
+}],
+"loop": false,
+"name": &"collect",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41xt3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
+radius = 7.28011
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nm5so"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ettv"]
+radius = 70.00714
+
+[node name="Coin" type="CharacterBody2D" unique_id=1601715970]
+collision_layer = 0
+script = ExtResource("1_8o8c7")
+move = SubResource("Resource_jl2gm")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1430392768]
+sprite_frames = SubResource("SpriteFrames_2762p")
+
+[node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
+collision_layer = 8192
+collision_mask = 0
+script = ExtResource("3_5ettv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pickup" unique_id=1697664644]
+shape = SubResource("CircleShape2D_hg3tk")
+debug_color = Color(0.7647059, 0.16862746, 1, 0)
+
+[node name="PickupPos" type="Node2D" parent="Pickup" unique_id=639769184]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1722806595]
+shape = SubResource("CircleShape2D_nm5so")
+
+[node name="CollectZone" type="Area2D" parent="." unique_id=2106882287]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_r21wx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectZone" unique_id=690207711]
+shape = SubResource("CircleShape2D_m7yij")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="DetectZone" type="Area2D" parent="." unique_id=941579172]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("4_r21wx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectZone" unique_id=512238921]
+shape = SubResource("CircleShape2D_5ettv")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("5_vnxuf")]
+
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("6_r21wx")]
+
+[connection signal="body_entered" from="CollectZone" to="CollectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="CollectZone" to="CollectZone" method="_on_body_exited"]
+[connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
+[connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]
