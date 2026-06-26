@@ -24,6 +24,7 @@ outline_color = Color(1, 1, 1, 0)
 shadow_color = Color(0.9882353, 0.72156864, 0, 1)
 
 [node name="PurchaseScreen" type="Node2D" unique_id=351827832]
+z_index = 999
 position = Vector2(89, 65)
 script = ExtResource("1_uh4ex")
 

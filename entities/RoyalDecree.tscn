@@ -30,6 +30,7 @@ script = ExtResource("3_big5u")
 upgrade = "fire"
 title = "Fire Rune"
 path = "res://entities/tower/gems/FireGem.tscn"
+cost = 50
 description = "Towers will burn enemies"
 icon = SubResource("AtlasTexture_wcvv2")
 metadata/_custom_type_script = "uid://cops05dhuyokx"
@@ -46,6 +47,7 @@ script = ExtResource("3_big5u")
 upgrade = "ice"
 title = "Ice Rune"
 path = "res://entities/tower/gems/IceGem.tscn"
+cost = 50
 description = "Towers will slow enemies"
 icon = SubResource("AtlasTexture_rmdpd")
 metadata/_custom_type_script = "uid://cops05dhuyokx"
@@ -62,6 +64,7 @@ script = ExtResource("3_big5u")
 upgrade = "poison"
 title = "Death Rune"
 path = "res://entities/tower/gems/PoisonGem.tscn"
+cost = 50
 description = "Towers will poison enemies"
 icon = SubResource("AtlasTexture_kn2gv")
 metadata/_custom_type_script = "uid://cops05dhuyokx"
@@ -78,6 +81,7 @@ script = ExtResource("3_big5u")
 upgrade = "speed"
 title = "Speed Rune"
 path = "res://entities/tower/gems/SpeedGem.tscn"
+cost = 50
 description = "Towers will shoot faster"
 icon = SubResource("AtlasTexture_4l8sf")
 metadata/_custom_type_script = "uid://cops05dhuyokx"
@@ -94,6 +98,7 @@ script = ExtResource("3_big5u")
 upgrade = "damage"
 title = "DMG Rune"
 path = "res://entities/tower/gems/AttackGem.tscn"
+cost = 50
 description = "Towers will hit harder"
 icon = SubResource("AtlasTexture_0cymg")
 metadata/_custom_type_script = "uid://cops05dhuyokx"
@@ -103,6 +108,7 @@ script = ExtResource("3_big5u")
 upgrade = "bombs"
 title = "Bombs"
 path = "res://pickups/BombUpgrade.tscn"
+cost = 20
 description = "More bombs to throw"
 icon = ExtResource("5_eysrl")
 metadata/_custom_type_script = "uid://cops05dhuyokx"
@@ -112,6 +118,7 @@ script = ExtResource("3_big5u")
 upgrade = "caltropes"
 title = "Tacks"
 path = "res://pickups/CaltropeUpgrade.tscn"
+cost = 20
 description = "More tacks to throw"
 icon = ExtResource("6_k7i33")
 metadata/_custom_type_script = "uid://cops05dhuyokx"
@@ -121,6 +128,7 @@ script = ExtResource("3_big5u")
 upgrade = "landmines"
 title = "Landmines"
 path = "res://pickups/LandmineUpgrade.tscn"
+cost = 20
 description = "More mines to throw"
 icon = ExtResource("7_vqv2x")
 metadata/_custom_type_script = "uid://cops05dhuyokx"
@@ -130,6 +138,7 @@ script = ExtResource("3_big5u")
 upgrade = "tower"
 title = "Tower"
 path = "res://entities/tower/Tower.tscn"
+cost = 20
 description = "An additional tower"
 icon = ExtResource("8_blabw")
 metadata/_custom_type_script = "uid://cops05dhuyokx"
@@ -155,11 +164,9 @@ func _setup(p_ref):
 func _update(delta):
 	if pickup.picked_up:
 		change_state.emit('picked')
-		print(\"Decree Idle State: Pickup.picked_up == true\")
 
 func _enter_state():
 	soft_collision.enable()
-	print(\"Decree Idle State: Entered\")
 
 func _physics_update(delta):
 	physics._process_friction(delta)
@@ -191,7 +198,6 @@ func _enter_state():
 	soft_collision.disable()
 	state_active = true
 	shop.visible = true
-	print(\"Decree Pick Up State: Entered\")
 
 
 func _exit_state():

@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://d2motv6cm6hye"]
+
+[ext_resource type="Script" uid="uid://b3ad3vbswtf41" path="res://pickups/build_wall.gd" id="1_m6ndv"]
+[ext_resource type="PackedScene" uid="uid://brkgs0nuf1aaf" path="res://common/components/Pickup.tscn" id="3_f1egq"]
+[ext_resource type="Texture2D" uid="uid://deuaoxtril00c" path="res://assets/debug/stone_fences.png" id="3_m6ndv"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_4h74o"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="6_5rhp8"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_ieahj"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="8_ao7pr"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="9_ape4c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uqdgp"]
+atlas = ExtResource("3_m6ndv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aunc7"]
+size = Vector2(8, 9)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_15v4s"]
+radius = 4.0
+
+[sub_resource type="GDScript" id="GDScript_8kmde"]
+script/source = "extends State
+
+var pickup: Area2D
+var soft_collision: Area2D
+var physics: Node
+
+func _setup(p_ref):
+	pickup = p_ref.pickup
+	soft_collision = p_ref.soft_collision
+	physics = p_ref.physics
+
+func _update(delta):
+	if pickup.picked_up:
+		change_state.emit('picked')
+
+func _enter_state():
+	soft_collision.enable()
+"
+
+[sub_resource type="GDScript" id="GDScript_xuc3t"]
+script/source = "extends State
+
+var pickup: Area2D
+var soft_collision
+
+func _ready():
+	SignalBus.wall_built.connect(_on_wall_built)
+	SignalBus.wall_cancelled.connect(_on_wall_cancelled)
+
+
+func _setup(p_ref):
+	soft_collision = p_ref.soft_collision
+	pickup = p_ref.pickup
+	actor = p_ref.actor
+
+func _update(delta):
+	if not pickup.picked_up:
+		change_state.emit('idle')
+
+func _enter_state():
+	soft_collision.disable()
+	MouseMode.current = 'build_fence'
+	
+func _exit_state():
+	MouseMode.current = ''
+	
+	actor.queue_free()
+
+
+func exit_state():
+	soft_collision.enable()
+
+func _on_wall_built():
+	change_state.emit('idle')
+	
+func _on_wall_cancelled():
+	change_state.emit('idle')
+"
+
+[node name="BuildWall" type="CharacterBody2D" unique_id=1578281118]
+script = ExtResource("1_m6ndv")
+
+[node name="Pickup" parent="." unique_id=1162784583 instance=ExtResource("3_f1egq")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=756151008]
+texture = SubResource("AtlasTexture_uqdgp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1959170815]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_aunc7")
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("5_4h74o")]
+
+[node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("6_5rhp8")]
+
+[node name="SoftCollision" type="Area2D" parent="." unique_id=1545341311]
+collision_layer = 128
+collision_mask = 128
+script = ExtResource("7_ieahj")
+push_force = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=1582408808]
+shape = SubResource("CircleShape2D_15v4s")
+
+[node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("8_ao7pr")]
+
+[node name="StateMachine" parent="." unique_id=784147820 instance=ExtResource("9_ape4c")]
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=115960588]
+script = SubResource("GDScript_8kmde")
+
+[node name="Picked" type="Node" parent="StateMachine" unique_id=660136826]
+script = SubResource("GDScript_xuc3t")

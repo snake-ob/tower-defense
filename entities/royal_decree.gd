@@ -33,6 +33,7 @@ func purchase_requested():
 	if Inventory.wallet < upgrade.cost:
 		deny_purchase()
 		return
+	Inventory.wallet -= upgrade.cost
 	var upgrade_scene = load(upgrade.path)
 	var upgrade_item = upgrade_scene.instantiate()
 	upgrade_item.global_position = global_position

@@ -7,3 +7,6 @@ signal request_closest_exit(requester)
 signal gameover()
 signal spawn_player
 signal coin_collected
+signal wall_built
+signal wall_cancelled
+signal inv_updated

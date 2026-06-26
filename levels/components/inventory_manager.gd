@@ -7,14 +7,19 @@ var index: int = 0
 var item_ui: InvSlot
 var player: CharacterBody2D
 
+func _ready():
+	SignalBus.inv_updated.connect(_on_inv_update)
+
 func _setup_lvl(p_ref):
 	item_ui = p_ref.item_ui
 	player = p_ref.player
 	
 	item_ui._enable_scroll(false)
+	item_ui._enable_count(false)
 	var unlocks = Inventory.get_unlocked_items()
 	if unlocks.size() > 0:
 		_change_slot(1)
+		item_ui._enable_count(true)
 	if unlocks.size() > 1:
 		item_ui._enable_scroll(true)
 
@@ -28,8 +33,14 @@ func _change_slot(direction: int):
 		_change_slot(direction)
 		
 	_update_ui()
+
+func _on_inv_update():
+	_update_ui()
 	
 func _update_ui():
+	if Inventory.get_unlocked_items().size() <= 0:
+		return
+	item_ui._enable_count(true)
 	var current_item = items[index].item_name
 	var item_texture = items[index].texture
 	item_ui.set_item_ui(item_texture)
@@ -47,6 +58,8 @@ func _spawn_in_hand(item_scene):
 	player.call_deferred("spawn_in_hand", item) # For player to grab
 
 func item_clicked():
+	if not is_instance_valid(player): return # Player is dead
+
 	var current_item = items[index].item_name
 	var item_scene = items[index].item_scene
 	if Inventory.items[current_item].current > 0:

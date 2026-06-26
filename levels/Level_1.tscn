@@ -4,6 +4,7 @@
 [ext_resource type="TileSet" uid="uid://c5vaf5jjk0c4g" path="res://TerrainTiles.tres" id="3_nmsli"]
 [ext_resource type="TileSet" uid="uid://bt4pl4lob0nmr" path="res://WaterTiles.tres" id="4_betor"]
 [ext_resource type="Script" uid="uid://do4a1tadyl7vi" path="res://levels/components/escape_zone.gd" id="4_nmsli"]
+[ext_resource type="PackedScene" uid="uid://ypeggtjreve5" path="res://entities/Fence.tscn" id="4_stsco"]
 [ext_resource type="Script" uid="uid://btlqvq5eepfrt" path="res://levels/components/spawn_path.gd" id="5_7nvrk"]
 [ext_resource type="Texture2D" uid="uid://dyq6riv5vrtko" path="res://assets/sprites/castle-sheet.png" id="5_vjtdm"]
 [ext_resource type="PackedScene" uid="uid://bmxpcj677arg0" path="res://entities/King.tscn" id="6_bgw3c"]
@@ -38,6 +39,8 @@
 [ext_resource type="PackedScene" uid="uid://bran34damew6s" path="res://entities/Baggie.tscn" id="27_8f7xe"]
 [ext_resource type="PackedScene" uid="uid://du5cdtsl68l3" path="res://entities/Landmine.tscn" id="27_68jde"]
 [ext_resource type="PackedScene" uid="uid://ceqqkxjkplcrv" path="res://UI/Inventory/inv_item.tscn" id="29_vb600"]
+[ext_resource type="Texture2D" uid="uid://deuaoxtril00c" path="res://assets/debug/stone_fences.png" id="33_4cd1h"]
+[ext_resource type="PackedScene" uid="uid://d2motv6cm6hye" path="res://pickups/BuildWall.tscn" id="33_ai2ei"]
 [ext_resource type="PackedScene" uid="uid://ln6s0dkjchte" path="res://entities/Coin.tscn" id="35_gtrna"]
 [ext_resource type="Texture2D" uid="uid://curtwvrjrp5yc" path="res://assets/sprites/objects/coin-sheet.png" id="36_r0nt2"]
 [ext_resource type="Script" uid="uid://cxsjdgfx6wn01" path="res://levels/coin_icon.gd" id="36_xv8d5"]
@@ -134,6 +137,8 @@ func _spawn_player():
 	
 	$EntityRoot.add_child(new_player)
 	ref.camera.set_target(new_player)
+	ref.player = new_player
+	_setup_nodes(self)
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjvrs"]
@@ -358,6 +363,17 @@ texture = ExtResource("26_ohjdc")
 item_scene = ExtResource("27_8f7xe")
 metadata/_custom_type_script = "uid://cffkekcshvjjw"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ua8iw"]
+atlas = ExtResource("33_4cd1h")
+region = Rect2(224, 64, 16, 16)
+
+[sub_resource type="Resource" id="Resource_vg3su"]
+script = ExtResource("22_8f7xe")
+item_name = "walls"
+texture = SubResource("AtlasTexture_ua8iw")
+item_scene = ExtResource("33_ai2ei")
+metadata/_custom_type_script = "uid://cffkekcshvjjw"
+
 [sub_resource type="LabelSettings" id="LabelSettings_udfhf"]
 font = ExtResource("18_w75he")
 font_size = 7
@@ -454,6 +470,8 @@ tile_set = ExtResource("3_nmsli")
 y_sort_enabled = true
 tile_map_data = PackedByteArray("AAABAAAAAAAIAAAAAAABAAEAAAAKAAIAAAABAAIAAAAIAAMAAAABAAMAAAAIAAQAAAACAAUAAAANAAAAAAADAAUAAAAKAAYAAAAEAPz/AAANAAAAAAAEAAUAAAALAAYAAAAFAPz/AAAKAAYAAAAFAAUAAAAJAAYAAAAGAPz/AAAJAAYAAAAGAAUAAAAOAAAAAAAGAAYAAAAKAAMAAAAGAAcAAAAIAAQAAAAHAPz/AAAMAAYAAAAJAP7/AAANAAQAAAAJAAcAAAANAAAAAAAKAP7/AAAKAAYAAAAKAAcAAAALAAYAAAALAP7/AAAOAAAAAAALAP//AAAKAAMAAAALAAAAAAAIAAQAAAALAAcAAAALAAYAAAAMAAcAAAALAAQAAAANAAIAAAAIAAAAAAANAAMAAAAIAAMAAAANAAQAAAAIAAQAAAA=")
 tile_set = SubResource("TileSet_w1s8b")
+
+[node name="FenceBuilder" parent="LevelRoot/TileMaps" unique_id=1898883992 instance=ExtResource("4_stsco")]
 
 [node name="Centre" type="Marker2D" parent="LevelRoot" unique_id=1417477716]
 position = Vector2(124, 35)
@@ -596,7 +614,7 @@ script = ExtResource("17_udfhf")
 waves = Array[ExtResource("20_voubc")]([SubResource("Resource_0x1rk"), SubResource("Resource_kwb5f")])
 
 [node name="InventoryManager" parent="Systems" unique_id=295766526 instance=ExtResource("21_tb0r5")]
-items = Array[ExtResource("22_8f7xe")]([SubResource("Resource_wxquy"), SubResource("Resource_v1luo"), SubResource("Resource_geh62")])
+items = Array[ExtResource("22_8f7xe")]([SubResource("Resource_wxquy"), SubResource("Resource_v1luo"), SubResource("Resource_geh62"), SubResource("Resource_vg3su")])
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=2124084829]
 

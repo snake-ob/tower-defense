@@ -11,16 +11,16 @@ func _ready() -> void:
 	Inventory.coin_added.connect(_on_coin_collected)
 
 func _process(delta: float) -> void:
+	target_money = Inventory.wallet
 	if displayed_money != target_money:
-		displayed_money = move_toward(displayed_money, target_money, 3.0 * delta)
+		displayed_money = move_toward(displayed_money, target_money, 10.0 * delta)
 
-		text = str(round(displayed_money))
+		text = str(int(round(displayed_money)))
 
 func _on_coin_collected():
 	update_money(Inventory.wallet)
 
 func update_money(amount: int) -> void:
-	target_money = amount
 	jiggle()
 
 func jiggle() -> void:

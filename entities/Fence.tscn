@@ -186,28 +186,37 @@ var is_placing_second: bool = false
 
 var last_hover_cell: Vector2i = Vector2i(-1, -1)
 
-# Terrain Configuration IDs
 var terrain_set_id: int = 0
 var terrain_id: int = 0
 
-func _unhandled_input(event):
-	if not MouseMode.current == \"build_fence\":
-		return
-		
-	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
-		var clicked_cell = local_to_map(get_local_mouse_position())
-		
-		if not is_placing_second:
-			first_post_coords = clicked_cell
-			is_placing_second = true
-			last_hover_cell = Vector2i(-1, -1) # Force immediate preview update on next frame
-			print(\"Point A locked.\")
-		else:
-			build_fence_terrain(first_post_coords, clicked_cell)
-			is_placing_second = false
-			preview_layer.clear()
-			last_hover_cell = Vector2i(-1, -1) # Force immediate update back to single-cell preview
+func _ready():
+	GlobalClick.build_click.connect(_on_build)
+	GlobalClick.build_cancel.connect(_on_cancel)
 
+func _on_build():
+	var clicked_cell = local_to_map(get_local_mouse_position())
+	
+	if not is_placing_second:
+		first_post_coords = clicked_cell
+		is_placing_second = true
+		last_hover_cell = Vector2i(-1, -1)
+	else:
+		build_fence_terrain(first_post_coords, clicked_cell)
+		is_placing_second = false
+		preview_layer.clear()
+		last_hover_cell = Vector2i(-1, -1)
+		SignalBus.wall_built.emit()
+	
+func _on_cancel():
+	Inventory.items.walls.current += 1
+	first_post_coords = Vector2i(-1, -1)
+	is_placing_second=  false
+	last_hover_cell = Vector2i(-1, -1)
+	preview_layer.clear()
+	
+	SignalBus.wall_cancelled.emit()
+	SignalBus.inv_updated.emit()
+	
 func _process(_delta):
 	if not MouseMode.current == \"build_fence\":
 		return
@@ -218,16 +227,13 @@ func _process(_delta):
 		last_hover_cell = hover_cell
 		
 		if not is_placing_second:
-			# STATE 1: Player hasn't clicked yet. Preview a single ghost post under the cursor.
 			preview_single_cell(hover_cell)
 		else:
-			# STATE 2: Point A is locked. Preview the line connecting Point A to the cursor.
 			update_preview(first_post_coords, hover_cell)
 
 func preview_single_cell(cell: Vector2i):
 	preview_layer.clear()
 	var single_cell_array: Array[Vector2i] = [cell]
-	# Triggers autotiling logic on the single cell so it renders the correct standalone asset
 	preview_layer.set_cells_terrain_connect(single_cell_array, terrain_set_id, terrain_id, true)
 
 func update_preview(start: Vector2i, end: Vector2i):
@@ -239,7 +245,6 @@ func update_preview(start: Vector2i, end: Vector2i):
 		var cells_to_preview = get_line_cells(start, end)
 		preview_layer.set_cells_terrain_connect(cells_to_preview, terrain_set_id, terrain_id, true)
 	else:
-		# If diagonal, preview the locked start point and the current hover cell independently
 		var independent_cells: Array[Vector2i] = [start, end]
 		preview_layer.set_cells_terrain_connect(independent_cells, terrain_set_id, terrain_id, true)
 

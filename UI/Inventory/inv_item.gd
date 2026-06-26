@@ -35,6 +35,9 @@ func _enable_scroll(option: bool):
 	$ScrollRight.visible = option
 	$ScrollLeft/Area2D.input_pickable = option
 	$ScrollRight/Area2D.input_pickable = option
+	
+func _enable_count(option: bool):
+	$Label.visible = option
 
 func _on_scroll(vp: Node, event: InputEvent, shape_idx: int, dir: int) -> void:
 	if not event is InputEventMouseButton or event.pressed:

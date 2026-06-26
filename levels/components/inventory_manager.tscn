@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://who5k5med3eh" path="res://assets/sprites/objects/caltropes-icon.png" id="6_2nv6p"]
 [ext_resource type="PackedScene" uid="uid://du5cdtsl68l3" path="res://entities/Landmine.tscn" id="7_hp0pv"]
 [ext_resource type="Texture2D" uid="uid://btj3kwq7ioof0" path="res://assets/sprites/objects/landmine-icon.png" id="8_4mlsl"]
+[ext_resource type="PackedScene" uid="uid://ypeggtjreve5" path="res://entities/Fence.tscn" id="9_u0kgy"]
+[ext_resource type="Texture2D" uid="uid://deuaoxtril00c" path="res://assets/debug/stone_fences.png" id="10_ipjwh"]
 
 [sub_resource type="Resource" id="Resource_wxquy"]
 script = ExtResource("2_opu5v")
@@ -30,6 +32,17 @@ texture = ExtResource("8_4mlsl")
 item_scene = ExtResource("7_hp0pv")
 metadata/_custom_type_script = "uid://cffkekcshvjjw"
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4inq"]
+atlas = ExtResource("10_ipjwh")
+region = Rect2(224.25964, 64.260284, 15.799881, 16.757439)
+
+[sub_resource type="Resource" id="Resource_2nv6p"]
+script = ExtResource("2_opu5v")
+item_name = "walls"
+texture = SubResource("AtlasTexture_e4inq")
+item_scene = ExtResource("9_u0kgy")
+metadata/_custom_type_script = "uid://cffkekcshvjjw"
+
 [node name="InventoryManager" type="Node" unique_id=295766526]
 script = ExtResource("1_1mroh")
-items = Array[ExtResource("2_opu5v")]([SubResource("Resource_wxquy"), SubResource("Resource_0ci7f"), SubResource("Resource_v1luo")])
+items = Array[ExtResource("2_opu5v")]([SubResource("Resource_wxquy"), SubResource("Resource_0ci7f"), SubResource("Resource_v1luo"), SubResource("Resource_2nv6p")])
