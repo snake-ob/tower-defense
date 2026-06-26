@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c57yfugrsyc1d" path="res://common/components/Explosion.tscn" id="3_kuyaw"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="5_h3l1c"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_xre7m"]
-[ext_resource type="Texture2D" uid="uid://c8mmt7cs4e8ft" path="res://assets/sprites/objects/bomb-icon.png" id="6_h3l1c"]
+[ext_resource type="Texture2D" uid="uid://dovr8eykrhcak" path="res://assets/sprites/objects/bomb-Sheet.png" id="6_h3l1c"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="8_dtqr1"]
 [ext_resource type="Script" uid="uid://dptqb2fjb1mat" path="res://common/components/click_area.gd" id="9_h3l1c"]
 
@@ -21,6 +21,82 @@ radius = 35.014282
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_e7o24"]
 radius = 5.0990195
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kuyaw"]
+atlas = ExtResource("6_h3l1c")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofy1l"]
+atlas = ExtResource("6_h3l1c")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4fpw"]
+atlas = ExtResource("6_h3l1c")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mwm1v"]
+atlas = ExtResource("6_h3l1c")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bx5xg"]
+atlas = ExtResource("6_h3l1c")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl7ns"]
+atlas = ExtResource("6_h3l1c")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d674m"]
+atlas = ExtResource("6_h3l1c")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p40o6"]
+atlas = ExtResource("6_h3l1c")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_up46g"]
+atlas = ExtResource("6_h3l1c")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kitfu"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_kuyaw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofy1l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4fpw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mwm1v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bx5xg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl7ns")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d674m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p40o6")
+}],
+"loop": false,
+"name": &"active",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_up46g")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
 radius = 3.1622777
@@ -78,24 +154,25 @@ script/source = "extends State
 var explode_timer: Timer
 var explode_time: float = 3.0
 var physics: Node
+var sprite: AnimatedSprite2D
 
 func _setup(p_ref):
 	physics = p_ref.physics
-
-func _ready():
-	explode_timer = Timer.new()
-	explode_timer.one_shot = true
-	explode_timer.timeout.connect(_on_explode)
-	add_child(explode_timer)
+	sprite = p_ref.sprite
+	sprite.animation_finished.connect(_on_anim_finish)
 
 func _enter_state():
-	explode_timer.start(explode_time)
-	
+	sprite.play('active')
+
 func _on_explode():
 	change_state.emit('explode')
 
 func _physics_update(delta):
 	physics._process_friction(delta)
+
+func _on_anim_finish():
+	if sprite.animation == \"active\":
+		_on_explode()
 "
 
 [sub_resource type="GDScript" id="GDScript_ofy1l"]
@@ -103,14 +180,14 @@ script/source = "extends State
 
 var explode_timer: Timer
 var explode_time: float = 3.0
+var sprite: AnimatedSprite2D
 
 func _setup(p_node):
 	actor = p_node.actor
+	sprite = p_node.sprite
 
 func _ready():
-	explode_timer = Timer.new()
-	explode_timer.one_shot = true
-	add_child(explode_timer)
+	pass
 
 func _enter_state():
 	actor.explode()
@@ -141,9 +218,12 @@ position = Vector2(0, 6)
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_e7o24")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1976486479]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=767419212]
 position = Vector2(0, -6)
-texture = ExtResource("6_h3l1c")
+sprite_frames = SubResource("SpriteFrames_kitfu")
+animation = &"active"
+frame = 7
+frame_progress = 1.0
 
 [node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
 position = Vector2(0, -6)

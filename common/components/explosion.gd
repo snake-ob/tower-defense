@@ -7,18 +7,15 @@ var explosion_time: float = 1.0
 @onready var ref: Ref = $Ref
 
 func _ready():
-	explode_timer = Timer.new()
-	explode_timer.one_shot = true
-	explode_timer.timeout.connect(_on_explode)
-	add_child(explode_timer)
-	
 	_setup_ref()
 	_setup_nodes(self)
-	explode_timer.start(explosion_time)
-	
+	$Sprite2D.play('explode')
+	$Sprite2D.animation_finished.connect(_on_explode)
+
 func _setup_ref():
 	ref.set('actor', self)
 	ref.set('attack', attack)
+	ref.set('sprite', $Sprite2D)
 	
 func _setup_nodes(p_node):
 	for node in p_node.get_children():
@@ -26,6 +23,7 @@ func _setup_nodes(p_node):
 			node._setup(ref)
 		if node.get_child_count() > 0:
 			_setup_nodes(node)
-	
+
 func _on_explode():
 	queue_free()
+	
