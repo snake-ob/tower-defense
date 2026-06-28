@@ -21,6 +21,9 @@ func _setup_ref():
 	ref.set('sprite', $Sprite2D)
 	ref.set('soft_collision', $SoftCollision)
 	ref.set('shop', $PurchaseScreen)
+	
+func _physics_process(delta):
+	move_and_slide()
 
 func _setup_nodes(p_node):
 	for node in p_node.get_children():

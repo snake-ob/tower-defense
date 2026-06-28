@@ -2,12 +2,17 @@
 
 [ext_resource type="Script" uid="uid://sa1n1ri1p25e" path="res://entities/king.gd" id="1_ij6gk"]
 [ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="2_5x2kh"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_ahdhg"]
 [ext_resource type="Texture2D" uid="uid://ds37wcxj2mvps" path="res://assets/sprites/characters/king-Sheet.png" id="3_5x2kh"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="4_5x2kh"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="5_lkjmf"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="7_01d4n"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="7_5x2kh"]
 [ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="9_ahdhg"]
+
+[sub_resource type="Resource" id="Resource_xtof8"]
+script = ExtResource("2_ahdhg")
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
 radius = 12.0415945
@@ -135,6 +140,7 @@ script/source = "extends State
 
 var pickup: Area2D
 var soft_collision: Area2D
+var physics: PhysicsHandler
 
 var sprite: AnimatedSprite2D
 
@@ -142,10 +148,14 @@ func _setup(p_ref):
 	pickup = p_ref.pickup
 	soft_collision = p_ref.soft_collision
 	sprite = p_ref.sprite
+	physics = p_ref.physics
 
 func _update(delta):
 	if pickup.picked_up:
 		change_state.emit('picked')
+		
+func _physics_update(delta):
+	physics._process_friction(delta)
 
 func _enter_state():
 	soft_collision.enable()
@@ -174,6 +184,7 @@ func _enter_state():
 	soft_collision.disable()
 	sprite.play('picked')
 	actor.y_sort_enabled = false
+	print(\"King picked entered\")
 
 func exit_state():
 	soft_collision.enable()
@@ -185,6 +196,7 @@ y_sort_enabled = true
 collision_layer = 64
 collision_mask = 4097
 script = ExtResource("1_ij6gk")
+move = SubResource("Resource_xtof8")
 
 [node name="Pickup" type="Area2D" parent="." unique_id=1162784583]
 position = Vector2(0, -8)

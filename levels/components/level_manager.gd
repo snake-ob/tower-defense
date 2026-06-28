@@ -5,6 +5,8 @@ class_name LevelManager
 # Control when the wave ends, notify HUD and spawn blueprints  
 # Control rest. After rest, next level transitions automatically
 
+signal level_over
+
 @export var waves: Array[WaveData] = []
 
 var wave_index: int = 0
@@ -67,21 +69,34 @@ func _begin_wave():
 	wave_length = current_wave.wave_duration
 	current_wave = waves[wave_index]
 	_set_spawners()
+	
 	wave_manager.setup_wave(current_wave)
 	wave_manager.start_wave()
 	wave_timer.start(wave_length)
 	active_timer = wave_timer
 	status_label.text = "Protect Your King!"
+	
 	wave_index += 1
 	
 func _wave_timeout():
+	wave_manager.end_wave()
 	var king_pos = entity_root.get_king_pos()
 	for i in range(3):
 		var decree_scene = load(decree_path)
 		var decree = decree_scene.instantiate()
 		decree.global_position = king_pos
 		SignalBus.spawned.emit(decree)
+		
 	_enemy_escape()
+
+	if wave_index > waves.size() - 1:
+		status_label.text = "LEVEL OVER"
+		level_over.emit()
+		return
+
+	prep_timer.start(prep_length)
+	active_timer = prep_timer
+	status_label.text = "GET READY, BOY"
 
 func _get_remaining_time(timer):
 	var minutes = int(ceil(timer.time_left)) / 60
@@ -91,7 +106,7 @@ func _get_remaining_time(timer):
 
 func _enemy_escape():
 	for enemy in enemies.get_children():
-		enemy.sacrifice() #Death without dropping currency
+		enemy.retreat()
 
 func _set_spawners():
 	for spawner in spawners.get_children():

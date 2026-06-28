@@ -27,19 +27,14 @@
 [ext_resource type="Script" uid="uid://b4ohld13av8bw" path="res://levels/components/level_manager.gd" id="17_udfhf"]
 [ext_resource type="FontFile" uid="uid://cggn115yr4jh8" path="res://fonts/4x6px.otf" id="18_w75he"]
 [ext_resource type="Script" uid="uid://d1tqs23iyetw5" path="res://common/data/spawn_data.gd" id="19_kwb5f"]
-[ext_resource type="Script" uid="uid://cdeksmurcso2b" path="res://entities/cannon.gd" id="20_5vbbt"]
 [ext_resource type="FontFile" uid="uid://35m8ovgllvq4" path="res://fonts/Grandeur 8h.ttf" id="20_i6od7"]
 [ext_resource type="Script" uid="uid://bw8eurybijbn4" path="res://common/data/wave_data.gd" id="20_voubc"]
 [ext_resource type="PackedScene" uid="uid://bqr34gmbsbjxr" path="res://levels/components/inventory_manager.tscn" id="21_tb0r5"]
-[ext_resource type="Texture2D" uid="uid://78uxqyysqhy2" path="res://assets/sprites/objects/cannon-sheet.png" id="21_vsljp"]
 [ext_resource type="Script" uid="uid://cffkekcshvjjw" path="res://UI/Inventory/item_data.gd" id="22_8f7xe"]
-[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="22_rx1pf"]
 [ext_resource type="Texture2D" uid="uid://c8mmt7cs4e8ft" path="res://assets/sprites/objects/bomb-icon.png" id="23_06ecp"]
 [ext_resource type="PackedScene" uid="uid://g6qbjrnunvag" path="res://entities/Bomb.tscn" id="23_geh62"]
-[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="24_nhjla"]
 [ext_resource type="Script" uid="uid://4a8xvb6t4t43" path="res://levels/wave_timer.gd" id="24_ryfpa"]
 [ext_resource type="Texture2D" uid="uid://btj3kwq7ioof0" path="res://assets/sprites/objects/landmine-icon.png" id="25_06ecp"]
-[ext_resource type="Texture2D" uid="uid://cojtm5y2lw515" path="res://assets/sprites/objects/cannon-cards.png" id="25_jpd8a"]
 [ext_resource type="Texture2D" uid="uid://who5k5med3eh" path="res://assets/sprites/objects/caltropes-icon.png" id="26_ohjdc"]
 [ext_resource type="PackedScene" uid="uid://bran34damew6s" path="res://entities/Baggie.tscn" id="27_8f7xe"]
 [ext_resource type="PackedScene" uid="uid://du5cdtsl68l3" path="res://entities/Landmine.tscn" id="27_68jde"]
@@ -58,6 +53,7 @@ script/source = "extends Node2D
 @onready var ref: Ref = $Ref
 var gameover_path: String = \"res://assets/splash-screens/GameOver.tscn\"
 var player_path: String = \"res://player/Player.tscn\"
+var cannon_path: String = \"res://entities/Cannon.tscn\"
 
 var world_timer: Timer
 
@@ -65,6 +61,7 @@ func _ready() -> void:
 	SignalBus.spawn_bullet.connect(_spawn_bullet)
 	SignalBus.request_closest_exit.connect(_return_closest_exit)
 	SignalBus.spawn_player.connect(_spawn_player)
+	$Systems/LevelManager.level_over.connect(_on_level_over)
 	$LevelRoot/EscapeZone.king_taken.connect(_on_king_taken)
 	_setup_ref()
 	_setup_nodes(self)
@@ -144,6 +141,13 @@ func _spawn_player():
 	ref.camera.set_target(new_player)
 	ref.player = new_player
 	_setup_nodes(self)
+
+func _on_level_over():
+	var cannon_scene = load(cannon_path)
+	var new_cannon: Cannon = cannon_scene.instantiate()
+	new_cannon.global_position = $LevelRoot/CannonSpawn.global_position
+	new_cannon.set_holding_zone($LevelRoot/HoldingSpawn.global_position)
+	$EntityRoot.add_child(new_cannon)
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjvrs"]
@@ -327,353 +331,6 @@ sources/1 = SubResource("TileSetAtlasSource_jgomo")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ahhn"]
 size = Vector2(659, 69)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_hmdu1"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pmr81"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(80, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_joxdr"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(96, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_03q36"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(112, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3li3j"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(128, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_54g7c"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(144, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_14cl8"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oxcaj"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(160, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7xo0i"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(176, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m4hwv"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(192, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j57ey"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(208, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xq541"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(224, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_55d0s"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(240, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w13hh"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(256, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1b3hs"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(272, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_migow"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(288, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tojiv"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(304, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qoq3q"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(320, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tso5l"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(336, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wntbo"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(352, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0b063"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(368, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tyuj1"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r8wn6"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v3ykb"]
-atlas = ExtResource("21_vsljp")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_cxun8"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hmdu1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pmr81")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_joxdr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_03q36")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3li3j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_54g7c")
-}],
-"loop": false,
-"name": &"explode",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_14cl8")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oxcaj")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7xo0i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m4hwv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j57ey")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xq541")
-}],
-"loop": false,
-"name": &"load",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_55d0s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w13hh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1b3hs")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_migow")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tojiv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qoq3q")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tso5l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wntbo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0b063")
-}],
-"loop": false,
-"name": &"spawn",
-"speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tyuj1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r8wn6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v3ykb")
-}],
-"loop": false,
-"name": &"triggered",
-"speed": 5.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_nmoy3"]
-radius = 4.472136
-
-[sub_resource type="GDScript" id="GDScript_03q36"]
-resource_name = "idle_state.gd"
-script/source = "# idle_state.gd
-extends State
-
-var detect_zone: DetectZone
-var holding_zone: DetectZone
-var player_card
-var king_card
-var sprite: AnimatedSprite2D
-var detect_timer: Timer
-
-func _setup(p_ref):
-	detect_zone = p_ref.detect_zone
-	holding_zone = p_ref.holding_zone
-	player_card = p_ref.player_card
-	king_card = p_ref.king_card
-	sprite = p_ref.sprite
-	actor = p_ref.actor
-	
-	sprite.animation_finished.connect(_on_animation_finished)
-	
-	detect_timer = Timer.new()
-	detect_timer.timeout.connect(func(): detect_zone.monitoring = true)
-	detect_timer.one_shot = true
-	add_child(detect_timer)
-	
-func enter_state():
-	player_card.visible = true
-	king_card.visible = true
-
-func _on_animation_finished():
-	if sprite.animation == \"load\":
-		sprite.play('idle')
-
-func _on_detect_zone_body_entered(body: Node2D) -> void:
-	if body is Player:
-		SignalBus.camera_new_target.emit(actor)  #Set camera to cannon
-	sprite.play('load')
-	await get_tree().process_frame # Wait a frame, allowing camera to process
-	body.global_position = holding_zone.global_position
-	body.velocity = Vector2.ZERO
-	await get_tree().process_frame # Wait until grabbed pickup is in position
-	if body.has_method(\"load_cannon\"):
-		body.load_cannon()
-	if body.has_method(\"stop_throw\"):
-		body.stop_throw()
-
-func _on_holding_zone_body_entered(body: Node2D) -> void:
-	if body is Player:
-		player_card.visible = false
-
-	if body is King:
-		king_card.visible = false
-
-func _on_holding_zone_body_exited(body: Node2D) -> void:
-	if body is Player:
-		player_card.visible = true
-		SignalBus.camera_new_target.emit(body) # Set camera back to player
-	if body is King:
-		king_card.visible = true
-	if body.has_method('eject'):
-		eject_body(body)
-	body.global_position = actor.global_position
-	sprite.play('load')
-	
-	detect_zone.monitoring = false
-	detect_timer.start(0.5)
-
-func eject_body(body: Node2D) -> void:
-	var random_angle: float = randf_range(0, TAU)
-	var throw_dir: Vector2 = body.velocity.normalized()
-	var random_speed: float = randf_range(50.0, 100)
-	
-	var drop_throw = {\"direction\": throw_dir, \"speed\": random_speed, \"arc\": 300}
-	body.eject(drop_throw)
-"
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_5ettv"]
-radius = 20.024984
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_cxun8"]
-atlas = ExtResource("25_jpd8a")
-region = Rect2(0, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7jiry"]
-atlas = ExtResource("25_jpd8a")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c0233"]
-atlas = ExtResource("25_jpd8a")
-region = Rect2(32, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_oxcaj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cxun8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7jiry")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_c0233")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7jiry")
-}],
-"loop": true,
-"name": &"default",
-"speed": 2.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lsq0u"]
-atlas = ExtResource("25_jpd8a")
-region = Rect2(64, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_apswt"]
-atlas = ExtResource("25_jpd8a")
-region = Rect2(80, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ahtwt"]
-atlas = ExtResource("25_jpd8a")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_7xo0i"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lsq0u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_apswt")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lsq0u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ahtwt")
-}],
-"loop": true,
-"name": &"default",
-"speed": 2.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_03q36"]
-radius = 4.1231055
 
 [sub_resource type="Resource" id="Resource_tb0r5"]
 script = ExtResource("19_kwb5f")
@@ -918,6 +575,12 @@ shape = SubResource("RectangleShape2D_4ahhn")
 [node name="PlayerSpawn" type="Marker2D" parent="LevelRoot" unique_id=1022555842]
 position = Vector2(136, 82)
 
+[node name="CannonSpawn" type="Marker2D" parent="LevelRoot" unique_id=88345150]
+position = Vector2(119, 32)
+
+[node name="HoldingSpawn" type="Marker2D" parent="LevelRoot" unique_id=1774874299]
+position = Vector2(663, 17)
+
 [node name="EntityRoot" type="Node2D" parent="." unique_id=1180296079]
 y_sort_enabled = true
 script = ExtResource("11_vf61l")
@@ -945,61 +608,7 @@ position = Vector2(69, 35)
 position = Vector2(108, 61)
 
 [node name="Player" parent="EntityRoot" unique_id=1411166111 instance=ExtResource("7_lrvbd")]
-position = Vector2(94, 35)
-
-[node name="Cannon" type="CharacterBody2D" parent="EntityRoot" unique_id=2027909496]
-position = Vector2(146, 69)
-collision_layer = 0
-collision_mask = 0
-script = ExtResource("20_5vbbt")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="EntityRoot/Cannon" unique_id=1826273059]
-position = Vector2(0, -7)
-sprite_frames = SubResource("SpriteFrames_cxun8")
-animation = &"idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityRoot/Cannon" unique_id=1111153515]
-position = Vector2(0, -5)
-shape = SubResource("CircleShape2D_nmoy3")
-
-[node name="StateMachine" parent="EntityRoot/Cannon" unique_id=784147820 instance=ExtResource("22_rx1pf")]
-
-[node name="Idle" type="Node" parent="EntityRoot/Cannon/StateMachine" unique_id=127664468]
-script = SubResource("GDScript_03q36")
-
-[node name="Ref" parent="EntityRoot/Cannon" unique_id=1818294794 instance=ExtResource("10_jkxa6")]
-
-[node name="DetectZone" type="Area2D" parent="EntityRoot/Cannon" unique_id=2106882287]
-position = Vector2(-1, -5)
-collision_layer = 0
-collision_mask = 66
-script = ExtResource("24_nhjla")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityRoot/Cannon/DetectZone" unique_id=690207711]
-shape = SubResource("CircleShape2D_5ettv")
-debug_color = Color(0, 0.6, 0.69803923, 0)
-
-[node name="PlayerCard" type="AnimatedSprite2D" parent="EntityRoot/Cannon" unique_id=1170360393]
-position = Vector2(-15, -19)
-sprite_frames = SubResource("SpriteFrames_oxcaj")
-autoplay = "default"
-frame_progress = 0.264157
-
-[node name="KingCard" type="AnimatedSprite2D" parent="EntityRoot/Cannon" unique_id=1032796472]
-position = Vector2(15, -19)
-sprite_frames = SubResource("SpriteFrames_7xo0i")
-autoplay = "default"
-frame_progress = 0.038629785
-
-[node name="HoldingZone" type="Area2D" parent="EntityRoot/Cannon" unique_id=1661792457]
-position = Vector2(512, -58)
-collision_layer = 0
-collision_mask = 66
-script = ExtResource("24_nhjla")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntityRoot/Cannon/HoldingZone" unique_id=1319948477]
-shape = SubResource("CircleShape2D_03q36")
-debug_color = Color(0, 0.6, 0.69803923, 0)
+position = Vector2(123, 40)
 
 [node name="Systems" type="Node" parent="." unique_id=1631077692]
 
@@ -1100,11 +709,3 @@ position = Vector2(434, 245)
 script = ExtResource("24_ryfpa")
 
 [node name="PrepTimer" type="Timer" parent="Timers" unique_id=204925457]
-
-[connection signal="body_entered" from="EntityRoot/Cannon/DetectZone" to="EntityRoot/Cannon/StateMachine/Idle" method="_on_detect_zone_body_entered"]
-[connection signal="body_entered" from="EntityRoot/Cannon/DetectZone" to="EntityRoot/Cannon/DetectZone" method="_on_body_entered"]
-[connection signal="body_exited" from="EntityRoot/Cannon/DetectZone" to="EntityRoot/Cannon/DetectZone" method="_on_body_exited"]
-[connection signal="body_entered" from="EntityRoot/Cannon/HoldingZone" to="EntityRoot/Cannon/StateMachine/Idle" method="_on_holding_zone_body_entered"]
-[connection signal="body_entered" from="EntityRoot/Cannon/HoldingZone" to="EntityRoot/Cannon/HoldingZone" method="_on_body_entered"]
-[connection signal="body_exited" from="EntityRoot/Cannon/HoldingZone" to="EntityRoot/Cannon/StateMachine/Idle" method="_on_holding_zone_body_exited"]
-[connection signal="body_exited" from="EntityRoot/Cannon/HoldingZone" to="EntityRoot/Cannon/HoldingZone" method="_on_body_exited"]

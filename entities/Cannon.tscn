@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="3_joxdr"]
 [ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="4_03q36"]
 [ext_resource type="Texture2D" uid="uid://cojtm5y2lw515" path="res://assets/sprites/objects/cannon-cards.png" id="5_03q36"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_54g7c"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hmdu1"]
 atlas = ExtResource("1_nmoy3")
@@ -217,6 +218,7 @@ var player_card
 var king_card
 var sprite: AnimatedSprite2D
 var detect_timer: Timer
+var soft_collision: SoftCollision
 
 func _setup(p_ref):
 	detect_zone = p_ref.detect_zone
@@ -225,6 +227,7 @@ func _setup(p_ref):
 	king_card = p_ref.king_card
 	sprite = p_ref.sprite
 	actor = p_ref.actor
+	soft_collision = p_ref.soft_collision
 	
 	sprite.animation_finished.connect(_on_animation_finished)
 	
@@ -233,10 +236,11 @@ func _setup(p_ref):
 	detect_timer.one_shot = true
 	add_child(detect_timer)
 	
-func enter_state():
+func _enter_state():
 	player_card.visible = true
 	king_card.visible = true
 	detect_zone.monitoring = true
+	soft_collision.disable()
 
 func _on_animation_finished():
 	if sprite.animation == \"load\":
@@ -261,6 +265,7 @@ func _on_holding_zone_body_entered(body: Node2D) -> void:
 
 	if body is King:
 		king_card.visible = false
+		body.disable_soft_collision()
 
 func _on_holding_zone_body_exited(body: Node2D) -> void:
 	if body is Player:
@@ -295,22 +300,30 @@ var player_card
 var king_card
 var detect_zone: DetectZone
 var holding_zone: DetectZone
+var soft_collision: SoftCollision
 
 func _enter_state():
 	player_card.visible = false
 	king_card.visible = false
 	sprite.play('spawn')
 	detect_zone.monitoring = false
+	soft_collision.enable()
+
+func _exit_state():
+	if sprite.animation_finished.is_connected(_on_animation_finished):
+		sprite.animation_finished.disconnect(_on_animation_finished)
 
 func _setup(p_ref):
 	sprite = p_ref.sprite
 	sprite.animation_finished.connect(_on_animation_finished)
 	player_card = p_ref.player_card
 	king_card = p_ref.king_card
+	soft_collision = p_ref.soft_collision
+	detect_zone = p_ref.detect_zone
 	
 func _on_animation_finished():
 	if sprite.animation == 'spawn':
-		change_state.emit('idle')
+		change_state.emit('Idle')
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ettv"]
@@ -383,6 +396,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_03q36"]
 radius = 4.1231055
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
+radius = 23.086792
+
 [node name="Cannon" type="CharacterBody2D" unique_id=2027909496]
 collision_layer = 0
 collision_mask = 0
@@ -423,13 +439,13 @@ debug_color = Color(0, 0.6, 0.69803923, 0)
 position = Vector2(-15, -19)
 sprite_frames = SubResource("SpriteFrames_oxcaj")
 autoplay = "default"
-frame_progress = 0.89975613
+frame_progress = 0.025376046
 
 [node name="KingCard" type="AnimatedSprite2D" parent="." unique_id=1032796472]
 position = Vector2(15, -19)
 sprite_frames = SubResource("SpriteFrames_7xo0i")
 autoplay = "default"
-frame_progress = 0.6742271
+frame_progress = 0.7998461
 
 [node name="HoldingZone" type="Area2D" parent="." unique_id=1661792457]
 collision_layer = 0
@@ -439,6 +455,16 @@ script = ExtResource("4_03q36")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HoldingZone" unique_id=1319948477]
 shape = SubResource("CircleShape2D_03q36")
 debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
+collision_layer = 128
+collision_mask = 131200
+script = ExtResource("7_54g7c")
+push_force = 2.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_aueyi")
 
 [connection signal="body_entered" from="DetectZone" to="StateMachine/Idle" method="_on_detect_zone_body_entered"]
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]

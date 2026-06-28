@@ -46,6 +46,7 @@ func _set_state(new_state_name : String):
 	state_changed.emit(new_state)
 
 func _on_change_state(new_state : String):
-	_set_state(new_state)
 	#print_rich("[color=yellow]Transition to: ", new_state, " from: ", current_state.name, "[/color]")
 	#print_stack()
+	_set_state(new_state)
+	

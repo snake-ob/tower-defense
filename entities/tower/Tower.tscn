@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="11_mttso"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="12_8gdfe"]
 [ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="13_te46s"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="14_6bp5w"]
 
 [sub_resource type="Resource" id="Resource_wcwdc"]
 script = ExtResource("2_3mcmt")
@@ -48,13 +49,18 @@ extends State
 
 var bullet_spawner: Node
 var pickup: Node
+var soft_collision: SoftCollision
+var physics: PhysicsHandler
 
 func _setup(p_ref: Ref):
 	bullet_spawner = p_ref.bullet_spawner
 	pickup = p_ref.pickup
+	soft_collision = p_ref.soft_collision
+	physics = p_ref.physics
 
 func _enter_state():
 	bullet_spawner.activate()
+	soft_collision.enable()
 
 func _exit_state():
 	bullet_spawner.deactivate()
@@ -62,6 +68,9 @@ func _exit_state():
 func _update(delta):
 	if pickup.picked_up:
 		change_state.emit('grabbed')
+
+func _physics_update(delta):
+	physics._process_friction(delta)
 "
 
 [sub_resource type="GDScript" id="GDScript_mttso"]
@@ -84,16 +93,19 @@ extends State
 var bullet_spawner: Node
 var pickup: Area2D
 var saved_collision_layer: int
+var soft_collision: SoftCollision
 
 func _setup(p_ref: Ref):
 	bullet_spawner = p_ref.bullet_spawner
 	actor = p_ref.actor
 	pickup = p_ref.pickup
+	soft_collision = p_ref.soft_collision
 
 func _enter_state():
 	bullet_spawner.deactivate()
 	saved_collision_layer = actor.collision_layer
 	actor.collision_layer = 0
+	soft_collision.disable()
 
 func _exit_state():
 	actor.collision_layer = saved_collision_layer
@@ -102,6 +114,9 @@ func _update(delta):
 	if not pickup.picked_up:
 		change_state.emit('active')
 "
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
+radius = 8.0
 
 [node name="Tower" type="CharacterBody2D" unique_id=514054859]
 y_sort_enabled = true
@@ -185,6 +200,16 @@ position = Vector2(0, -5)
 
 [node name="ClickArea" parent="." unique_id=1628655608 instance=ExtResource("13_te46s")]
 position = Vector2(0, -4)
+
+[node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
+collision_layer = 131072
+collision_mask = 128
+script = ExtResource("14_6bp5w")
+push_force = 5.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_aueyi")
 
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

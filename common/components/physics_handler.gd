@@ -59,7 +59,6 @@ func start_25d_throw(direction: Vector2, speed: float, arc_strength: float):
 	is_active = true
 	
 func stop_throw() -> void:
-	print("Physics: Throw stopped")
 	sprite.position.y = base_sprite_y
 	is_active = false
 	horizontal_velocity = Vector2.ZERO

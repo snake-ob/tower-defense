@@ -1,4 +1,4 @@
-extends Node2D
+extends CharacterBody2D
 class_name Tower
 
 @onready var ref: Ref = $Ref
@@ -22,7 +22,7 @@ func _setup_nodes(p_node):
 			_setup_nodes(child)
 
 func _physics_process(delta):
-	pass
+	move_and_slide()
 
 func _setup_ref():
 	ref.set('actor', self)
@@ -37,6 +37,8 @@ func _setup_ref():
 	ref.set('slots', $Body/Slots)
 	ref.set('body', $Body)
 	ref.set('upgrades', $StatusUpgrades)
+	ref.set('soft_collision', $SoftCollision)
+	ref.set('physics', $PhysicsHandler)
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())
 

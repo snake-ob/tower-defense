@@ -2,6 +2,8 @@ extends CharacterBody2D
 class_name King
 
 @onready var ref: Ref = $Ref
+@export var move: MoveData
+
 
 func _ready():
 	_setup_ref()
@@ -17,6 +19,9 @@ func _setup_ref():
 	ref.set('soft_collision', $SoftCollision)
 	ref.set('collisions', [$SoftCollision/CollisionShape2D, $Pickup/CollisionShape2D])
 
+func _physics_process(delta: float) -> void:
+	move_and_slide()
+
 func _setup_nodes(p_node):
 	for node in p_node.get_children():
 		if node.has_method('_setup'):
@@ -29,3 +34,6 @@ func _clicked():
 	
 func stop_throw():
 	ref.physics.stop_throw()
+	
+func disable_soft_collision():
+	$SoftCollision.disable()
