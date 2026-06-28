@@ -17,6 +17,7 @@ var target_zoom: Vector2
 
 func _ready():
 	target_zoom = zoom
+	SignalBus.camera_new_target.connect(set_target)
 
 func _setup(p_ref):
 	top_left = p_ref.top_left

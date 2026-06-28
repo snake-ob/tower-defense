@@ -1,22 +1,22 @@
 extends CharacterBody2D
-class_name King
+class_name Cannon
 
 @onready var ref: Ref = $Ref
 
 func _ready():
 	_setup_ref()
 	_setup_nodes(self)
-	$StateMachine._set_state('idle')
+	$StateMachine._set_state('spawn')
 
+	
 func _setup_ref():
 	ref.set('actor', self)
+	ref.set('detect_zone', $DetectZone)
+	ref.set('holding_zone', $HoldingZone)
+	ref.set('player_card', $PlayerCard)
+	ref.set('king_card', $KingCard)
 	ref.set('sprite', $AnimatedSprite2D)
-	ref.set('physics', $PhysicsHandler)
-	ref.set('pickup', $Pickup)
-	ref.set('collision', $CollisionShape2D)
-	ref.set('soft_collision', $SoftCollision)
-	ref.set('collisions', [$SoftCollision/CollisionShape2D, $Pickup/CollisionShape2D])
-
+	
 func _setup_nodes(p_node):
 	for node in p_node.get_children():
 		if node.has_method('_setup'):
@@ -24,8 +24,7 @@ func _setup_nodes(p_node):
 		if node.get_child_count() > 0:
 			_setup_nodes(node)
 
-func _clicked():
-	pass
-	
-func stop_throw():
-	ref.physics.stop_throw()
+func _process(delta):
+	# Handle card visuals
+	# Handle ejecting player/
+	return

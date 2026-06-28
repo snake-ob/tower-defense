@@ -78,3 +78,5 @@ func _calc_drop() -> Dictionary:
 	
 	return {"direction": throw_dir, "speed": random_speed, "arc": 300}
 	
+func place_in_specific_pos(p_pos: Vector2i):
+	actor.global_position = p_pos

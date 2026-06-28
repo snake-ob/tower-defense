@@ -10,3 +10,4 @@ signal coin_collected
 signal wall_built
 signal wall_cancelled
 signal inv_updated
+signal camera_new_target(target)

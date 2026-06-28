@@ -56,13 +56,15 @@ func _put_down():
 	grabbed_pickup._get_put_down()
 	grabbed_pickup = null
 	
-func _drop():
+func _drop(p_drop: Dictionary = {}):
 	var random_angle: float = randf_range(0, TAU)
-	var throw_dir: Vector2 = Vector2.RIGHT.rotated(random_angle)
-	var random_speed: float = randf_range(1.0, 1.5)
+	var throw_dir: Vector2 = p_drop.get('direction', Vector2.RIGHT.rotated(random_angle))
+	var speed: float = p_drop.get('speed', randf_range(1.0, 1.5))
+	var arc: int = p_drop.get('arc', 300)
 	
-	var drop_throw = {"direction": throw_dir, "speed": random_speed, "arc": 300}
-	grabbed_pickup._get_thrown(drop_throw)
+	var drop_throw = {"direction": throw_dir, "speed": speed, 'arc': arc}
+	if grabbed_pickup:
+		grabbed_pickup._get_thrown(drop_throw)
 	grabbed_pickup = null
 
 func _throw():

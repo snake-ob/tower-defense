@@ -38,6 +38,7 @@ func _setup_ref():
 	ref.set('target', $Grab/DropPos.global_position)
 	ref.set('animanager', $Visuals/AniManager)
 	ref.set('collision', $CollisionShape2D)
+	ref.set('collisions', [$SoftCollision/CollisionShape2D])
 	
 func _setup_nodes(p_node):
 	for child in p_node.get_children():
@@ -67,3 +68,14 @@ func _health_depleted():
 	
 func _player_die():
 	$StateMachine._set_state('die')
+	
+func load_cannon():
+	var grab: Grab = $Grab
+	if grab.grabbed_pickup != null:
+		var temp_pickup = grab.grabbed_pickup
+		var pickup_drop: Dictionary = {'direction': Vector2.ZERO, 'speed': 0.0, 'arc': 0}
+		grab._drop(pickup_drop)
+		temp_pickup.place_in_specific_pos(global_position)
+		
+func eject(p_toss):
+	$Pickup._get_thrown(p_toss)

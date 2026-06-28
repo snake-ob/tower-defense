@@ -61,11 +61,10 @@ autowrap_mode = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="Cost" type="Label" parent="." unique_id=698928215]
-offset_left = 76.0
+offset_left = 80.0
 offset_top = -15.0
-offset_right = 89.0
+offset_right = 93.0
 offset_bottom = 1.0
 text = "1"
 label_settings = SubResource("LabelSettings_uh4ex")
-horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
