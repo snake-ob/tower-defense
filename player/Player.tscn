@@ -418,7 +418,6 @@ func _enter_state():
 	pickup = grab.grabbed_pickup
 	grab._pickup_object(pickup)
 	actor.holding = true
-	# Could likely do an animation here
 	change_state.emit('idle')
 
 func get_closest_node(p_nodes: Array) -> Node2D:

@@ -9,6 +9,7 @@ func _ready():
 	_setup_ref()
 	_setup_nodes(self)
 	$StateMachine._set_state('idle')
+	$PhysicsHandler.throw_finished.connect(_on_throw_finished)
 
 func _setup_ref():
 	ref.set('actor', self)
@@ -41,3 +42,6 @@ func disable_soft_collision():
 func get_launched(p_launch):
 	$Pickup._get_thrown(p_launch)
 	$StateMachine._set_state('launch')
+
+func _on_throw_finished():
+	$StateMachine._set_state('idle')

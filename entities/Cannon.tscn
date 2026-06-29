@@ -518,13 +518,13 @@ debug_color = Color(0, 0.6, 0.69803923, 0)
 position = Vector2(-15, -19)
 sprite_frames = SubResource("SpriteFrames_oxcaj")
 autoplay = "default"
-frame_progress = 0.13721953
+frame_progress = 0.31314287
 
 [node name="KingCard" type="AnimatedSprite2D" parent="." unique_id=1032796472]
 position = Vector2(15, -19)
 sprite_frames = SubResource("SpriteFrames_7xo0i")
 autoplay = "default"
-frame_progress = 0.9116838
+frame_progress = 0.087608084
 
 [node name="HoldingZone" type="Area2D" parent="." unique_id=1661792457]
 collision_layer = 0

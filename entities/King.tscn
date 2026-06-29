@@ -276,7 +276,7 @@ position = Vector2(0, 8)
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_bwf1t")
 animation = &"launch"
-frame_progress = 0.33534658
+frame_progress = 0.984548
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=656951933]
 position = Vector2(0, -8)

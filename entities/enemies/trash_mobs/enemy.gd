@@ -123,3 +123,4 @@ func retreat():
 	
 func reset():
 	$StateMachine._set_state('reset')
+	

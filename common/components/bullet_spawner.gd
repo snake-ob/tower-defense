@@ -11,9 +11,12 @@ var active: bool = false
 var bullet_timer: Timer
 var ref: Ref
 var timing: float
+var current_target: Vector2 = Vector2.ZERO
+var target_node: Target
 
 func _setup(p_ref):
 	ref = p_ref
+	target_node = p_ref.target_node
 
 func _ready():
 	bullet_timer = Timer.new()
@@ -23,14 +26,15 @@ func _ready():
 	stored_bullet = bullet.duplicate()
 	
 func _process(_delta):
-	if bullet_ready and ref.detect_zone.active_targets != [] and active:
-		spawn_bullet()
+	var closest_target = target_node.get_closest_target(ref.detect_zone.active_targets)
+	if bullet_ready and closest_target != null and active:
+		spawn_bullet(closest_target)
 		
-func spawn_bullet():
+func spawn_bullet(p_target):
 	bullet_ready = false
 	var new_bullet = BulletScene.instantiate()
 	new_bullet.global_position = ref.actor.global_position
-	new_bullet.active_targets = ref.detect_zone.active_targets
+	new_bullet.target = p_target
 	new_bullet.attack = ref.attack
 	new_bullet.attack.damage = bullet.damage
 	new_bullet.move = ref.move

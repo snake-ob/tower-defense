@@ -4,10 +4,17 @@ class_name Coin
 @onready var ref: Ref = $Ref
 @export var move: MoveData
 var collected: bool = false
+var life_timer: Timer
+var life_time: float = 5.0
 
 func _ready():
 	_setup_ref()
 	_setup_nodes(self)
+	life_timer = Timer.new()
+	life_timer.timeout.connect(flicker)
+	life_timer.one_shot = true
+	add_child(life_timer)
+	life_timer.start(life_time)
 	
 func _setup_ref():
 	ref.set('actor', self)
@@ -50,4 +57,17 @@ func _collect():
 	sprite.play()
 	
 func _on_sprite_finished():
+	queue_free()
+	
+func flicker():
+	var flicker_count = 8
+	var flicker_speed = 0.05
+	
+	for i in range(flicker_count):
+		if collected:
+			visible = true
+			return # Cancel flicker and collect
+		visible = !visible
+		await get_tree().create_timer(flicker_speed).timeout
+	
 	queue_free()

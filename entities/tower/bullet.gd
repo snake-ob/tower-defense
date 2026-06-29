@@ -37,10 +37,6 @@ func _set_collisions(p_collision):
 	$Hitbox.set_collision_mask_value(p_collision.mask, true)
 
 func face_target():
-	if active_targets == []:
-		return
-		
-	target = $Target.get_closest_target(active_targets)
 	direction = (target - global_position).normalized()
 	rotation = direction.angle() - deg_to_rad(-90)
 

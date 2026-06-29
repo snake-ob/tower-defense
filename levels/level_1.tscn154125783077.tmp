@@ -601,8 +601,6 @@ script = ExtResource("11_vf61l")
 [node name="Enemies" type="Node2D" parent="EntityRoot" unique_id=1177075353]
 y_sort_enabled = true
 
-[node name="Enemy" parent="EntityRoot/Enemies" unique_id=88513531 instance=ExtResource("9_nmsli")]
-
 [node name="Projectiles" type="Node2D" parent="EntityRoot" unique_id=493237370]
 y_sort_enabled = true
 

@@ -39,6 +39,7 @@ func _setup_ref():
 	ref.set('upgrades', $StatusUpgrades)
 	ref.set('soft_collision', $SoftCollision)
 	ref.set('physics', $PhysicsHandler)
+	ref.set('target_node', $Target)
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())
 

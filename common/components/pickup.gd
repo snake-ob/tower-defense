@@ -17,6 +17,8 @@ func _physics_process(delta: float) -> void:
 			follow_grab()
 		else:
 			_get_thrown(_calc_drop())
+	elif $CollisionShape2D.disabled:
+		$CollisionShape2D.disabled = false
 
 func _setup(p_ref: Ref):
 	actor = p_ref.actor
@@ -68,8 +70,7 @@ func _get_thrown(throw: Dictionary):
 	_disable_collisions(false)
 
 func _disable_collisions(setting: bool):
-	for collision in collisions:
-		collision.set_deferred('disabled', setting)
+	$CollisionShape2D.set_deferred('disabled', setting)
 
 func _calc_drop() -> Dictionary:
 	var random_angle: float = randf_range(0, TAU)

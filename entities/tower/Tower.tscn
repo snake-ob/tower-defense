@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="12_8gdfe"]
 [ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="13_te46s"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="14_6bp5w"]
+[ext_resource type="Script" uid="uid://fvaoqsrvde4e" path="res://common/components/target_closest.gd" id="15_0dqqt"]
 
 [sub_resource type="Resource" id="Resource_wcwdc"]
 script = ExtResource("2_3mcmt")
@@ -205,11 +206,16 @@ position = Vector2(0, -4)
 collision_layer = 131072
 collision_mask = 128
 script = ExtResource("14_6bp5w")
-push_force = 5.0
+push_force = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_aueyi")
+
+[node name="Target" type="Node" parent="." unique_id=1186988319]
+script = ExtResource("15_0dqqt")
+
+[node name="RayCast2D" type="RayCast2D" parent="Target" unique_id=1803352848]
 
 [connection signal="body_entered" from="DetectZone" to="DetectZone" method="_on_body_entered"]
 [connection signal="body_exited" from="DetectZone" to="DetectZone" method="_on_body_exited"]

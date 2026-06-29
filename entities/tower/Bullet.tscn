@@ -83,6 +83,8 @@ shape = SubResource("CapsuleShape2D_a2x2l")
 [node name="Target" type="Node" parent="." unique_id=655545523]
 script = ExtResource("3_vl4bg")
 
+[node name="RayCast2D" type="RayCast2D" parent="Target" unique_id=523109205]
+
 [node name="Health" parent="." unique_id=856647450 instance=ExtResource("5_a2x2l")]
 
 [node name="Data" type="Node" parent="." unique_id=1997371225]
