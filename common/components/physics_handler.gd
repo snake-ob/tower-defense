@@ -1,6 +1,8 @@
 extends Node
 class_name PhysicsHandler
 
+signal throw_finished
+
 var actor: Node2D
 var sprite: Node
 
@@ -45,6 +47,7 @@ func _physics_process(delta: float) -> void:
 			is_active = false
 			horizontal_velocity = Vector2.ZERO
 			sprite.position.y = 0
+			throw_finished.emit()
 	sprite.position.y = -height
 
 func _process_friction(delta):

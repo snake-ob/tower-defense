@@ -17,7 +17,7 @@ func _setup_ref():
 	ref.set('pickup', $Pickup)
 	ref.set('collision', $CollisionShape2D)
 	ref.set('soft_collision', $SoftCollision)
-	ref.set('collisions', [$SoftCollision/CollisionShape2D, $Pickup/CollisionShape2D])
+	ref.set('collisions', [$SoftCollision/CollisionShape2D, $Pickup/CollisionShape2D, $CollisionShape2D])
 
 func _physics_process(delta: float) -> void:
 	move_and_slide()
@@ -37,3 +37,7 @@ func stop_throw():
 	
 func disable_soft_collision():
 	$SoftCollision.disable()
+	
+func get_launched(p_launch):
+	$Pickup._get_thrown(p_launch)
+	$StateMachine._set_state('launch')

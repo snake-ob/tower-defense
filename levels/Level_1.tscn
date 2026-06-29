@@ -61,6 +61,7 @@ func _ready() -> void:
 	SignalBus.spawn_bullet.connect(_spawn_bullet)
 	SignalBus.request_closest_exit.connect(_return_closest_exit)
 	SignalBus.spawn_player.connect(_spawn_player)
+	SignalBus.end_stage.connect(_on_end_stage)
 	$Systems/LevelManager.level_over.connect(_on_level_over)
 	$LevelRoot/EscapeZone.king_taken.connect(_on_king_taken)
 	_setup_ref()
@@ -148,6 +149,9 @@ func _on_level_over():
 	new_cannon.global_position = $LevelRoot/CannonSpawn.global_position
 	new_cannon.set_holding_zone($LevelRoot/HoldingSpawn.global_position)
 	$EntityRoot.add_child(new_cannon)
+	
+func _on_end_stage():
+	ref.camera.zoom_all_the_way_in(1)
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjvrs"]

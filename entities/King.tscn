@@ -49,6 +49,22 @@ region = Rect2(112, 0, 16, 16)
 atlas = ExtResource("3_5x2kh")
 region = Rect2(128, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_bwf1t"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k8hxm"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkn62"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqwj0"]
+atlas = ExtResource("3_5x2kh")
+region = Rect2(256, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_elusw"]
 atlas = ExtResource("3_5x2kh")
 region = Rect2(144, 0, 16, 16)
@@ -109,6 +125,23 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bwf1t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k8hxm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkn62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jqwj0")
+}],
+"loop": true,
+"name": &"launch",
 "speed": 10.0
 }, {
 "frames": [{
@@ -184,11 +217,39 @@ func _enter_state():
 	soft_collision.disable()
 	sprite.play('picked')
 	actor.y_sort_enabled = false
-	print(\"King picked entered\")
 
 func exit_state():
 	soft_collision.enable()
 	actor.y_sort_enabled = true
+"
+
+[sub_resource type="GDScript" id="GDScript_78h2u"]
+resource_name = "launch_state.gd"
+script/source = "extends State
+
+var sprite: AnimatedSprite2D
+var collisions: Array
+var hurtbox: Hurtbox
+
+func _setup(p_ref):
+	sprite = p_ref.sprite
+	collisions = p_ref.collisions
+	actor = p_ref.actor
+
+func _enter_state():
+	actor.velocity = Vector2(1, 0)
+
+	for collision in collisions:
+		collision.set_deferred('disabled', true)
+	sprite.play('launch')
+
+func _exit_state():
+	for collision in collisions:
+		collision.set_deferred('disabled', false)
+
+func _physics_update(delta):
+	if actor.velocity == Vector2.ZERO:
+		change_state.emit('idle')
 "
 
 [node name="King" type="CharacterBody2D" unique_id=463850158]
@@ -214,8 +275,8 @@ position = Vector2(0, 8)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=408510659]
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_bwf1t")
-animation = &"picked"
-frame_progress = 0.35552186
+animation = &"launch"
+frame_progress = 0.33534658
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=656951933]
 position = Vector2(0, -8)
@@ -240,6 +301,9 @@ script = SubResource("GDScript_5x2kh")
 
 [node name="Picked" type="Node" parent="StateMachine" unique_id=128277756]
 script = SubResource("GDScript_ahdhg")
+
+[node name="Launch" type="Node" parent="StateMachine" unique_id=1542160241]
+script = SubResource("GDScript_78h2u")
 
 [node name="PhysicsHandler" parent="." unique_id=100467294 instance=ExtResource("7_5x2kh")]
 

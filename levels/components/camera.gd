@@ -72,6 +72,17 @@ func zoom_all_the_way_out(custom_duration: float = 3.0) -> void:
 	zoom_tween.tween_property(self, "zoom", target_zoom, custom_duration)
 
 
+func zoom_all_the_way_in(custom_duration: float = 2.0) -> void:
+	target_zoom = Vector2(max_zoom, max_zoom)
+	var zoom_tween: Tween
+		
+	zoom_tween = create_tween()
+	zoom_tween.set_ease(Tween.EASE_OUT)
+	
+	zoom_tween.set_trans(Tween.TRANS_SINE) 
+	
+	zoom_tween.tween_property(self, "zoom", target_zoom, custom_duration)
+
 func set_target(new_target: Node2D):
 	if new_target == null:
 		target = null

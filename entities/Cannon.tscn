@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://cojtm5y2lw515" path="res://assets/sprites/objects/cannon-cards.png" id="5_03q36"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_54g7c"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_14cl8"]
+atlas = ExtResource("1_nmoy3")
+region = Rect2(0, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_hmdu1"]
 atlas = ExtResource("1_nmoy3")
 region = Rect2(64, 0, 16, 16)
@@ -31,10 +35,6 @@ region = Rect2(128, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_54g7c"]
 atlas = ExtResource("1_nmoy3")
 region = Rect2(144, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_14cl8"]
-atlas = ExtResource("1_nmoy3")
-region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oxcaj"]
 atlas = ExtResource("1_nmoy3")
@@ -108,6 +108,14 @@ region = Rect2(48, 0, 16, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_14cl8")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_hmdu1")
 }, {
 "duration": 1.0,
@@ -126,16 +134,8 @@ animations = [{
 "texture": SubResource("AtlasTexture_54g7c")
 }],
 "loop": false,
-"name": &"explode",
+"name": &"launch",
 "speed": 10.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_14cl8")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -241,6 +241,26 @@ func _enter_state():
 	king_card.visible = true
 	detect_zone.monitoring = true
 	soft_collision.disable()
+	_connect_detections()
+
+func _exit_state():
+	_disconnect_detections()
+	
+func _connect_detections():
+	if not detect_zone.body_entered.is_connected(_on_detect_zone_body_entered):
+		detect_zone.body_entered.connect(_on_detect_zone_body_entered)
+	if not holding_zone.body_entered.is_connected(_on_holding_zone_body_entered):
+		holding_zone.body_entered.connect(_on_holding_zone_body_entered)
+	if not holding_zone.body_exited.is_connected(_on_holding_zone_body_exited):
+		holding_zone.body_exited.connect(_on_holding_zone_body_exited)
+
+func _disconnect_detections():
+	if detect_zone.body_entered.is_connected(_on_detect_zone_body_entered):
+		detect_zone.body_entered.disconnect(_on_detect_zone_body_entered)
+	if holding_zone.body_entered.is_connected(_on_holding_zone_body_entered):
+		holding_zone.body_entered.disconnect(_on_holding_zone_body_entered)
+	if holding_zone.body_exited.is_connected(_on_holding_zone_body_exited):
+		holding_zone.body_exited.disconnect(_on_holding_zone_body_exited)
 
 func _on_animation_finished():
 	if sprite.animation == \"load\":
@@ -266,6 +286,10 @@ func _on_holding_zone_body_entered(body: Node2D) -> void:
 	if body is King:
 		king_card.visible = false
 		body.disable_soft_collision()
+	
+	await get_tree().process_frame
+	if holding_zone.active_targets.size() >= 2:
+		change_state.emit('Launch')
 
 func _on_holding_zone_body_exited(body: Node2D) -> void:
 	if body is Player:
@@ -324,6 +348,57 @@ func _setup(p_ref):
 func _on_animation_finished():
 	if sprite.animation == 'spawn':
 		change_state.emit('Idle')
+"
+
+[sub_resource type="GDScript" id="GDScript_54g7c"]
+resource_name = "launch_state.gd"
+script/source = "extends State
+
+var sprite: AnimatedSprite2D
+var holding_zone: DetectZone
+var targets_to_launch: Array
+
+func _ready():
+	pass
+	
+func _setup(p_ref):
+	sprite = p_ref.sprite
+	holding_zone = p_ref.holding_zone
+	actor = p_ref.actor
+
+func _enter_state():
+	SignalBus.end_stage.emit()
+	sprite.play('triggered')
+	sprite.animation_finished.connect(_on_animation_finished)
+	targets_to_launch = holding_zone.active_targets.duplicate()
+
+func _exit_state():
+	sprite.animation_finished.disconnect(_on_animation_finished)
+	
+func _on_animation_finished():
+	if sprite.animation == \"triggered\":
+		sprite.play('launch')
+		_launch_targets()
+		
+func _launch_targets():
+	var dir = Vector2.RIGHT
+	var speed = 300.0
+	var arc = 400.0
+	var launch: Dictionary = {'direction': dir, 'speed': speed, \"arc\": arc}
+	
+	targets_to_launch.sort_custom(func(a, b):
+		if a is Player and b is King:
+			return true  # Player comes before King
+		if a is King and b is Player:
+			return false # King comes after Player
+		return false # Keep current order if they are the same type
+	)
+
+	for target in targets_to_launch:
+		target.global_position = actor.global_position
+		target.get_launched(launch)
+		await get_tree().create_timer(0.3).timeout
+	
 "
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5ettv"]
@@ -407,9 +482,7 @@ script = ExtResource("1_3li3j")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1826273059]
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_cxun8")
-animation = &"spawn"
-frame = 8
-frame_progress = 1.0
+animation = &"triggered"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1111153515]
 position = Vector2(0, -5)
@@ -422,6 +495,9 @@ script = SubResource("GDScript_03q36")
 
 [node name="Spawn" type="Node" parent="StateMachine" unique_id=1631576328]
 script = SubResource("GDScript_3li3j")
+
+[node name="Launch" type="Node" parent="StateMachine" unique_id=512847971]
+script = SubResource("GDScript_54g7c")
 
 [node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("3_joxdr")]
 
@@ -439,13 +515,13 @@ debug_color = Color(0, 0.6, 0.69803923, 0)
 position = Vector2(-15, -19)
 sprite_frames = SubResource("SpriteFrames_oxcaj")
 autoplay = "default"
-frame_progress = 0.025376046
+frame_progress = 0.92723584
 
 [node name="KingCard" type="AnimatedSprite2D" parent="." unique_id=1032796472]
 position = Vector2(15, -19)
 sprite_frames = SubResource("SpriteFrames_7xo0i")
 autoplay = "default"
-frame_progress = 0.7998461
+frame_progress = 0.7017018
 
 [node name="HoldingZone" type="Area2D" parent="." unique_id=1661792457]
 collision_layer = 0

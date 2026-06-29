@@ -7,6 +7,7 @@ var target: Vector2i
 var actor: Node
 var sprite: Node
 var grab: Node
+var custom_override: bool = false
 
 var dead: bool = false
 
@@ -18,6 +19,8 @@ func _setup(p_ref):
 		
 func _physics_process(delta):
 	if dead:
+		return
+	if custom_override:
 		return
 		
 	target = actor.ref.target

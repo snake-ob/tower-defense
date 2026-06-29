@@ -11,3 +11,4 @@ signal wall_built
 signal wall_cancelled
 signal inv_updated
 signal camera_new_target(target)
+signal end_stage

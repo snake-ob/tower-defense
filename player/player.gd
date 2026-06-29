@@ -22,6 +22,7 @@ func _ready():
 	$StateMachine._set_state('idle')
 	$Hurtbox.got_hit.connect(_take_hit)
 	$Health.health_depleted.connect(_health_depleted)
+	$PhysicsHandler.throw_finished.connect(_on_throw_finished)
 
 func _process(delta):
 	ref.set('target', $Grab/DropPos.global_position)
@@ -38,7 +39,8 @@ func _setup_ref():
 	ref.set('target', $Grab/DropPos.global_position)
 	ref.set('animanager', $Visuals/AniManager)
 	ref.set('collision', $CollisionShape2D)
-	ref.set('collisions', [$SoftCollision/CollisionShape2D])
+	ref.set('collisions', [$SoftCollision/CollisionShape2D, $CollisionShape2D])
+	ref.set('hurtbox', $Hurtbox)
 	
 func _setup_nodes(p_node):
 	for child in p_node.get_children():
@@ -77,5 +79,12 @@ func load_cannon():
 		grab._drop(pickup_drop)
 		temp_pickup.place_in_specific_pos(global_position)
 		
+func get_launched(p_launch):
+	$Pickup._get_thrown(p_launch)
+	$StateMachine._set_state('launch')
+		
 func eject(p_toss):
 	$Pickup._get_thrown(p_toss)
+
+func _on_throw_finished():
+	$StateMachine._set_state('idle')

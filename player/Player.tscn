@@ -131,6 +131,22 @@ region = Rect2(208, 0, 16, 16)
 atlas = ExtResource("6_v4f8b")
 region = Rect2(224, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8cy8x"]
+atlas = ExtResource("6_v4f8b")
+region = Rect2(416, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_610ub"]
+atlas = ExtResource("6_v4f8b")
+region = Rect2(432, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ayguc"]
+atlas = ExtResource("6_v4f8b")
+region = Rect2(448, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t7u8x"]
+atlas = ExtResource("6_v4f8b")
+region = Rect2(464, 0, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_qjkh3"]
 animations = [{
 "frames": [{
@@ -260,6 +276,23 @@ animations = [{
 "loop": true,
 "name": &"f_walk",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8cy8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_610ub")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ayguc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t7u8x")
+}],
+"loop": true,
+"name": &"launch",
+"speed": 10.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
@@ -446,6 +479,41 @@ func flicker():
 	actor.queue_free()
 "
 
+[sub_resource type="GDScript" id="GDScript_v4f8b"]
+resource_name = "launch_state.gd"
+script/source = "extends State
+
+var animanager: AniManager
+var sprite: AnimatedSprite2D
+var collisions: Array
+var hurtbox: Hurtbox
+
+func _setup(p_ref):
+	animanager = p_ref.animanager
+	sprite = p_ref.sprite
+	collisions = p_ref.collisions
+	hurtbox = p_ref.hurtbox
+	actor = p_ref.actor
+
+func _enter_state():
+	actor.velocity = Vector2(1, 0)
+	animanager.custom_override = true
+	for collision in collisions:
+		collision.set_deferred('disabled', true)
+	hurtbox.monitorable = false
+	sprite.play('launch')
+
+func _physics_update(delta):
+	if actor.velocity == Vector2.ZERO:
+		change_state.emit('idle')
+
+func _exit_state():
+	animanager.custom_override = false
+	for collision in collisions:
+		collision.set_deferred('disabled', false)
+	hurtbox.monitorable = true
+"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_d4g0h"]
 radius = 5.0
 
@@ -477,7 +545,7 @@ position = Vector2(0, -8)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Visuals" unique_id=1240261556]
 material = SubResource("ShaderMaterial_d4g0h")
 sprite_frames = SubResource("SpriteFrames_qjkh3")
-animation = &"f_die"
+animation = &"launch"
 script = ExtResource("8_d4g0h")
 
 [node name="AniManager" parent="Visuals" unique_id=170788171 instance=ExtResource("7_b32pr")]
@@ -531,6 +599,9 @@ script = SubResource("GDScript_b32pr")
 
 [node name="Die" type="Node" parent="StateMachine" unique_id=945316069]
 script = SubResource("GDScript_8cy8x")
+
+[node name="Launch" type="Node" parent="StateMachine" unique_id=1193127545]
+script = SubResource("GDScript_v4f8b")
 
 [node name="Hurtbox" type="Area2D" parent="." unique_id=88604661]
 position = Vector2(0, -8)
