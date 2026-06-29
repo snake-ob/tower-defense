@@ -6,6 +6,7 @@ var progress_rate: float = 0.01
 
 func _ready():
 	SignalBus.gameover.connect(_on_gameover)
+	SignalBus.end_stage.connect(_on_end_stage)
 	color.a = 0
 	
 func _process(delta):
@@ -27,3 +28,6 @@ func _process(delta):
 func _on_gameover():
 	fading = true
 	
+func _on_end_stage():
+	await get_tree().create_timer(2).timeout
+	fading = true

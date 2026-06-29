@@ -51,11 +51,10 @@
 script/source = "extends Node2D
 
 @onready var ref: Ref = $Ref
+@export var next_level_path: String = \"\"
 var gameover_path: String = \"res://assets/splash-screens/GameOver.tscn\"
 var player_path: String = \"res://player/Player.tscn\"
 var cannon_path: String = \"res://entities/Cannon.tscn\"
-
-var world_timer: Timer
 
 func _ready() -> void:
 	SignalBus.spawn_bullet.connect(_spawn_bullet)
@@ -68,10 +67,6 @@ func _ready() -> void:
 	_setup_nodes(self)
 	if SceneLoader.current_scene == null:
 		SceneLoader.current_scene = self
-	
-	world_timer = Timer.new()
-	world_timer.one_shot = true
-	world_timer.timeout.connect(_world_timeout)
 	
 func _setup_ref():
 	ref.set('level', self)
@@ -126,12 +121,6 @@ func _on_slow_timeout():
 	var gameover = load(gameover_path)
 	SceneLoader._next_scene(gameover)
 	
-func _world_timeout():
-	# King drops blueprints
-	# Goblins run to forest
-	# Portal opens?
-	pass
-	
 func _spawn_player():
 	await get_tree().create_timer(3).timeout
 	var player_scene = load(player_path)
@@ -152,6 +141,13 @@ func _on_level_over():
 	
 func _on_end_stage():
 	ref.camera.zoom_all_the_way_in(1)
+	await get_tree().create_timer(3).timeout
+	load_next_level()
+	
+func load_next_level():
+	var next_level_scene = load(next_level_path)
+	SceneLoader._next_scene(next_level_scene)
+	
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjvrs"]
@@ -445,6 +441,7 @@ font_size = 4
 [node name="World_1" type="Node2D" unique_id=688708345]
 y_sort_enabled = true
 script = SubResource("GDScript_oqlok")
+next_level_path = "res://game/TitleScreen.tscn"
 
 [node name="LevelRoot" type="Node2D" parent="." unique_id=775803705]
 y_sort_enabled = true

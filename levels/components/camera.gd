@@ -15,9 +15,12 @@ var catching_up_to: Node2D = null
 
 var target_zoom: Vector2
 
+var active: bool = true
+
 func _ready():
 	target_zoom = zoom
 	SignalBus.camera_new_target.connect(set_target)
+	SignalBus.end_stage.connect(func(): active = false)
 
 func _setup(p_ref):
 	top_left = p_ref.top_left
@@ -44,6 +47,8 @@ func _process(delta):
 		global_position = target.global_position
 		
 func _unhandled_input(event: InputEvent) -> void:
+	if not active: return
+	
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			_adjust_zoom(zoom_speed)
