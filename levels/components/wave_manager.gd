@@ -1,86 +1,91 @@
 extends Node
 class_name WaveManager
 
-
 @export_category("Wave Settings")
-@export var wave_budget: int = 50
-@export var wave_duration: float = 60.0
+var wave_budget: int = 50
+var wave_duration: float = 60.0
 
 var current_budget: int = 0
-var trickle_timer: Timer
-var burst_timer: Timer
 var spawners: Node
+var ref: Dictionary
+var heartbeat_timer: Timer
 
-var trickle_time: float = 2.5
-var burst_frequency: int = 3
+var spawner_path: String = "res://levels/components/EnemySpawner.tscn"
+
+# How often to check for spawns (0.5s creates a smooth flow)
+var tick_rate: float = 0.5 
 
 func _ready() -> void:
-	current_budget = wave_budget
-	_setup_timers()
+	heartbeat_timer = Timer.new()
+	heartbeat_timer.wait_time = tick_rate
+	heartbeat_timer.timeout.connect(_on_heartbeat)
+	add_child(heartbeat_timer)
 
 func _setup(p_ref):
 	spawners = p_ref.spawners
 
 func _setup_lvl(p_ref):
+	ref = {'spawners': p_ref.spawners, 'enemies': p_ref.enemies, 'spawn_path': p_ref.spawn_path, 'centre': p_ref.centre}
 	spawners = p_ref.spawners
 
-func _setup_timers() -> void:
-	trickle_timer = Timer.new()
-	trickle_timer.wait_time = trickle_time
-	trickle_timer.timeout.connect(_on_trickle_timeout)
-	add_child(trickle_timer)
-	
-	burst_timer = Timer.new()
-	burst_timer.wait_time = wave_duration / burst_frequency
-	burst_timer.timeout.connect(_on_burst_timeout)
-	add_child(burst_timer)
-
-func start_wave() -> void:
-	trickle_timer.start()
-	burst_timer.start()
-
-func _on_trickle_timeout() -> void:
-	if current_budget <= 0:
-		end_wave()
-		return
-		
-	var max_spend = clampi(current_budget, 1, 3) 
-	_spend_budget(max_spend)
-
-func _on_burst_timeout() -> void:
-	if current_budget <= 0: return
-	
-	var burst_spend = int(wave_budget * 0.25)
-	burst_spend = clampi(burst_spend, 0, current_budget)
-	
-	_spend_budget(burst_spend)
-
-func _spend_budget(amount_to_spend: int) -> void:
-	var spent = 0
-	
-	while spent < amount_to_spend and current_budget > 0:
-		var affordable_enemies = _get_affordable_enemies(amount_to_spend - spent)
-
-		if affordable_enemies.is_empty():
-			break
-
-		var chosen_spawner = affordable_enemies.pick_random()
-		chosen_spawner.spawn_enemy()
-		
-		spent += chosen_spawner.point_cost
-		current_budget -= chosen_spawner.point_cost
-
-func _get_affordable_enemies(max_cost: int) -> Array[EnemySpawner]:
-	var affordable_spawners: Array[EnemySpawner] = []
-	for spawner in spawners.get_children():
-		if spawner.point_cost <= max_cost and spawner.point_cost <= current_budget:
-			affordable_spawners.append(spawner)
-	return affordable_spawners
-
-func end_wave() -> void:
-	trickle_timer.stop()
-	burst_timer.stop()
-
 func setup_wave(p_wave: WaveData):
+	for spawner in spawners.get_children():
+		spawner.queue_free()
 	wave_budget = p_wave.wave_budget
 	wave_duration = p_wave.wave_duration
+	current_budget = wave_budget
+	for spawner in p_wave.wave_enemies:
+		var spawner_scene = load(spawner_path)
+		var new_spawner = spawner_scene.instantiate()
+		spawners.add_child(new_spawner)
+		ref['enemy_scene'] = spawner.enemy_scene
+		ref['point_cost'] = spawner.point_cost
+		ref['spawning'] = spawner.spawning
+		new_spawner.setup_spawner(ref)
+
+func start_wave() -> void:
+	heartbeat_timer.start()
+
+func _on_heartbeat() -> void:
+	# Calculate how much we should spend this tick to finish the budget by the end
+	# (Remaining Budget / Remaining Time) * Tick Rate
+	var remaining_time = heartbeat_timer.time_left # This logic is handled by LevelManager's timer
+	# If we are at the end, spend everything left
+	if heartbeat_timer.time_left < tick_rate:
+		_spend_budget(current_budget)
+		end_wave()
+		return
+
+	# Determine how much of the budget to spend this specific tick
+	var budget_per_second = float(wave_budget) / wave_duration
+	var amount_to_spend = int(budget_per_second * tick_rate)
+	
+	if amount_to_spend > 0:
+		_spend_budget(amount_to_spend)
+
+func _spend_budget(amount: int) -> void:
+	var spent = 0
+	
+	# Try to spend the allocated amount
+	while spent < amount and current_budget > 0:
+		var affordable = _get_affordable_spawners(amount - spent)
+		
+		if affordable.is_empty():
+			break
+			
+		var chosen = affordable.pick_random()
+		chosen.spawn_enemy()
+		
+		spent += chosen.point_cost
+		current_budget -= chosen.point_cost
+
+func _get_affordable_spawners(max_cost: int) -> Array:
+	var list = []
+	for spawner in spawners.get_children():
+		# Must be able to afford it AND it must be within the current tick's budget
+		if spawner.point_cost <= max_cost and spawner.point_cost <= current_budget:
+			list.append(spawner)
+	return list
+
+func end_wave() -> void:
+	heartbeat_timer.stop()

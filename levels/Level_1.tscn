@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://bran34damew6s" path="res://entities/Baggie.tscn" id="27_8f7xe"]
 [ext_resource type="PackedScene" uid="uid://du5cdtsl68l3" path="res://entities/Landmine.tscn" id="27_68jde"]
 [ext_resource type="PackedScene" uid="uid://ceqqkxjkplcrv" path="res://UI/Inventory/inv_item.tscn" id="29_vb600"]
+[ext_resource type="Script" uid="uid://bj5ypy6n8i4je" path="res://UI/hearts.gd" id="32_stsco"]
 [ext_resource type="Texture2D" uid="uid://deuaoxtril00c" path="res://assets/debug/stone_fences.png" id="33_4cd1h"]
 [ext_resource type="PackedScene" uid="uid://d2motv6cm6hye" path="res://pickups/BuildWall.tscn" id="33_ai2ei"]
 [ext_resource type="Texture2D" uid="uid://curtwvrjrp5yc" path="res://assets/sprites/objects/coin-sheet.png" id="36_r0nt2"]
@@ -130,6 +131,7 @@ func _spawn_player():
 	ref.camera.set_target(new_player)
 	ref.player = new_player
 	_setup_nodes(self)
+	SignalBus.player_spawned.emit()
 
 func _on_level_over():
 	var cannon_scene = load(cannon_path)
@@ -161,6 +163,7 @@ func _launch_into_scene():
 		
 	await get_tree().create_timer(0.3).timeout
 	ref.camera.set_target(ref.player)
+	SignalBus.player_spawned.emit()
 "
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjvrs"]
@@ -352,6 +355,7 @@ metadata/_custom_type_script = "uid://d1tqs23iyetw5"
 
 [sub_resource type="Resource" id="Resource_0x1rk"]
 script = ExtResource("20_voubc")
+wave_duration = 10.0
 wave_budget = 15
 wave_enemies = Array[ExtResource("19_kwb5f")]([SubResource("Resource_tb0r5")])
 wave_title = "Wave 1"
@@ -601,8 +605,6 @@ script = ExtResource("11_vf61l")
 [node name="Enemies" type="Node2D" parent="EntityRoot" unique_id=1177075353]
 y_sort_enabled = true
 
-[node name="Enemy" parent="EntityRoot/Enemies" unique_id=88513531 instance=ExtResource("9_nmsli")]
-
 [node name="Projectiles" type="Node2D" parent="EntityRoot" unique_id=493237370]
 y_sort_enabled = true
 
@@ -643,6 +645,13 @@ offset_right = 256.0
 offset_bottom = 144.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="HeartsContainer" type="HBoxContainer" parent="HUDLayer" unique_id=1109005999]
+offset_left = 5.0
+offset_top = 125.0
+offset_right = 77.0
+offset_bottom = 134.0
+script = ExtResource("32_stsco")
 
 [node name="Status" type="Label" parent="HUDLayer" unique_id=292853099]
 offset_left = 154.0

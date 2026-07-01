@@ -46,9 +46,9 @@ func _physics_process(delta: float) -> void:
 		if height_velocity < min_bounce_velocity:
 			is_active = false
 			horizontal_velocity = Vector2.ZERO
-			sprite.position.y = 0
+			sprite.position.y = base_sprite_y
 			throw_finished.emit()
-	sprite.position.y = -height
+	sprite.position.y = base_sprite_y - height
 
 func _process_friction(delta):
 	actor.velocity = actor.velocity.move_toward(Vector2.ZERO, actor.move.friction * delta)

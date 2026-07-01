@@ -25,3 +25,11 @@ func spawn_enemy():
 	enemy.target = centre
 	enemy.centre_pos = centre
 	enemies.add_child(enemy)
+	
+func setup_spawner(p_data):
+	enemy_scene = p_data.enemy_scene
+	spawning = p_data.spawning
+	point_cost = p_data.point_cost
+	enemies = p_data.enemies
+	spawn_path = p_data.spawn_path
+	centre = p_data.centre
