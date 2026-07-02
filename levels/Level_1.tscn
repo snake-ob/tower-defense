@@ -14,7 +14,6 @@
 [ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="7_lrvbd"]
 [ext_resource type="PackedScene" uid="uid://bqcv7jj84ji78" path="res://levels/components/Stone.tscn" id="7_oqlok"]
 [ext_resource type="PackedScene" uid="uid://djdnp5l1prw8x" path="res://levels/components/WaveManager.tscn" id="9_7nvrk"]
-[ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="9_nmsli"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="10_jkxa6"]
 [ext_resource type="Script" uid="uid://csiix06k8f1qy" path="res://levels/components/camera-manager.gd" id="11_aerfg"]
 [ext_resource type="Script" uid="uid://p0kysro1ak4s" path="res://levels/components/entity_root.gd" id="11_vf61l"]
@@ -22,11 +21,9 @@
 [ext_resource type="Script" uid="uid://btwiae8k74fhe" path="res://levels/components/camera.gd" id="12_nmsli"]
 [ext_resource type="Script" uid="uid://b1eiv41mtnuyf" path="res://levels/tower_loader.gd" id="14_oqlok"]
 [ext_resource type="Script" uid="uid://c3fnf3mchncvo" path="res://levels/black_fade.gd" id="17_jkxa6"]
-[ext_resource type="Script" uid="uid://b4ohld13av8bw" path="res://levels/components/level_manager.gd" id="17_udfhf"]
+[ext_resource type="PackedScene" uid="uid://x0y75aoty1wn" path="res://levels/components/LevelManager.tscn" id="18_r0nt2"]
 [ext_resource type="FontFile" uid="uid://cggn115yr4jh8" path="res://fonts/4x6px.otf" id="18_w75he"]
-[ext_resource type="Script" uid="uid://d1tqs23iyetw5" path="res://common/data/spawn_data.gd" id="19_kwb5f"]
 [ext_resource type="FontFile" uid="uid://35m8ovgllvq4" path="res://fonts/Grandeur 8h.ttf" id="20_i6od7"]
-[ext_resource type="Script" uid="uid://bw8eurybijbn4" path="res://common/data/wave_data.gd" id="20_voubc"]
 [ext_resource type="PackedScene" uid="uid://bqr34gmbsbjxr" path="res://levels/components/inventory_manager.tscn" id="21_tb0r5"]
 [ext_resource type="Script" uid="uid://cffkekcshvjjw" path="res://UI/Inventory/item_data.gd" id="22_8f7xe"]
 [ext_resource type="Texture2D" uid="uid://c8mmt7cs4e8ft" path="res://assets/sprites/objects/bomb-icon.png" id="23_06ecp"]
@@ -348,25 +345,6 @@ sources/1 = SubResource("TileSetAtlasSource_jgomo")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ahhn"]
 size = Vector2(659, 69)
 
-[sub_resource type="Resource" id="Resource_tb0r5"]
-script = ExtResource("19_kwb5f")
-enemy_scene = ExtResource("9_nmsli")
-metadata/_custom_type_script = "uid://d1tqs23iyetw5"
-
-[sub_resource type="Resource" id="Resource_0x1rk"]
-script = ExtResource("20_voubc")
-wave_duration = 10.0
-wave_budget = 15
-wave_enemies = Array[ExtResource("19_kwb5f")]([SubResource("Resource_tb0r5")])
-wave_title = "Wave 1"
-metadata/_custom_type_script = "uid://bw8eurybijbn4"
-
-[sub_resource type="Resource" id="Resource_kwb5f"]
-script = ExtResource("20_voubc")
-wave_budget = 20
-wave_title = "Wave 2"
-metadata/_custom_type_script = "uid://bw8eurybijbn4"
-
 [sub_resource type="Resource" id="Resource_wxquy"]
 script = ExtResource("22_8f7xe")
 item_name = "bombs"
@@ -630,9 +608,7 @@ position = Vector2(-20, 46)
 position = Vector2(111, 36)
 script = ExtResource("14_oqlok")
 
-[node name="LevelManager" type="Node" parent="Systems" unique_id=1434590156]
-script = ExtResource("17_udfhf")
-waves = Array[ExtResource("20_voubc")]([SubResource("Resource_0x1rk"), SubResource("Resource_kwb5f")])
+[node name="LevelManager" parent="Systems" unique_id=1712362614 instance=ExtResource("18_r0nt2")]
 
 [node name="InventoryManager" parent="Systems" unique_id=295766526 instance=ExtResource("21_tb0r5")]
 items = Array[ExtResource("22_8f7xe")]([SubResource("Resource_wxquy"), SubResource("Resource_v1luo"), SubResource("Resource_geh62"), SubResource("Resource_vg3su")])

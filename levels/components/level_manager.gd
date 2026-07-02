@@ -35,6 +35,7 @@ var rest_length: Timer
 var active_timer: Timer
 
 func _ready():
+	# Init prep & wave timers
 	prep_timer = Timer.new()
 	prep_timer.timeout.connect(_prep_timeout)
 	add_child(prep_timer)
@@ -48,10 +49,12 @@ func _ready():
 	current_wave = waves[0]
 
 func _process(_delta):
+	# Keep time label updated
 	var time_left = _get_remaining_time(active_timer)
 	time_label.text = time_left
 	
 func _setup_lvl(p_ref):
+	# Pull dependencies from level
 	wave_manager = p_ref.wave_manager
 	time_label = p_ref.time_left
 	status_label = p_ref.status_label
@@ -63,11 +66,15 @@ func _setup_lvl(p_ref):
 	spawn_path = p_ref.spawn_path
 	
 func _prep_timeout():
+	# On prep timer timeout
 	_begin_wave()
 	
 func _begin_wave():
-	wave_length = current_wave.wave_duration
+	# Retreive wave data and pass to wave manager
+	enemy_reset()
 	current_wave = waves[wave_index]
+	wave_length = current_wave.wave_duration
+
 	_set_spawners()
 	
 	wave_manager.setup_wave(current_wave)
@@ -107,6 +114,10 @@ func _get_remaining_time(timer):
 func _enemy_escape():
 	for enemy in enemies.get_children():
 		enemy.retreat()
+
+func enemy_reset():
+	for enemy in enemies.get_children():
+		enemy.reset()
 
 func _set_spawners():
 	for spawner in spawners.get_children():

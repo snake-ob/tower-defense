@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://x0y75aoty1wn"]
+
+[ext_resource type="Script" uid="uid://b4ohld13av8bw" path="res://levels/components/level_manager.gd" id="1_0i8rr"]
+[ext_resource type="Script" uid="uid://bw8eurybijbn4" path="res://common/data/wave_data.gd" id="2_8vh2c"]
+[ext_resource type="Script" uid="uid://d1tqs23iyetw5" path="res://common/data/spawn_data.gd" id="3_vianq"]
+[ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="4_341bm"]
+
+[sub_resource type="Resource" id="Resource_tb0r5"]
+script = ExtResource("3_vianq")
+enemy_scene = ExtResource("4_341bm")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_0x1rk"]
+script = ExtResource("2_8vh2c")
+wave_duration = 10.0
+wave_budget = 15
+wave_enemies = Array[ExtResource("3_vianq")]([SubResource("Resource_tb0r5")])
+wave_title = "Wave 1"
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
+
+[sub_resource type="Resource" id="Resource_kwb5f"]
+script = ExtResource("2_8vh2c")
+wave_budget = 20
+wave_title = "Wave 2"
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
+
+[node name="LevelManager" type="Node" unique_id=1712362614]
+script = ExtResource("1_0i8rr")
+waves = Array[ExtResource("2_8vh2c")]([SubResource("Resource_0x1rk"), SubResource("Resource_kwb5f")])
