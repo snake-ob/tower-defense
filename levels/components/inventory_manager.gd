@@ -35,6 +35,9 @@ func _change_slot(direction: int):
 	_update_ui()
 
 func _on_inv_update():
+	if Inventory.get_unlocked_items().size() == 1:
+		_change_slot(1)
+		return
 	_update_ui()
 	
 func _update_ui():

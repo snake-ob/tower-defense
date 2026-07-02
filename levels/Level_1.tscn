@@ -21,10 +21,13 @@
 [ext_resource type="Script" uid="uid://btwiae8k74fhe" path="res://levels/components/camera.gd" id="12_nmsli"]
 [ext_resource type="Script" uid="uid://b1eiv41mtnuyf" path="res://levels/tower_loader.gd" id="14_oqlok"]
 [ext_resource type="Script" uid="uid://c3fnf3mchncvo" path="res://levels/black_fade.gd" id="17_jkxa6"]
-[ext_resource type="PackedScene" uid="uid://x0y75aoty1wn" path="res://levels/components/LevelManager.tscn" id="18_r0nt2"]
+[ext_resource type="Script" uid="uid://b4ohld13av8bw" path="res://levels/components/level_manager.gd" id="18_stsco"]
 [ext_resource type="FontFile" uid="uid://cggn115yr4jh8" path="res://fonts/4x6px.otf" id="18_w75he"]
+[ext_resource type="Script" uid="uid://bw8eurybijbn4" path="res://common/data/wave_data.gd" id="19_4cd1h"]
+[ext_resource type="Script" uid="uid://d1tqs23iyetw5" path="res://common/data/spawn_data.gd" id="20_ai2ei"]
 [ext_resource type="FontFile" uid="uid://35m8ovgllvq4" path="res://fonts/Grandeur 8h.ttf" id="20_i6od7"]
 [ext_resource type="PackedScene" uid="uid://bqr34gmbsbjxr" path="res://levels/components/inventory_manager.tscn" id="21_tb0r5"]
+[ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="21_ua8iw"]
 [ext_resource type="Script" uid="uid://cffkekcshvjjw" path="res://UI/Inventory/item_data.gd" id="22_8f7xe"]
 [ext_resource type="Texture2D" uid="uid://c8mmt7cs4e8ft" path="res://assets/sprites/objects/bomb-icon.png" id="23_06ecp"]
 [ext_resource type="PackedScene" uid="uid://g6qbjrnunvag" path="res://entities/Bomb.tscn" id="23_geh62"]
@@ -345,6 +348,31 @@ sources/1 = SubResource("TileSetAtlasSource_jgomo")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ahhn"]
 size = Vector2(659, 69)
 
+[sub_resource type="Resource" id="Resource_yyq8c"]
+script = ExtResource("20_ai2ei")
+enemy_scene = ExtResource("21_ua8iw")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_yik85"]
+script = ExtResource("19_4cd1h")
+wave_duration = 20.0
+wave_budget = 5
+wave_enemies = Array[ExtResource("20_ai2ei")]([SubResource("Resource_yyq8c")])
+wave_title = "Wave 1"
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
+
+[sub_resource type="Resource" id="Resource_5vbbt"]
+script = ExtResource("20_ai2ei")
+enemy_scene = ExtResource("21_ua8iw")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_vsljp"]
+script = ExtResource("19_4cd1h")
+wave_duration = 25.0
+wave_budget = 10
+wave_enemies = Array[ExtResource("20_ai2ei")]([SubResource("Resource_5vbbt")])
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
+
 [sub_resource type="Resource" id="Resource_wxquy"]
 script = ExtResource("22_8f7xe")
 item_name = "bombs"
@@ -608,7 +636,9 @@ position = Vector2(-20, 46)
 position = Vector2(111, 36)
 script = ExtResource("14_oqlok")
 
-[node name="LevelManager" parent="Systems" unique_id=1712362614 instance=ExtResource("18_r0nt2")]
+[node name="LevelManager" type="Node" parent="Systems" unique_id=1712362614]
+script = ExtResource("18_stsco")
+waves = Array[ExtResource("19_4cd1h")]([SubResource("Resource_yik85"), SubResource("Resource_vsljp")])
 
 [node name="InventoryManager" parent="Systems" unique_id=295766526 instance=ExtResource("21_tb0r5")]
 items = Array[ExtResource("22_8f7xe")]([SubResource("Resource_wxquy"), SubResource("Resource_v1luo"), SubResource("Resource_geh62"), SubResource("Resource_vg3su")])
