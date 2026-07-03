@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://clkuuimm5advn"]
+
+[ext_resource type="Script" uid="uid://bmtf1005f25x5" path="res://levels/components/diag_system.gd" id="1_sfe1t"]
+
+[node name="DiagSystem" type="Node" unique_id=1366943935]
+script = ExtResource("1_sfe1t")
