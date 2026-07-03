@@ -10,10 +10,10 @@
 [ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="5_opqqp"]
 [ext_resource type="PackedScene" uid="uid://d3bfew6tg4p6d" path="res://common/components/AniManager.tscn" id="6_86smx"]
 [ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="6_dsp8k"]
-[ext_resource type="Shader" path="res://player/flicker.gdshader" id="6_qu3yx"]
+[ext_resource type="Shader" uid="uid://xhgadr8idsan" path="res://player/flicker.gdshader" id="6_qu3yx"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="7_66spp"]
 [ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="8_66spp"]
-[ext_resource type="Script" path="res://player/sprite.gd" id="8_qu3yx"]
+[ext_resource type="Script" uid="uid://cft2bf8lomomh" path="res://player/sprite.gd" id="8_qu3yx"]
 [ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="10_im3kb"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="12_r1qvq"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="13_11bei"]
@@ -167,7 +167,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fobem")
 }],
-"loop": true,
+"loop": 1,
 "name": &"b_carry",
 "speed": 5.0
 }, {
@@ -181,7 +181,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_jublk")
 }],
-"loop": false,
+"loop": 0,
 "name": &"b_die",
 "speed": 3.0
 }, {
@@ -189,7 +189,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7b7q7")
 }],
-"loop": true,
+"loop": 1,
 "name": &"b_hold",
 "speed": 5.0
 }, {
@@ -197,7 +197,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_e0csy")
 }],
-"loop": true,
+"loop": 1,
 "name": &"b_idle",
 "speed": 5.0
 }, {
@@ -214,7 +214,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yqslw")
 }],
-"loop": true,
+"loop": 1,
 "name": &"b_walk",
 "speed": 5.0
 }, {
@@ -231,7 +231,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qu3yx")
 }],
-"loop": true,
+"loop": 1,
 "name": &"f_carry",
 "speed": 5.0
 }, {
@@ -245,7 +245,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_d33w4")
 }],
-"loop": false,
+"loop": 0,
 "name": &"f_die",
 "speed": 3.0
 }, {
@@ -253,7 +253,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3aqql")
 }],
-"loop": true,
+"loop": 1,
 "name": &"f_hold",
 "speed": 5.0
 }, {
@@ -261,7 +261,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mtyd1")
 }],
-"loop": true,
+"loop": 1,
 "name": &"f_idle",
 "speed": 5.0
 }, {
@@ -278,7 +278,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_m6nqd")
 }],
-"loop": true,
+"loop": 1,
 "name": &"f_walk",
 "speed": 5.0
 }]
@@ -592,7 +592,6 @@ size = Vector2(16, 16)
 
 [sub_resource type="GDScript" id="GDScript_dsp8k"]
 script/source = "extends Node
-class_name Data
 
 var damage: int = 1
 var knockback: float = 10.0

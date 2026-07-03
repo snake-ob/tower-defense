@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://tcku7617ctjh"]
+
+[ext_resource type="Texture2D" uid="uid://bdd25rtf3ors0" path="res://assets/sprites/speechbubble-texture.png" id="1_dbnou"]
+[ext_resource type="Script" uid="uid://pfx01lt4w13c" path="res://levels/components/speech_bubble.gd" id="2_0682y"]
+[ext_resource type="FontFile" uid="uid://bg3rx63jxwsp0" path="res://fonts/3x3-pixel-font.otf" id="3_4ty3l"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vg3su"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 8.0
+texture = ExtResource("1_dbnou")
+texture_margin_left = 10.0
+texture_margin_top = 4.0
+texture_margin_right = 5.0
+texture_margin_bottom = 9.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_4cd1h"]
+font = ExtResource("3_4ty3l")
+font_size = 4
+font_color = Color(0, 0, 0, 1)
+
+[node name="SpeechBubble" type="PanelContainer" unique_id=270916554]
+visible = false
+z_index = 998
+custom_minimum_size = Vector2(16, 16)
+offset_right = 28.0
+offset_bottom = 16.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxTexture_vg3su")
+script = ExtResource("2_0682y")
+
+[node name="Label" type="Label" parent="." unique_id=1637444754]
+custom_minimum_size = Vector2(16, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Hi."
+label_settings = SubResource("LabelSettings_4cd1h")
+horizontal_alignment = 1
+autowrap_mode = 2

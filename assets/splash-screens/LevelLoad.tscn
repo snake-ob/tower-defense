@@ -6,7 +6,6 @@
 
 [sub_resource type="GDScript" id="GDScript_ocwk1"]
 script/source = "extends Node
-class_name LevelLoad
 
 @onready var order: Array = [$Items/Level]
 var index: int = 0

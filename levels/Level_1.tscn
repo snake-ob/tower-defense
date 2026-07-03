@@ -37,6 +37,7 @@
 [ext_resource type="PackedScene" uid="uid://bran34damew6s" path="res://entities/Baggie.tscn" id="27_8f7xe"]
 [ext_resource type="PackedScene" uid="uid://du5cdtsl68l3" path="res://entities/Landmine.tscn" id="27_68jde"]
 [ext_resource type="PackedScene" uid="uid://ceqqkxjkplcrv" path="res://UI/Inventory/inv_item.tscn" id="29_vb600"]
+[ext_resource type="Script" uid="uid://bmtf1005f25x5" path="res://levels/components/diag_system.gd" id="32_iwdcm"]
 [ext_resource type="Script" uid="uid://bj5ypy6n8i4je" path="res://UI/hearts.gd" id="32_stsco"]
 [ext_resource type="Texture2D" uid="uid://deuaoxtril00c" path="res://assets/debug/stone_fences.png" id="33_4cd1h"]
 [ext_resource type="PackedScene" uid="uid://d2motv6cm6hye" path="res://pickups/BuildWall.tscn" id="33_ai2ei"]
@@ -44,8 +45,7 @@
 [ext_resource type="Script" uid="uid://cxsjdgfx6wn01" path="res://levels/coin_icon.gd" id="36_xv8d5"]
 [ext_resource type="FontFile" uid="uid://bg3rx63jxwsp0" path="res://fonts/3x3-pixel-font.otf" id="37_xv8d5"]
 [ext_resource type="Script" uid="uid://b1olv724y4qku" path="res://levels/current_coins.gd" id="38_0wxk8"]
-[ext_resource type="Texture2D" uid="uid://bdd25rtf3ors0" path="res://assets/sprites/speechbubble-texture.png" id="41_4cd1h"]
-[ext_resource type="Script" uid="uid://pfx01lt4w13c" path="res://levels/components/speech_bubble.gd" id="42_ua8iw"]
+[ext_resource type="PackedScene" uid="uid://tcku7617ctjh" path="res://levels/components/SpeechBubble.tscn" id="39_iwdcm"]
 
 [sub_resource type="GDScript" id="GDScript_oqlok"]
 script/source = "extends Node2D
@@ -88,6 +88,7 @@ func _setup_ref():
 	ref.set('inv_manager', $Systems/InventoryManager)
 	ref.set('player_spawn', $LevelRoot/PlayerSpawn)
 	ref.set('camera', $Camera/Camera2D)
+	ref.set('speech_bubble', $LevelRoot/SpeechBubble)
 	
 	for spawner in ref.spawners.get_children():
 		spawner.centre = ref.centre
@@ -436,7 +437,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0wxk8")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -453,7 +454,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4cd1h")
 }],
-"loop": true,
+"loop": 1,
 "name": &"spin",
 "speed": 10.0
 }]
@@ -461,18 +462,6 @@ animations = [{
 [sub_resource type="LabelSettings" id="LabelSettings_vg3su"]
 font = ExtResource("37_xv8d5")
 font_size = 4
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vg3su"]
-texture = ExtResource("41_4cd1h")
-texture_margin_left = 10.0
-texture_margin_top = 4.0
-texture_margin_right = 5.0
-texture_margin_bottom = 9.0
-
-[sub_resource type="LabelSettings" id="LabelSettings_4cd1h"]
-font = ExtResource("37_xv8d5")
-font_size = 4
-font_color = Color(0, 0, 0, 1)
 
 [node name="World_1" type="Node2D" unique_id=688708345]
 y_sort_enabled = true
@@ -618,6 +607,8 @@ position = Vector2(119, 32)
 [node name="HoldingSpawn" type="Marker2D" parent="LevelRoot" unique_id=1774874299]
 position = Vector2(663, 17)
 
+[node name="SpeechBubble" parent="LevelRoot" unique_id=270916554 instance=ExtResource("39_iwdcm")]
+
 [node name="EntityRoot" type="Node2D" parent="." unique_id=1180296079]
 y_sort_enabled = true
 script = ExtResource("11_vf61l")
@@ -656,6 +647,9 @@ waves = Array[ExtResource("19_4cd1h")]([SubResource("Resource_yik85"), SubResour
 
 [node name="InventoryManager" parent="Systems" unique_id=295766526 instance=ExtResource("21_tb0r5")]
 items = Array[ExtResource("22_8f7xe")]([SubResource("Resource_wxquy"), SubResource("Resource_v1luo"), SubResource("Resource_geh62"), SubResource("Resource_vg3su")])
+
+[node name="DiagSystem" type="Node" parent="Systems" unique_id=1450530989]
+script = ExtResource("32_iwdcm")
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=2124084829]
 
@@ -717,23 +711,6 @@ offset_bottom = 144.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.39215687)
 script = ExtResource("17_jkxa6")
-
-[node name="PanelContainer" type="PanelContainer" parent="HUDLayer" unique_id=634795141]
-custom_minimum_size = Vector2(64, 0)
-offset_left = 68.0
-offset_top = 2.0
-offset_right = 140.0
-offset_bottom = 54.0
-theme_override_styles/panel = SubResource("StyleBoxTexture_vg3su")
-script = ExtResource("42_ua8iw")
-
-[node name="Label" type="Label" parent="HUDLayer/PanelContainer" unique_id=1728607628]
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-text = "poopa doopa woocha kootcha stoocha moocha. HELP ME"
-label_settings = SubResource("LabelSettings_4cd1h")
-autowrap_mode = 2
 
 [node name="DebugLayer" type="CanvasLayer" parent="." unique_id=1534624280]
 

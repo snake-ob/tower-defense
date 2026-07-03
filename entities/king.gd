@@ -45,3 +45,6 @@ func get_launched(p_launch):
 
 func _on_throw_finished():
 	$StateMachine._set_state('idle')
+	
+func get_sprite_pos() -> Vector2:
+	return $AnimatedSprite2D.global_position
