@@ -117,7 +117,6 @@ func emit_drop():
 	SignalBus.add_object_to_scene.emit(coin_emitter)
 	coin_emitter.stagger_drop(coins_held)
 
-
 func retreat():
 	$StateMachine._set_state('retreat')
 	

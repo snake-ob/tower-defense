@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DiagCategory" format=3 uid="uid://bebc31q68qgph"]
+
+[ext_resource type="Script" uid="uid://n51tnmdrlouq" path="res://common/data/diag_data.gd" id="1_bpgdm"]
+[ext_resource type="Script" uid="uid://f222re7nqv27" path="res://common/data/diag_category.gd" id="2_gluo2"]
+
+[resource]
+script = ExtResource("2_gluo2")

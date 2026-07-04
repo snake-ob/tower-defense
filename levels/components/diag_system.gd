@@ -9,14 +9,24 @@ class_name DiagSystem
 
 # -- FLAGS --
 # King being taken | King being carried by player | Level Over
-@export var taken_pool: Array[DiagData]
+@export var prepping: Array[DiagData]
+@export var defending: Array[DiagData]
+@export var king_taken: Array[DiagData]
+@export var king_picked: Array[DiagData]
+@export var lvl_over: Array[DiagData]
+@export var shopping: Array[DiagData]
 
 var speech_bubble: SpeechBubble
+
+func _ready():
+	#SignalBus.king_taken().connect()
+	pass
 
 func _setup_lvl(p_ref):
 	speech_bubble = p_ref.speech_bubble
 	
-	speech_bubble.set_bubble_text("Hello my boy")
-	speech_bubble.active = true
-	speech_bubble.set_bubble_graphic("rmb")
+	_set_diag()
 	
+func _set_diag():
+	var active_diag = prepping[0]
+	speech_bubble.set_bubble(active_diag)

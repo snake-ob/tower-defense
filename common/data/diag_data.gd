@@ -1,5 +1,5 @@
 extends Resource
 class_name DiagData
 
-@export var text: String = ""
+@export_multiline var text: String = ""
 @export var graphic: String = ""
