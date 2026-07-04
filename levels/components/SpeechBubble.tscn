@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bdd25rtf3ors0" path="res://assets/sprites/speechbubble-texture.png" id="1_dbnou"]
 [ext_resource type="Script" uid="uid://pfx01lt4w13c" path="res://levels/components/speech_bubble.gd" id="2_0682y"]
 [ext_resource type="FontFile" uid="uid://bg3rx63jxwsp0" path="res://fonts/3x3-pixel-font.otf" id="3_4ty3l"]
+[ext_resource type="Texture2D" uid="uid://clrjx8l23j8s0" path="res://assets/sprites/diag-icons/rmb.png" id="4_0682y"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vg3su"]
 content_margin_left = 4.0
@@ -20,22 +21,67 @@ font = ExtResource("3_4ty3l")
 font_size = 4
 font_color = Color(0, 0, 0, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ty3l"]
+atlas = ExtResource("4_0682y")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6ewe"]
+atlas = ExtResource("4_0682y")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dbnou"]
+animations = [{
+"frames": [],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_4ty3l")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_e6ewe")
+}, {
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_4ty3l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6ewe")
+}],
+"loop": 1,
+"name": &"rmb",
+"speed": 6.0
+}]
+
 [node name="SpeechBubble" type="PanelContainer" unique_id=270916554]
-visible = false
 z_index = 998
 custom_minimum_size = Vector2(16, 16)
-offset_right = 28.0
+custom_maximum_size = Vector2(64, -1)
+offset_right = 24.0
 offset_bottom = 16.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxTexture_vg3su")
 script = ExtResource("2_0682y")
+active = true
 
 [node name="Label" type="Label" parent="." unique_id=1637444754]
 custom_minimum_size = Vector2(16, 0)
 layout_mode = 2
 size_flags_vertical = 1
-text = "Hi."
+text = "Poo"
 label_settings = SubResource("LabelSettings_4cd1h")
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="Control" type="Control" parent="." unique_id=243801461]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control" unique_id=1416006996]
+position = Vector2(2, -6)
+sprite_frames = SubResource("SpriteFrames_dbnou")
+animation = &"rmb"
+frame_progress = 0.57610327

@@ -41,6 +41,7 @@
 [ext_resource type="Texture2D" uid="uid://deuaoxtril00c" path="res://assets/debug/stone_fences.png" id="33_4cd1h"]
 [ext_resource type="PackedScene" uid="uid://d2motv6cm6hye" path="res://pickups/BuildWall.tscn" id="33_ai2ei"]
 [ext_resource type="PackedScene" uid="uid://clkuuimm5advn" path="res://levels/components/DiagSystem.tscn" id="33_iwdcm"]
+[ext_resource type="Script" uid="uid://n51tnmdrlouq" path="res://common/data/diag_data.gd" id="34_ua8iw"]
 [ext_resource type="Texture2D" uid="uid://curtwvrjrp5yc" path="res://assets/sprites/objects/coin-sheet.png" id="36_r0nt2"]
 [ext_resource type="Script" uid="uid://cxsjdgfx6wn01" path="res://levels/coin_icon.gd" id="36_xv8d5"]
 [ext_resource type="FontFile" uid="uid://bg3rx63jxwsp0" path="res://fonts/3x3-pixel-font.otf" id="37_xv8d5"]
@@ -408,6 +409,11 @@ texture = SubResource("AtlasTexture_ua8iw")
 item_scene = ExtResource("33_ai2ei")
 metadata/_custom_type_script = "uid://cffkekcshvjjw"
 
+[sub_resource type="Resource" id="Resource_ua8iw"]
+script = ExtResource("34_ua8iw")
+text = "Hello there"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
 [sub_resource type="LabelSettings" id="LabelSettings_udfhf"]
 font = ExtResource("18_w75he")
 font_size = 7
@@ -649,6 +655,7 @@ waves = Array[ExtResource("19_4cd1h")]([SubResource("Resource_yik85"), SubResour
 items = Array[ExtResource("22_8f7xe")]([SubResource("Resource_wxquy"), SubResource("Resource_v1luo"), SubResource("Resource_geh62"), SubResource("Resource_vg3su")])
 
 [node name="DiagSystem" parent="Systems" unique_id=1366943935 instance=ExtResource("33_iwdcm")]
+taken_pool = Array[ExtResource("34_ua8iw")]([SubResource("Resource_ua8iw")])
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=2124084829]
 

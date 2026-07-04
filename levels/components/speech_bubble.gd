@@ -2,7 +2,7 @@
 extends PanelContainer
 class_name SpeechBubble
 
-var active: bool = false
+@export var active: bool = false
 var king: King
 
 func _setup_lvl(p_ref):
@@ -17,8 +17,6 @@ func _physics_process(delta):
 		global_position = king.get_sprite_pos()
 		global_position.x += 4
 		global_position.y -= size.y + 4 # Offset the size of speech bubble + king
-	
-	
 
 func update_bubble():
 	custom_minimum_size = Vector2.ZERO
@@ -29,3 +27,9 @@ func set_bubble_text(new_text: String):
 	if label:
 		label.text = new_text
 		update_bubble()
+
+func set_bubble_graphic(_graphic: String):
+	if _graphic == "":
+		$Control.visible = false
+	$Control.visible = true
+	$Control/AnimatedSprite2D.play(_graphic)
