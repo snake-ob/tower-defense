@@ -2,7 +2,6 @@ extends Node
 class_name DiagSystem
 
 # Set a timer in a random range that will set a dialogue 
-# 
 
 # -- SIGNALS --
 # King Taken | Shopping
@@ -17,16 +16,43 @@ class_name DiagSystem
 @export var shopping: Array[DiagData]
 
 var speech_bubble: SpeechBubble
+var context_timer: Timer
 
 func _ready():
-	#SignalBus.king_taken().connect()
-	pass
+	context_timer = Timer.new()
+	context_timer.one_shot = true
+	context_timer.timeout.connect(_set_context_diag)
+	add_child(context_timer)
+	
+	DiagBus.new_state.connect(_set_context_diag)
+	_set_context_timer()
 
 func _setup_lvl(p_ref):
 	speech_bubble = p_ref.speech_bubble
+
+func _set_context_diag():
+	context_timer.stop()
+	var context_diag: DiagData = null
+	match DiagBus.active_state:
+		"prepping":
+			context_diag = prepping.pick_random()
+		"defending":
+			context_diag = defending.pick_random()
+		"shopping":
+			context_diag = shopping.pick_random()
+		"king_taken":
+			context_diag = king_taken.pick_random()
+		"king_picked":
+			context_diag = king_picked.pick_random()
+		"lvl_over":
+			context_diag = lvl_over.pick_random()
+	if context_diag == null:
+		print("Diag not found. Active state is : ", DiagBus.active_state)
+		return
+		
+	speech_bubble.set_bubble(context_diag)
+	_set_context_timer()
 	
-	_set_diag()
-	
-func _set_diag():
-	var active_diag = prepping[0]
-	speech_bubble.set_bubble(active_diag)
+func _set_context_timer():
+	var time = randf_range(5, 20)
+	context_timer.start(time)

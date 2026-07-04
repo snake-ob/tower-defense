@@ -217,8 +217,16 @@ func _enter_state():
 	soft_collision.disable()
 	sprite.play('picked')
 	actor.y_sort_enabled = false
+	
+	if pickup.grabber is Enemy:
+		DiagBus.set_active_state('king_taken')
+		DiagBus.new_state.emit()
+	elif pickup.grabber is Player:
+		DiagBus.set_active_state('king_picked')
+		DiagBus.new_state.emit()
 
-func exit_state():
+func _exit_state():
+	DiagBus.reset_state()
 	soft_collision.enable()
 	actor.y_sort_enabled = true
 "

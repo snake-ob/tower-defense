@@ -69,6 +69,7 @@ func _ready() -> void:
 	if SceneLoader.current_scene == null:
 		SceneLoader.current_scene = self
 	_launch_into_scene()
+	DiagBus.set_active_state('prepping')
 	
 func _setup_ref():
 	ref.set('level', self)
@@ -424,6 +425,110 @@ script = ExtResource("34_ua8iw")
 text = "My boy, you are looking fabulous in red."
 metadata/_custom_type_script = "uid://n51tnmdrlouq"
 
+[sub_resource type="Resource" id="Resource_ax4go"]
+script = ExtResource("34_ua8iw")
+text = "They come for me."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_1s1h1"]
+script = ExtResource("34_ua8iw")
+text = "They want my awesome royal blood."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_7pipe"]
+script = ExtResource("34_ua8iw")
+text = "Fools. My hand will protect me."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_aptjo"]
+script = ExtResource("34_ua8iw")
+text = "Come on. Come at me."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_35dci"]
+script = ExtResource("34_ua8iw")
+text = "HELP!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_mcw1o"]
+script = ExtResource("34_ua8iw")
+text = "NO, PLEASE!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_kpt0o"]
+script = ExtResource("34_ua8iw")
+text = "HELP ME PLEASE!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_8fpda"]
+script = ExtResource("34_ua8iw")
+text = "I AM GOING TO DIE!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_ry5ah"]
+script = ExtResource("34_ua8iw")
+text = "AHHHH!!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_ao42f"]
+script = ExtResource("34_ua8iw")
+text = "Woah!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_nkw31"]
+script = ExtResource("34_ua8iw")
+text = "Oh! Easy there."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_5o53r"]
+script = ExtResource("34_ua8iw")
+text = "Oh dear!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_nhjla"]
+script = ExtResource("34_ua8iw")
+text = "Oh oh oh!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_jpd8a"]
+script = ExtResource("34_ua8iw")
+text = "Well done my boy."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_lodav"]
+script = ExtResource("34_ua8iw")
+text = "A job well done. Let's get us some drinks and smokes."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_lieeb"]
+script = ExtResource("34_ua8iw")
+text = "A feast in your name is in order."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_vgs4h"]
+script = ExtResource("34_ua8iw")
+text = "An excellent choice!"
+graphic = "rmb"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_he3br"]
+script = ExtResource("34_ua8iw")
+text = "Ooo. That looks powerful."
+graphic = "rmb"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_pqv1t"]
+script = ExtResource("34_ua8iw")
+text = "Will you buy that with right click?"
+graphic = "rmb"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_t8qbq"]
+script = ExtResource("34_ua8iw")
+text = "Buy it! Buy it with Right Click."
+graphic = "rmb"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
 [sub_resource type="LabelSettings" id="LabelSettings_udfhf"]
 font = ExtResource("18_w75he")
 font_size = 7
@@ -666,7 +771,11 @@ items = Array[ExtResource("22_8f7xe")]([SubResource("Resource_wxquy"), SubResour
 
 [node name="DiagSystem" parent="Systems" unique_id=1366943935 instance=ExtResource("33_iwdcm")]
 prepping = Array[ExtResource("34_ua8iw")]([SubResource("Resource_ai2ei"), SubResource("Resource_ua8iw"), SubResource("Resource_rx1pf")])
-defending = Array[ExtResource("34_ua8iw")]([null])
+defending = Array[ExtResource("34_ua8iw")]([SubResource("Resource_ax4go"), SubResource("Resource_1s1h1"), SubResource("Resource_7pipe"), SubResource("Resource_aptjo")])
+king_taken = Array[ExtResource("34_ua8iw")]([SubResource("Resource_35dci"), SubResource("Resource_mcw1o"), SubResource("Resource_kpt0o"), SubResource("Resource_8fpda"), SubResource("Resource_ry5ah")])
+king_picked = Array[ExtResource("34_ua8iw")]([SubResource("Resource_ao42f"), SubResource("Resource_nkw31"), SubResource("Resource_5o53r"), SubResource("Resource_nhjla")])
+lvl_over = Array[ExtResource("34_ua8iw")]([SubResource("Resource_jpd8a"), SubResource("Resource_lodav"), SubResource("Resource_lieeb")])
+shopping = Array[ExtResource("34_ua8iw")]([SubResource("Resource_vgs4h"), SubResource("Resource_he3br"), SubResource("Resource_pqv1t"), SubResource("Resource_t8qbq")])
 
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=2124084829]
 

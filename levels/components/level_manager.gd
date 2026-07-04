@@ -71,6 +71,7 @@ func _prep_timeout():
 	
 func _begin_wave():
 	# Retreive wave data and pass to wave manager
+	DiagBus.set_active_state('defending')
 	enemy_reset()
 	current_wave = waves[wave_index]
 	wave_length = current_wave.wave_duration
@@ -97,10 +98,12 @@ func _wave_timeout():
 	_enemy_escape()
 
 	if wave_index > waves.size() - 1:
+		DiagBus.set_state('lvl_over')
 		status_label.text = "LEVEL OVER"
 		level_over.emit()
 		return
-
+	
+	DiagBus.set_active_state('prepping')
 	prep_timer.start(prep_length)
 	active_timer = prep_timer
 	status_label.text = "GET READY, BOY"

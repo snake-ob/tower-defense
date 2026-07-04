@@ -10,6 +10,7 @@ var drop_pos: Node2D
 var actor: Node2D
 var physics: Node
 var collisions: Array
+var grabber: Node2D
 
 func _physics_process(delta: float) -> void:
 	if picked_up:
@@ -25,7 +26,7 @@ func _setup(p_ref: Ref):
 	physics = p_ref.physics
 	collisions = p_ref.collisions
 
-func _get_picked_up(p_grab_pos, p_drop_pos):
+func _get_picked_up(p_grab_pos, p_drop_pos, _grabber: Node2D):
 	if "velocity" in actor:
 		actor.velocity = Vector2.ZERO
 		
@@ -36,6 +37,7 @@ func _get_picked_up(p_grab_pos, p_drop_pos):
 	drop_pos = p_drop_pos
 	picked_up = true
 	_disable_collisions(true)
+	grabber = _grabber
 	
 
 func follow_grab():
@@ -55,6 +57,7 @@ func _get_put_down():
 	grab_pos = null
 	picked_up = false
 	_disable_collisions(false)
+	grabber = null
 
 func _get_thrown(throw: Dictionary):
 	if "velocity" in actor:
@@ -68,6 +71,7 @@ func _get_thrown(throw: Dictionary):
 	grab_pos = null
 	physics.start_25d_throw(dir, speed, arc)
 	_disable_collisions(false)
+	grabber = null
 
 func _disable_collisions(setting: bool):
 	$CollisionShape2D.set_deferred('disabled', setting)

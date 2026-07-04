@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://ddegxsef6myqj"]
+
+[ext_resource type="Script" uid="uid://6iojcchfry7a" path="res://global/diag_bus.gd" id="1_vgbx4"]
+
+[node name="DiagBus" type="Node" unique_id=1196220376]
+script = ExtResource("1_vgbx4")

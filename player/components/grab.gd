@@ -49,7 +49,7 @@ func get_grabbable() -> Array:
 	return grabbable_objects
 	
 func _pickup_object(pickup):
-	pickup._get_picked_up(grab_pos, drop_pos)
+	pickup._get_picked_up(grab_pos, drop_pos, actor)
 	grabbed_pickup = pickup
 	
 func _put_down():
