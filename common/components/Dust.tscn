@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://voqchqa7x0ey"]
+
+[ext_resource type="Script" uid="uid://b0xw637lmwuq6" path="res://common/components/dust.gd" id="1_3ifmd"]
+[ext_resource type="Texture2D" uid="uid://dovr8eykrhcak" path="res://assets/sprites/objects/bomb-Sheet.png" id="2_sdsv4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oef2w"]
+atlas = ExtResource("2_sdsv4")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bjrwk"]
+atlas = ExtResource("2_sdsv4")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_enhwb"]
+atlas = ExtResource("2_sdsv4")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nyu07"]
+atlas = ExtResource("2_sdsv4")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r0cmo"]
+atlas = ExtResource("2_sdsv4")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_de5dl"]
+atlas = ExtResource("2_sdsv4")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyuql"]
+atlas = ExtResource("2_sdsv4")
+region = Rect2(272, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gpwx0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oef2w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bjrwk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_enhwb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nyu07")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r0cmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_de5dl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyuql")
+}],
+"loop": 0,
+"name": &"explode",
+"speed": 5.0
+}]
+
+[node name="Dust" type="Node2D" unique_id=1459637427]
+script = ExtResource("1_3ifmd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1807107075]
+sprite_frames = SubResource("SpriteFrames_gpwx0")
+animation = &"explode"

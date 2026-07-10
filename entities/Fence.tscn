@@ -457,4 +457,3 @@ tile_set = SubResource("TileSet_8nmwg")
 
 [node name="DEBUG" type="Node" parent="." unique_id=1819613063]
 script = SubResource("GDScript_wiylm")
-mouse_mode = true
