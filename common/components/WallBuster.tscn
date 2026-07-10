@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bntounvw6dhct"]
+
+[ext_resource type="Script" uid="uid://cqtiiu4on7uef" path="res://common/components/wall_buster.gd" id="1_0j8rn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wiylm"]
+radius = 13.0
+
+[node name="WallBuster" type="Area2D" unique_id=793524713]
+collision_layer = 0
+script = ExtResource("1_0j8rn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1102669497]
+shape = SubResource("CircleShape2D_wiylm")

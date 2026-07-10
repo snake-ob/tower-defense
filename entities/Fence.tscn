@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://ypeggtjreve5"]
 
 [ext_resource type="Texture2D" uid="uid://deuaoxtril00c" path="res://assets/debug/stone_fences.png" id="1_88b6g"]
+[ext_resource type="Texture2D" uid="uid://c73lwql874d5t" path="res://assets/sprites/fencing-Sheet.png" id="2_t8yh4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t8yh4"]
+resource_name = "Intact"
 texture = ExtResource("1_88b6g")
 0:0/0 = 0
 2:0/0 = 0
@@ -14,6 +16,7 @@ texture = ExtResource("1_88b6g")
 14:0/0 = 0
 0:2/0 = 0
 14:2/0 = 0
+17:2/next_alternative_id = 2
 17:2/0 = 0
 17:2/0/terrain_set = 0
 17:2/0/terrain = 0
@@ -168,13 +171,167 @@ texture = ExtResource("1_88b6g")
 22:2/0/terrains_peering_bit/left_side = 0
 23:2/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8nmwg"]
+resource_name = "Broken"
+texture = ExtResource("2_t8yh4")
+16:6/0 = 0
+16:6/0/terrain_set = 0
+16:6/0/terrain = 1
+16:6/0/terrains_peering_bit/right_side = 1
+16:6/0/terrains_peering_bit/bottom_right_corner = 1
+16:6/0/terrains_peering_bit/bottom_side = 1
+16:6/0/terrains_peering_bit/bottom_left_corner = 1
+16:6/0/terrains_peering_bit/left_side = 1
+16:6/0/terrains_peering_bit/top_left_corner = 1
+16:6/0/terrains_peering_bit/top_side = 1
+16:6/0/terrains_peering_bit/top_right_corner = 1
+17:6/0 = 0
+17:6/0/terrain_set = 0
+17:6/0/terrain = 1
+17:6/0/terrains_peering_bit/right_side = 1
+17:6/0/terrains_peering_bit/bottom_right_corner = 1
+17:6/0/terrains_peering_bit/bottom_side = 1
+17:6/0/terrains_peering_bit/bottom_left_corner = 1
+17:6/0/terrains_peering_bit/left_side = 1
+17:6/0/terrains_peering_bit/top_left_corner = 1
+17:6/0/terrains_peering_bit/top_side = 1
+17:6/0/terrains_peering_bit/top_right_corner = 1
+18:6/0 = 0
+18:6/0/terrain_set = 0
+18:6/0/terrain = 1
+18:6/0/terrains_peering_bit/right_side = 1
+18:6/0/terrains_peering_bit/bottom_right_corner = 1
+18:6/0/terrains_peering_bit/bottom_side = 1
+18:6/0/terrains_peering_bit/bottom_left_corner = 1
+18:6/0/terrains_peering_bit/left_side = 1
+18:6/0/terrains_peering_bit/top_left_corner = 1
+18:6/0/terrains_peering_bit/top_side = 1
+18:6/0/terrains_peering_bit/top_right_corner = 1
+19:6/0 = 0
+19:6/0/terrain_set = 0
+19:6/0/terrain = 1
+19:6/0/terrains_peering_bit/right_side = 1
+19:6/0/terrains_peering_bit/bottom_right_corner = 1
+19:6/0/terrains_peering_bit/bottom_side = 1
+19:6/0/terrains_peering_bit/bottom_left_corner = 1
+19:6/0/terrains_peering_bit/left_side = 1
+19:6/0/terrains_peering_bit/top_left_corner = 1
+19:6/0/terrains_peering_bit/top_side = 1
+19:6/0/terrains_peering_bit/top_right_corner = 1
+20:6/0 = 0
+20:6/0/terrain_set = 0
+20:6/0/terrain = 1
+20:6/0/terrains_peering_bit/right_side = 1
+20:6/0/terrains_peering_bit/bottom_right_corner = 1
+20:6/0/terrains_peering_bit/bottom_side = 1
+20:6/0/terrains_peering_bit/bottom_left_corner = 1
+20:6/0/terrains_peering_bit/left_side = 1
+20:6/0/terrains_peering_bit/top_left_corner = 1
+20:6/0/terrains_peering_bit/top_side = 1
+20:6/0/terrains_peering_bit/top_right_corner = 1
+16:0/0 = 0
+16:0/0/terrain_set = 0
+16:0/0/terrain = 1
+16:0/0/terrains_peering_bit/bottom_side = 1
+16:1/0 = 0
+16:1/0/terrain_set = 0
+16:1/0/terrain = 1
+16:1/0/terrains_peering_bit/bottom_side = 1
+16:1/0/terrains_peering_bit/top_side = 1
+16:2/0 = 0
+16:2/0/terrain_set = 0
+16:2/0/terrain = 1
+16:2/0/terrains_peering_bit/bottom_side = 1
+16:2/0/terrains_peering_bit/top_side = 1
+16:3/0 = 0
+16:3/0/terrain_set = 0
+16:3/0/terrain = 1
+16:3/0/terrains_peering_bit/bottom_side = 1
+16:3/0/terrains_peering_bit/top_side = 1
+16:4/0 = 0
+16:4/0/terrain_set = 0
+16:4/0/terrain = 1
+16:4/0/terrains_peering_bit/top_side = 1
+19:4/0 = 0
+19:4/0/terrain_set = 0
+19:4/0/terrain = 1
+19:4/0/terrains_peering_bit/left_side = 1
+18:4/0 = 0
+18:4/0/terrain_set = 0
+18:4/0/terrain = 1
+18:4/0/terrains_peering_bit/right_side = 1
+18:4/0/terrains_peering_bit/top_side = 1
+18:3/0 = 0
+18:3/0/terrain_set = 0
+18:3/0/terrain = 1
+18:3/0/terrains_peering_bit/bottom_side = 1
+18:3/0/terrains_peering_bit/top_side = 1
+18:2/0 = 0
+18:2/0/terrain_set = 0
+18:2/0/terrain = 1
+18:2/0/terrains_peering_bit/bottom_side = 1
+18:2/0/terrains_peering_bit/top_side = 1
+18:1/0 = 0
+18:1/0/terrain_set = 0
+18:1/0/terrain = 1
+18:1/0/terrains_peering_bit/bottom_side = 1
+18:1/0/terrains_peering_bit/top_side = 1
+18:0/0 = 0
+18:0/0/terrain_set = 0
+18:0/0/terrain = 1
+18:0/0/terrains_peering_bit/right_side = 1
+18:0/0/terrains_peering_bit/bottom_side = 1
+19:0/0 = 0
+19:0/0/terrain_set = 0
+19:0/0/terrain = 1
+19:0/0/terrains_peering_bit/left_side = 1
+21:0/0 = 0
+21:0/0/terrain_set = 0
+21:0/0/terrain = 1
+21:0/0/terrains_peering_bit/right_side = 1
+22:0/0 = 0
+22:0/0/terrain_set = 0
+22:0/0/terrain = 1
+22:0/0/terrains_peering_bit/bottom_side = 1
+22:0/0/terrains_peering_bit/left_side = 1
+22:1/0 = 0
+22:1/0/terrain_set = 0
+22:1/0/terrain = 1
+22:1/0/terrains_peering_bit/bottom_side = 1
+22:1/0/terrains_peering_bit/top_side = 1
+22:2/0 = 0
+22:2/0/terrain_set = 0
+22:2/0/terrain = 1
+22:2/0/terrains_peering_bit/bottom_side = 1
+22:2/0/terrains_peering_bit/top_side = 1
+22:3/0 = 0
+22:3/0/terrain_set = 0
+22:3/0/terrain = 1
+22:3/0/terrains_peering_bit/bottom_side = 1
+22:3/0/terrains_peering_bit/top_side = 1
+22:4/0 = 0
+22:4/0/terrain_set = 0
+22:4/0/terrain = 1
+22:4/0/terrains_peering_bit/left_side = 1
+22:4/0/terrains_peering_bit/top_side = 1
+21:4/0 = 0
+21:4/0/terrain_set = 0
+21:4/0/terrain = 1
+21:4/0/terrains_peering_bit/right_side = 1
+20:2/0 = 0
+20:2/0/terrain_set = 0
+20:2/0/terrain = 1
+
 [sub_resource type="TileSet" id="TileSet_8nmwg"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 0
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Fence"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+terrain_set_0/terrain_1/name = "BrokenFence"
+terrain_set_0/terrain_1/color = Color(0.7549221, 0.20376816, 0.370023, 1)
 sources/0 = SubResource("TileSetAtlasSource_t8yh4")
+sources/1 = SubResource("TileSetAtlasSource_8nmwg")
 
 [sub_resource type="GDScript" id="GDScript_23x7k"]
 script/source = "extends TileMapLayer
@@ -220,7 +377,7 @@ func _on_cancel():
 func _process(_delta):
 	if not MouseMode.current == \"build_fence\":
 		return
-		
+
 	var hover_cell = local_to_map(get_local_mouse_position())
 	
 	if hover_cell != last_hover_cell:
@@ -272,12 +429,32 @@ func get_line_cells(start: Vector2i, end: Vector2i) -> Array[Vector2i]:
 		current.y += dir_y
 		
 	return cells
+
+func break_wall_tile(cell_pos: Vector2i):
+	var broken_id = 1
+	set_cells_terrain_connect([cell_pos], 0, broken_id, false)
+"
+
+[sub_resource type="GDScript" id="GDScript_wiylm"]
+script/source = "extends Node
+
+@export var mouse_mode: bool = false:
+	set(val):
+		if val == true:
+			MouseMode.current = 'build_fence'
+		else:
+			MouseMode.current = ''
 "
 
 [node name="FenceBuilder" type="TileMapLayer" unique_id=1898883992]
 tile_set = SubResource("TileSet_8nmwg")
+physics_quadrant_size = 1
 script = SubResource("GDScript_23x7k")
 
 [node name="PreviewLayer" type="TileMapLayer" parent="." unique_id=1373003239]
 modulate = Color(1, 1, 1, 0.2)
 tile_set = SubResource("TileSet_8nmwg")
+
+[node name="DEBUG" type="Node" parent="." unique_id=1819613063]
+script = SubResource("GDScript_wiylm")
+mouse_mode = true

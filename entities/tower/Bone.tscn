@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://dlbwpt2uvrnq8"]
+
+[ext_resource type="Script" uid="uid://su7dh46mlaiv" path="res://entities/tower/bullet.gd" id="1_wjtyy"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="2_jb42m"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="3_yf4l0"]
+[ext_resource type="Texture2D" uid="uid://c6o2lv5xqpa48" path="res://assets/sprites/objects/bone-projectile-sheet.png" id="4_wjtyy"]
+[ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="5_ijvsb"]
+[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="6_b54ft"]
+[ext_resource type="Script" uid="uid://fvaoqsrvde4e" path="res://common/components/target_closest.gd" id="7_kyqcu"]
+[ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="8_a17du"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="9_qtcsj"]
+[ext_resource type="PackedScene" uid="uid://cwq83cpaeaqtp" path="res://entities/tower/upgrades/StatusUpgrades.tscn" id="10_vrfrf"]
+
+[sub_resource type="Resource" id="Resource_q5mak"]
+script = ExtResource("2_jb42m")
+metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
+
+[sub_resource type="Resource" id="Resource_tljn8"]
+script = ExtResource("3_yf4l0")
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jngwf"]
+radius = 6.5
+height = 13.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jb42m"]
+atlas = ExtResource("4_wjtyy")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yf4l0"]
+atlas = ExtResource("4_wjtyy")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwnp3"]
+atlas = ExtResource("4_wjtyy")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijvsb"]
+atlas = ExtResource("4_wjtyy")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wiylm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jb42m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yf4l0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwnp3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijvsb")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxey3"]
+radius = 8.5
+height = 17.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_a2x2l"]
+radius = 8.5
+height = 17.0
+
+[sub_resource type="GDScript" id="GDScript_a0ooq"]
+script/source = "extends Node
+
+var damage: int = 1
+var knockback: float = 10.0
+var status: Array = []
+"
+
+[node name="Bone" type="CharacterBody2D" unique_id=150744527]
+y_sort_enabled = true
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_wjtyy")
+attack = SubResource("Resource_q5mak")
+move = SubResource("Resource_tljn8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=251283894]
+position = Vector2(-0.5, -3.5)
+shape = SubResource("CapsuleShape2D_jngwf")
+debug_color = Color(1, 1, 1, 0)
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=240141561]
+position = Vector2(-0.5, -3.5)
+rotation = -1.5707964
+sprite_frames = SubResource("SpriteFrames_wiylm")
+autoplay = "default"
+
+[node name="Hurtbox" type="Area2D" parent="." unique_id=88604661]
+position = Vector2(-0.5, -3.5)
+collision_layer = 0
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_ijvsb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=630823401]
+shape = SubResource("CapsuleShape2D_gxey3")
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
+position = Vector2(-0.5, -3.5)
+collision_layer = 0
+collision_mask = 1024
+monitorable = false
+script = ExtResource("6_b54ft")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1488120918]
+shape = SubResource("CapsuleShape2D_a2x2l")
+
+[node name="PhysicsHandler" type="Node" parent="." unique_id=1726592184]
+
+[node name="Target" type="Node" parent="." unique_id=655545523]
+script = ExtResource("7_kyqcu")
+
+[node name="RayCast2D" type="RayCast2D" parent="Target" unique_id=523109205]
+
+[node name="Health" parent="." unique_id=856647450 instance=ExtResource("8_a17du")]
+
+[node name="Data" type="Node" parent="." unique_id=1997371225]
+script = SubResource("GDScript_a0ooq")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1706965492]
+position = Vector2(0, -2)
+
+[node name="Ref" parent="." unique_id=1818294794 instance=ExtResource("9_qtcsj")]
+
+[node name="StatusUpgrades" parent="." unique_id=193890701 instance=ExtResource("10_vrfrf")]
+
+[connection signal="area_entered" from="Hitbox" to="Hitbox" method="_on_area_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exit"]

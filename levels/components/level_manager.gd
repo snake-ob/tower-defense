@@ -98,7 +98,7 @@ func _wave_timeout():
 	_enemy_escape()
 
 	if wave_index > waves.size() - 1:
-		DiagBus.set_state('lvl_over')
+		DiagBus.set_active_state('lvl_over')
 		status_label.text = "LEVEL OVER"
 		level_over.emit()
 		return

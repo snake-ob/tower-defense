@@ -195,12 +195,16 @@ func _update(delta):
 		change_state.emit('idle')
 
 func _enter_state():
+	DiagBus.set_active_state('shopping')
+	DiagBus.new_state.emit()
 	soft_collision.disable()
 	state_active = true
 	shop.visible = true
 
 
 func _exit_state():
+	DiagBus.reset_state()
+	
 	soft_collision.enable()
 	state_active = false
 	shop.visible = false
