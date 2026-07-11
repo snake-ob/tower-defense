@@ -292,7 +292,17 @@ var physics: Node
 var grab: Node
 var stutter_step: bool = false
 var sprite: AnimatedSprite2D
+var animanager: AniManager
 var current_speed: float
+var smash_timer: Timer
+var timing: bool = false
+var sm: StateMachine
+var wall_detector: WallDetector
+
+func _ready():
+	smash_timer = Timer.new()
+	smash_timer.one_shot = true
+	add_child(smash_timer)
 	
 func _setup(p_ref):
 	ref = p_ref
@@ -300,18 +310,33 @@ func _setup(p_ref):
 	physics = p_ref.physics
 	grab = p_ref.grab
 	sprite = p_ref.sprite
+	animanager = p_ref.animanager
+	sm = p_ref.state_machine
+	wall_detector = p_ref.wall_detector
 	if ref.has('bullet_spawner'):
 		bullet_spawner = ref.bullet_spawner
 	
 func _enter_state():
 	if bullet_spawner:
 		bullet_spawner.activate()
+	if not smash_timer.timeout.is_connected(_on_smash_timeout):
+		smash_timer.timeout.connect(_on_smash_timeout)
 	
 func _exit_state():
 	if bullet_spawner:
 		bullet_spawner.deactivate()
 
+	if smash_timer.timeout.is_connected(_on_smash_timeout):
+		smash_timer.timeout.disconnect(_on_smash_timeout)
+	
+	smash_timer.stop()
+
+
 func _physics_update(delta):
+	if sm.has_state('smash'):
+		if wall_detector.is_colliding():
+			change_state.emit(\"stretch\")
+
 	sprite.speed_scale = 1
 	current_speed = actor.move.speed
 	if ref.active_targets == []:
@@ -321,6 +346,22 @@ func _physics_update(delta):
 	physics._process_friction(delta)
 	_check_slow()
 	_move_actor(delta)
+	
+func _prep_smash():
+	var approx_velocity = actor.velocity.floor()
+	if actor.is_on_wall():
+		if not timing:
+			smash_timer.start(0.5)
+			timing = true
+	else:
+		timing = false
+
+func _on_smash_timeout():
+	if sm.current_state != self:
+		print(\"Timer finished in void state\")
+		return
+	if sm.has_state('stretch'):
+		change_state.emit('Stretch')
 
 func _check_slow():
 	if actor.slowed_down:
@@ -344,8 +385,6 @@ func _move_actor(delta):
 		actor.velocity = target_velocity
 	else:
 		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
-	
-	
 
 func _update(delta):
 	var pickups = grab.get_grabbable()
@@ -434,24 +473,61 @@ var sprite: AnimatedSprite2D
 var current_speed: float
 var physics: PhysicsHandler
 var stutter_step: bool = false
+var smash_timer: Timer
+var sm: StateMachine
+var timing: bool = false
+var wall_detector: WallDetector
 
 func _setup(p_ref):
 	ref = p_ref
 	actor = ref.actor
 	sprite = p_ref.sprite
 	physics = p_ref.physics
+	sm = p_ref.state_machine
+	wall_detector = p_ref.wall_detector
+	
+	
+func _ready():
+	smash_timer = Timer.new()
+	smash_timer.one_shot = true
+	add_child(smash_timer)
+	
+func _enter_state():
+	if not smash_timer.timeout.is_connected(_smash_timeout):
+		smash_timer.timeout.connect(_smash_timeout)
+
+func _exit_state():
+	if smash_timer.timeout.is_connected(_smash_timeout):
+		smash_timer.timeout.disconnect(_smash_timeout)
+	smash_timer.stop()
+
+func _smash_timeout():
+	if sm.has_state('stretch'):
+		change_state.emit('stretch')
 
 func _physics_update(delta):
+	if sm.has_state('smash'):
+		_prep_smash()
+
 	if ref.active_targets:
 		change_state.emit('chase')
 		return
 	
 	sprite.speed_scale = 1
 	current_speed = actor.move.speed
-		
+
 	physics._process_friction(delta)
 	_check_slow()
 	_move_actor(delta)
+	
+func _prep_smash():
+	var approx_velocity = actor.velocity.floor()
+	if wall_detector.is_colliding():
+		if not timing:
+			smash_timer.start(0.5)
+			timing = true
+	else:
+		timing = false
 
 func _check_slow():
 	if actor.slowed_down:

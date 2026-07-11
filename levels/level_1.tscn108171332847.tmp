@@ -491,15 +491,11 @@ script = ExtResource("20_ai2ei")
 enemy_scene = ExtResource("21_ua8iw")
 metadata/_custom_type_script = "uid://d1tqs23iyetw5"
 
-[sub_resource type="Resource" id="Resource_wtgms"]
-script = ExtResource("20_ai2ei")
-enemy_scene = ExtResource("15_yik85")
-metadata/_custom_type_script = "uid://d1tqs23iyetw5"
-
 [sub_resource type="Resource" id="Resource_yik85"]
 script = ExtResource("19_4cd1h")
-wave_budget = 12
-wave_enemies = Array[ExtResource("20_ai2ei")]([SubResource("Resource_yyq8c"), SubResource("Resource_wtgms")])
+wave_duration = 20.0
+wave_budget = 5
+wave_enemies = Array[ExtResource("20_ai2ei")]([SubResource("Resource_yyq8c")])
 wave_title = "Wave 1"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
@@ -877,12 +873,7 @@ script = ExtResource("11_vf61l")
 y_sort_enabled = true
 
 [node name="WallGoblin" parent="EntityRoot/Enemies" unique_id=88513531 instance=ExtResource("15_yik85")]
-
-[node name="WallGoblin2" parent="EntityRoot/Enemies" unique_id=192463150 instance=ExtResource("15_yik85")]
-position = Vector2(56, 115)
-
-[node name="WallGoblin3" parent="EntityRoot/Enemies" unique_id=1491843325 instance=ExtResource("15_yik85")]
-position = Vector2(228, -19)
+position = Vector2(-37, -4)
 
 [node name="Projectiles" type="Node2D" parent="EntityRoot" unique_id=493237370]
 y_sort_enabled = true

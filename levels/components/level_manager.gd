@@ -26,7 +26,7 @@ var decree_path: String = "res://entities/RoyalDecree.tscn"
 var spawner_path: String = "res://levels/components/EnemySpawner.tscn"
 
 var prep_timer: Timer
-var prep_length: float = 10
+var prep_length: float = 20
 var wave_timer: Timer
 var wave_length: float = 3
 var rest_timer: Timer

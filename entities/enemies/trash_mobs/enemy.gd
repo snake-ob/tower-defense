@@ -51,6 +51,9 @@ func _setup_ref():
 	ref.set('collisions', [$CollisionShape2D, $SoftCollision/CollisionShape2D])
 	ref.set('collision', $CollisionShape2D)
 	ref.set('animanager', $Body/AniManager)
+	ref.set('wall_buster', get_node_or_null('WallBuster'))
+	ref.set('state_machine', $StateMachine)
+	ref.set('wall_detector', get_node_or_null('WallDetector'))
 	ref.set('actor', self)
 	
 func _setup_nodes(p_node):

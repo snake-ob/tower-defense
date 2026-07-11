@@ -29,6 +29,8 @@ func _physics_process(delta):
 		current_state._physics_update(delta)
 
 func _set_state(new_state_name : String):
+	_print_state_change(new_state_name)
+
 	var new_state = states.get(new_state_name.to_lower())
 	
 	if not new_state:
@@ -45,8 +47,22 @@ func _set_state(new_state_name : String):
 	current_state.active = true
 	state_changed.emit(new_state)
 
-func _on_change_state(new_state : String):
-	#print_rich("[color=yellow]Transition to: ", new_state, " from: ", current_state.name, "[/color]")
-	#print_stack()
+func _on_change_state(new_state : String):	
 	_set_state(new_state)
 	
+func has_state(_state: String) -> bool:
+	if _state.to_lower() in states:
+		return true
+	return false
+	
+func _print_state_change(new_state: String):
+	if not owner is Enemy:
+		return
+	#return
+	var current_name: String
+	if current_state != null:
+		current_name = current_state.name
+	else:
+		current_name = "Nil"
+	print_rich("[color=yellow]Transition to: ", new_state, " from: ", current_name, "[/color]")
+	return

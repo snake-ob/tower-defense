@@ -73,3 +73,11 @@ func play_death():
 			dir = "b"
 			
 	sprite.play(dir + "_die")
+	
+func play_anim(_anim: String):
+	var dir = "f"
+	if target:
+		var look_dir = actor.global_position.direction_to(target)
+		if look_dir.y < -0.1:
+			dir = "b"
+	sprite.play(dir + "_" + _anim)

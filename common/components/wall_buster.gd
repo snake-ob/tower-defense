@@ -1,4 +1,5 @@
 extends Area2D
+class_name WallBuster
 
 var dust_path: String = "res://common/components/Dust.tscn"
 
