@@ -35,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://g6qbjrnunvag" path="res://entities/Bomb.tscn" id="23_geh62"]
 [ext_resource type="Script" uid="uid://4a8xvb6t4t43" path="res://levels/wave_timer.gd" id="24_ryfpa"]
 [ext_resource type="Texture2D" uid="uid://btj3kwq7ioof0" path="res://assets/sprites/objects/landmine-icon.png" id="25_06ecp"]
+[ext_resource type="PackedScene" uid="uid://h6hugk1y1806" path="res://entities/enemies/trash_mobs/Skeleton.tscn" id="25_yik85"]
 [ext_resource type="Texture2D" uid="uid://who5k5med3eh" path="res://assets/sprites/objects/caltropes-icon.png" id="26_ohjdc"]
 [ext_resource type="PackedScene" uid="uid://bran34damew6s" path="res://entities/Baggie.tscn" id="27_8f7xe"]
 [ext_resource type="PackedScene" uid="uid://du5cdtsl68l3" path="res://entities/Landmine.tscn" id="27_68jde"]
@@ -546,10 +547,15 @@ script = ExtResource("20_ai2ei")
 enemy_scene = ExtResource("15_yik85")
 metadata/_custom_type_script = "uid://d1tqs23iyetw5"
 
+[sub_resource type="Resource" id="Resource_thmuh"]
+script = ExtResource("20_ai2ei")
+enemy_scene = ExtResource("25_yik85")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
 [sub_resource type="Resource" id="Resource_yik85"]
 script = ExtResource("19_4cd1h")
 wave_budget = 12
-wave_enemies = Array[ExtResource("20_ai2ei")]([SubResource("Resource_yyq8c"), SubResource("Resource_wtgms")])
+wave_enemies = Array[ExtResource("20_ai2ei")]([SubResource("Resource_yyq8c"), SubResource("Resource_wtgms"), SubResource("Resource_thmuh")])
 wave_title = "Wave 1"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
@@ -925,14 +931,6 @@ script = ExtResource("11_vf61l")
 
 [node name="Enemies" type="Node2D" parent="EntityRoot" unique_id=1177075353]
 y_sort_enabled = true
-
-[node name="WallGoblin" parent="EntityRoot/Enemies" unique_id=88513531 instance=ExtResource("15_yik85")]
-
-[node name="WallGoblin2" parent="EntityRoot/Enemies" unique_id=192463150 instance=ExtResource("15_yik85")]
-position = Vector2(56, 115)
-
-[node name="WallGoblin3" parent="EntityRoot/Enemies" unique_id=1491843325 instance=ExtResource("15_yik85")]
-position = Vector2(228, -19)
 
 [node name="Projectiles" type="Node2D" parent="EntityRoot" unique_id=493237370]
 y_sort_enabled = true

@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b56va7p5jdf0g"]
+
+[ext_resource type="PackedScene" uid="uid://8k5ujv22ie2h" path="res://common/components/BulletSpawner.tscn" id="1_mpjhw"]
+[ext_resource type="PackedScene" uid="uid://dlbwpt2uvrnq8" path="res://entities/tower/Bone.tscn" id="2_wxn8r"]
+
+[node name="BoneSpawner" unique_id=46448684 instance=ExtResource("1_mpjhw")]
+BulletScene = ExtResource("2_wxn8r")

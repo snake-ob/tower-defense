@@ -56,9 +56,9 @@ func has_state(_state: String) -> bool:
 	return false
 	
 func _print_state_change(new_state: String):
+	return
 	if not owner is Enemy:
 		return
-	#return
 	var current_name: String
 	if current_state != null:
 		current_name = current_state.name

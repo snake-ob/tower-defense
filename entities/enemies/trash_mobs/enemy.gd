@@ -14,6 +14,7 @@ var target: Vector2
 var centre_pos: Vector2
 
 var slowed_down: bool = false
+var player_node: Node2D
 
 func _physics_process(delta: float) -> void :
 	move_and_slide()
@@ -32,7 +33,7 @@ func _ready() -> void:
 func _setup_ref():
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())
-	var bullet_spawner = get_node_or_null("BulletSpawner")
+	var bullet_spawner = get_node_or_null("BoneSpawner")
 	ref.set('body', $Body)
 	ref.set('data', $Data)
 	ref.set('health', $Health)
@@ -46,6 +47,7 @@ func _setup_ref():
 	ref.set('pickup', $Pickup)
 	ref.set('sprite', $Body/AnimatedSprite2D)
 	ref.set('target', Vector2.ZERO)
+	ref.set('target_node', player_node)
 	ref.set('grab', $Grab)
 	ref.set('soft_collision', $SoftCollision)
 	ref.set('collisions', [$CollisionShape2D, $SoftCollision/CollisionShape2D])
@@ -87,8 +89,6 @@ func _on_got_hit(hit):
 
 	ref.health._take_damage(hit.damage)
 
-	
-		
 func apply_status_effects(p_effects):
 	for p_effect in p_effects:
 		var has_effect = false
@@ -125,4 +125,6 @@ func retreat():
 	
 func reset():
 	$StateMachine._set_state('reset')
-	
+
+func catch_player(_player):
+	player_node = _player

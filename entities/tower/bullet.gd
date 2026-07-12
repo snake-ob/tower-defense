@@ -39,6 +39,9 @@ func _set_collisions(p_collision):
 func face_target():
 	direction = (target - global_position).normalized()
 	rotation = direction.angle() - deg_to_rad(-90)
+	var sprite_anim = get_node_or_null('AnimatedSprite2D')
+	if sprite_anim:
+		sprite_anim.scale.x = sign(direction.x)
 
 func move_to_target(delta):
 	var angle = direction.angle() - deg_to_rad(-90)
