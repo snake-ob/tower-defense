@@ -194,7 +194,7 @@ animations = [{
 "duration": 3.0,
 "texture": SubResource("AtlasTexture_sxn0f")
 }],
-"loop": 1,
+"loop": 0,
 "name": &"b_stretch",
 "speed": 1.0
 }, {
@@ -371,7 +371,7 @@ move = SubResource("Resource_4ha6o")
 
 [node name="AnimatedSprite2D" parent="Body" parent_id_path=PackedInt32Array(32919759) index="0" unique_id=670041104]
 sprite_frames = SubResource("SpriteFrames_bbh8g")
-animation = &"b_smash"
+animation = &"b_stretch"
 speed_scale = 0.5
 
 [node name="Stretch" type="Node" parent="StateMachine" parent_id_path=PackedInt32Array(784147820) index="5" unique_id=1758059185]
