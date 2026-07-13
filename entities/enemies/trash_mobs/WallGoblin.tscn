@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_4ha6o"]
 script = ExtResource("2_5aaar")
-speed = 15.0
+speed = 10.0
 friction = 20
 acceleration = 80
 metadata/_custom_type_script = "uid://7bxlx0bftck1"
@@ -368,6 +368,7 @@ radius = 13.0
 
 [node name="WallGoblin" unique_id=88513531 instance=ExtResource("1_sxn0f")]
 move = SubResource("Resource_4ha6o")
+coins_held = 15
 
 [node name="AnimatedSprite2D" parent="Body" parent_id_path=PackedInt32Array(32919759) index="0" unique_id=670041104]
 sprite_frames = SubResource("SpriteFrames_bbh8g")
@@ -379,6 +380,9 @@ script = SubResource("GDScript_wiylm")
 
 [node name="Smash" type="Node" parent="StateMachine" parent_id_path=PackedInt32Array(784147820) index="6" unique_id=1387732963]
 script = SubResource("GDScript_5feut")
+
+[node name="Health" parent="." index="7" unique_id=856647450]
+max_health = 5
 
 [node name="WallBuster" type="Area2D" parent="." index="15" unique_id=793524713]
 position = Vector2(0, -6)

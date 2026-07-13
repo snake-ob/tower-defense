@@ -997,6 +997,7 @@ script = ExtResource("14_oqlok")
 [node name="LevelManager" type="Node" parent="Systems" unique_id=1712362614]
 script = ExtResource("18_stsco")
 waves = Array[ExtResource("19_4cd1h")]([SubResource("Resource_yik85"), SubResource("Resource_vsljp"), SubResource("Resource_3mwhv")])
+prep_length = 1.0
 
 [node name="InventoryManager" parent="Systems" unique_id=295766526 instance=ExtResource("21_tb0r5")]
 items = Array[ExtResource("22_8f7xe")]([SubResource("Resource_wxquy"), SubResource("Resource_v1luo"), SubResource("Resource_geh62"), SubResource("Resource_vg3su")])

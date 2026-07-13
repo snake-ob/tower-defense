@@ -264,6 +264,7 @@ animations = [{
 move = SubResource("Resource_ak1ij")
 attack = SubResource("Resource_44pu0")
 collision = SubResource("Resource_lo82k")
+coins_held = 10
 
 [node name="AnimatedSprite2D" parent="Body" parent_id_path=PackedInt32Array(32919759) index="0" unique_id=670041104]
 sprite_frames = SubResource("SpriteFrames_65big")

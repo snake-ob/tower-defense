@@ -8,18 +8,17 @@ var wave_duration: float = 60.0
 var current_budget: int = 0
 var spawners: Node
 var ref: Dictionary
-var heartbeat_timer: Timer
+var wave_timer: Timer
+var wave_index: int = 0
 
 var spawner_path: String = "res://levels/components/EnemySpawner.tscn"
 
-# How often to check for spawns (0.5s creates a smooth flow)
-var tick_rate: float = 0.5 
+var tick_rate: float = 1
 
 func _ready() -> void:
-	heartbeat_timer = Timer.new()
-	heartbeat_timer.wait_time = tick_rate
-	heartbeat_timer.timeout.connect(_on_heartbeat)
-	add_child(heartbeat_timer)
+	wave_timer = Timer.new()
+	wave_timer.timeout.connect(_send_wave)
+	add_child(wave_timer)
 
 func _setup(p_ref):
 	spawners = p_ref.spawners
@@ -32,7 +31,7 @@ func setup_wave(p_wave: WaveData):
 	for spawner in spawners.get_children():
 		spawner.queue_free()
 	wave_budget = p_wave.wave_budget
-	wave_duration = p_wave.wave_duration
+	wave_duration = p_wave.wave_duration - 20 # Some time for the final enemeis to attack
 	current_budget = wave_budget
 	for spawner in p_wave.wave_enemies:
 		var spawner_scene = load(spawner_path)
@@ -44,24 +43,19 @@ func setup_wave(p_wave: WaveData):
 		new_spawner.setup_spawner(ref)
 
 func start_wave() -> void:
-	heartbeat_timer.start()
-
-func _on_heartbeat() -> void:
-	# Calculate how much we should spend this tick to finish the budget by the end
-	# (Remaining Budget / Remaining Time) * Tick Rate
-	var remaining_time = heartbeat_timer.time_left # This logic is handled by LevelManager's timer
-	# If we are at the end, spend everything left
-	if heartbeat_timer.time_left < tick_rate:
-		_spend_budget(current_budget)
-		end_wave()
-		return
-
-	# Determine how much of the budget to spend this specific tick
-	var budget_per_second = float(wave_budget) / wave_duration
-	var amount_to_spend = int(budget_per_second * tick_rate)
+	wave_index = 0
+	_send_wave()
+	# 4 waves, 3rd wave has 40% of budget, rest has 15%
+	# wave_timer will start 
 	
-	if amount_to_spend > 0:
-		_spend_budget(amount_to_spend)
+func _send_wave():
+	var current_budget: int = round(wave_budget * 0.2)
+	if wave_index == 3:
+		current_budget = round(wave_budget * 0.4)
+
+	_spend_budget(current_budget)
+	wave_index += 1
+	wave_timer.start(wave_duration/4)
 
 func _spend_budget(amount: int) -> void:
 	var spent = 0
@@ -88,4 +82,4 @@ func _get_affordable_spawners(max_cost: int) -> Array:
 	return list
 
 func end_wave() -> void:
-	heartbeat_timer.stop()
+	wave_timer.stop()

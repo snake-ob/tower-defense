@@ -55,7 +55,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sfgyd")
 }],
-"loop": false,
+"loop": 0,
 "name": &"collect",
 "speed": 10.0
 }, {
@@ -63,7 +63,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_41xt3")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -84,6 +84,7 @@ radius = 70.00714
 collision_layer = 0
 script = ExtResource("1_8o8c7")
 move = SubResource("Resource_jl2gm")
+life_time = 10.0
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1430392768]
 sprite_frames = SubResource("SpriteFrames_2762p")

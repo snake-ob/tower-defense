@@ -5,7 +5,7 @@ class_name Coin
 @export var move: MoveData
 var collected: bool = false
 var life_timer: Timer
-var life_time: float = 5.0
+@export var life_time: float = 5.0
 
 func _ready():
 	_setup_ref()
