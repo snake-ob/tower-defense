@@ -140,7 +140,7 @@ func _spawn_player():
 	$EntityRoot.add_child(new_player)
 	ref.camera.set_target(new_player)
 	ref.player = new_player
-	_setup_nodes(self)
+#	_setup_nodes(new_player)
 	SignalBus.player_spawned.emit(new_player)
 
 func _on_level_over():
@@ -950,7 +950,7 @@ script = ExtResource("11_vf61l")
 y_sort_enabled = true
 
 [node name="Skeleton" parent="EntityRoot/Enemies" unique_id=88513531 instance=ExtResource("25_yik85")]
-position = Vector2(138, 119)
+position = Vector2(110, 40)
 
 [node name="Projectiles" type="Node2D" parent="EntityRoot" unique_id=493237370]
 y_sort_enabled = true
