@@ -42,7 +42,7 @@ var status: Array = []
 [node name="Bullet" type="CharacterBody2D" unique_id=150744527]
 y_sort_enabled = true
 collision_layer = 16
-collision_mask = 0
+collision_mask = 513
 script = ExtResource("1_vl4bg")
 attack = SubResource("Resource_q5mak")
 move = SubResource("Resource_tljn8")
@@ -70,7 +70,7 @@ shape = SubResource("CapsuleShape2D_gxey3")
 [node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
 position = Vector2(-0.5, -3.5)
 collision_layer = 0
-collision_mask = 1024
+collision_mask = 513
 monitorable = false
 script = ExtResource("3_a0ooq")
 

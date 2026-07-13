@@ -13,4 +13,5 @@ signal inv_updated
 signal camera_new_target(target)
 signal end_stage
 signal player_hit(current_health)
-signal player_spawned()
+signal player_spawned(player)
+signal request_player(requester)

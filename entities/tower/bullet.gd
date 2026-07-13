@@ -25,6 +25,7 @@ func _ready() -> void:
 	_setup_nodes(self)
 	$Health.health_depleted.connect(_on_health_depleted)
 	$Hurtbox.got_hit.connect(_on_got_hit)
+	$Hitbox.hit_object.connect(_on_got_hit)
 	face_target()
 	init_status_upgrades()
 
@@ -47,10 +48,10 @@ func move_to_target(delta):
 	var angle = direction.angle() - deg_to_rad(-90)
 	
 	rotation = lerp_angle(rotation, angle, turn_speed * delta)
-	velocity = direction * speed * 100
+	velocity = direction * speed
 
 func move_in_direction(delta):
-	velocity = direction * speed * 100
+	velocity = direction * speed
 	
 func _setup_nodes(p_node):
 	for child in p_node.get_children():
@@ -62,7 +63,7 @@ func _setup_nodes(p_node):
 func _on_health_depleted():
 	self.queue_free()
 
-func _on_got_hit(hit: Dictionary):
+func _on_got_hit(hit: Dictionary = {}):
 	#Hit {damage, knockback, position, status}
 	ref.health._take_damage(1)
 	

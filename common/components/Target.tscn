@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c2ftbl6bo5fni"]
+
+[ext_resource type="Script" uid="uid://fvaoqsrvde4e" path="res://common/components/target_closest.gd" id="1_cjrli"]
+
+[node name="Target" type="Node" unique_id=1743332449]
+script = ExtResource("1_cjrli")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1037243990]

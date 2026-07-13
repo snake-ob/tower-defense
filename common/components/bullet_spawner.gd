@@ -16,9 +16,11 @@ var target_node: Target
 
 func _setup(p_ref):
 	ref = p_ref
-	target_node = p_ref.target_node
+
+	target_node = ref.get('target_node')
 
 func _ready():
+	SignalBus.request_player.emit(self)
 	bullet_timer = Timer.new()
 	add_child(bullet_timer)
 	bullet_timer.timeout.connect(func(): bullet_ready = true)
@@ -38,6 +40,7 @@ func spawn_bullet(p_target):
 	new_bullet.attack = ref.attack
 	new_bullet.attack.damage = bullet.damage
 	new_bullet.move = ref.move
+	new_bullet.speed = bullet.speed
 	new_bullet._set_collisions(ref.actor.collision)
 	if ref.has('status_upgrades'):
 		new_bullet._set_status_upgrades(ref.status_upgrades)
@@ -60,3 +63,6 @@ func activate():
 
 func deactivate():
 	active = false
+
+func catch_player(_player):
+	return

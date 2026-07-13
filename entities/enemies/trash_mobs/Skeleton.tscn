@@ -2,7 +2,28 @@
 
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="1_fxhr1"]
 [ext_resource type="Texture2D" uid="uid://c4v8d1qr5nhui" path="res://assets/sprites/characters/skeleton-sheet.png" id="2_cw3sd"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_nuqbb"]
+[ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="3_ak1ij"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="3_lo82k"]
 [ext_resource type="PackedScene" uid="uid://b56va7p5jdf0g" path="res://entities/enemies/BoneSpawner.tscn" id="3_ndn8c"]
+[ext_resource type="Script" uid="uid://fvaoqsrvde4e" path="res://common/components/target_closest.gd" id="4_d22l8"]
+
+[sub_resource type="Resource" id="Resource_ak1ij"]
+script = ExtResource("2_nuqbb")
+speed = 10.0
+friction = 20
+acceleration = 80
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="Resource" id="Resource_44pu0"]
+script = ExtResource("3_lo82k")
+metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
+
+[sub_resource type="Resource" id="Resource_lo82k"]
+script = ExtResource("3_ak1ij")
+layer = 11
+mask = 3
+metadata/_custom_type_script = "uid://dxnywa0nlrdku"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ndn8c"]
 atlas = ExtResource("2_cw3sd")
@@ -240,9 +261,20 @@ animations = [{
 }]
 
 [node name="Skeleton" unique_id=88513531 instance=ExtResource("1_fxhr1")]
+move = SubResource("Resource_ak1ij")
+attack = SubResource("Resource_44pu0")
+collision = SubResource("Resource_lo82k")
 
 [node name="AnimatedSprite2D" parent="Body" parent_id_path=PackedInt32Array(32919759) index="0" unique_id=670041104]
 sprite_frames = SubResource("SpriteFrames_65big")
 animation = &"f_walk"
 
+[node name="DetectZone" parent="." index="10" unique_id=2106882287]
+collision_mask = 2
+
 [node name="BoneSpawner" parent="." index="15" unique_id=46448684 instance=ExtResource("3_ndn8c")]
+
+[node name="Target" type="Node" parent="." index="16" unique_id=1743332449]
+script = ExtResource("4_d22l8")
+
+[node name="RayCast2D" type="RayCast2D" parent="Target" index="0" unique_id=1037243990]

@@ -4,6 +4,8 @@ class_name Hitbox
 var ref: Ref
 var status_effects: Array = []
 
+signal hit_object
+
 func _setup(p_ref):
 	ref = p_ref
 	
@@ -22,7 +24,9 @@ func _on_area_entered(area: Area2D) -> void:
 				status_effects.append(status)
 	
 	var hit = {'damage': damage, 'knockback': knockback, 'position': position, 'status_effects': status_effects}
-	area.take_hit(hit)
+	if area.has_method('take_hit'):
+		area.take_hit(hit)
+	hit_object.emit()
 	
 func _get_collision_shape():
 	return $CollisionShape2D.get_shape().duplicate()	

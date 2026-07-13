@@ -31,7 +31,7 @@ func initialize_hearts(count: int):
 func _on_player_hit(current_health: int):
 	_draw_hearts(current_health)
 
-func _on_player_spawn():
+func _on_player_spawn(_player):
 	_draw_hearts(max_health)
 
 func _draw_hearts(current_health: int):

@@ -22,12 +22,14 @@ func _physics_process(delta: float) -> void :
 func _ready() -> void:
 	_setup_ref()
 	_setup_nodes(self)
+	SignalBus.player_spawned.connect(catch_player)
+	SignalBus.request_player.emit(self)
 	if ref.sprite.material:
 		ref.sprite.material = ref.sprite.material.duplicate()
 	$StateMachine._set_state('chase')
 	$Health.health_depleted.connect(_on_health_depleted)
 	$Hurtbox.got_hit.connect(_on_got_hit)
-	
+
 	PerformanceTracker.register_enemy()
 
 func _setup_ref():
@@ -47,7 +49,7 @@ func _setup_ref():
 	ref.set('pickup', $Pickup)
 	ref.set('sprite', $Body/AnimatedSprite2D)
 	ref.set('target', Vector2.ZERO)
-	ref.set('target_node', player_node)
+	ref.set('target_node', get_node_or_null('Target'))
 	ref.set('grab', $Grab)
 	ref.set('soft_collision', $SoftCollision)
 	ref.set('collisions', [$CollisionShape2D, $SoftCollision/CollisionShape2D])
@@ -57,7 +59,7 @@ func _setup_ref():
 	ref.set('state_machine', $StateMachine)
 	ref.set('wall_detector', get_node_or_null('WallDetector'))
 	ref.set('actor', self)
-	
+
 func _setup_nodes(p_node):
 	for child in p_node.get_children():
 		if child.has_method('_setup'):
@@ -65,7 +67,7 @@ func _setup_nodes(p_node):
 			child._setup(ref)
 		if p_node.get_child_count() > 0:
 			_setup_nodes(child)
-			
+
 func _cleanup_nodes(p_node):
 	for child in p_node.get_children():
 		if not is_instance_valid(child): pass
@@ -73,12 +75,11 @@ func _cleanup_nodes(p_node):
 			child._cleanup()
 		if p_node.get_child_count() > 0:
 			_cleanup_nodes(child)
-			
+
 func _on_health_depleted():
 	PerformanceTracker.unregister_enemy()
 	_cleanup_nodes(self)
 	_die()
-	
 
 func _on_got_hit(hit):
 	ref.sprite.trigger_flicker()
@@ -96,22 +97,22 @@ func apply_status_effects(p_effects):
 			if active_effect.scene_file_path == p_effect.resource_path:
 				has_effect = true
 				active_effect.renew()
-		if not has_effect:		
+		if not has_effect:
 			var effect_node = p_effect.instantiate()
 			effect_node._setup(ref)
 			ref.status_effects.add_child.call_deferred(effect_node)
-			
+
 func update_target(p_target):
 	ref.set('target', p_target)
 
 func catch_exit_pos(p_pos):
 	target = p_pos
 	ref.target = p_pos
-	
+
 func _die():
 	emit_drop()
 	$StateMachine._set_state('die')
-	
+
 func emit_drop():
 	var coin_scene = load(coin_path)
 	var coin_emitter: CoinEmitter = coin_scene.instantiate()
@@ -122,7 +123,7 @@ func emit_drop():
 
 func retreat():
 	$StateMachine._set_state('retreat')
-	
+
 func reset():
 	$StateMachine._set_state('reset')
 
