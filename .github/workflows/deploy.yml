@@ -4,11 +4,22 @@ on:
     branches:
       - main
 
+# Give the workflow explicit permission to issue a native live deployment
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+# Prevent overlapping deployments by canceling old ones if you push rapidly
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Source Code
@@ -46,9 +57,14 @@ jobs:
               });
           }
           EOF
-          
-      - name: Upload to GitHub Pages Branch
-        uses: JamesIves/github-pages-deploy-action@v4
+
+      # Native Step 1: Securely bundle up your web folder into a production artifact
+      - name: Upload Pages Artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: build/web # This matches your Godot export path
-          branch: gh-pages # Destined deployment branch
+          path: build/web
+
+      # Native Step 2: Hand the artifact directly to the live web hosting servers
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
