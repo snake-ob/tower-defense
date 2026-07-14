@@ -32,10 +32,10 @@ jobs:
       - name: Log Godot Version
         run: echo "Building with Godot 4.7"
 
-      # 2. Re-import everything fresh in the runner workspace (Updated to 4.7)
+      # 2. Re-import everything fresh in the runner workspace (Updated to use curl)
       - name: Headless Godot Import
         run: |
-          wget https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip
+          curl -fSLo Godot_v4.7-stable_linux.x86_64.zip https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip
           unzip Godot_v4.7-stable_linux.x86_64.zip
           ./Godot_v4.7-stable_linux.x86_64 --headless --editor --import || true
           rm Godot_v4.7-stable_linux.x86_64 Godot_v4.7-stable_linux.x86_64.zip
