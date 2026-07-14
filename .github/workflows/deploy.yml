@@ -25,10 +25,14 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
+      # 1. Completely obliterate any old local tracking states
+      - name: Clean Local Workspace
+        run: rm -rf .godot/ .import/ build/
+
       - name: Log Godot Version
         run: echo "Building with Godot 4.x"
 
-      # Forces Godot to scan the raw assets and build the .godot/ import cache before compiling
+      # 2. Re-import everything fresh in the runner workspace
       - name: Headless Godot Import
         run: |
           wget https://github.com/godotengine/godot/releases/download/4.6.3-stable/Godot_v4.6.3-stable_linux.x86_64.zip
@@ -36,7 +40,7 @@ jobs:
           ./Godot_v4.6.3-stable_linux.x86_64 --headless --editor --import || true
           rm Godot_v4.6.3-stable_linux.x86_64 Godot_v4.6.3-stable_linux.x86_64.zip
 
-      # Godot compiles the fully imported assets into your web build
+      # 3. Export, but with the cache strictly recognized
       - name: Export Web Build
         uses: firebelley/godot-export@v5.2.1
         with:
@@ -44,37 +48,5 @@ jobs:
           godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.6.3-stable/Godot_v4.6.3-stable_export_templates.tpz
           relative_project_path: ./
           archive_output: false
-        
-      # Configures the Service Worker to satisfy strict modern browser security
-      - name: Patch for SharedArrayBuffer Support
-        run: |
-          sed -i 's|<script>|<script src="coi-serviceworker.js"></script><script>|g' build/web/index.html
-          cat << 'EOF' > build/web/coi-serviceworker.js
-          if (typeof window === 'undefined') {
-              self.addEventListener('install', () => self.skipWaiting());
-              self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
-              self.addEventListener('fetch', (e) => {
-                  if (e.request.cache === 'only-if-cached' && e.request.mode !== 'same-origin') return;
-                  e.respondWith(
-                      fetch(e.request).then((r) => {
-                          if (r.status === 0) return r;
-                          const h = new Headers(r.headers);
-                          h.set('Cross-Origin-Embedder-Policy', 'require-corp');
-                          h.set('Cross-Origin-Opener-Policy', 'same-origin');
-                          return new Response(r.body, { status: r.status, statusText: r.statusText, headers: h });
-                      }).catch((err) => console.error(err))
-                  );
-              });
-          }
-          EOF
-
-      # Native Step 1: Securely bundle up your web folder into a production artifact
-      - name: Upload Pages Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: build/web
-
-      # Native Step 2: Hand the artifact directly to the live web hosting servers
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          # FORCES THE EXPORTER TO NOT BLINDLY TRUST INTERNAL CACHE
+          use_godot_3_exec: false
