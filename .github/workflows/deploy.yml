@@ -25,9 +25,14 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
+      # 1. WIPE CACHE FIRST: Forces Godot to look at your fresh changes right away
+      - name: Clear Godot Import Cache
+        run: rm -rf .godot/ .import/
+
       - name: Log Godot Version
         run: echo "Building with Godot 4.x"
 
+      # 2. EXPORT: Godot compiles the fresh assets
       - name: Export Web Build
         uses: firebelley/godot-export@v5.2.1
         with:
@@ -58,13 +63,13 @@ jobs:
           }
           EOF
 
-      # Native Step 1: Securely bundle up your web folder into a production artifact
+      # 3. UPLOAD: Securely bundle up your fresh web folder
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: build/web
 
-      # Native Step 2: Hand the artifact directly to the live web hosting servers
+      # 4. DEPLOY: Hand the clean artifact directly to the web servers
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
