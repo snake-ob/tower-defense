@@ -51,8 +51,10 @@ jobs:
           use_godot_3_exec: false
 
       # 4. Prevent GitHub Pages from ignoring files starting with underscores
-      - name: Add .nojekyll
-        run: touch build/web/.nojekyll
+      - name: Create .nojekyll
+        run: |
+          mkdir -p build/web
+          touch build/web/.nojekyll
 
       # 5. Upload the exported Web files as a Pages artifact
       - name: Upload Artifact
