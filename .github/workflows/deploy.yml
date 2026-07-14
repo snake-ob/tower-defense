@@ -48,5 +48,19 @@ jobs:
           godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.6.3-stable/Godot_v4.6.3-stable_export_templates.tpz
           relative_project_path: ./
           archive_output: false
-          # FORCES THE EXPORTER TO NOT BLINDLY TRUST INTERNAL CACHE
           use_godot_3_exec: false
+
+      # 4. Prevent GitHub Pages from ignoring files starting with underscores
+      - name: Add .nojekyll
+        run: touch build/web/.nojekyll
+
+      # 5. Upload the exported Web files as a Pages artifact
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+      # 6. Deploy the artifact to live GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
