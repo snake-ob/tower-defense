@@ -40,7 +40,7 @@ jobs:
           ./Godot_v4.7-stable_linux.x86_64 --headless --editor --import || true
           rm Godot_v4.7-stable_linux.x86_64 Godot_v4.7-stable_linux.x86_64.zip
 
-      # 3. Export, but with the cache strictly recognized (Updated to 4.7)
+      # 3. Export, but with the cache strictly recognized
       - name: Export Web Build
         uses: firebelley/godot-export@v5.2.1
         with:
@@ -49,6 +49,7 @@ jobs:
           relative_project_path: ./
           archive_output: false
           use_godot_3_exec: false
+          use_preset_export_path: true
 
       # 4. Prevent GitHub Pages from ignoring files starting with underscores
       # (Added mkdir -p to guarantee the folder exists before creating the file)
