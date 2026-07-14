@@ -25,14 +25,18 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      # 1. WIPE CACHE FIRST: Forces Godot to look at your fresh changes right away
-      - name: Clear Godot Import Cache
-        run: rm -rf .godot/ .import/
-
       - name: Log Godot Version
         run: echo "Building with Godot 4.x"
 
-      # 2. EXPORT: Godot compiles the fresh assets
+      # Forces Godot to scan the raw assets and build the .godot/ import cache before compiling
+      - name: Headless Godot Import
+        run: |
+          wget https://github.com/godotengine/godot/releases/download/4.6.3-stable/Godot_v4.6.3-stable_linux.x86_64.zip
+          unzip Godot_v4.6.3-stable_linux.x86_64.zip
+          ./Godot_v4.6.3-stable_linux.x86_64 --headless --editor --import || true
+          rm Godot_v4.6.3-stable_linux.x86_64 Godot_v4.6.3-stable_linux.x86_64.zip
+
+      # Godot compiles the fully imported assets into your web build
       - name: Export Web Build
         uses: firebelley/godot-export@v5.2.1
         with:
@@ -41,6 +45,7 @@ jobs:
           relative_project_path: ./
           archive_output: false
         
+      # Configures the Service Worker to satisfy strict modern browser security
       - name: Patch for SharedArrayBuffer Support
         run: |
           sed -i 's|<script>|<script src="coi-serviceworker.js"></script><script>|g' build/web/index.html
@@ -63,13 +68,13 @@ jobs:
           }
           EOF
 
-      # 3. UPLOAD: Securely bundle up your fresh web folder
+      # Native Step 1: Securely bundle up your web folder into a production artifact
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: build/web
 
-      # 4. DEPLOY: Hand the clean artifact directly to the web servers
+      # Native Step 2: Hand the artifact directly to the live web hosting servers
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
