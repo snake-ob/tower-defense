@@ -555,7 +555,7 @@ collision_layer = 128
 collision_mask = 128
 monitorable = false
 script = ExtResource("7_d4g0h")
-push_force = 6.0
+push_force = 10.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
 position = Vector2(0, 1)

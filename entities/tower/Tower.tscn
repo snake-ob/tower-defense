@@ -209,13 +209,13 @@ bullet = SubResource("Resource_f6sw5")
 position = Vector2(0, -4)
 
 [node name="SoftCollision" type="Area2D" parent="." unique_id=1691847556]
-collision_layer = 131072
+collision_layer = 131200
 collision_mask = 128
 script = ExtResource("14_6bp5w")
 push_force = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
-position = Vector2(0, -4)
+position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_aueyi")
 
 [node name="Target" type="Node" parent="." unique_id=1743332449]

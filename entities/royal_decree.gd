@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name RoyalDecree
 
 @onready var ref: Ref = $Ref
 @export var move: MoveData

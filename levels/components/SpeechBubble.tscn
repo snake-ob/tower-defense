@@ -63,6 +63,7 @@ offset_right = 24.0
 offset_bottom = 16.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_vg3su")
 script = ExtResource("2_0682y")
 
@@ -80,6 +81,7 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+mouse_filter = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control" unique_id=1416006996]
 position = Vector2(2, -6)
