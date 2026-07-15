@@ -938,13 +938,14 @@ position = Vector2(322, 18)
 position = Vector2(-148, 43)
 
 [node name="Forest" type="TileMapLayer" parent="LevelRoot" unique_id=1747897373]
-y_sort_enabled = true
+z_index = -1
+z_as_relative = false
 tile_map_data = PackedByteArray("AAD///3/AQAAAAAAAAAAAP3/AQAAAAAAAAABAP3/AQAAAAAAAAACAP3/AQAAAAAAAAADAP3/AQAAAAAAAAAEAP3/AQAAAAAAAAAFAP3/AQAAAAAAAAD+//3/AQAAAAAAAAD9//3/AQAAAAAAAAAGAP3/AQAAAAAAAAAHAP3/AQAAAAAAAAA=")
 tile_set = SubResource("TileSet_7kywp")
 
 [node name="EmergeEffect" type="Area2D" parent="LevelRoot/Forest" unique_id=658097563]
 collision_layer = 0
-collision_mask = 256
+collision_mask = 320
 script = ExtResource("7_bgw3c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LevelRoot/Forest/EmergeEffect" unique_id=1443132444]
@@ -968,6 +969,9 @@ script = ExtResource("11_vf61l")
 
 [node name="Enemies" type="Node2D" parent="EntityRoot" unique_id=1177075353]
 y_sort_enabled = true
+
+[node name="Enemy" parent="EntityRoot/Enemies" unique_id=88513531 instance=ExtResource("21_ua8iw")]
+position = Vector2(117, -248)
 
 [node name="Projectiles" type="Node2D" parent="EntityRoot" unique_id=493237370]
 y_sort_enabled = true
@@ -997,6 +1001,7 @@ script = ExtResource("14_oqlok")
 [node name="LevelManager" type="Node" parent="Systems" unique_id=1712362614]
 script = ExtResource("18_stsco")
 waves = Array[ExtResource("19_4cd1h")]([SubResource("Resource_yik85"), SubResource("Resource_vsljp"), SubResource("Resource_3mwhv")])
+prep_length = 35.0
 
 [node name="InventoryManager" parent="Systems" unique_id=295766526 instance=ExtResource("21_tb0r5")]
 items = Array[ExtResource("22_8f7xe")]([SubResource("Resource_wxquy"), SubResource("Resource_v1luo"), SubResource("Resource_geh62"), SubResource("Resource_vg3su")])

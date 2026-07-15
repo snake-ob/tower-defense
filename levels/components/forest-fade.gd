@@ -1,3 +1,5 @@
+@tool
+
 extends Area2D
 
 var overlapping_enemies: Array[Node2D] = []

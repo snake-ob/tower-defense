@@ -5,11 +5,11 @@
 [ext_resource type="Script" uid="uid://btpfjqfhq0o86" path="res://common/components/input_controller.gd" id="3_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="3_qjkh3"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="6_gskgj"]
-[ext_resource type="Shader" path="res://player/flicker.gdshader" id="6_hbkom"]
+[ext_resource type="Shader" uid="uid://xhgadr8idsan" path="res://player/flicker.gdshader" id="6_hbkom"]
 [ext_resource type="Texture2D" uid="uid://spyncwb82vxs" path="res://assets/sprites/characters/Player-Sheet.png" id="6_v4f8b"]
 [ext_resource type="PackedScene" uid="uid://d3bfew6tg4p6d" path="res://common/components/AniManager.tscn" id="7_b32pr"]
 [ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="7_d4g0h"]
-[ext_resource type="Script" path="res://player/sprite.gd" id="8_d4g0h"]
+[ext_resource type="Script" uid="uid://cft2bf8lomomh" path="res://player/sprite.gd" id="8_d4g0h"]
 [ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="8_ndjxb"]
 [ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="10_ndjxb"]
 [ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="11_b32pr"]
@@ -162,7 +162,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_uewl2")
 }],
-"loop": true,
+"loop": 1,
 "name": &"b_carry",
 "speed": 5.0
 }, {
@@ -176,7 +176,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lhjxl")
 }],
-"loop": false,
+"loop": 0,
 "name": &"b_die",
 "speed": 4.0
 }, {
@@ -184,7 +184,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ofhxi")
 }],
-"loop": true,
+"loop": 1,
 "name": &"b_hold",
 "speed": 5.0
 }, {
@@ -192,7 +192,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_yu5hk")
 }],
-"loop": true,
+"loop": 1,
 "name": &"b_idle",
 "speed": 5.0
 }, {
@@ -209,7 +209,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8nth8")
 }],
-"loop": true,
+"loop": 1,
 "name": &"b_walk",
 "speed": 5.0
 }, {
@@ -226,7 +226,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_8eyfg")
 }],
-"loop": true,
+"loop": 1,
 "name": &"f_carry",
 "speed": 5.0
 }, {
@@ -240,7 +240,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vud74")
 }],
-"loop": false,
+"loop": 0,
 "name": &"f_die",
 "speed": 4.0
 }, {
@@ -248,7 +248,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_76mgg")
 }],
-"loop": true,
+"loop": 1,
 "name": &"f_hold",
 "speed": 5.0
 }, {
@@ -256,7 +256,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_t8epa")
 }],
-"loop": true,
+"loop": 1,
 "name": &"f_idle",
 "speed": 5.0
 }, {
@@ -273,7 +273,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_u8vxv")
 }],
-"loop": true,
+"loop": 1,
 "name": &"f_walk",
 "speed": 5.0
 }, {
@@ -290,13 +290,13 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_t7u8x")
 }],
-"loop": true,
+"loop": 1,
 "name": &"launch",
 "speed": 10.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
-radius = 3.0
+radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kqn5r"]
 radius = 16.0
@@ -553,11 +553,12 @@ script = ExtResource("8_d4g0h")
 position = Vector2(0, -8)
 collision_layer = 128
 collision_mask = 128
+monitorable = false
 script = ExtResource("7_d4g0h")
-push_force = 0.3
+push_force = 6.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision" unique_id=750917308]
-position = Vector2(0, 3)
+position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_aueyi")
 
 [node name="Grab" type="Area2D" parent="." unique_id=1402749356]

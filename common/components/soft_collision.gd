@@ -5,11 +5,13 @@ class_name SoftCollision
 @onready var collision_shape = $CollisionShape2D
 
 @onready var stored_force = push_force
-var max_distance = 30
+var max_distance = 16
 var actor: CharacterBody2D
 
 func _ready() -> void:
 	actor = get_parent() as CharacterBody2D
+	if collision_shape and collision_shape.shape is CircleShape2D:
+		max_distance = collision_shape.shape.radius
 
 func _physics_process(_delta: float) -> void:
 	var areas = get_overlapping_areas()
@@ -20,17 +22,18 @@ func _physics_process(_delta: float) -> void:
 		if area is SoftCollision:
 			var distance = global_position.distance_to(area.global_position)
 			
+			if distance >= max_distance:
+				continue
+			
 			if distance == 0:
 				var random_dir = Vector2.UP.rotated(randf() * TAU)
 				area._get_pushed(random_dir, push_force)
 				continue
-			
-			if distance >= max_distance:
-				continue
 				
 			var dir = global_position.direction_to(area.global_position)
+			var force_ratio = (max_distance - distance) / max_distance
 			
-			var calculated_force = (max_distance - distance) * push_force
+			var calculated_force = force_ratio * push_force
 			
 			area._get_pushed(dir, calculated_force)
 
