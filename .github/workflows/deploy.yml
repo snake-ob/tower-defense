@@ -2,44 +2,72 @@ name: "Publish to GitHub Pages"
 on:
   push:
     branches:
-      - main  # Change this to master if that is your default branch
+      - main
 
-env:
-  GODOT_VERSION: "4.7.0"
+# Greatly simplified permissions specifically for native Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs in progress
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }} # Fixed: replaced ":" with "." to resolve syntax error
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
         with:
-          lfs: true
+          lfs: true # Ensured LFS is checked out in case you have large assets
 
-      # Explicitly forces the standard (non-C#) Godot engine download 
-      - name: Setup Godot (Standard Engine)
-        uses: chickensoft-games/setup-godot@v2
-        with:
-          version: ${{ env.GODOT_VERSION }}
-          use-mono: false # Force standard version to allow Web exports
+      - name: Log Godot Version
+        run: echo "Building with Godot 4.7"
 
-      # Performs the headless export using the configured "Web" preset
       - name: Export Web Build
-        run: |
-          mkdir -p build/web
-          godot --headless --export-release "Web" build/web/index.html
-
-      # Essential workaround for GitHub Pages: injects COI service worker to enable SharedArrayBuffer
-      - name: Inject COI Service Worker
-        run: |
-          cd build/web
-          wget https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.js
-          sed -i 's|<script|& src="coi-serviceworker.js"|' index.html
-
-      - name: Deploy to GitHub Pages Branch
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: firebelley/godot-export@v6.0.0 # Updated to v6 to support Node 20+ runners smoothly
         with:
-          folder: build/web
-          branch: gh-pages
+          # Pointed explicitly to the official 4.7-stable release naming scheme
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux_x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_export_templates.tpz
+          relative_project_path: ./
+          archive_output: false
+        
+      - name: Patch for SharedArrayBuffer Support
+        run: |
+          sed -i 's|<script>|<script src="coi-serviceworker.js"></script><script>|g' build/web/index.html
+          cat << 'EOF' > build/web/coi-serviceworker.js
+          if (typeof window === 'undefined') {
+              self.addEventListener('install', () => self.skipWaiting());
+              self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
+              self.addEventListener('fetch', (e) => {
+                  if (e.request.cache === 'only-if-cached' && e.request.mode !== 'same-origin') return;
+                  e.respondWith(
+                      fetch(e.request).then((r) => {
+                          if (r.status === 0) return r;
+                          const h = new Headers(r.headers);
+                          h.set('Cross-Origin-Embedder-Policy', 'require-corp');
+                          h.set('Cross-Origin-Opener-Policy', 'same-origin');
+                          return new Response(r.body, { status: r.status, statusText: r.statusText, headers: h });
+                      }).catch((err) => console.error(err))
+                  );
+              });
+          }
+          EOF
+
+      # Step 1: Tell GitHub to package up your build folder natively
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/web
+
+      # Step 2: Directly trigger the official live web deployment safely
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
