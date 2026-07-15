@@ -1,73 +1,70 @@
-name: "Publish to GitHub Pages"
+name: "Godot HTML5 Export"
+
 on:
   push:
     branches:
       - main
 
-# Greatly simplified permissions specifically for native Pages deployment
+# Grant permissions needed for GitHub Pages deployment
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs in progress
 concurrency:
   group: "pages"
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }} # Fixed: replaced ":" with "." to resolve syntax error
+  export:
     runs-on: ubuntu-latest
+    name: Export and Deploy Game
     steps:
-      - name: Checkout Source Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
-        with:
-          lfs: true # Ensured LFS is checked out in case you have large assets
 
-      - name: Log Godot Version
-        run: echo "Building with Godot 4.7"
-
-      - name: Export Web Build
-        uses: firebelley/godot-export@v6.0.0 # Updated to v6 to support Node 20+ runners smoothly
+      - name: Cache Godot Engine
+        id: cache-godot
+        uses: actions/cache@v4
         with:
-          # Pointed explicitly to the official 4.7-stable release naming scheme
-          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux_x86_64.zip
-          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_export_templates.tpz
-          relative_project_path: ./
-          archive_output: false
-        
-      - name: Patch for SharedArrayBuffer Support
+          path: ~/.local/share/godot
+          key: godot-4.7-stable-linux
+
+      - name: Download Godot 4.7 & Templates Manual Override
+        if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
-          sed -i 's|<script>|<script src="coi-serviceworker.js"></script><script>|g' build/web/index.html
-          cat << 'EOF' > build/web/coi-serviceworker.js
-          if (typeof window === 'undefined') {
-              self.addEventListener('install', () => self.skipWaiting());
-              self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
-              self.addEventListener('fetch', (e) => {
-                  if (e.request.cache === 'only-if-cached' && e.request.mode !== 'same-origin') return;
-                  e.respondWith(
-                      fetch(e.request).then((r) => {
-                          if (r.status === 0) return r;
-                          const h = new Headers(r.headers);
-                          h.set('Cross-Origin-Embedder-Policy', 'require-corp');
-                          h.set('Cross-Origin-Opener-Policy', 'same-origin');
-                          return new Response(r.body, { status: r.status, statusText: r.statusText, headers: h });
-                      }).catch((err) => console.error(err))
-                  );
-              });
-          }
-          EOF
+          mkdir -p ~/.local/share/godot
+          
+          # 1. Download the correct editor binary with the dot (.) naming structure
+          curl -L -o ~/.local/share/godot/godot.zip https://github.com/godotengine/godot-builds/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip
+          
+          # 2. Extract the editor binary
+          unzip ~/.local/share/godot/godot.zip -d ~/.local/share/godot/
+          
+          # 3. Rename the binary to match the underscore (_) expected by the export action
+          mv ~/.local/share/godot/Godot_v4.7-stable_linux.x86_64 ~/.local/share/godot/Godot_v4.7-stable_linux_x86_64
+          
+          # Clean up zip file
+          rm ~/.local/share/godot/godot.zip
 
-      # Step 1: Tell GitHub to package up your build folder natively
-      - name: Upload Artifact
+      - name: Run Godot Export
+        uses: firebelley/godot-export@v6.0.0
+        with:
+          # Match the exact URLs we bypass to keep the action's internal validation happy
+          godot_executable_download_url: "https://github.com/godotengine/godot-builds/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip"
+          godot_export_templates_download_url: "https://github.com/godotengine/godot-builds/releases/download/4.7-stable/Godot_v4.7-stable_export_templates.tpz"
+          relative_project_path: "./" # Change this if your project.godot is in a subdirectory
+          archive_export_output: true
+          # Replace 'Web' with the exact name of your export preset in export_presets.cfg
+          export_preset_name: "Web" 
+
+      # Optional: Auto-deploy to GitHub Pages if you are exporting an HTML5/Web build
+      - name: Upload Artifact to Pages
         uses: actions/upload-pages-artifact@v3
         with:
-          path: build/web
+          # Points to the default output directory of the firebelley action
+          path: /home/runner/.local/share/godot/builds/Web
 
-      # Step 2: Directly trigger the official live web deployment safely
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
