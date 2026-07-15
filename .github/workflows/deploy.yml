@@ -2,69 +2,42 @@ name: "Publish to GitHub Pages"
 on:
   push:
     branches:
-      - main
+      - main  # Change this to master if that is your default branch
 
-# Give the workflow explicit permission to issue a native live deployment
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-# Prevent overlapping deployments by canceling old ones if you push rapidly
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+env:
+  GODOT_VERSION: "4.7"
+  EXPORT_NAME: "index"
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout Source Code
         uses: actions/checkout@v4
-
-      # 1. Completely obliterate any old local tracking states
-      - name: Clean Local Workspace
-        run: rm -rf .godot/ .import/ build/
-
-      - name: Log Godot Version
-        run: echo "Building with Godot 4.7"
-
-      # 2. Re-import everything fresh in the runner workspace (Updated to use curl)
-      - name: Headless Godot Import
-        run: |
-          curl -fSLo Godot_v4.7-stable_linux.x86_64.zip https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip
-          unzip Godot_v4.7-stable_linux.x86_64.zip
-          ./Godot_v4.7-stable_linux.x86_64 --headless --editor --import || true
-          rm Godot_v4.7-stable_linux.x86_64 Godot_v4.7-stable_linux.x86_64.zip
-
-      # 3. Export, but with the cache strictly recognized
-      - name: Export Web Build
-        uses: firebelley/godot-export@v5.2.1
         with:
-          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_linux.x86_64.zip
-          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/4.7-stable/Godot_v4.7-stable_export_templates.tpz
+          lfs: true
+
+      - name: Install & Run Godot Export
+        uses: firebelley/godot-export@v6.0.0
+        with:
+          # Targets the exact 4.7-stable release binaries from TuxFamily
+          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux_x86_64.zip
+          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz
           relative_project_path: ./
           archive_output: false
-          use_godot_3_exec: false
-          use_preset_export_path: true
+          use_preset_export_path: true # Instructs the builder to respect the path inside your export_presets.cfg
 
-      # 4. Prevent GitHub Pages from ignoring files starting with underscores
-      # (Added mkdir -p to guarantee the folder exists before creating the file)
-      - name: Add .nojekyll
+      # Essential workaround for GitHub Pages: injects COI service worker to enable SharedArrayBuffer
+      - name: Inject COI Service Worker
         run: |
-          mkdir -p build/web
-          touch build/web/.nojekyll
+          cd build/web
+          wget https://raw.githubusercontent.com/gzuidhof/coi-serviceworker/master/coi-serviceworker.js
+          sed -i 's|<script|& src="coi-serviceworker.js"|' index.html
 
-      # 5. Upload the exported Web files as a Pages artifact
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to GitHub Pages Branch
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          path: build/web
-
-      # 6. Deploy the artifact to live GitHub Pages
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          folder: build/web
+          branch: gh-pages
