@@ -5,7 +5,7 @@ on:
       - main  # Change this to master if that is your default branch
 
 env:
-  GODOT_VERSION: "4.7.0" # Use the 3-digit semantic version (4.7.0)
+  GODOT_VERSION: "4.7.0"
 
 jobs:
   deploy:
@@ -18,12 +18,12 @@ jobs:
         with:
           lfs: true
 
-      # Automatically installs the correct Godot engine & export templates from the best mirror
-      - name: Setup Godot
+      # Explicitly forces the standard (non-C#) Godot engine download 
+      - name: Setup Godot (Standard Engine)
         uses: chickensoft-games/setup-godot@v2
         with:
           version: ${{ env.GODOT_VERSION }}
-          use-mono: false
+          use-mono: false # Force standard version to allow Web exports
 
       # Performs the headless export using the configured "Web" preset
       - name: Export Web Build
