@@ -22,12 +22,12 @@ jobs:
       - name: Install & Run Godot Export
         uses: firebelley/godot-export@v6.0.0
         with:
-          # Targets the exact 4.7-stable release binaries from TuxFamily
-          godot_executable_download_url: https://downloads.tuxfamily.org/godotengine/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}-stable_linux_x86_64.zip
-          godot_export_templates_download_url: https://downloads.tuxfamily.org/godotengine/${{ env.GODOT_VERSION }}/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz
+          # Pulls directly from GitHub's CDN to avoid TuxFamily timeouts
+          godot_executable_download_url: https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux_x86_64.zip
+          godot_export_templates_download_url: https://github.com/godotengine/godot/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz
           relative_project_path: ./
           archive_output: false
-          use_preset_export_path: true # Instructs the builder to respect the path inside your export_presets.cfg
+          use_preset_export_path: true 
 
       # Essential workaround for GitHub Pages: injects COI service worker to enable SharedArrayBuffer
       - name: Inject COI Service Worker
