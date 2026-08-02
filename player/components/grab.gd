@@ -8,6 +8,7 @@ class_name Grab
 @onready var drop_pos = $DropPos
 @onready var drop_anchor: Vector2 = $DropPos.position
 
+@export var enabled: bool = true
 var grabbable_objects: Array = []
 var grabbed_pickup: Node2D = null
 var direction: Vector2 = Vector2.ZERO
@@ -46,6 +47,8 @@ func get_grab_pos() -> Node2D:
 	return $GrabPos
 	
 func get_grabbable() -> Array:
+	if not enabled:
+		return []
 	return grabbable_objects
 	
 func _pickup_object(pickup):

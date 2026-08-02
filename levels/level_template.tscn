@@ -1,4 +1,4 @@
-[gd_scene format=4 uid="uid://d1xh8how58m3v"]
+[gd_scene format=4 uid="uid://c2q6f65klhx5m"]
 
 [ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="1_dlbuo"]
 [ext_resource type="PackedScene" uid="uid://doxaesitg3fv8" path="res://levels/components/EscapeZone.tscn" id="1_vuqqf"]

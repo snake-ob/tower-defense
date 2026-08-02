@@ -1,0 +1,360 @@
+[gd_scene format=3 uid="uid://b06oy0kyr8di8"]
+
+[ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="1_16whj"]
+[ext_resource type="Texture2D" uid="uid://coatnthbepw0f" path="res://assets/sprites/characters/big-boss-Sheet.png" id="2_dcy7i"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_pei1s"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="3_tlhii"]
+[ext_resource type="Script" uid="uid://vtdtigdymq6n" path="res://common/components/wall_detector.gd" id="4_m4n8n"]
+[ext_resource type="Script" uid="uid://cqtiiu4on7uef" path="res://common/components/wall_buster.gd" id="5_tlhii"]
+
+[sub_resource type="Resource" id="Resource_tlhii"]
+script = ExtResource("2_pei1s")
+speed = 10.0
+friction = 20
+acceleration = 80
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="Resource" id="Resource_dxm32"]
+script = ExtResource("3_tlhii")
+damage = 3
+metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a44fh"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(448, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m4n8n"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(480, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pei1s"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2c8w"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jflhk"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tlhii"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dxm32"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bmo3"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_288n5"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1t0sr"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(384, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kqylr"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(416, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v4r3d"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqu2o"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7jg6"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_486ic"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54xm7"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yskkl"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n4ad5"]
+atlas = ExtResource("2_dcy7i")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g2c8w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a44fh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m4n8n")
+}],
+"loop": 0,
+"name": &"b_die",
+"speed": 1.0
+}, {
+"frames": [],
+"loop": 0,
+"name": &"b_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pei1s")
+}],
+"loop": 0,
+"name": &"b_idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2c8w")
+}],
+"loop": 0,
+"name": &"b_smash",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_jflhk")
+}],
+"loop": 0,
+"name": &"b_stretch",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tlhii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dxm32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bmo3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_288n5")
+}],
+"loop": 1,
+"name": &"b_walk",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1t0sr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kqylr")
+}],
+"loop": 0,
+"name": &"f_die",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v4r3d")
+}],
+"loop": 0,
+"name": &"f_idle",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqu2o")
+}],
+"loop": 0,
+"name": &"f_smash",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 2.0,
+"texture": SubResource("AtlasTexture_y7jg6")
+}],
+"loop": 0,
+"name": &"f_stretch",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_486ic")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_54xm7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yskkl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n4ad5")
+}],
+"loop": 1,
+"name": &"f_walk",
+"speed": 2.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_m4n8n"]
+resource_name = "stretch.gd"
+script/source = "extends State
+
+var sprite: AnimatedSprite2D
+var animanager: AniManager
+var sm: StateMachine
+
+func _setup(_ref):
+	sprite = _ref.sprite
+	animanager = _ref.animanager
+	sm = _ref.state_machine
+	actor = _ref.actor
+
+func _enter_state():
+	actor.velocity = Vector2.ZERO
+	animanager.custom_override = true
+	animanager.play_anim('stretch')
+	if not sprite.animation_finished.is_connected(_anim_finished):
+		sprite.animation_finished.connect(_anim_finished)
+
+func _exit_state():
+
+	animanager.custom_override = false
+	if sprite.animation_finished.is_connected(_anim_finished):
+		sprite.animation_finished.disconnect(_anim_finished)
+	
+func _anim_finished():
+	if not 'stretch' in sprite.animation:
+		print(\"Error: Stretch not found\")
+		return
+	if sm.has_state('Smash'):
+		change_state.emit('Smash')
+"
+
+[sub_resource type="GDScript" id="GDScript_pei1s"]
+resource_name = "smash.gd"
+script/source = "extends State
+
+var animanager: AniManager
+var sprite: AnimatedSprite2D
+var wall_buster: WallBuster
+
+func _setup(_ref):
+	animanager = _ref.animanager
+	sprite = _ref.sprite
+	wall_buster = _ref.wall_buster
+	
+func _enter_state():
+	animanager.custom_override = true
+	animanager.play_anim('smash')
+	if not sprite.animation_finished.is_connected(_anim_finished):
+		sprite.animation_finished.connect(_anim_finished)
+	wall_buster.monitoring = true
+
+func _exit_state():
+	animanager.custom_override = false
+	if sprite.animation_finished.is_connected(_anim_finished):
+		sprite.animation_finished.disconnect(_anim_finished)
+	wall_buster.monitoring = false
+		
+func _anim_finished():
+	if not 'smash' in sprite.animation.to_lower():
+		return
+	change_state.emit('Reset')
+"
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dcy7i"]
+radius = 9.0
+height = 28.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a44fh"]
+size = Vector2(23, 28)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m4n8n"]
+radius = 11.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dxm32"]
+radius = 22.0
+
+[node name="BigBoss" unique_id=88513531 instance=ExtResource("1_16whj")]
+move = SubResource("Resource_tlhii")
+attack = SubResource("Resource_dxm32")
+coins_held = 20
+
+[node name="Grab" parent="." index="0" unique_id=1402749356]
+collision_mask = 0
+enabled = false
+
+[node name="Body" parent="." index="1" unique_id=32919759]
+position = Vector2(0, -15)
+
+[node name="AnimatedSprite2D" parent="Body" index="0" unique_id=670041104]
+sprite_frames = SubResource("SpriteFrames_g2c8w")
+animation = &"b_walk"
+
+[node name="Die" parent="StateMachine" parent_id_path=PackedInt32Array(784147820) index="3" unique_id=1144145870]
+booming_death = true
+
+[node name="Stretch" type="Node" parent="StateMachine" parent_id_path=PackedInt32Array(784147820) index="5" unique_id=2101663301]
+script = SubResource("GDScript_m4n8n")
+
+[node name="Smash" type="Node" parent="StateMachine" parent_id_path=PackedInt32Array(784147820) index="6" unique_id=1751074216]
+script = SubResource("GDScript_pei1s")
+
+[node name="CollisionShape2D" parent="." index="3" unique_id=646892593]
+position = Vector2(0, -14)
+
+[node name="CollisionShape2D" parent="Hitbox" parent_id_path=PackedInt32Array(1611305122) index="0" unique_id=1488120918]
+position = Vector2(0, -14)
+shape = SubResource("CapsuleShape2D_dcy7i")
+
+[node name="CollisionShape2D" parent="Hurtbox" parent_id_path=PackedInt32Array(88604661) index="0" unique_id=630823401]
+position = Vector2(0.5, -14)
+shape = SubResource("RectangleShape2D_a44fh")
+
+[node name="Health" parent="." index="7" unique_id=856647450]
+max_health = 50
+
+[node name="CollisionShape2D" parent="SoftCollision" parent_id_path=PackedInt32Array(1691847556) index="0" unique_id=750917308]
+position = Vector2(0, -11)
+shape = SubResource("CircleShape2D_m4n8n")
+
+[node name="DetectZone" parent="." index="10" unique_id=2106882287]
+position = Vector2(0, -9)
+collision_mask = 2
+
+[node name="CollisionShape2D" parent="DetectZone" index="0" unique_id=690207711]
+position = Vector2(0, 0)
+
+[node name="Pickup" parent="." index="12" unique_id=1162784583]
+visible = false
+collision_layer = 0
+monitoring = false
+monitorable = false
+
+[node name="ClickArea" parent="." index="14" unique_id=1628655608]
+visible = false
+position = Vector2(0, -8)
+monitoring = false
+monitorable = false
+
+[node name="WallBuster" type="Area2D" parent="." index="15" unique_id=793524713]
+position = Vector2(0, -13)
+collision_layer = 0
+monitoring = false
+script = ExtResource("5_tlhii")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBuster" index="0" unique_id=1102669497]
+shape = SubResource("CircleShape2D_dxm32")
+
+[node name="WallDetector" type="RayCast2D" parent="." index="16" unique_id=434474122]
+position = Vector2(0, -6)
+target_position = Vector2(0, 15)
+script = ExtResource("4_m4n8n")

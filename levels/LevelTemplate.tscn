@@ -9,11 +9,9 @@
 [ext_resource type="Script" uid="uid://btlqvq5eepfrt" path="res://levels/components/spawn_path.gd" id="5_7nvrk"]
 [ext_resource type="Texture2D" uid="uid://dyq6riv5vrtko" path="res://assets/sprites/castle-sheet.png" id="5_vjtdm"]
 [ext_resource type="PackedScene" uid="uid://bmxpcj677arg0" path="res://entities/King.tscn" id="6_bgw3c"]
-[ext_resource type="PackedScene" uid="uid://b0em7uwb4yjv2" path="res://levels/components/Log.tscn" id="6_lrvbd"]
 [ext_resource type="Texture2D" uid="uid://dm7u6qfn18ug0" path="res://assets/sprites/forest.png" id="6_vjtdm"]
 [ext_resource type="Script" uid="uid://dkiad1vqiop6j" path="res://levels/components/forest-fade.gd" id="7_bgw3c"]
 [ext_resource type="PackedScene" uid="uid://dvcca6s2hpicf" path="res://player/Player.tscn" id="7_lrvbd"]
-[ext_resource type="PackedScene" uid="uid://bqcv7jj84ji78" path="res://levels/components/Stone.tscn" id="7_oqlok"]
 [ext_resource type="PackedScene" uid="uid://djdnp5l1prw8x" path="res://levels/components/WaveManager.tscn" id="9_7nvrk"]
 [ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="10_jkxa6"]
 [ext_resource type="Script" uid="uid://csiix06k8f1qy" path="res://levels/components/camera-manager.gd" id="11_aerfg"]
@@ -33,6 +31,7 @@
 [ext_resource type="Script" uid="uid://cffkekcshvjjw" path="res://UI/Inventory/item_data.gd" id="22_8f7xe"]
 [ext_resource type="Texture2D" uid="uid://c8mmt7cs4e8ft" path="res://assets/sprites/objects/bomb-icon.png" id="23_06ecp"]
 [ext_resource type="PackedScene" uid="uid://g6qbjrnunvag" path="res://entities/Bomb.tscn" id="23_geh62"]
+[ext_resource type="PackedScene" uid="uid://6alrc1yoxqd1" path="res://entities/enemies/trash_mobs/Imp.tscn" id="24_oojyv"]
 [ext_resource type="Script" uid="uid://4a8xvb6t4t43" path="res://levels/wave_timer.gd" id="24_ryfpa"]
 [ext_resource type="Texture2D" uid="uid://btj3kwq7ioof0" path="res://assets/sprites/objects/landmine-icon.png" id="25_06ecp"]
 [ext_resource type="PackedScene" uid="uid://h6hugk1y1806" path="res://entities/enemies/trash_mobs/Skeleton.tscn" id="25_yik85"]
@@ -560,10 +559,15 @@ script = ExtResource("20_ai2ei")
 enemy_scene = ExtResource("21_ua8iw")
 metadata/_custom_type_script = "uid://d1tqs23iyetw5"
 
+[sub_resource type="Resource" id="Resource_n26p0"]
+script = ExtResource("20_ai2ei")
+enemy_scene = ExtResource("24_oojyv")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
 [sub_resource type="Resource" id="Resource_yik85"]
 script = ExtResource("19_4cd1h")
 wave_budget = 12
-wave_enemies = Array[ExtResource("20_ai2ei")]([SubResource("Resource_yyq8c")])
+wave_enemies = Array[ExtResource("20_ai2ei")]([SubResource("Resource_yyq8c"), SubResource("Resource_n26p0")])
 wave_title = "Wave 1"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
@@ -814,7 +818,7 @@ animations = [{
 font = ExtResource("37_xv8d5")
 font_size = 4
 
-[node name="World_1" type="Node2D" unique_id=688708345]
+[node name="Level" type="Node2D" unique_id=688708345]
 y_sort_enabled = true
 script = SubResource("GDScript_oqlok")
 next_level_path = "res://game/TitleScreen.tscn"
@@ -904,38 +908,14 @@ scale = Vector2(1.0350877, 1.0665281)
 [node name="Obstacles" type="Node2D" parent="LevelRoot" unique_id=229494590]
 y_sort_enabled = true
 
-[node name="Log" parent="LevelRoot/Obstacles" unique_id=1910670972 instance=ExtResource("6_lrvbd")]
-position = Vector2(-74, -42)
+[node name="Trees" type="Node2D" parent="LevelRoot/Obstacles" unique_id=920583500]
+y_sort_enabled = true
 
-[node name="Log2" parent="LevelRoot/Obstacles" unique_id=1544379597 instance=ExtResource("6_lrvbd")]
-position = Vector2(-94, -15)
+[node name="Logs" type="Node2D" parent="LevelRoot/Obstacles" unique_id=1656481972]
+y_sort_enabled = true
 
-[node name="Log3" parent="LevelRoot/Obstacles" unique_id=704972892 instance=ExtResource("6_lrvbd")]
-position = Vector2(195, 190)
-
-[node name="Log4" parent="LevelRoot/Obstacles" unique_id=1970711841 instance=ExtResource("6_lrvbd")]
-position = Vector2(425, 69)
-
-[node name="Log5" parent="LevelRoot/Obstacles" unique_id=661881154 instance=ExtResource("6_lrvbd")]
-position = Vector2(337, 170)
-
-[node name="Log6" parent="LevelRoot/Obstacles" unique_id=1951200430 instance=ExtResource("6_lrvbd")]
-position = Vector2(-47, 175)
-
-[node name="Log7" parent="LevelRoot/Obstacles" unique_id=505578870 instance=ExtResource("6_lrvbd")]
-position = Vector2(344, -107)
-
-[node name="Stone" parent="LevelRoot/Obstacles" unique_id=426030767 instance=ExtResource("7_oqlok")]
-position = Vector2(77, 213)
-
-[node name="Stone2" parent="LevelRoot/Obstacles" unique_id=755406839 instance=ExtResource("7_oqlok")]
-position = Vector2(234, 104)
-
-[node name="Stone3" parent="LevelRoot/Obstacles" unique_id=333502548 instance=ExtResource("7_oqlok")]
-position = Vector2(322, 18)
-
-[node name="Stone4" parent="LevelRoot/Obstacles" unique_id=1697707052 instance=ExtResource("7_oqlok")]
-position = Vector2(-148, 43)
+[node name="Rocks" type="Node2D" parent="LevelRoot/Obstacles" unique_id=801251836]
+y_sort_enabled = true
 
 [node name="Forest" type="TileMapLayer" parent="LevelRoot" unique_id=1747897373]
 z_index = -1

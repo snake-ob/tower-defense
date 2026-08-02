@@ -158,3 +158,10 @@ June 19 2026
 - Holding a wall activates build mode
 	- Should also limit wall length
 BUG: Now that player is moved up in the scene, the cursor does not track
+==============================================
+July 20 2026
+- BIG ENEMIES 32x32
+- JUMP ABILITY
+- If colliding with wall, enter jump state (pick a direction, and jump toward it, disabling collisions)
+- In jump state, if wall is detected, stay in jump state
+- when wall is no longer detected, exit jump state

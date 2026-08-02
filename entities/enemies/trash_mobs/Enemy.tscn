@@ -561,6 +561,9 @@ var collision: Node
 var death_speed: float = 2.0
 var hitbox: Hitbox
 var sprite: AnimatedSprite2D
+@export var booming_death: bool = false
+var boomed: bool =  false
+var dust_path: String = \"res://common/components/Dust.tscn\"
 
 func _setup(p_ref):
 	actor = p_ref.actor
@@ -582,6 +585,26 @@ func _enter_state():
 	
 func _physics_update(delta):
 	actor.velocity = Vector2.ZERO
+	if booming_death:
+		_death_boom()
+		
+func _death_boom():
+	#check for frame 2 of death animation (hitting ground)
+	#check if boom has already happened
+	#spawn 3-4 dust explosions
+	if boomed:
+		return
+	if sprite.frame != 1:
+		return
+	var dust_scene = load(dust_path)
+
+	boomed = true
+	var rand_num = randi_range(3, 4)
+	for i in range(rand_num):
+		var dust = dust_scene.instantiate()
+		var random_vec = Vector2(randf_range(-16.0, 16.0), randf_range(-16.0, 16.0))
+		dust.global_position = actor.global_position + random_vec
+		SignalBus.spawn_bullet.emit(dust)
 	
 func flicker():
 	var flicker_count = 8
