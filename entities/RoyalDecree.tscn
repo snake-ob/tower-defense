@@ -219,6 +219,7 @@ func _on_rmb_click():
 
 [node name="RoyalDecree" type="CharacterBody2D" unique_id=799632857]
 collision_layer = 0
+collision_mask = 262145
 script = ExtResource("1_iweru")
 move = SubResource("Resource_duxdq")
 upgrades = Array[ExtResource("3_big5u")]([SubResource("Resource_ouwky"), SubResource("Resource_eestp"), SubResource("Resource_7em3n"), SubResource("Resource_tnqc0"), SubResource("Resource_f3a6k"), SubResource("Resource_fcdq4"), SubResource("Resource_rjwj5"), SubResource("Resource_t4sxv"), SubResource("Resource_ki42t")])

@@ -132,6 +132,7 @@ radius = 4.0
 [node name="Landmine" type="CharacterBody2D" unique_id=2117611068]
 y_sort_enabled = true
 collision_layer = 0
+collision_mask = 262145
 script = ExtResource("1_567sl")
 move = SubResource("Resource_qgv8u")
 ExplodeScene = ExtResource("3_rc06d")

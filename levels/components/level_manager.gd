@@ -64,7 +64,20 @@ func _setup_lvl(p_ref):
 	enemies = p_ref.enemies
 	centre = p_ref.centre
 	spawn_path = p_ref.spawn_path
-	
+
+func _unhandled_input(event):
+	var is_modifier_pressed = event.ctrl_pressed or event.meta_pressed
+
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_N and is_modifier_pressed:
+			if not is_instance_valid(active_timer) or active_timer.is_stopped():
+				return
+			active_timer.stop()
+			if active_timer == prep_timer:
+				_prep_timeout()
+			elif active_timer == wave_timer:
+				_wave_timeout()
+			
 func _prep_timeout():
 	# On prep timer timeout
 	_begin_wave()
@@ -89,7 +102,7 @@ func _begin_wave():
 func _wave_timeout():
 	wave_manager.end_wave()
 	var king_pos = entity_root.get_king_pos()
-	for i in range(3):
+	for i in range(2):
 		var decree_scene = load(decree_path)
 		var decree = decree_scene.instantiate()
 		decree.global_position = king_pos

@@ -23,7 +23,7 @@
 
 [sub_resource type="Resource" id="Resource_ijd6d"]
 script = ExtResource("2_5g4gd")
-speed = 25
+speed = 15.0
 friction = 20
 acceleration = 80
 metadata/_custom_type_script = "uid://7bxlx0bftck1"
@@ -709,6 +709,7 @@ radius = 26.076809
 [node name="Enemy" type="CharacterBody2D" unique_id=88513531]
 y_sort_enabled = true
 collision_layer = 256
+collision_mask = 262145
 script = ExtResource("1_vec32")
 move = SubResource("Resource_ijd6d")
 attack = SubResource("Resource_opqqp")

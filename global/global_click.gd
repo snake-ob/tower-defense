@@ -5,6 +5,7 @@ signal clicked(actor)
 signal rmb_click()
 signal build_click()
 signal build_cancel()
+signal skip_phase()
 
 
 var player_node: Node2D = null

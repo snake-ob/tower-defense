@@ -242,6 +242,7 @@ script/source = "extends State
 var sprite: AnimatedSprite2D
 var collisions: Array
 var hurtbox: Hurtbox
+var saved_collision: int
 
 func _setup(p_ref):
 	sprite = p_ref.sprite
@@ -254,10 +255,14 @@ func _enter_state():
 	for collision in collisions:
 		collision.set_deferred('disabled', true)
 	sprite.play('launch')
+	saved_collision = actor.collision_layer
+	actor.collision_layer = 0
 
 func _exit_state():
 	for collision in collisions:
 		collision.set_deferred('disabled', false)
+	actor.collision_layer = saved_collision
+
 
 func _physics_update(delta):
 	if actor.velocity == Vector2.ZERO:
@@ -268,7 +273,7 @@ func _physics_update(delta):
 [node name="King" type="CharacterBody2D" unique_id=463850158]
 y_sort_enabled = true
 collision_layer = 64
-collision_mask = 4097
+collision_mask = 266241
 script = ExtResource("1_ij6gk")
 move = SubResource("Resource_xtof8")
 

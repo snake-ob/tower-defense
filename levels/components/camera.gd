@@ -26,6 +26,7 @@ func _setup(p_ref):
 	top_left = p_ref.top_left
 	bottom_right = p_ref.bottom_right
 	update_limits()
+	
 
 func update_limits():	
 	limit_left = top_left.x
@@ -54,6 +55,13 @@ func _unhandled_input(event: InputEvent) -> void:
 			_adjust_zoom(zoom_speed)
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			_adjust_zoom(-zoom_speed)
+		return
+	var is_modifier_pressed = event.ctrl_pressed or event.meta_pressed
+
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_UP or event.keycode == KEY_DOWN and is_modifier_pressed:
+			if event.keycode == KEY_UP: zoom_all_the_way_in(0.5)
+			else: zoom_all_the_way_out(0.5)
 		
 func _adjust_zoom(amount: float) -> void:
 	var new_zoom_x = clamp(target_zoom.x + amount, min_zoom, max_zoom)

@@ -85,7 +85,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_p40o6")
 }],
-"loop": false,
+"loop": 0,
 "name": &"active",
 "speed": 10.0
 }, {
@@ -93,7 +93,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_up46g")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }]
@@ -195,6 +195,7 @@ func _enter_state():
 
 [node name="Bomb" type="CharacterBody2D" unique_id=2117611068]
 collision_layer = 0
+collision_mask = 262145
 script = ExtResource("1_e7o24")
 move = SubResource("Resource_kuyaw")
 ExplodeScene = ExtResource("3_kuyaw")

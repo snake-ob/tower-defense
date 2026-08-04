@@ -27,7 +27,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fyri0")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 5.0
 }]
@@ -90,7 +90,7 @@ func exit_state():
 y_sort_enabled = true
 position = Vector2(0, -3)
 collision_layer = 16384
-collision_mask = 4097
+collision_mask = 266241
 script = ExtResource("1_k8lw4")
 RuneScene = ExtResource("2_k8lw4")
 move = SubResource("Resource_ovftl")

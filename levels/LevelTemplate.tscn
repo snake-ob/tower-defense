@@ -58,6 +58,7 @@ script/source = "extends Node2D
 var gameover_path: String = \"res://assets/splash-screens/GameOver.tscn\"
 var player_path: String = \"res://player/Player.tscn\"
 var cannon_path: String = \"res://entities/Cannon.tscn\"
+var next_level_loading: bool = false
 
 func _ready() -> void:
 	SignalBus.spawn_bullet.connect(_spawn_bullet)
@@ -74,6 +75,7 @@ func _ready() -> void:
 	_launch_into_scene()
 	DiagBus.set_active_state('prepping')
 	debug_collisions()
+	LevelState.current_level += 1
 	
 func _setup_ref():
 	ref.set('level', self)
@@ -114,6 +116,7 @@ func _return_closest_exit(p_node):
 	p_node.catch_exit_pos(closest_pos)
 	
 func _on_king_taken():
+	if next_level_loading: return
 	var roots = [$LevelRoot, $EntityRoot, $Systems]
 	Engine.time_scale = 0.2
 	var slow_timer = Timer.new()
@@ -150,6 +153,7 @@ func _on_level_over():
 	$EntityRoot.add_child(new_cannon)
 	
 func _on_end_stage():
+	next_level_loading = true
 	ref.camera.zoom_all_the_way_in(1)
 	await get_tree().create_timer(3).timeout
 	load_next_level()
@@ -821,7 +825,7 @@ font_size = 4
 [node name="Level" type="Node2D" unique_id=688708345]
 y_sort_enabled = true
 script = SubResource("GDScript_oqlok")
-next_level_path = "res://game/TitleScreen.tscn"
+next_level_path = "res://levels/Level2.tscn"
 
 [node name="LevelRoot" type="Node2D" parent="." unique_id=775803705]
 y_sort_enabled = true

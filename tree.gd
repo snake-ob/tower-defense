@@ -1,3 +1,5 @@
+@tool
+
 extends StaticBody2D
 
 @export_enum("carniferous", "bushy", "dead") var tree_type: String = "bushy"
