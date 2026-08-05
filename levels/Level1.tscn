@@ -2,10 +2,37 @@
 
 [ext_resource type="PackedScene" uid="uid://b4oghqt2xfi6q" path="res://levels/LevelTemplate.tscn" id="1_b84ys"]
 [ext_resource type="PackedScene" uid="uid://c5nbf3mm6qpu2" path="res://entities/Tree.tscn" id="2_32mhh"]
+[ext_resource type="PackedScene" uid="uid://dft0t363opuvf" path="res://entities/tower/gems/AttackGem.tscn" id="3_cbal1"]
+[ext_resource type="PackedScene" uid="uid://h0hkofue184w" path="res://entities/tower/gems/IceGem.tscn" id="3_jb2e5"]
 [ext_resource type="Script" uid="uid://bw8eurybijbn4" path="res://common/data/wave_data.gd" id="3_vi6ws"]
 [ext_resource type="Script" uid="uid://d1tqs23iyetw5" path="res://common/data/spawn_data.gd" id="4_cr8f5"]
+[ext_resource type="PackedScene" uid="uid://b26v5d0fygscq" path="res://entities/tower/gems/PoisonGem.tscn" id="4_u4hc1"]
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="5_gqfrg"]
+[ext_resource type="PackedScene" uid="uid://db41isjq62umb" path="res://entities/tower/gems/FireGem.tscn" id="5_q4j23"]
 [ext_resource type="PackedScene" uid="uid://dxl2ecxyv0158" path="res://entities/enemies/trash_mobs/WallGoblin.tscn" id="6_cr8f5"]
+[ext_resource type="Script" uid="uid://rhkvwea4barn" path="res://entities/enemies/trash_mobs/enemy.gd" id="7_md6si"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="8_cbal1"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="9_wyuhx"]
+[ext_resource type="Script" uid="uid://dxnywa0nlrdku" path="res://common/data/collision_data.gd" id="10_dp4a1"]
+[ext_resource type="Script" uid="uid://c6pikol1jg1u1" path="res://player/components/grab.gd" id="11_jb2e5"]
+[ext_resource type="Shader" uid="uid://xhgadr8idsan" path="res://player/flicker.gdshader" id="12_u4hc1"]
+[ext_resource type="Texture2D" uid="uid://ccevxbxpeo262" path="res://assets/sprites/characters/Goblin-1-Sheet.png" id="13_q4j23"]
+[ext_resource type="Script" uid="uid://cft2bf8lomomh" path="res://player/sprite.gd" id="14_5py4f"]
+[ext_resource type="PackedScene" uid="uid://d3bfew6tg4p6d" path="res://common/components/AniManager.tscn" id="15_qv7rl"]
+[ext_resource type="PackedScene" uid="uid://tsk4w42k2j4l" path="res://common/components/StateMachine.tscn" id="16_xgs4t"]
+[ext_resource type="Script" uid="uid://bd417csslrxcg" path="res://common/components/hitbox.gd" id="17_0y73d"]
+[ext_resource type="Script" uid="uid://5a4f2yyo5wre" path="res://common/components/hurtbox.gd" id="18_d0msd"]
+[ext_resource type="PackedScene" uid="uid://vp388m7cawje" path="res://common/components/Health.tscn" id="19_e8o2b"]
+[ext_resource type="PackedScene" uid="uid://dimehge0fax4o" path="res://common/components/Ref.tscn" id="20_uf85f"]
+[ext_resource type="Script" uid="uid://bnh8egwxrybd5" path="res://common/components/soft_collision.gd" id="21_2vi6o"]
+[ext_resource type="Script" uid="uid://c4fxv2e8ofr0q" path="res://common/components/detect_zone.gd" id="22_wg2bt"]
+[ext_resource type="PackedScene" uid="uid://lw6cthqg1k2u" path="res://common/components/PhysicsHandler.tscn" id="23_7k0u4"]
+[ext_resource type="Script" uid="uid://c5psft34rbgmp" path="res://common/components/pickup.gd" id="24_66867"]
+[ext_resource type="PackedScene" uid="uid://rqbl0rtipwwt" path="res://common/components/status_effects/StatusEffects.tscn" id="25_dlrev"]
+[ext_resource type="PackedScene" uid="uid://bpr3r8q8cuq5y" path="res://common/components/ClickArea.tscn" id="26_pcltx"]
+[ext_resource type="Texture2D" uid="uid://dr0jwhixv6kpf" path="res://assets/sprites/characters/big-goblin.png" id="27_f2fpg"]
+[ext_resource type="Script" uid="uid://cqtiiu4on7uef" path="res://common/components/wall_buster.gd" id="28_d7ukk"]
+[ext_resource type="Script" uid="uid://vtdtigdymq6n" path="res://common/components/wall_detector.gd" id="29_8yddp"]
 
 [sub_resource type="Resource" id="Resource_yyq8c"]
 script = ExtResource("4_cr8f5")
@@ -28,6 +55,7 @@ metadata/_custom_type_script = "uid://d1tqs23iyetw5"
 script = ExtResource("3_vi6ws")
 wave_budget = 15
 wave_enemies = Array[ExtResource("4_cr8f5")]([SubResource("Resource_vcl05")])
+wave_title = "Wave 2"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
 [sub_resource type="Resource" id="Resource_cr8f5"]
@@ -43,8 +71,1151 @@ metadata/_custom_type_script = "uid://d1tqs23iyetw5"
 
 [sub_resource type="Resource" id="Resource_nn0v1"]
 script = ExtResource("3_vi6ws")
-wave_budget = 25
+wave_budget = 20
 wave_enemies = Array[ExtResource("4_cr8f5")]([SubResource("Resource_cr8f5"), SubResource("Resource_gqfrg")])
+wave_title = "Wave 3"
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
+
+[sub_resource type="Resource" id="Resource_ijd6d"]
+script = ExtResource("8_cbal1")
+speed = 15.0
+friction = 20
+acceleration = 80
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="Resource" id="Resource_opqqp"]
+script = ExtResource("9_wyuhx")
+metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
+
+[sub_resource type="Resource" id="Resource_86smx"]
+script = ExtResource("10_dp4a1")
+layer = 19
+mask = 18
+metadata/_custom_type_script = "uid://dxnywa0nlrdku"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kqn5r"]
+radius = 9.055386
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qu3yx"]
+shader = ExtResource("12_u4hc1")
+shader_parameter/active = false
+shader_parameter/target_color = Color(0, 0, 0, 1)
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/tolerance = 0.1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7xyou"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ne5xp"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v22bd"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fobem"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtlln"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(368, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cic75"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(384, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jublk"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(400, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7b7q7"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e0csy"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_huei1"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugoym"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uy4wy"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yqslw"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86smx"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(256, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opqqp"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(272, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_11bei"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(288, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu3yx"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(304, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3gpb"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(320, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_evmrn"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(336, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d33w4"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(352, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3aqql"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtyd1"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(160, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ip3sx"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tam15"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d6avs"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6nqd"]
+atlas = ExtResource("13_q4j23")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e0csy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7xyou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ne5xp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v22bd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fobem")
+}],
+"loop": 1,
+"name": &"b_carry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtlln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cic75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jublk")
+}],
+"loop": 0,
+"name": &"b_die",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7b7q7")
+}],
+"loop": 1,
+"name": &"b_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e0csy")
+}],
+"loop": 1,
+"name": &"b_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_huei1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugoym")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uy4wy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yqslw")
+}],
+"loop": 1,
+"name": &"b_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86smx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opqqp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_11bei")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qu3yx")
+}],
+"loop": 1,
+"name": &"f_carry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3gpb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_evmrn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d33w4")
+}],
+"loop": 0,
+"name": &"f_die",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3aqql")
+}],
+"loop": 1,
+"name": &"f_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtyd1")
+}],
+"loop": 1,
+"name": &"f_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ip3sx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tam15")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d6avs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6nqd")
+}],
+"loop": 1,
+"name": &"f_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_a23sr"]
+resource_name = "Chase"
+script/source = "extends State
+
+var bullet_spawner = null
+var physics: Node
+var grab: Node
+var stutter_step: bool = false
+var sprite: AnimatedSprite2D
+var animanager: AniManager
+var current_speed: float
+var smash_timer: Timer
+var timing: bool = false
+var sm: StateMachine
+var wall_detector: WallDetector
+
+func _ready():
+	smash_timer = Timer.new()
+	smash_timer.one_shot = true
+	add_child(smash_timer)
+	
+func _setup(p_ref):
+	ref = p_ref
+	actor = p_ref.actor
+	physics = p_ref.physics
+	grab = p_ref.grab
+	sprite = p_ref.sprite
+	animanager = p_ref.animanager
+	sm = p_ref.state_machine
+	wall_detector = p_ref.wall_detector
+	if ref.has('bullet_spawner'):
+		bullet_spawner = ref.bullet_spawner
+	
+func _enter_state():
+	if bullet_spawner:
+		bullet_spawner.activate()
+	if not smash_timer.timeout.is_connected(_on_smash_timeout):
+		smash_timer.timeout.connect(_on_smash_timeout)
+	
+func _exit_state():
+	if bullet_spawner:
+		bullet_spawner.deactivate()
+
+	if smash_timer.timeout.is_connected(_on_smash_timeout):
+		smash_timer.timeout.disconnect(_on_smash_timeout)
+	
+	smash_timer.stop()
+
+
+func _physics_update(delta):
+	if sm.has_state('smash'):
+		if wall_detector.is_colliding():
+			change_state.emit(\"stretch\")
+
+	sprite.speed_scale = 1
+	current_speed = actor.move.speed
+	if ref.active_targets == []:
+		change_state.emit('reset')
+		return
+		
+	physics._process_friction(delta)
+	_check_slow()
+	_move_actor(delta)
+	
+func _prep_smash():
+	var approx_velocity = actor.velocity.floor()
+	if actor.is_on_wall():
+		if not timing:
+			smash_timer.start(0.5)
+			timing = true
+	else:
+		timing = false
+
+func _on_smash_timeout():
+	if sm.current_state != self:
+		print(\"Timer finished in void state\")
+		return
+	if sm.has_state('stretch'):
+		change_state.emit('Stretch')
+
+func _check_slow():
+	if actor.slowed_down:
+		sprite.speed_scale = 0.5
+		if stutter_step:
+			current_speed = 0.1
+			stutter_step = false
+		else:
+			stutter_step = true
+
+func _move_actor(delta):
+	var target = ref.active_targets[0]
+	var target_pos = target.global_position
+	var actor_pos = actor.global_position
+
+	var direction = actor_pos.direction_to(target_pos)
+	var target_velocity = direction * current_speed
+	actor.update_target(target_pos)
+	
+	if actor.slowed_down:
+		actor.velocity = target_velocity
+	else:
+		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+
+func _update(delta):
+	var pickups = grab.get_grabbable()
+	if pickups != []:
+		grab.grabbed_pickup = pickups[0]
+		grab._pickup_object(pickups[0])
+		change_state.emit('carry')
+"
+
+[sub_resource type="GDScript" id="GDScript_opqqp"]
+script/source = "extends State
+
+var physics: Node
+var grab: Node
+var soft_collision = Node
+var stored_force: float
+var pickup: Node
+var sprite: AnimatedSprite2D
+var current_speed: float
+var stutter_step: bool = false
+
+var target_pos: Vector2
+	
+func _setup(p_ref):
+	ref = p_ref
+	actor = p_ref.actor
+	physics = p_ref.physics
+	grab = p_ref.grab
+	soft_collision = p_ref.soft_collision
+	pickup = p_ref.pickup
+	sprite = p_ref.sprite
+	
+func _enter_state():
+	actor.ref.target = Vector2.ZERO
+	SignalBus.request_closest_exit.emit(actor)
+	stored_force = soft_collision.push_force
+	soft_collision.push_force = 2
+	pickup.monitorable = false
+	
+func _exit_state():
+	grab._drop()
+	soft_collision.push_force = stored_force
+	pickup.set_deferred('monitorable', true)
+
+func _physics_update(delta):
+	sprite.speed_scale = 1
+	current_speed = actor.move.speed
+	if ref.active_targets == []:
+		change_state.emit('reset')
+		return
+		
+	physics._process_friction(delta)
+	_check_slow()
+	_move_actor(delta)
+
+func _check_slow():
+	if actor.slowed_down:
+		sprite.speed_scale = 0.5
+		if stutter_step:
+			current_speed = 0.1
+			stutter_step = false
+		else:
+			stutter_step = true
+
+func _move_actor(delta):
+	var target_pos = ref.target
+	var actor_pos = actor.global_position
+
+	var direction = actor_pos.direction_to(target_pos)
+	var target_velocity = direction * current_speed
+	actor.update_target(target_pos)
+	
+	if actor.slowed_down:
+		actor.velocity = target_velocity
+	else:
+		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+
+func catch_exit_pos(p_pos):
+	target_pos = p_pos
+	actor.ref.target = p_pos
+"
+
+[sub_resource type="GDScript" id="GDScript_im3kb"]
+script/source = "extends State
+var sprite: AnimatedSprite2D
+var current_speed: float
+var physics: PhysicsHandler
+var stutter_step: bool = false
+var smash_timer: Timer
+var sm: StateMachine
+var timing: bool = false
+var wall_detector: WallDetector
+
+func _setup(p_ref):
+	ref = p_ref
+	actor = ref.actor
+	sprite = p_ref.sprite
+	physics = p_ref.physics
+	sm = p_ref.state_machine
+	wall_detector = p_ref.wall_detector
+	
+	
+func _ready():
+	smash_timer = Timer.new()
+	smash_timer.one_shot = true
+	add_child(smash_timer)
+	
+func _enter_state():
+	if not smash_timer.timeout.is_connected(_smash_timeout):
+		smash_timer.timeout.connect(_smash_timeout)
+
+func _exit_state():
+	if smash_timer.timeout.is_connected(_smash_timeout):
+		smash_timer.timeout.disconnect(_smash_timeout)
+	smash_timer.stop()
+
+func _smash_timeout():
+	if sm.has_state('stretch'):
+		change_state.emit('stretch')
+
+func _physics_update(delta):
+	if sm.has_state('smash'):
+		_prep_smash()
+
+	if ref.active_targets:
+		change_state.emit('chase')
+		return
+	
+	sprite.speed_scale = 1
+	current_speed = actor.move.speed
+
+	physics._process_friction(delta)
+	_check_slow()
+	_move_actor(delta)
+	
+func _prep_smash():
+	var approx_velocity = actor.velocity.floor()
+	if wall_detector.is_colliding():
+		if not timing:
+			smash_timer.start(0.5)
+			timing = true
+	else:
+		timing = false
+
+func _check_slow():
+	if actor.slowed_down:
+		sprite.speed_scale = 0.5
+		if stutter_step:
+			current_speed = 0.1
+			stutter_step = false
+		else:
+			stutter_step = true
+
+func _move_actor(delta):
+	var actor_pos = actor.global_position
+
+	var direction = actor_pos.direction_to(actor.centre_pos)
+	var target_velocity = direction * current_speed
+	actor.update_target(actor.centre_pos)
+	
+	if actor.slowed_down:
+		actor.velocity = target_velocity
+	else:
+		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+"
+
+[sub_resource type="GDScript" id="GDScript_11bei"]
+script/source = "#Die.gd
+
+extends State
+
+var animanager: Node
+var collision: Node
+var death_speed: float = 2.0
+var hitbox: Hitbox
+var sprite: AnimatedSprite2D
+@export var booming_death: bool = false
+var boomed: bool =  false
+var dust_path: String = \"res://common/components/Dust.tscn\"
+
+func _setup(p_ref):
+	actor = p_ref.actor
+	animanager = p_ref.animanager
+	collision = p_ref.collision
+	hitbox = p_ref.hitbox
+	sprite = p_ref.sprite
+
+func _enter_state():
+	if sprite.material:
+		sprite.material.set_shader_parameter('active', false)
+	actor.set_collision_layer_value(9, false)
+	hitbox.monitoring = false
+	collision.set_deferred('disabled', true)
+	animanager.play_death()
+	actor.velocity = Vector2.ZERO
+	await get_tree().create_timer(death_speed).timeout
+	flicker()
+	
+func _physics_update(delta):
+	actor.velocity = Vector2.ZERO
+	if booming_death:
+		_death_boom()
+		
+func _death_boom():
+	#check for frame 2 of death animation (hitting ground)
+	#check if boom has already happened
+	#spawn 3-4 dust explosions
+	if boomed:
+		return
+	if sprite.frame != 1:
+		return
+	var dust_scene = load(dust_path)
+
+	boomed = true
+	var rand_num = randi_range(3, 4)
+	for i in range(rand_num):
+		var dust = dust_scene.instantiate()
+		var random_vec = Vector2(randf_range(-16.0, 16.0), randf_range(-16.0, 16.0))
+		dust.global_position = actor.global_position + random_vec
+		SignalBus.spawn_bullet.emit(dust)
+	
+func flicker():
+	var flicker_count = 8
+	var flicker_speed = 0.05
+	
+	for i in range(flicker_count):
+		actor.visible = !actor.visible
+		await get_tree().create_timer(flicker_speed).timeout
+	
+	actor.queue_free()
+"
+
+[sub_resource type="GDScript" id="GDScript_qu3yx"]
+script/source = "extends State
+
+var physics: Node
+var grab: Node
+var soft_collision = Node
+var stored_force: float
+var pickup: Node
+var sprite: AnimatedSprite2D
+var current_speed: float
+var stutter_step: bool = false
+
+var target_pos: Vector2
+	
+func _setup(p_ref):
+	ref = p_ref
+	actor = p_ref.actor
+	physics = p_ref.physics
+	grab = p_ref.grab
+	soft_collision = p_ref.soft_collision
+	pickup = p_ref.pickup
+	sprite = p_ref.sprite
+	
+func _enter_state():
+	actor.ref.target = Vector2.ZERO
+	SignalBus.request_closest_exit.emit(actor)
+
+func _physics_update(delta):
+	sprite.speed_scale = 1
+	current_speed = actor.move.speed
+		
+	physics._process_friction(delta)
+	_check_slow()
+	_move_actor(delta)
+
+func _check_slow():
+	if actor.slowed_down:
+		sprite.speed_scale = 0.5
+		if stutter_step:
+			current_speed = 0.1
+			stutter_step = false
+		else:
+			stutter_step = true
+
+func _move_actor(delta):
+	var target_pos = ref.target
+	var actor_pos = actor.global_position
+
+	var direction = actor_pos.direction_to(target_pos)
+	var target_velocity = direction * current_speed
+	actor.update_target(target_pos)
+	
+	if actor.slowed_down:
+		actor.velocity = target_velocity
+	else:
+		actor.velocity = actor.velocity.move_toward(target_velocity, ref.move.acceleration * delta)
+
+func catch_exit_pos(p_pos):
+	target_pos = p_pos
+	actor.ref.target = p_pos
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pedfs"]
+radius = 7.071068
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5g4gd"]
+radius = 5.0
+height = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_im3kb"]
+size = Vector2(16, 16)
+
+[sub_resource type="GDScript" id="GDScript_dsp8k"]
+script/source = "extends Node
+
+var damage: int = 1
+var knockback: float = 10.0
+var status: Array = []
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aueyi"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m7yij"]
+radius = 218.50629
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hg3tk"]
+radius = 26.076809
+
+[sub_resource type="PackedScene" id="PackedScene_1u7x2"]
+_bundled = {
+"conn_count": 3,
+"conns": PackedInt32Array(1073741855, 1073741856, 122, 123, 2, 0, 0, 1073741857, 1073741858, 124, 125, 2, 0, 0, 1073741859, 1073741860, 126, 127, 2, 0, 0),
+"editable_instances": [],
+"id_paths": [PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array()],
+"names": PackedStringArray("Enemy", "CharacterBody2D", "y_sort_enabled", "collision_layer", "collision_mask", "script", "move", "attack", "collision", "coins_held", "Grab", "Area2D", "position", "collision_layer", "collision_mask", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "GrabPos", "Node2D", "position", "DropPos", "Marker2D", "Body", "Node2D", "position", "AnimatedSprite2D", "AnimatedSprite2D", "material", "sprite_frames", "animation", "script", "flicker_amount", "AniManager", "StateMachine", "Chase", "Node", "script", "Carry", "Node", "script", "Reset", "Node", "script", "Die", "Node", "script", "Retreat", "Node", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "Hitbox", "Area2D", "collision_layer", "collision_mask", "monitorable", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "Hurtbox", "Area2D", "collision_layer", "collision_mask", "monitoring", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "Data", "Node", "script", "Health", "max_health", "Ref", "SoftCollision", "Area2D", "collision_layer", "collision_mask", "script", "push_force", "CollisionShape2D", "CollisionShape2D", "position", "shape", "DetectZone", "Area2D", "collision_layer", "collision_mask", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "PhysicsHandler", "Pickup", "Area2D", "collision_layer", "collision_mask", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "PickupPos", "Node2D", "StatusEffects", "ClickArea", "position", "area_entered", "_on_area_entered", "body_entered", "_on_body_entered", "body_exited", "_on_body_exited"),
+"node_count": 32,
+"node_ids": PackedInt32Array(88513531, 1402749356, 1527922279, 2006151343, 2065304284, 32919759, 670041104, 170788171, 784147820, 297645285, 1778624492, 1844849915, 1144145870, 1204078734, 646892593, 1611305122, 1488120918, 88604661, 630823401, 534815685, 856647450, 1818294794, 1691847556, 750917308, 2106882287, 690207711, 100467294, 1162784583, 1697664644, 639769184, 358155270, 1628655608),
+"node_paths": [NodePath("."), NodePath("./Grab"), NodePath("./Grab"), NodePath("./Grab"), NodePath("."), NodePath("./Body"), NodePath("./Body"), NodePath("."), NodePath("./StateMachine"), NodePath("./StateMachine"), NodePath("./StateMachine"), NodePath("./StateMachine"), NodePath("./StateMachine"), NodePath("."), NodePath("."), NodePath("./Hitbox"), NodePath("."), NodePath("./Hurtbox"), NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("./SoftCollision"), NodePath("."), NodePath("./DetectZone"), NodePath("."), NodePath("."), NodePath("./Pickup"), NodePath("./Pickup"), NodePath("."), NodePath("."), NodePath("Hitbox"), NodePath("Hitbox"), NodePath("DetectZone"), NodePath("DetectZone"), NodePath("DetectZone"), NodePath("DetectZone")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 8, 2, 0, 3, 1, 4, 2, 5, 3, 6, 4, 7, 5, 8, 6, 9, 7, 0, 1073741824, 0, 11, 10, -1, 4, 12, 8, 13, 9, 14, 10, 15, 11, 0, 1073741825, 0, 17, 16, -1, 3, 18, 12, 19, 13, 20, 14, 0, 1073741826, 0, 22, 21, -1, 1, 23, 15, 0, 1073741827, 0, 25, 24, -1, 0, 0, 1073741828, 0, 27, 26, -1, 1, 28, 16, 0, 1073741829, 0, 30, 29, -1, 5, 31, 17, 32, 18, 33, 19, 34, 20, 35, 21, 0, 1073741830, 0, 2147483647, 36, 22, 0, 0, 1073741831, 0, 2147483647, 37, 23, 0, 0, 1073741832, 0, 39, 38, -1, 1, 40, 24, 0, 1073741833, 0, 42, 41, -1, 1, 43, 25, 0, 1073741834, 0, 45, 44, -1, 1, 46, 26, 0, 1073741835, 0, 48, 47, -1, 1, 49, 27, 0, 1073741836, 0, 51, 50, -1, 1, 52, 28, 0, 1073741837, 0, 54, 53, -1, 3, 55, 29, 56, 30, 57, 31, 0, 1073741838, 0, 59, 58, -1, 4, 60, 32, 61, 33, 62, 34, 63, 35, 0, 1073741839, 0, 65, 64, -1, 3, 66, 36, 67, 37, 68, 38, 0, 1073741840, 0, 70, 69, -1, 4, 71, 39, 72, 40, 73, 41, 74, 42, 0, 1073741841, 0, 76, 75, -1, 3, 77, 43, 78, 44, 79, 45, 0, 1073741842, 0, 81, 80, -1, 1, 82, 46, 0, 1073741843, 0, 2147483647, 83, 47, 1, 84, 48, 0, 1073741844, 0, 2147483647, 85, 49, 0, 0, 1073741845, 0, 87, 86, -1, 4, 88, 50, 89, 51, 90, 52, 91, 53, 0, 1073741846, 0, 93, 92, -1, 2, 94, 54, 95, 55, 0, 1073741847, 0, 97, 96, -1, 3, 98, 56, 99, 57, 100, 58, 0, 1073741848, 0, 102, 101, -1, 3, 103, 59, 104, 60, 105, 61, 0, 1073741849, 0, 2147483647, 106, 62, 0, 0, 1073741850, 0, 108, 107, -1, 3, 109, 63, 110, 64, 111, 65, 0, 1073741851, 0, 113, 112, -1, 3, 114, 66, 115, 67, 116, 68, 0, 1073741852, 0, 118, 117, -1, 0, 0, 1073741853, 0, 2147483647, 119, 69, 0, 0, 1073741854, 0, 2147483647, 120, 70, 1, 121, 71, 0),
+"variants": [true, 256, 262145, ExtResource("7_md6si"), SubResource("Resource_ijd6d"), SubResource("Resource_opqqp"), SubResource("Resource_86smx"), 5, Vector2(0, -1), 0, 2048, ExtResource("11_jb2e5"), Vector2(0, -5), SubResource("CircleShape2D_kqn5r"), Color(0.7647059, 0.16862746, 1, 0), Vector2(0, -13), Vector2(0, -7), SubResource("ShaderMaterial_qu3yx"), SubResource("SpriteFrames_e0csy"), &"b_carry", ExtResource("14_5py4f"), 1, ExtResource("15_qv7rl"), ExtResource("16_xgs4t"), SubResource("GDScript_a23sr"), SubResource("GDScript_opqqp"), SubResource("GDScript_im3kb"), SubResource("GDScript_11bei"), SubResource("GDScript_qu3yx"), Vector2(0, -6), SubResource("CircleShape2D_pedfs"), Color(0.9529412, 0.99215686, 1, 0), 0, 4, false, ExtResource("17_0y73d"), Vector2(0, -6), SubResource("CapsuleShape2D_5g4gd"), Color(0, 0.6, 0.69803923, 0), 262656, 0, false, ExtResource("18_d0msd"), Vector2(0, -6), SubResource("RectangleShape2D_im3kb"), Color(0.9411765, 0, 0, 0), SubResource("GDScript_dsp8k"), ExtResource("19_e8o2b"), 4, ExtResource("20_uf85f"), 128, 128, ExtResource("21_2vi6o"), 0.2, Vector2(0, -6), SubResource("CircleShape2D_aueyi"), 0, 64, ExtResource("22_wg2bt"), Vector2(13, -43), SubResource("CircleShape2D_m7yij"), Color(0, 0.6, 0.69803923, 0), ExtResource("23_7k0u4"), 8192, 0, ExtResource("24_66867"), Vector2(0, -5), SubResource("CircleShape2D_hg3tk"), Color(0.7647059, 0.16862746, 1, 0), ExtResource("25_dlrev"), ExtResource("26_pcltx"), Vector2(0, -4)],
+"version": 3
+}
+
+[sub_resource type="Resource" id="Resource_svd6m"]
+script = ExtResource("4_cr8f5")
+enemy_scene = SubResource("PackedScene_1u7x2")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_4ha6o"]
+script = ExtResource("8_cbal1")
+speed = 10.0
+friction = 20
+acceleration = 80
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5aaar"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ha6o"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvrw1"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(128, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0s46n"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ki5g"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(384, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lth7e"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(400, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nnht"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(416, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iljpa"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klj23"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q081i"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(432, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxn0f"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p36r3"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85vwx"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1e5d"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rm46a"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ymj8"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(272, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqtto"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(288, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1v8wa"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(304, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyl8y"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(320, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5sqxt"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(336, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ot0rw"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(352, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8axh5"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(368, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ljfp"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26a1c"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rf2gs"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(256, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rsv7b"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r8ckj"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1oxb"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(192, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ejes"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(208, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4tky"]
+atlas = ExtResource("27_f2fpg")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bbh8g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5aaar")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ha6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvrw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0s46n")
+}],
+"loop": 1,
+"name": &"b_carry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ki5g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lth7e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nnht")
+}],
+"loop": 0,
+"name": &"b_die",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iljpa")
+}],
+"loop": 1,
+"name": &"b_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klj23")
+}],
+"loop": 1,
+"name": &"b_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q081i")
+}],
+"loop": 0,
+"name": &"b_smash",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_sxn0f")
+}],
+"loop": 0,
+"name": &"b_stretch",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p36r3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85vwx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1e5d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rm46a")
+}],
+"loop": 1,
+"name": &"b_walk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ymj8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqtto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1v8wa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hyl8y")
+}],
+"loop": 1,
+"name": &"f_carry",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5sqxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ot0rw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8axh5")
+}],
+"loop": 0,
+"name": &"f_die",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ljfp")
+}],
+"loop": 1,
+"name": &"f_hold",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_26a1c")
+}],
+"loop": 1,
+"name": &"f_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rf2gs")
+}],
+"loop": 0,
+"name": &"f_smash",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 3.0,
+"texture": SubResource("AtlasTexture_rsv7b")
+}],
+"loop": 0,
+"name": &"f_stretch",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r8ckj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1oxb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ejes")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4tky")
+}],
+"loop": 1,
+"name": &"f_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="GDScript" id="GDScript_wiylm"]
+resource_name = "stretch.gd"
+script/source = "extends State
+
+var sprite: AnimatedSprite2D
+var animanager: AniManager
+var sm: StateMachine
+
+func _setup(_ref):
+	sprite = _ref.sprite
+	animanager = _ref.animanager
+	sm = _ref.state_machine
+	actor = _ref.actor
+
+func _enter_state():
+	actor.velocity = Vector2.ZERO
+	animanager.custom_override = true
+	animanager.play_anim('stretch')
+	if not sprite.animation_finished.is_connected(_anim_finished):
+		sprite.animation_finished.connect(_anim_finished)
+
+func _exit_state():
+
+	animanager.custom_override = false
+	if sprite.animation_finished.is_connected(_anim_finished):
+		sprite.animation_finished.disconnect(_anim_finished)
+	
+func _anim_finished():
+	if not 'stretch' in sprite.animation:
+		print(\"Error: Stretch not found\")
+		return
+	if sm.has_state('Smash'):
+		change_state.emit('Smash')
+"
+
+[sub_resource type="GDScript" id="GDScript_5feut"]
+resource_name = "smash.gd"
+script/source = "extends State
+
+var animanager: AniManager
+var sprite: AnimatedSprite2D
+var wall_buster: WallBuster
+
+func _setup(_ref):
+	animanager = _ref.animanager
+	sprite = _ref.sprite
+	wall_buster = _ref.wall_buster
+	
+func _enter_state():
+	animanager.custom_override = true
+	animanager.play_anim('smash')
+	if not sprite.animation_finished.is_connected(_anim_finished):
+		sprite.animation_finished.connect(_anim_finished)
+	wall_buster.monitoring = true
+
+func _exit_state():
+	animanager.custom_override = false
+	if sprite.animation_finished.is_connected(_anim_finished):
+		sprite.animation_finished.disconnect(_anim_finished)
+	wall_buster.monitoring = false
+		
+func _anim_finished():
+	if not 'smash' in sprite.animation.to_lower():
+		return
+	change_state.emit('Reset')
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wiylm"]
+radius = 13.0
+
+[sub_resource type="PackedScene" id="PackedScene_mfmr1"]
+_bundled = {
+"base_scene": 0,
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"id_paths": [PackedInt32Array(32919759), PackedInt32Array(784147820), PackedInt32Array(784147820), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array()],
+"names": PackedStringArray("WallGoblin", "move", "coins_held", "AnimatedSprite2D", "sprite_frames", "animation", "speed_scale", "Stretch", "Node", "script", "Smash", "Node", "script", "Health", "max_health", "WallBuster", "Area2D", "position", "collision_layer", "monitoring", "script", "CollisionShape2D", "CollisionShape2D", "shape", "WallDetector", "RayCast2D", "position", "target_position", "script"),
+"node_count": 8,
+"node_ids": PackedInt32Array(88513531, 670041104, 1758059185, 1387732963, 856647450, 793524713, 1102669497, 1700565533),
+"node_paths": [NodePath("./Body"), NodePath("./StateMachine"), NodePath("./StateMachine"), NodePath("."), NodePath("."), NodePath("./WallBuster"), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 2147483647, 0, -1, 2, 1, 1, 2, 2, 0, 1073741824, -1, 2147483647, 262147, -1, 3, 4, 3, 5, 4, 6, 5, 0, 1073741825, 0, 8, 1572871, -1, 1, 9, 6, 0, 1073741826, 0, 11, 1835018, -1, 1, 12, 7, 0, 1073741827, -1, 2147483647, 2097165, -1, 1, 14, 8, 0, 1073741828, 0, 16, 4194319, -1, 4, 17, 9, 18, 10, 19, 11, 20, 12, 0, 1073741829, 0, 22, 262165, -1, 1, 23, 13, 0, 1073741830, 0, 25, 4456472, -1, 3, 26, 14, 27, 15, 28, 16, 0),
+"variants": [ExtResource("5_gqfrg"), SubResource("Resource_4ha6o"), 15, SubResource("SpriteFrames_bbh8g"), &"b_stretch", 0.5, SubResource("GDScript_wiylm"), SubResource("GDScript_5feut"), 5, Vector2(0, -6), 0, false, ExtResource("28_d7ukk"), SubResource("CircleShape2D_wiylm"), Vector2(0, -6), Vector2(0, 15), ExtResource("29_8yddp")],
+"version": 3
+}
+
+[sub_resource type="Resource" id="Resource_8a877"]
+script = ExtResource("4_cr8f5")
+enemy_scene = SubResource("PackedScene_mfmr1")
+point_cost = 2
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_q53j5"]
+script = ExtResource("3_vi6ws")
+wave_budget = 25
+wave_enemies = Array[ExtResource("4_cr8f5")]([SubResource("Resource_svd6m"), SubResource("Resource_8a877")])
+wave_title = "Wave 4"
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
+
+[sub_resource type="PackedScene" id="PackedScene_6wira"]
+_bundled = {
+"conn_count": 3,
+"conns": PackedInt32Array(1073741855, 1073741856, 122, 123, 2, 0, 0, 1073741857, 1073741858, 124, 125, 2, 0, 0, 1073741859, 1073741860, 126, 127, 2, 0, 0),
+"editable_instances": [],
+"id_paths": [PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array()],
+"names": PackedStringArray("Enemy", "CharacterBody2D", "y_sort_enabled", "collision_layer", "collision_mask", "script", "move", "attack", "collision", "coins_held", "Grab", "Area2D", "position", "collision_layer", "collision_mask", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "GrabPos", "Node2D", "position", "DropPos", "Marker2D", "Body", "Node2D", "position", "AnimatedSprite2D", "AnimatedSprite2D", "material", "sprite_frames", "animation", "script", "flicker_amount", "AniManager", "StateMachine", "Chase", "Node", "script", "Carry", "Node", "script", "Reset", "Node", "script", "Die", "Node", "script", "Retreat", "Node", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "Hitbox", "Area2D", "collision_layer", "collision_mask", "monitorable", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "Hurtbox", "Area2D", "collision_layer", "collision_mask", "monitoring", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "Data", "Node", "script", "Health", "max_health", "Ref", "SoftCollision", "Area2D", "collision_layer", "collision_mask", "script", "push_force", "CollisionShape2D", "CollisionShape2D", "position", "shape", "DetectZone", "Area2D", "collision_layer", "collision_mask", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "PhysicsHandler", "Pickup", "Area2D", "collision_layer", "collision_mask", "script", "CollisionShape2D", "CollisionShape2D", "position", "shape", "debug_color", "PickupPos", "Node2D", "StatusEffects", "ClickArea", "position", "area_entered", "_on_area_entered", "body_entered", "_on_body_entered", "body_exited", "_on_body_exited"),
+"node_count": 32,
+"node_ids": PackedInt32Array(88513531, 1402749356, 1527922279, 2006151343, 2065304284, 32919759, 670041104, 170788171, 784147820, 297645285, 1778624492, 1844849915, 1144145870, 1204078734, 646892593, 1611305122, 1488120918, 88604661, 630823401, 534815685, 856647450, 1818294794, 1691847556, 750917308, 2106882287, 690207711, 100467294, 1162784583, 1697664644, 639769184, 358155270, 1628655608),
+"node_paths": [NodePath("."), NodePath("./Grab"), NodePath("./Grab"), NodePath("./Grab"), NodePath("."), NodePath("./Body"), NodePath("./Body"), NodePath("."), NodePath("./StateMachine"), NodePath("./StateMachine"), NodePath("./StateMachine"), NodePath("./StateMachine"), NodePath("./StateMachine"), NodePath("."), NodePath("."), NodePath("./Hitbox"), NodePath("."), NodePath("./Hurtbox"), NodePath("."), NodePath("."), NodePath("."), NodePath("."), NodePath("./SoftCollision"), NodePath("."), NodePath("./DetectZone"), NodePath("."), NodePath("."), NodePath("./Pickup"), NodePath("./Pickup"), NodePath("."), NodePath("."), NodePath("Hitbox"), NodePath("Hitbox"), NodePath("DetectZone"), NodePath("DetectZone"), NodePath("DetectZone"), NodePath("DetectZone")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 8, 2, 0, 3, 1, 4, 2, 5, 3, 6, 4, 7, 5, 8, 6, 9, 7, 0, 1073741824, 0, 11, 10, -1, 4, 12, 8, 13, 9, 14, 10, 15, 11, 0, 1073741825, 0, 17, 16, -1, 3, 18, 12, 19, 13, 20, 14, 0, 1073741826, 0, 22, 21, -1, 1, 23, 15, 0, 1073741827, 0, 25, 24, -1, 0, 0, 1073741828, 0, 27, 26, -1, 1, 28, 16, 0, 1073741829, 0, 30, 29, -1, 5, 31, 17, 32, 18, 33, 19, 34, 20, 35, 21, 0, 1073741830, 0, 2147483647, 36, 22, 0, 0, 1073741831, 0, 2147483647, 37, 23, 0, 0, 1073741832, 0, 39, 38, -1, 1, 40, 24, 0, 1073741833, 0, 42, 41, -1, 1, 43, 25, 0, 1073741834, 0, 45, 44, -1, 1, 46, 26, 0, 1073741835, 0, 48, 47, -1, 1, 49, 27, 0, 1073741836, 0, 51, 50, -1, 1, 52, 28, 0, 1073741837, 0, 54, 53, -1, 3, 55, 29, 56, 30, 57, 31, 0, 1073741838, 0, 59, 58, -1, 4, 60, 32, 61, 33, 62, 34, 63, 35, 0, 1073741839, 0, 65, 64, -1, 3, 66, 36, 67, 37, 68, 38, 0, 1073741840, 0, 70, 69, -1, 4, 71, 39, 72, 40, 73, 41, 74, 42, 0, 1073741841, 0, 76, 75, -1, 3, 77, 43, 78, 44, 79, 45, 0, 1073741842, 0, 81, 80, -1, 1, 82, 46, 0, 1073741843, 0, 2147483647, 83, 47, 1, 84, 48, 0, 1073741844, 0, 2147483647, 85, 49, 0, 0, 1073741845, 0, 87, 86, -1, 4, 88, 50, 89, 51, 90, 52, 91, 53, 0, 1073741846, 0, 93, 92, -1, 2, 94, 54, 95, 55, 0, 1073741847, 0, 97, 96, -1, 3, 98, 56, 99, 57, 100, 58, 0, 1073741848, 0, 102, 101, -1, 3, 103, 59, 104, 60, 105, 61, 0, 1073741849, 0, 2147483647, 106, 62, 0, 0, 1073741850, 0, 108, 107, -1, 3, 109, 63, 110, 64, 111, 65, 0, 1073741851, 0, 113, 112, -1, 3, 114, 66, 115, 67, 116, 68, 0, 1073741852, 0, 118, 117, -1, 0, 0, 1073741853, 0, 2147483647, 119, 69, 0, 0, 1073741854, 0, 2147483647, 120, 70, 1, 121, 71, 0),
+"variants": [true, 256, 262145, ExtResource("7_md6si"), SubResource("Resource_ijd6d"), SubResource("Resource_opqqp"), SubResource("Resource_86smx"), 5, Vector2(0, -1), 0, 2048, ExtResource("11_jb2e5"), Vector2(0, -5), SubResource("CircleShape2D_kqn5r"), Color(0.7647059, 0.16862746, 1, 0), Vector2(0, -13), Vector2(0, -7), SubResource("ShaderMaterial_qu3yx"), SubResource("SpriteFrames_e0csy"), &"b_carry", ExtResource("14_5py4f"), 1, ExtResource("15_qv7rl"), ExtResource("16_xgs4t"), SubResource("GDScript_a23sr"), SubResource("GDScript_opqqp"), SubResource("GDScript_im3kb"), SubResource("GDScript_11bei"), SubResource("GDScript_qu3yx"), Vector2(0, -6), SubResource("CircleShape2D_pedfs"), Color(0.9529412, 0.99215686, 1, 0), 0, 4, false, ExtResource("17_0y73d"), Vector2(0, -6), SubResource("CapsuleShape2D_5g4gd"), Color(0, 0.6, 0.69803923, 0), 262656, 0, false, ExtResource("18_d0msd"), Vector2(0, -6), SubResource("RectangleShape2D_im3kb"), Color(0.9411765, 0, 0, 0), SubResource("GDScript_dsp8k"), ExtResource("19_e8o2b"), 4, ExtResource("20_uf85f"), 128, 128, ExtResource("21_2vi6o"), 0.2, Vector2(0, -6), SubResource("CircleShape2D_aueyi"), 0, 64, ExtResource("22_wg2bt"), Vector2(13, -43), SubResource("CircleShape2D_m7yij"), Color(0, 0.6, 0.69803923, 0), ExtResource("23_7k0u4"), 8192, 0, ExtResource("24_66867"), Vector2(0, -5), SubResource("CircleShape2D_hg3tk"), Color(0.7647059, 0.16862746, 1, 0), ExtResource("25_dlrev"), ExtResource("26_pcltx"), Vector2(0, -4)],
+"version": 3
+}
+
+[sub_resource type="Resource" id="Resource_rqpk4"]
+script = ExtResource("4_cr8f5")
+enemy_scene = SubResource("PackedScene_6wira")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="PackedScene" id="PackedScene_cy3q3"]
+_bundled = {
+"base_scene": 0,
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"id_paths": [PackedInt32Array(32919759), PackedInt32Array(784147820), PackedInt32Array(784147820), PackedInt32Array(), PackedInt32Array(), PackedInt32Array(), PackedInt32Array()],
+"names": PackedStringArray("WallGoblin", "move", "coins_held", "AnimatedSprite2D", "sprite_frames", "animation", "speed_scale", "Stretch", "Node", "script", "Smash", "Node", "script", "Health", "max_health", "WallBuster", "Area2D", "position", "collision_layer", "monitoring", "script", "CollisionShape2D", "CollisionShape2D", "shape", "WallDetector", "RayCast2D", "position", "target_position", "script"),
+"node_count": 8,
+"node_ids": PackedInt32Array(88513531, 670041104, 1758059185, 1387732963, 856647450, 793524713, 1102669497, 1700565533),
+"node_paths": [NodePath("./Body"), NodePath("./StateMachine"), NodePath("./StateMachine"), NodePath("."), NodePath("."), NodePath("./WallBuster"), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 2147483647, 0, -1, 2, 1, 1, 2, 2, 0, 1073741824, -1, 2147483647, 262147, -1, 3, 4, 3, 5, 4, 6, 5, 0, 1073741825, 0, 8, 1572871, -1, 1, 9, 6, 0, 1073741826, 0, 11, 1835018, -1, 1, 12, 7, 0, 1073741827, -1, 2147483647, 2097165, -1, 1, 14, 8, 0, 1073741828, 0, 16, 4194319, -1, 4, 17, 9, 18, 10, 19, 11, 20, 12, 0, 1073741829, 0, 22, 262165, -1, 1, 23, 13, 0, 1073741830, 0, 25, 4456472, -1, 3, 26, 14, 27, 15, 28, 16, 0),
+"variants": [ExtResource("5_gqfrg"), SubResource("Resource_4ha6o"), 15, SubResource("SpriteFrames_bbh8g"), &"b_stretch", 0.5, SubResource("GDScript_wiylm"), SubResource("GDScript_5feut"), 5, Vector2(0, -6), 0, false, ExtResource("28_d7ukk"), SubResource("CircleShape2D_wiylm"), Vector2(0, -6), Vector2(0, 15), ExtResource("29_8yddp")],
+"version": 3
+}
+
+[sub_resource type="Resource" id="Resource_hin1l"]
+script = ExtResource("4_cr8f5")
+enemy_scene = SubResource("PackedScene_cy3q3")
+point_cost = 2
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_am03j"]
+script = ExtResource("3_vi6ws")
+wave_enemies = Array[ExtResource("4_cr8f5")]([SubResource("Resource_rqpk4"), SubResource("Resource_hin1l")])
+wave_title = "Wave 5"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
 [node name="Level" unique_id=688708345 instance=ExtResource("1_b84ys")]
@@ -155,8 +1326,20 @@ position = Vector2(11, -70)
 [node name="Forest" parent="LevelRoot" parent_id_path=PackedInt32Array(775803705) index="6" unique_id=1747897373]
 position = Vector2(5, 43)
 
+[node name="IceGem" parent="EntityRoot/Items" parent_id_path=PackedInt32Array(1808440553) index="0" unique_id=613466188 instance=ExtResource("3_jb2e5")]
+position = Vector2(122, 9)
+
+[node name="PoisonGem" parent="EntityRoot/Items" parent_id_path=PackedInt32Array(1808440553) index="1" unique_id=1650144750 instance=ExtResource("4_u4hc1")]
+position = Vector2(138, 47)
+
+[node name="FireGem" parent="EntityRoot/Items" parent_id_path=PackedInt32Array(1808440553) index="2" unique_id=762958191 instance=ExtResource("5_q4j23")]
+position = Vector2(59, 49)
+
+[node name="AttackGem" parent="EntityRoot/Items" parent_id_path=PackedInt32Array(1808440553) index="3" unique_id=1210308766 instance=ExtResource("3_cbal1")]
+position = Vector2(75, 19)
+
 [node name="LevelManager" parent="Systems" parent_id_path=PackedInt32Array(1631077692) index="3" unique_id=1712362614]
-waves = Array[ExtResource("3_vi6ws")]([SubResource("Resource_dkril"), SubResource("Resource_lbu4x"), SubResource("Resource_nn0v1")])
+waves = Array[ExtResource("3_vi6ws")]([SubResource("Resource_dkril"), SubResource("Resource_lbu4x"), SubResource("Resource_nn0v1"), SubResource("Resource_q53j5"), SubResource("Resource_am03j")])
 
 [node name="Camera2D" parent="Camera" parent_id_path=PackedInt32Array(2127698929) index="0" unique_id=1075477474]
 min_zoom = 0.7

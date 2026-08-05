@@ -368,7 +368,7 @@ radius = 13.0
 
 [node name="WallGoblin" unique_id=88513531 instance=ExtResource("1_sxn0f")]
 move = SubResource("Resource_4ha6o")
-coins_held = 15
+coins_held = 5
 
 [node name="AnimatedSprite2D" parent="Body" parent_id_path=PackedInt32Array(32919759) index="0" unique_id=670041104]
 sprite_frames = SubResource("SpriteFrames_bbh8g")

@@ -128,4 +128,5 @@ func reset():
 	$StateMachine._set_state('reset')
 
 func catch_player(_player):
+	if not is_instance_valid(_player): return
 	player_node = _player

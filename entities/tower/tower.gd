@@ -7,9 +7,9 @@ class_name Tower
 @export var attack: AttackData
 @export var collision: CollisionData
 
-var id: int
+var id: String
 
-func _ready() -> void:
+func _ready() -> void:	
 	_setup_ref()
 	_setup_nodes(self)
 	$StateMachine._set_state('active')
@@ -40,8 +40,13 @@ func _setup_ref():
 	ref.set('soft_collision', $SoftCollision)
 	ref.set('physics', $PhysicsHandler)
 	ref.set('target_node', $Target)
+	ref.set('id', id)
 	if move: ref.set('move', move.duplicate())
 	if attack: ref.set('attack', attack.duplicate())
 
 func add_rune(rune_node):
 	$Body/Slots.slot_rune(rune_node)
+
+func init_rune(rune_node):
+	await get_tree().process_frame
+	$Body/Slots.init_rune(rune_node)

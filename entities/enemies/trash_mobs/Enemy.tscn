@@ -714,7 +714,7 @@ script = ExtResource("1_vec32")
 move = SubResource("Resource_ijd6d")
 attack = SubResource("Resource_opqqp")
 collision = SubResource("Resource_86smx")
-coins_held = 5
+coins_held = 2
 
 [node name="Grab" type="Area2D" parent="." unique_id=1402749356]
 position = Vector2(0, -1)
