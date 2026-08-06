@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://1h6rhf7hcsjj"]
+
+[ext_resource type="Script" uid="uid://cops05dhuyokx" path="res://common/data/upgrade_data.gd" id="1_luq4b"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1p0lc"]
+load_path = "res://.godot/imported/gems-Sheet.png-abdb75e6555fdb37dd897a9bad5b5b67.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0cymg"]
+atlas = SubResource("CompressedTexture2D_1p0lc")
+region = Rect2(128.20844, 0.9272156, 16.53981, 14.798775)
+
+[resource]
+script = ExtResource("1_luq4b")
+upgrade = "damage"
+title = "DMG Rune"
+path = "res://entities/tower/gems/AttackGem.tscn"
+cost = 20
+description = "Towers will hit harder"
+icon = SubResource("AtlasTexture_0cymg")
+metadata/_custom_type_script = "uid://cops05dhuyokx"

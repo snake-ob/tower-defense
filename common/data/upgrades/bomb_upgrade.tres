@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://cnoahjns27icm"]
+
+[ext_resource type="Texture2D" uid="uid://c3jdnjioc2dfb" path="res://assets/debug/bomb_upgrade.png" id="1_akfvx"]
+[ext_resource type="Script" uid="uid://cops05dhuyokx" path="res://common/data/upgrade_data.gd" id="2_uqm3f"]
+
+[resource]
+script = ExtResource("2_uqm3f")
+upgrade = "bombs"
+title = "Bombs"
+path = "res://pickups/BombUpgrade.tscn"
+cost = 10
+description = "More bombs to throw"
+icon = ExtResource("1_akfvx")
+metadata/_custom_type_script = "uid://cops05dhuyokx"

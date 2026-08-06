@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bu3eaqev1xf87"]
+
+[ext_resource type="Script" uid="uid://cops05dhuyokx" path="res://common/data/upgrade_data.gd" id="1_ke6rr"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_kjevy"]
+load_path = "res://.godot/imported/gems-Sheet.png-abdb75e6555fdb37dd897a9bad5b5b67.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4l8sf"]
+atlas = SubResource("CompressedTexture2D_kjevy")
+region = Rect2(161.07043, 0.056697845, 15.886917, 16.10455)
+
+[resource]
+script = ExtResource("1_ke6rr")
+upgrade = "speed"
+title = "Speed Rune"
+path = "res://entities/tower/gems/SpeedGem.tscn"
+cost = 20
+description = "Towers will shoot faster"
+icon = SubResource("AtlasTexture_4l8sf")
+metadata/_custom_type_script = "uid://cops05dhuyokx"

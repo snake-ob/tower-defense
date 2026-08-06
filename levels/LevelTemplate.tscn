@@ -22,7 +22,6 @@
 [ext_resource type="PackedScene" uid="uid://dxl2ecxyv0158" path="res://entities/enemies/trash_mobs/WallGoblin.tscn" id="15_yik85"]
 [ext_resource type="Script" uid="uid://c3fnf3mchncvo" path="res://levels/black_fade.gd" id="17_jkxa6"]
 [ext_resource type="Script" uid="uid://b4ohld13av8bw" path="res://levels/components/level_manager.gd" id="18_stsco"]
-[ext_resource type="FontFile" uid="uid://cggn115yr4jh8" path="res://fonts/4x6px.otf" id="18_w75he"]
 [ext_resource type="Script" uid="uid://bw8eurybijbn4" path="res://common/data/wave_data.gd" id="19_4cd1h"]
 [ext_resource type="Script" uid="uid://d1tqs23iyetw5" path="res://common/data/spawn_data.gd" id="20_ai2ei"]
 [ext_resource type="FontFile" uid="uid://35m8ovgllvq4" path="res://fonts/Grandeur 8h.ttf" id="20_i6od7"]
@@ -49,6 +48,7 @@
 [ext_resource type="FontFile" uid="uid://bg3rx63jxwsp0" path="res://fonts/3x3-pixel-font.otf" id="37_xv8d5"]
 [ext_resource type="Script" uid="uid://b1olv724y4qku" path="res://levels/current_coins.gd" id="38_0wxk8"]
 [ext_resource type="PackedScene" uid="uid://tcku7617ctjh" path="res://levels/components/SpeechBubble.tscn" id="39_iwdcm"]
+[ext_resource type="Texture2D" uid="uid://bvyg4uc1dqxt6" path="res://assets/sprites/wave-skull-sheet.png" id="46_o48sd"]
 
 [sub_resource type="GDScript" id="GDScript_oqlok"]
 script/source = "extends Node2D
@@ -91,7 +91,7 @@ func _setup_ref():
 	ref.set('wave_manager', $Systems/WaveManager)
 	ref.set('time_left', $HUDLayer/TimeLeft)
 	ref.set('projectiles', $EntityRoot/Projectiles)
-	ref.set('status_label', $HUDLayer/Status)
+	ref.set('wave_skull', $HUDLayer/WaveSkull)
 	ref.set('item_ui', $HUDLayer/InvItem)
 	ref.set('inv_manager', $Systems/InventoryManager)
 	ref.set('player_spawn', $LevelRoot/PlayerSpawn)
@@ -767,10 +767,6 @@ text = "Buy it! Buy it with Right Click."
 graphic = "rmb"
 metadata/_custom_type_script = "uid://n51tnmdrlouq"
 
-[sub_resource type="LabelSettings" id="LabelSettings_udfhf"]
-font = ExtResource("18_w75he")
-font_size = 7
-
 [sub_resource type="LabelSettings" id="LabelSettings_w75he"]
 font = ExtResource("20_i6od7")
 
@@ -821,6 +817,50 @@ animations = [{
 [sub_resource type="LabelSettings" id="LabelSettings_vg3su"]
 font = ExtResource("37_xv8d5")
 font_size = 4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lu0xg"]
+atlas = ExtResource("46_o48sd")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nav4a"]
+atlas = ExtResource("46_o48sd")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_adds7"]
+atlas = ExtResource("46_o48sd")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vu5s7"]
+atlas = ExtResource("46_o48sd")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sv7yt"]
+animations = [{
+"frames": [{
+"duration": 10.0,
+"texture": SubResource("AtlasTexture_lu0xg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nav4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_adds7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nav4a")
+}],
+"loop": 1,
+"name": &"active",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vu5s7")
+}],
+"loop": 1,
+"name": &"idle",
+"speed": 5.0
+}]
 
 [node name="Level" type="Node2D" unique_id=688708345]
 y_sort_enabled = true
@@ -1011,20 +1051,11 @@ offset_right = 77.0
 offset_bottom = 134.0
 script = ExtResource("32_stsco")
 
-[node name="Status" type="Label" parent="HUDLayer" unique_id=292853099]
-offset_left = 154.0
-offset_top = 124.0
-offset_right = 253.0
-offset_bottom = 132.0
-text = "Prepare Your Defences"
-label_settings = SubResource("LabelSettings_udfhf")
-horizontal_alignment = 2
-
 [node name="TimeLeft" type="Label" parent="HUDLayer" unique_id=1903094023]
-offset_left = 233.0
-offset_top = 129.0
-offset_right = 253.0
-offset_bottom = 145.0
+offset_left = 218.0
+offset_top = 126.0
+offset_right = 254.0
+offset_bottom = 142.0
 text = "10"
 label_settings = SubResource("LabelSettings_w75he")
 horizontal_alignment = 2
@@ -1055,6 +1086,11 @@ offset_bottom = 144.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.39215687)
 script = ExtResource("17_jkxa6")
+
+[node name="WaveSkull" type="AnimatedSprite2D" parent="HUDLayer" unique_id=273534912]
+position = Vector2(219, 134)
+sprite_frames = SubResource("SpriteFrames_sv7yt")
+animation = &"active"
 
 [node name="DebugLayer" type="CanvasLayer" parent="." unique_id=1534624280]
 

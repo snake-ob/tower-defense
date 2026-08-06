@@ -43,6 +43,7 @@ func _on_inv_update():
 func _update_ui():
 	if Inventory.get_unlocked_items().size() <= 0:
 		return
+
 	item_ui._enable_count(true)
 	var current_item = items[index].item_name
 	var item_texture = items[index].texture
@@ -52,6 +53,9 @@ func _update_ui():
 		item_ui.set_modulation(true)
 	else:
 		item_ui.set_modulation(false)
+	if Inventory.get_unlocked_items().size() > 1:
+		item_ui._enable_scroll(true)
+
 
 func _spawn_in_hand(item_scene):
 	var item = item_scene.instantiate()

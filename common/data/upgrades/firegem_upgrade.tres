@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://7y2la7ftp044"]
+
+[ext_resource type="Texture2D" uid="uid://bmr3gsi82snwe" path="res://assets/sprites/objects/gems-Sheet.png" id="1_2uiqh"]
+[ext_resource type="Script" uid="uid://cops05dhuyokx" path="res://common/data/upgrade_data.gd" id="2_53tms"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcvv2"]
+atlas = ExtResource("1_2uiqh")
+region = Rect2(0, 0, 17.198166, 16)
+
+[resource]
+script = ExtResource("2_53tms")
+upgrade = "fire"
+title = "Fire Rune"
+path = "res://entities/tower/gems/FireGem.tscn"
+cost = 20
+description = "Towers will burn enemies"
+icon = SubResource("AtlasTexture_wcvv2")
+metadata/_custom_type_script = "uid://cops05dhuyokx"

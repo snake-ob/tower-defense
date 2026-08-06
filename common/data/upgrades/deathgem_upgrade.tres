@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://cnw8hfyj0ywcv"]
+
+[ext_resource type="Script" uid="uid://cops05dhuyokx" path="res://common/data/upgrade_data.gd" id="1_3dxly"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_b8p4i"]
+load_path = "res://.godot/imported/gems-Sheet.png-abdb75e6555fdb37dd897a9bad5b5b67.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kn2gv"]
+atlas = SubResource("CompressedTexture2D_b8p4i")
+region = Rect2(32.016384, 0.056697845, 17.410324, 15.669292)
+
+[resource]
+script = ExtResource("1_3dxly")
+upgrade = "poison"
+title = "Death Rune"
+path = "res://entities/tower/gems/PoisonGem.tscn"
+cost = 20
+description = "Towers will poison enemies"
+icon = SubResource("AtlasTexture_kn2gv")
+metadata/_custom_type_script = "uid://cops05dhuyokx"

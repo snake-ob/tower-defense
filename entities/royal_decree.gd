@@ -41,6 +41,8 @@ func purchase_requested():
 	var upgrade_scene = load(upgrade.path)
 	var upgrade_item = upgrade_scene.instantiate()
 	upgrade_item.global_position = global_position
+	if upgrade_item is Tower:
+		upgrade_item.register_tower()
 	SignalBus.spawned.emit(upgrade_item)
 	queue_free()
 

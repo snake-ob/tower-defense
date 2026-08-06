@@ -24,7 +24,6 @@ func update_tower(_id: String, _runes: Array):
 	for tower in towers:
 		if _id == tower.id:
 			tower.runes = _runes
-			print(tower)
 			return
 		
 	print("Tower with id '", _id, "' not found.")

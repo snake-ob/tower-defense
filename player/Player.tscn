@@ -306,11 +306,12 @@ script/source = "#idle.gd
 extends State
 
 var controller: Node
-var grab: Area2D
+var grab: Grab
 var physics: Node
 
 func _ready():
 	GlobalClick.clicked.connect(_on_object_clicked)
+	GlobalClick.rmb_click.connect(_on_right_click)
 
 func _setup(p_ref):
 	controller = p_ref.input_controller
@@ -347,6 +348,17 @@ func _on_object_clicked(p_actor):
 	elif grab.grabbed_pickup != null:
 		grab._throw()
 		return
+		
+func _on_right_click():
+	if grab.grabbed_pickup != null:
+		var random_angle: float = randf_range(0, TAU)
+		var throw_dir: Vector2 = Vector2.RIGHT.rotated(random_angle)
+		var speed: float = randf_range(1.0, 1.5)
+		var arc: int = 100
+	
+		var drop_throw = {\"direction\": throw_dir, \"speed\": speed, 'arc': arc}
+		
+		grab._drop(drop_throw)
 "
 
 [sub_resource type="GDScript" id="GDScript_5qrx2"]

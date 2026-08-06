@@ -1,7 +1,16 @@
 [gd_scene format=3 uid="uid://kal6e53gkhim"]
 
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="1_e0i1s"]
+[ext_resource type="Script" uid="uid://7bxlx0bftck1" path="res://common/data/move_data.gd" id="2_fysb6"]
 [ext_resource type="Texture2D" uid="uid://b5m18d4qpiwp2" path="res://assets/sprites/characters/ghost-sheet.png" id="2_m670w"]
+
+[sub_resource type="Resource" id="Resource_goo40"]
+script = ExtResource("2_fysb6")
+speed = 7.0
+friction = 20
+acceleration = 80
+turn_speed = 1.0
+metadata/_custom_type_script = "uid://7bxlx0bftck1"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fysb6"]
 atlas = ExtResource("2_m670w")
@@ -240,6 +249,7 @@ animations = [{
 
 [node name="Ghost" unique_id=88513531 instance=ExtResource("1_e0i1s")]
 collision_mask = 0
+move = SubResource("Resource_goo40")
 coins_held = 5
 
 [node name="AnimatedSprite2D" parent="Body" parent_id_path=PackedInt32Array(32919759) index="0" unique_id=670041104]

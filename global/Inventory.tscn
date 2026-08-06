@@ -1,6 +1,18 @@
 [gd_scene format=3 uid="uid://bptsoqpvsokio"]
 
 [ext_resource type="Script" uid="uid://cpq55itkfdqeq" path="res://global/inventory.gd" id="1_i5i2n"]
+[ext_resource type="Script" uid="uid://cops05dhuyokx" path="res://common/data/upgrade_data.gd" id="2_73x1j"]
+[ext_resource type="Resource" uid="uid://cnoahjns27icm" path="res://common/data/upgrades/bomb_upgrade.tres" id="3_t6yp4"]
+[ext_resource type="Resource" uid="uid://bdpns4bpac0eg" path="res://common/data/upgrades/tower_upgrade.tres" id="4_jfknf"]
+[ext_resource type="Resource" uid="uid://d1xtagijk5d5" path="res://common/data/upgrades/walls_upgrade.tres" id="5_sw2ec"]
+[ext_resource type="Resource" uid="uid://1h6rhf7hcsjj" path="res://common/data/upgrades/dmggem_upgrade.tres" id="6_s506o"]
+[ext_resource type="Resource" uid="uid://cvucjrbhw3lw8" path="res://common/data/upgrades/icegem_upgrade.tres" id="7_iw6r3"]
+[ext_resource type="Resource" uid="uid://7y2la7ftp044" path="res://common/data/upgrades/firegem_upgrade.tres" id="8_fw4wx"]
+[ext_resource type="Resource" uid="uid://dni2daiq7hrke" path="res://common/data/upgrades/caltrope_upgrade.tres" id="9_m2icy"]
+[ext_resource type="Resource" uid="uid://cnw8hfyj0ywcv" path="res://common/data/upgrades/deathgem_upgrade.tres" id="10_a02yx"]
+[ext_resource type="Resource" uid="uid://cq1hoqpgcocbc" path="res://common/data/upgrades/landmine_upgrade.tres" id="11_r0fq4"]
+[ext_resource type="Resource" uid="uid://bu3eaqev1xf87" path="res://common/data/upgrades/speedgem_upgrade.tres" id="12_3k6sh"]
 
 [node name="Inventory" type="Node" unique_id=694184084]
 script = ExtResource("1_i5i2n")
+debug_upgrades = Array[ExtResource("2_73x1j")]([ExtResource("3_t6yp4"), ExtResource("4_jfknf"), ExtResource("5_sw2ec"), ExtResource("6_s506o"), ExtResource("7_iw6r3"), ExtResource("8_fw4wx"), ExtResource("9_m2icy"), ExtResource("10_a02yx"), ExtResource("11_r0fq4"), ExtResource("12_3k6sh")])

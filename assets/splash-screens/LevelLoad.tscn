@@ -15,8 +15,11 @@ var item_timer: Timer
 var next_scene: PackedScene
 
 func _ready():
+	Inventory.reload_items()
+	
 	if SceneLoader.current_scene == null: SceneLoader.current_scene = self
 	$Fader.actor = self
+	
 	
 	for node in $Items.get_children():
 		if \"modulate\" in node:

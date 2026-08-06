@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://cvucjrbhw3lw8"]
+
+[ext_resource type="Script" uid="uid://cops05dhuyokx" path="res://common/data/upgrade_data.gd" id="1_lgyi1"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8rykg"]
+load_path = "res://.godot/imported/gems-Sheet.png-abdb75e6555fdb37dd897a9bad5b5b67.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmdpd"]
+atlas = SubResource("CompressedTexture2D_8rykg")
+region = Rect2(96.86985, -0.3785591, 15.669296, 16.757439)
+
+[resource]
+script = ExtResource("1_lgyi1")
+upgrade = "ice"
+title = "Ice Rune"
+path = "res://entities/tower/gems/IceGem.tscn"
+cost = 20
+description = "Towers will slow enemies"
+icon = SubResource("AtlasTexture_rmdpd")
+metadata/_custom_type_script = "uid://cops05dhuyokx"

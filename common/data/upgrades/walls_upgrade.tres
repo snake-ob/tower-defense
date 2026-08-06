@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://d1xtagijk5d5"]
+
+[ext_resource type="Texture2D" uid="uid://bkryo2kiwbh13" path="res://assets/debug/wall-upgrade.png" id="1_w6e28"]
+[ext_resource type="Script" uid="uid://cops05dhuyokx" path="res://common/data/upgrade_data.gd" id="2_w2m3g"]
+
+[resource]
+script = ExtResource("2_w2m3g")
+upgrade = "walls"
+title = "Walls"
+path = "res://pickups/WallUpgrade.tscn"
+cost = 10
+description = "Build walls"
+icon = ExtResource("1_w6e28")
+metadata/_custom_type_script = "uid://cops05dhuyokx"

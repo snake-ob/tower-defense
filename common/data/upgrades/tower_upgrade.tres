@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="UpgradeData" format=3 uid="uid://bdpns4bpac0eg"]
+
+[ext_resource type="Texture2D" uid="uid://pcefisb0o7sm" path="res://assets/sprites/tower.png" id="1_055ae"]
+[ext_resource type="Script" uid="uid://cops05dhuyokx" path="res://common/data/upgrade_data.gd" id="2_6brhn"]
+
+[resource]
+script = ExtResource("2_6brhn")
+upgrade = "tower"
+title = "Tower"
+path = "res://entities/tower/Tower.tscn"
+cost = 10
+description = "An additional tower"
+icon = ExtResource("1_055ae")
+metadata/_custom_type_script = "uid://cops05dhuyokx"

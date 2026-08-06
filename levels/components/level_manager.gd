@@ -8,12 +8,14 @@ class_name LevelManager
 signal level_over
 
 @export var waves: Array[WaveData] = []
+@export var start_time: int = 10
+
 
 var wave_index: int = 0
 var current_wave: WaveData
 
 var time_label: Label
-var status_label: Label
+var wave_skull: AnimatedSprite2D
 var entity_root: Node2D
 var wave_manager: Node
 var spawners: Node
@@ -45,7 +47,7 @@ func _ready():
 	prep_timer.one_shot = true
 	wave_timer.one_shot = true
 	active_timer = prep_timer
-	prep_timer.start(prep_length)
+	prep_timer.start(start_time)
 	current_wave = waves[0]
 
 func _process(_delta):
@@ -57,8 +59,8 @@ func _setup_lvl(p_ref):
 	# Pull dependencies from level
 	wave_manager = p_ref.wave_manager
 	time_label = p_ref.time_left
-	status_label = p_ref.status_label
-	status_label.text = "Prepare.."
+	wave_skull = p_ref.wave_skull
+	wave_skull.play('idle')
 	entity_root = p_ref.entity_root
 	spawners = p_ref.spawners
 	enemies = p_ref.enemies
@@ -95,7 +97,8 @@ func _begin_wave():
 	wave_manager.start_wave()
 	wave_timer.start(wave_length)
 	active_timer = wave_timer
-	status_label.text = "Protect Your King!"
+	
+	wave_skull.play('active')
 	
 	wave_index += 1
 	
@@ -109,17 +112,16 @@ func _wave_timeout():
 		SignalBus.spawned.emit(decree)
 		
 	_enemy_escape()
+	wave_skull.play('idle')
 
 	if wave_index > waves.size() - 1:
 		DiagBus.set_active_state('lvl_over')
-		status_label.text = "LEVEL OVER"
 		level_over.emit()
 		return
 	
 	DiagBus.set_active_state('prepping')
 	prep_timer.start(prep_length)
 	active_timer = prep_timer
-	status_label.text = "GET READY, BOY"
 
 func _get_remaining_time(timer):
 	var minutes = int(ceil(timer.time_left)) / 60

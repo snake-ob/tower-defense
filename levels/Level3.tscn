@@ -2,6 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://b4oghqt2xfi6q" path="res://levels/LevelTemplate.tscn" id="1_gq8fh"]
 [ext_resource type="PackedScene" uid="uid://c5nbf3mm6qpu2" path="res://entities/Tree.tscn" id="2_11ac5"]
+[ext_resource type="Script" uid="uid://bw8eurybijbn4" path="res://common/data/wave_data.gd" id="3_oq8ku"]
+[ext_resource type="Script" uid="uid://d1tqs23iyetw5" path="res://common/data/spawn_data.gd" id="4_mppvi"]
+[ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="5_uog4x"]
+[ext_resource type="PackedScene" uid="uid://dxl2ecxyv0158" path="res://entities/enemies/trash_mobs/WallGoblin.tscn" id="6_fqqs4"]
+[ext_resource type="PackedScene" uid="uid://h6hugk1y1806" path="res://entities/enemies/trash_mobs/Skeleton.tscn" id="7_52gcn"]
+[ext_resource type="PackedScene" uid="uid://b06oy0kyr8di8" path="res://entities/enemies/trash_mobs/BigBoss.tscn" id="8_ws61b"]
+[ext_resource type="PackedScene" uid="uid://6alrc1yoxqd1" path="res://entities/enemies/trash_mobs/Imp.tscn" id="9_m7lwk"]
+[ext_resource type="PackedScene" uid="uid://kal6e53gkhim" path="res://entities/enemies/trash_mobs/Ghost.tscn" id="10_gtknj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8psn"]
 size = Vector2(1116, 20)
@@ -17,6 +25,88 @@ size = Vector2(942, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11ac5"]
 size = Vector2(1091, 69)
+
+[sub_resource type="Resource" id="Resource_fysb6"]
+script = ExtResource("4_mppvi")
+enemy_scene = ExtResource("5_uog4x")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_m670w"]
+script = ExtResource("3_oq8ku")
+wave_budget = 40
+wave_enemies = Array[ExtResource("4_mppvi")]([SubResource("Resource_fysb6")])
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
+
+[sub_resource type="Resource" id="Resource_we4md"]
+script = ExtResource("4_mppvi")
+enemy_scene = ExtResource("5_uog4x")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_hhbt1"]
+script = ExtResource("4_mppvi")
+enemy_scene = ExtResource("6_fqqs4")
+point_cost = 2
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_goo40"]
+script = ExtResource("3_oq8ku")
+wave_enemies = Array[ExtResource("4_mppvi")]([SubResource("Resource_we4md"), SubResource("Resource_hhbt1")])
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
+
+[sub_resource type="Resource" id="Resource_g2ry4"]
+script = ExtResource("4_mppvi")
+enemy_scene = ExtResource("7_52gcn")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_q28e0"]
+script = ExtResource("3_oq8ku")
+wave_enemies = Array[ExtResource("4_mppvi")]([SubResource("Resource_g2ry4"), null])
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
+
+[sub_resource type="Resource" id="Resource_8uuqd"]
+script = ExtResource("4_mppvi")
+enemy_scene = ExtResource("8_ws61b")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_sq6l6"]
+script = ExtResource("3_oq8ku")
+wave_budget = 1
+wave_enemies = Array[ExtResource("4_mppvi")]([SubResource("Resource_8uuqd"), null])
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
+
+[sub_resource type="Resource" id="Resource_srcw4"]
+script = ExtResource("4_mppvi")
+enemy_scene = ExtResource("5_uog4x")
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_bua1m"]
+script = ExtResource("4_mppvi")
+enemy_scene = ExtResource("9_m7lwk")
+point_cost = 2
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_fq1bf"]
+script = ExtResource("4_mppvi")
+enemy_scene = ExtResource("7_52gcn")
+point_cost = 2
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_6j38h"]
+script = ExtResource("4_mppvi")
+enemy_scene = ExtResource("10_gtknj")
+point_cost = 3
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_kk3xu"]
+script = ExtResource("4_mppvi")
+enemy_scene = ExtResource("6_fqqs4")
+point_cost = 2
+metadata/_custom_type_script = "uid://d1tqs23iyetw5"
+
+[sub_resource type="Resource" id="Resource_d8lhr"]
+script = ExtResource("3_oq8ku")
+wave_enemies = Array[ExtResource("4_mppvi")]([SubResource("Resource_srcw4"), SubResource("Resource_bua1m"), SubResource("Resource_fq1bf"), SubResource("Resource_6j38h"), SubResource("Resource_kk3xu")])
+metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
 [node name="Level" unique_id=688708345 instance=ExtResource("1_gq8fh")]
 
@@ -297,6 +387,10 @@ shape = SubResource("RectangleShape2D_11ac5")
 
 [node name="HoldingSpawn" parent="LevelRoot" parent_id_path=PackedInt32Array(775803705) index="9" unique_id=1774874299]
 position = Vector2(944, 26)
+
+[node name="LevelManager" parent="Systems" parent_id_path=PackedInt32Array(1631077692) index="3" unique_id=1712362614]
+waves = Array[ExtResource("3_oq8ku")]([SubResource("Resource_m670w"), SubResource("Resource_goo40"), SubResource("Resource_q28e0"), SubResource("Resource_sq6l6"), SubResource("Resource_d8lhr")])
+start_time = 60
 
 [node name="TopLeft" parent="Camera" parent_id_path=PackedInt32Array(2127698929) index="1" unique_id=693073085]
 position = Vector2(-324, -449)
