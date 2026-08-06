@@ -17,4 +17,5 @@ path = "res://entities/tower/gems/AttackGem.tscn"
 cost = 20
 description = "Towers will hit harder"
 icon = SubResource("AtlasTexture_0cymg")
+chance = 20
 metadata/_custom_type_script = "uid://cops05dhuyokx"

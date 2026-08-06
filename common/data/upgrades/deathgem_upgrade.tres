@@ -17,4 +17,5 @@ path = "res://entities/tower/gems/PoisonGem.tscn"
 cost = 20
 description = "Towers will poison enemies"
 icon = SubResource("AtlasTexture_kn2gv")
+chance = 20
 metadata/_custom_type_script = "uid://cops05dhuyokx"

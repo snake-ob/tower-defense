@@ -11,4 +11,5 @@ path = "res://pickups/WallUpgrade.tscn"
 cost = 10
 description = "Build walls"
 icon = ExtResource("1_w6e28")
+chance = 40
 metadata/_custom_type_script = "uid://cops05dhuyokx"

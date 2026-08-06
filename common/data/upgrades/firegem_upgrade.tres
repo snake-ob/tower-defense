@@ -15,4 +15,5 @@ path = "res://entities/tower/gems/FireGem.tscn"
 cost = 20
 description = "Towers will burn enemies"
 icon = SubResource("AtlasTexture_wcvv2")
+chance = 20
 metadata/_custom_type_script = "uid://cops05dhuyokx"

@@ -17,4 +17,5 @@ path = "res://entities/tower/gems/IceGem.tscn"
 cost = 20
 description = "Towers will slow enemies"
 icon = SubResource("AtlasTexture_rmdpd")
+chance = 20
 metadata/_custom_type_script = "uid://cops05dhuyokx"

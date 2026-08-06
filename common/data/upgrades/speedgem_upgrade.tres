@@ -17,4 +17,5 @@ path = "res://entities/tower/gems/SpeedGem.tscn"
 cost = 20
 description = "Towers will shoot faster"
 icon = SubResource("AtlasTexture_4l8sf")
+chance = 20
 metadata/_custom_type_script = "uid://cops05dhuyokx"

@@ -11,4 +11,5 @@ path = "res://pickups/LandmineUpgrade.tscn"
 cost = 10
 description = "More mines to throw"
 icon = ExtResource("1_d2dlg")
+chance = 50
 metadata/_custom_type_script = "uid://cops05dhuyokx"

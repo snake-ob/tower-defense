@@ -10,7 +10,7 @@ var upgrade: UpgradeData
 func _ready():
 	_setup_ref()
 	_setup_nodes(self)
-	upgrade = upgrades.pick_random()
+	upgrade = _pick_weighted_upgrade(upgrades)
 	$StateMachine._set_state('idle')
 	ref.shop.set_shop(upgrade)
 	
@@ -25,6 +25,26 @@ func _setup_ref():
 	
 func _physics_process(delta):
 	move_and_slide()
+	
+func _pick_weighted_upgrade(p_upgrades: Array[UpgradeData]) -> UpgradeData:
+	if p_upgrades.is_empty():
+		return null
+		
+	var total_weight: int = 0
+	for u in p_upgrades:
+		total_weight += u.chance
+		
+	var random_weight = randi_range(1, total_weight)
+	
+	var current_sum: int = 0
+	for u in p_upgrades:
+		current_sum += u.chance
+		if random_weight <= current_sum:
+			return u
+			
+	print("WEIGHTED UPGRADE MALFUNCTION")
+	return p_upgrades[0]
+	
 
 func _setup_nodes(p_node):
 	for node in p_node.get_children():

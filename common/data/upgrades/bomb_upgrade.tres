@@ -11,4 +11,5 @@ path = "res://pickups/BombUpgrade.tscn"
 cost = 10
 description = "More bombs to throw"
 icon = ExtResource("1_akfvx")
+chance = 50
 metadata/_custom_type_script = "uid://cops05dhuyokx"
