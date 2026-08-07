@@ -11,6 +11,8 @@ func _ready():
 	_setup_nodes(self)
 	$Sprite2D.play('explode')
 	$Sprite2D.animation_finished.connect(_on_explode)
+	var sound = load("res://audio/sfx/explosion.wav")
+	Sound.play_SFX(sound)
 
 func _setup_ref():
 	ref.set('actor', self)

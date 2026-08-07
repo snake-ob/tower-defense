@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://b0xsqde6h7yum"]
+
+[ext_resource type="Script" uid="uid://bubp1cfeq2euo" path="res://global/sound_console.gd" id="1_wgkxe"]
+
+[node name="SoundConsole" type="Node" unique_id=190730575]
+script = ExtResource("1_wgkxe")
+
+[node name="SFX" type="Node" parent="." unique_id=2133957667]
+
+[node name="Channel1" type="AudioStreamPlayer" parent="SFX" unique_id=1538368148]
+
+[node name="Channel2" type="AudioStreamPlayer" parent="SFX" unique_id=809157196]
+
+[node name="Channel3" type="AudioStreamPlayer" parent="SFX" unique_id=988504020]
+
+[node name="Channel4" type="AudioStreamPlayer" parent="SFX" unique_id=1126888889]
+
+[node name="Channel5" type="AudioStreamPlayer" parent="SFX" unique_id=1955059069]
+
+[node name="Channel6" type="AudioStreamPlayer" parent="SFX" unique_id=1196768606]
+
+[node name="Channel7" type="AudioStreamPlayer" parent="SFX" unique_id=80643471]
+
+[node name="Channel8" type="AudioStreamPlayer" parent="SFX" unique_id=10413018]
+
+[node name="Music" type="Node" parent="." unique_id=821915707]
+
+[node name="Channel1" type="AudioStreamPlayer" parent="Music" unique_id=700922907]

@@ -55,6 +55,8 @@ func _take_hit(hit):
 	$Health._take_damage(hit.damage)
 	ref.sprite.trigger_flicker()
 	$Hurtbox.enable_iframes()
+	var hurt_sound = load("res://audio/sfx/player_hurt.wav")
+	Sound.play_SFX(hurt_sound)
 	# Health damage
 	# Disable hurtbox (maybe hurtbox has iframes function that resets on timer)
 	# Sprite flashes white	

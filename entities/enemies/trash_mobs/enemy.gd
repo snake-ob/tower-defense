@@ -89,6 +89,8 @@ func _on_got_hit(hit):
 		apply_status_effects(hit.status_effects)
 
 	ref.health._take_damage(hit.damage)
+	var hurt_sound = load("res://audio/sfx/enemy_hurt.wav")
+	Sound.play_SFX(hurt_sound)
 
 func apply_status_effects(p_effects):
 	for p_effect in p_effects:

@@ -339,6 +339,7 @@ func _on_object_clicked(p_actor):
 	if p_actor.ref.pickup in grab.get_grabbable():
 		if grab.grabbed_pickup != null: 
 			grab._drop()
+			throw_sound()
 			
 		grab.grabbed_pickup = p_actor.ref.pickup
 		change_state.emit('grab')
@@ -347,6 +348,7 @@ func _on_object_clicked(p_actor):
 	
 	elif grab.grabbed_pickup != null:
 		grab._throw()
+		throw_sound()
 		return
 		
 func _on_right_click():
@@ -359,6 +361,11 @@ func _on_right_click():
 		var drop_throw = {\"direction\": throw_dir, \"speed\": speed, 'arc': arc}
 		
 		grab._drop(drop_throw)
+		throw_sound()
+
+func throw_sound():
+	var sound = load(\"res://audio/sfx/throw.wav\")
+	Sound.play_SFX(sound)
 "
 
 [sub_resource type="GDScript" id="GDScript_5qrx2"]
@@ -431,6 +438,8 @@ func _enter_state():
 	grab._pickup_object(pickup)
 	actor.holding = true
 	change_state.emit('idle')
+	var sound = load(\"res://audio/sfx/pickup.wav\")
+	Sound.play_SFX(sound)
 
 func get_closest_node(p_nodes: Array) -> Node2D:
 	if p_nodes.is_empty():
