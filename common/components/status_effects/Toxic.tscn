@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bk62rt0q48qai"]
 
 [ext_resource type="Script" uid="uid://dmtbuia5lx8e5" path="res://common/components/status_effects/toxic.gd" id="1_m81kp"]
-[ext_resource type="Texture2D" uid="uid://bvi36xcxlang8" path="res://assets/debug/poison.png" id="2_m81kp"]
+[ext_resource type="Texture2D" uid="uid://bn3lm2nyuouvc" path="res://assets/sprites/poison.png" id="2_m81kp"]
 [ext_resource type="Script" uid="uid://bsdni0r846wkd" path="res://common/components/status_effects/spread.gd" id="3_4ehha"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qw4gb"]
@@ -21,8 +21,7 @@ burn_damage = 2
 burn_knockback = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=510809524]
-position = Vector2(0, -33)
-scale = Vector2(0.046875, 0.046875)
+position = Vector2(0, -18)
 texture = ExtResource("2_m81kp")
 
 [node name="Spread" type="Area2D" parent="." unique_id=1061609008]

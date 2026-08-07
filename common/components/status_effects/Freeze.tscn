@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b14mat8x3gsml"]
 
 [ext_resource type="Script" uid="uid://bi2auaeo6s4g5" path="res://common/components/status_effects/freeze.gd" id="1_6momh"]
-[ext_resource type="Texture2D" uid="uid://bpssovyu423cu" path="res://assets/debug/ice.png" id="2_6momh"]
+[ext_resource type="Texture2D" uid="uid://dq3dtip8wjkve" path="res://assets/sprites/snowflake.png" id="2_6momh"]
 [ext_resource type="Script" uid="uid://bsdni0r846wkd" path="res://common/components/status_effects/spread.gd" id="3_mqw0m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qw4gb"]
@@ -14,8 +14,7 @@ colors = PackedColorArray(0.21176471, 0.85490197, 1, 0.9764706, 0.8156863, 0.317
 script = ExtResource("1_6momh")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=510809524]
-position = Vector2(0, -28)
-scale = Vector2(0.0068800407, 0.0068800407)
+position = Vector2(0, -17)
 texture = ExtResource("2_6momh")
 
 [node name="Spread" type="Area2D" parent="." unique_id=1061609008]

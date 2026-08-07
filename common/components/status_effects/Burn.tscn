@@ -1,8 +1,44 @@
 [gd_scene format=3 uid="uid://cu5eq5hbf7hr6"]
 
 [ext_resource type="Script" uid="uid://e7vlg5chunqu" path="res://common/components/status_effects/burn.gd" id="1_757ha"]
+[ext_resource type="Texture2D" uid="uid://bps2qx51ta2yb" path="res://assets/sprites/fire-sheet.png" id="2_kysre"]
 [ext_resource type="Script" uid="uid://bsdni0r846wkd" path="res://common/components/status_effects/spread.gd" id="2_qw4gb"]
-[ext_resource type="Texture2D" uid="uid://mj4aiyjics24" path="res://assets/debug/fire.png" id="3_kysre"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egur8"]
+atlas = ExtResource("2_kysre")
+region = Rect2(0, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojcyk"]
+atlas = ExtResource("2_kysre")
+region = Rect2(12, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tdl4"]
+atlas = ExtResource("2_kysre")
+region = Rect2(24, 0, 12, 12)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsob2"]
+atlas = ExtResource("2_kysre")
+region = Rect2(36, 0, 12, 12)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sv7yt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_egur8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojcyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tdl4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsob2")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qw4gb"]
 
@@ -14,10 +50,11 @@ colors = PackedColorArray(0.8980392, 0.5372549, 0.13725491, 1, 0.8156863, 0.3176
 script = ExtResource("1_757ha")
 burn_knockback = 3
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=510809524]
-position = Vector2(0, -33)
-scale = Vector2(0.046875, 0.046875)
-texture = ExtResource("3_kysre")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=420409540]
+position = Vector2(0, -21)
+sprite_frames = SubResource("SpriteFrames_sv7yt")
+autoplay = "default"
+frame_progress = 0.9674718
 
 [node name="Spread" type="Area2D" parent="." unique_id=1061609008]
 collision_layer = 0
@@ -44,7 +81,7 @@ initial_velocity_max = 150.0
 angle_min = -490.2
 angle_max = -46.0
 scale_amount_max = 3.0
-color = Color(0.8784314, 0.5294118, 0.16078432, 0.9764706)
+color = Color(0.9880621, 0.6358194, 0.4294128, 0.9764706)
 color_ramp = SubResource("Gradient_kysre")
 hue_variation_min = -0.32
 hue_variation_max = 0.18

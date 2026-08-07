@@ -140,6 +140,7 @@ y_sort_enabled = true
 position = Vector2(0, -3)
 
 [node name="Sprite2D" type="Sprite2D" parent="Body" unique_id=189270528]
+y_sort_enabled = true
 position = Vector2(0, -4.85)
 texture = ExtResource("6_6bp5w")
 
