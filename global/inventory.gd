@@ -66,6 +66,8 @@ func upgrade(p_item: String):
 func _on_coin_collect():
 	wallet += 1
 	coin_added.emit()
+	var coin_sound = load("res://audio/sfx/pickup_coin.wav")
+	Sound.play_SFX(coin_sound)
 	
 func _unhandled_input(event):
 	var is_modifier_pressed = event.ctrl_pressed or event.meta_pressed

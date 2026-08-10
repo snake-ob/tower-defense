@@ -583,6 +583,8 @@ func _enter_state():
 	await get_tree().create_timer(death_speed).timeout
 	flicker()
 	
+	
+	
 func _physics_update(delta):
 	actor.velocity = Vector2.ZERO
 	if booming_death:

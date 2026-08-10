@@ -1,10 +1,13 @@
 extends CharacterBody2D
 class_name Enemy
 
+@export var type: String = "Enemy"
+
 @export_category("Enemy Data")
 @export var move: MoveData
 @export var attack: AttackData
 @export var collision: CollisionData
+
 @export var coins_held: int = 100
 
 var coin_path: String = "res://entities/CoinEmitter.tscn"
@@ -114,6 +117,9 @@ func catch_exit_pos(p_pos):
 func _die():
 	emit_drop()
 	$StateMachine._set_state('die')
+	var death_sound = load("res://audio/sfx/ghost_death.wav")
+	if type == 'Ghost':
+		Sound.play_SFX(death_sound)
 
 func emit_drop():
 	var coin_scene = load(coin_path)

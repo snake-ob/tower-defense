@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bptsoqpvsokio"]
 
 [ext_resource type="Script" uid="uid://cpq55itkfdqeq" path="res://global/inventory.gd" id="1_i5i2n"]
-[ext_resource type="Script" uid="uid://cops05dhuyokx" path="res://common/data/upgrade_data.gd" id="2_73x1j"]
 [ext_resource type="Resource" uid="uid://cnoahjns27icm" path="res://common/data/upgrades/bomb_upgrade.tres" id="3_t6yp4"]
 [ext_resource type="Resource" uid="uid://bdpns4bpac0eg" path="res://common/data/upgrades/tower_upgrade.tres" id="4_jfknf"]
 [ext_resource type="Resource" uid="uid://d1xtagijk5d5" path="res://common/data/upgrades/walls_upgrade.tres" id="5_sw2ec"]
@@ -15,4 +14,4 @@
 
 [node name="Inventory" type="Node" unique_id=694184084]
 script = ExtResource("1_i5i2n")
-debug_upgrades = Array[ExtResource("2_73x1j")]([ExtResource("3_t6yp4"), ExtResource("4_jfknf"), ExtResource("5_sw2ec"), ExtResource("6_s506o"), ExtResource("7_iw6r3"), ExtResource("8_fw4wx"), ExtResource("9_m2icy"), ExtResource("10_a02yx"), ExtResource("11_r0fq4"), ExtResource("12_3k6sh")])
+debug_upgrades = [ExtResource("3_t6yp4"), ExtResource("4_jfknf"), ExtResource("5_sw2ec"), ExtResource("6_s506o"), ExtResource("7_iw6r3"), ExtResource("8_fw4wx"), ExtResource("9_m2icy"), ExtResource("10_a02yx"), ExtResource("11_r0fq4"), ExtResource("12_3k6sh")]

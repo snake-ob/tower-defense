@@ -249,6 +249,7 @@ animations = [{
 
 [node name="Ghost" unique_id=88513531 instance=ExtResource("1_e0i1s")]
 collision_mask = 0
+type = "Ghost"
 move = SubResource("Resource_goo40")
 coins_held = 5
 

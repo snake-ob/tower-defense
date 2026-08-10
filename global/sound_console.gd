@@ -13,6 +13,7 @@ func play_SFX(sfx):
 		if not channel.is_playing():
 			channel.set_stream(sfx)
 			channel.play()
+			channel.pitch_scale = randf_range(0.900, 1.050)
 			break
 	
 func play_music(track):

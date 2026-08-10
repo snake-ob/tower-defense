@@ -58,6 +58,7 @@ func _pickup_object(pickup):
 func _put_down():
 	grabbed_pickup._get_put_down()
 	grabbed_pickup = null
+	_throw_sound()
 	
 func _drop(p_drop: Dictionary = {}):
 	var random_angle: float = randf_range(0, TAU)
@@ -69,7 +70,13 @@ func _drop(p_drop: Dictionary = {}):
 	if grabbed_pickup:
 		grabbed_pickup._get_thrown(drop_throw)
 	grabbed_pickup = null
+	_throw_sound()
 
 func _throw():
 	grabbed_pickup._get_thrown({'direction': direction})
 	grabbed_pickup = null
+	_throw_sound()
+	
+func _throw_sound():
+	var throw_sound = load("res://audio/sfx/throw.wav")
+	Sound.play_SFX(throw_sound)

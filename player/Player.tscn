@@ -339,7 +339,6 @@ func _on_object_clicked(p_actor):
 	if p_actor.ref.pickup in grab.get_grabbable():
 		if grab.grabbed_pickup != null: 
 			grab._drop()
-			throw_sound()
 			
 		grab.grabbed_pickup = p_actor.ref.pickup
 		change_state.emit('grab')
@@ -348,7 +347,6 @@ func _on_object_clicked(p_actor):
 	
 	elif grab.grabbed_pickup != null:
 		grab._throw()
-		throw_sound()
 		return
 		
 func _on_right_click():
@@ -361,11 +359,6 @@ func _on_right_click():
 		var drop_throw = {\"direction\": throw_dir, \"speed\": speed, 'arc': arc}
 		
 		grab._drop(drop_throw)
-		throw_sound()
-
-func throw_sound():
-	var sound = load(\"res://audio/sfx/throw.wav\")
-	Sound.play_SFX(sound)
 "
 
 [sub_resource type="GDScript" id="GDScript_5qrx2"]
@@ -587,6 +580,7 @@ position = Vector2(0, -8)
 collision_layer = 0
 collision_mask = 8192
 script = ExtResource("8_ndjxb")
+enabled = null
 hand_offset_y = 8.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Grab" unique_id=1527922279]
@@ -600,6 +594,7 @@ position = Vector2(0, -7)
 gizmo_extents = 64.8
 
 [node name="ColorRect" type="ColorRect" parent="Grab/DropPos" unique_id=978890504]
+visible = false
 offset_left = -3.0
 offset_top = 1.0
 offset_right = 2.0
