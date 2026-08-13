@@ -413,6 +413,7 @@ func _on_build():
 		preview_layer.clear()
 		last_hover_cell = Vector2i(-1, -1)
 		SignalBus.wall_built.emit()
+		Score.update('wall_built')
 	
 func _on_cancel():
 	Inventory.items.walls.current += 1

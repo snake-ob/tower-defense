@@ -13,11 +13,14 @@ var zone_radius: float = 200.0
 
 const PICKUP_COLLISION_LAYER: int = 14
 
+var is_enabled: bool = true
+
 func register_player(player: CharacterBody2D, radius: float) -> void:
 	player_node = player
 	zone_radius = radius
 
 func _unhandled_input(event: InputEvent) -> void:
+	if not is_enabled: return
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		if MouseMode.current == "build_fence":

@@ -17,7 +17,7 @@ func _on_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, 
 		if tilemap.has_method('break_wall_tile'):
 			tilemap.break_wall_tile(cell)
 		
-		var explode_sound = load("res://audio/sfx/explosion.wav")
+		var explode_sound = load("res://audio/sfx/dust.wav")
 		Sound.play_SFX(explode_sound)
 		
 		_spawn_dust(pos)

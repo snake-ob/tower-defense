@@ -476,6 +476,7 @@ func _physics_update(delta):
 func _enter_state():
 	collision.set_deferred('disabled', 'true')
 	animanager.play_death()
+	Score.update('player_death')
 	await get_tree().create_timer(death_speed).timeout
 	flicker()
 	
@@ -580,7 +581,6 @@ position = Vector2(0, -8)
 collision_layer = 0
 collision_mask = 8192
 script = ExtResource("8_ndjxb")
-enabled = null
 hand_offset_y = 8.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Grab" unique_id=1527922279]

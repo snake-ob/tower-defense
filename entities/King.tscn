@@ -225,6 +225,7 @@ func _enter_state():
 	if pickup.grabber is Enemy:
 		DiagBus.set_active_state('king_taken')
 		DiagBus.new_state.emit()
+		Score.update('king_taken')
 	elif pickup.grabber is Player:
 		DiagBus.set_active_state('king_picked')
 		DiagBus.new_state.emit()

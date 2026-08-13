@@ -11,6 +11,7 @@ func _ready():
 	_setup_ref()
 	_setup_nodes(self)
 	$StateMachine._set_state('idle')
+	Score.update('item_used')
 
 func _physics_process(delta):
 	move_and_slide()

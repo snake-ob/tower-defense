@@ -580,6 +580,7 @@ func _enter_state():
 	collision.set_deferred('disabled', true)
 	animanager.play_death()
 	actor.velocity = Vector2.ZERO
+	Score.update('enemy_killed')
 	await get_tree().create_timer(death_speed).timeout
 	flicker()
 	

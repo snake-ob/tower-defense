@@ -64,6 +64,7 @@ func purchase_requested():
 	if upgrade_item is Tower:
 		upgrade_item.register_tower()
 	SignalBus.spawned.emit(upgrade_item)
+	Score.update('item_purchased')
 	queue_free()
 
 func deny_purchase():

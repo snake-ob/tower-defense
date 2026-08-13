@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://b4oghqt2xfi6q" path="res://levels/LevelTemplate.tscn" id="1_b84ys"]
 [ext_resource type="PackedScene" uid="uid://c5nbf3mm6qpu2" path="res://entities/Tree.tscn" id="2_32mhh"]
-[ext_resource type="PackedScene" uid="uid://kal6e53gkhim" path="res://entities/enemies/trash_mobs/Ghost.tscn" id="3_cbal1"]
 [ext_resource type="Script" uid="uid://bw8eurybijbn4" path="res://common/data/wave_data.gd" id="3_vi6ws"]
 [ext_resource type="Script" uid="uid://d1tqs23iyetw5" path="res://common/data/spawn_data.gd" id="4_cr8f5"]
 [ext_resource type="PackedScene" uid="uid://dp1w6dtjb5n62" path="res://entities/enemies/trash_mobs/Enemy.tscn" id="5_gqfrg"]
@@ -30,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://dr0jwhixv6kpf" path="res://assets/sprites/characters/big-goblin.png" id="27_f2fpg"]
 [ext_resource type="Script" uid="uid://cqtiiu4on7uef" path="res://common/components/wall_buster.gd" id="28_d7ukk"]
 [ext_resource type="Script" uid="uid://vtdtigdymq6n" path="res://common/components/wall_detector.gd" id="29_8yddp"]
+[ext_resource type="FontFile" uid="uid://cggn115yr4jh8" path="res://fonts/4x6px.otf" id="31_wyuhx"]
 
 [sub_resource type="Resource" id="Resource_yyq8c"]
 script = ExtResource("4_cr8f5")
@@ -1215,6 +1215,24 @@ wave_enemies = Array[ExtResource("4_cr8f5")]([SubResource("Resource_rqpk4"), Sub
 wave_title = "Wave 5"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
+[sub_resource type="LabelSettings" id="LabelSettings_wyuhx"]
+font = ExtResource("31_wyuhx")
+font_size = 7
+
+[sub_resource type="LabelSettings" id="LabelSettings_sv7yt"]
+font = ExtResource("31_wyuhx")
+font_size = 7
+
+[sub_resource type="GDScript" id="GDScript_wyuhx"]
+script/source = "extends Label
+
+func _ready():
+	Score.score_updated.connect(_on_score)
+
+func _on_score():
+	text = str(Score.get_total())
+"
+
 [node name="Level" unique_id=688708345 instance=ExtResource("1_b84ys")]
 next_level_path = "res://assets/splash-screens/LevelLoad.tscn"
 
@@ -1323,8 +1341,6 @@ position = Vector2(11, -70)
 [node name="Forest" parent="LevelRoot" parent_id_path=PackedInt32Array(775803705) index="6" unique_id=1747897373]
 position = Vector2(5, 43)
 
-[node name="Ghost" parent="EntityRoot" parent_id_path=PackedInt32Array(1180296079) index="1" unique_id=88513531 instance=ExtResource("3_cbal1")]
-
 [node name="LevelManager" parent="Systems" parent_id_path=PackedInt32Array(1631077692) index="3" unique_id=1712362614]
 waves = Array[ExtResource("3_vi6ws")]([SubResource("Resource_dkril"), SubResource("Resource_lbu4x"), SubResource("Resource_nn0v1"), SubResource("Resource_q53j5"), SubResource("Resource_am03j")])
 
@@ -1332,8 +1348,26 @@ waves = Array[ExtResource("3_vi6ws")]([SubResource("Resource_dkril"), SubResourc
 offset_left = 212.0
 offset_right = 232.0
 
+[node name="CurrentCoins" parent="HUDLayer" parent_id_path=PackedInt32Array(2124084829) index="5" unique_id=807951630]
+offset_left = 14.0
+offset_top = 133.0
+offset_right = 29.0
+label_settings = SubResource("LabelSettings_wyuhx")
+
 [node name="WaveSkull" parent="HUDLayer" parent_id_path=PackedInt32Array(2124084829) index="7" unique_id=273534912]
 position = Vector2(246, 134)
+
+[node name="DebugLayer" parent="." index="4" unique_id=1534624280]
+visible = false
+
+[node name="Label" type="Label" parent="DebugLayer" index="0" unique_id=308745826]
+offset_left = 48.0
+offset_top = 130.0
+offset_right = 99.0
+offset_bottom = 139.0
+text = "0"
+label_settings = SubResource("LabelSettings_sv7yt")
+script = SubResource("GDScript_wyuhx")
 
 [node name="Camera2D" parent="Camera" parent_id_path=PackedInt32Array(2127698929) index="0" unique_id=1075477474]
 min_zoom = 0.7

@@ -57,6 +57,7 @@ func _collect():
 	sprite.play()
 	var sound = load("res://entities/Coin.tscn")
 	Sound.play_SFX(sound)
+	Score.update('coin_collected')
 	
 func _on_sprite_finished():
 	queue_free()

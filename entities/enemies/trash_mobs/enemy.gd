@@ -117,6 +117,7 @@ func catch_exit_pos(p_pos):
 func _die():
 	emit_drop()
 	$StateMachine._set_state('die')
+	$Pickup.set_deferred("monitorable", false)
 	var death_sound = load("res://audio/sfx/ghost_death.wav")
 	if type == 'Ghost':
 		Sound.play_SFX(death_sound)
