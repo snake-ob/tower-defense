@@ -16,12 +16,17 @@ func play_SFX(sfx):
 			channel.pitch_scale = randf_range(0.900, 1.050)
 			break
 	
-func play_music(track):
+func play_music(track, _loop):
 	if track != null:
 		Music.set_stream(track)
 		Music.play()
 	else:
 		Music.set_stream(null)
+	
+	Music.stream.loop = _loop
+	
+func stop_music():
+	Music.stop()
 	
 func _on_stream_finished(channel : AudioStreamPlayer):
 	channel.set_stream(null)

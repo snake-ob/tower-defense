@@ -122,6 +122,8 @@ func _wave_timeout():
 	DiagBus.set_active_state('prepping')
 	prep_timer.start(prep_length)
 	active_timer = prep_timer
+	
+	Inventory.reload_items()
 
 func _get_remaining_time(timer):
 	var minutes = int(ceil(timer.time_left)) / 60

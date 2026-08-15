@@ -1,6 +1,7 @@
 extends Node
 
 signal coin_added
+
 var items: Dictionary = {
 	'bombs': {'unlocked': false, 'max': 0, 'current': 0},
 	'caltropes': {'unlocked': false, 'max': 0, 'current': 0},
@@ -48,6 +49,8 @@ func reload_items() -> void:
 	for key in items:
 		var item = items[key]
 		item.current = item.max
+	SignalBus.inv_updated.emit()
+	
 
 func _debug_items() -> void:
 	for key in items:

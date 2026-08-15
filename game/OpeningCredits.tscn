@@ -33,8 +33,7 @@ offset_top = 46.0
 offset_right = 246.0
 offset_bottom = 147.0
 text = "a snake.ob game
-
-art by: snakeob, nik.draws
+art by: snakeob & Nik Mueller
 music/sounds by: snakeob"
 label_settings = SubResource("LabelSettings_2w1th")
 horizontal_alignment = 1

@@ -6,11 +6,13 @@ var index: int = 0
 
 var item_ui: InvSlot
 var player: CharacterBody2D
+var level: Node2D
 
 func _ready():
 	SignalBus.inv_updated.connect(_on_inv_update)
 
 func _setup_lvl(p_ref):
+	SignalBus.player_spawned.connect(func(_player): player = _player)
 	item_ui = p_ref.item_ui
 	player = p_ref.player
 	

@@ -67,7 +67,6 @@ func _setup(p_ref):
 	
 func _enter_state():
 	detect_zone.monitoring = false
-	print(\"Landmine: Picked\")
 	
 
 func _update(delta):
@@ -90,7 +89,6 @@ func _physics_update(delta):
 func _enter_state():
 	await get_tree().create_timer(3).timeout
 	detect_zone.monitoring = true
-	print(\"Landmine: Thrown\")
 
 	
 func _setup(p_ref):

@@ -3,7 +3,7 @@ class_name OpeningCredits
 
 @onready var order: Array = [$Items/Snakeob, $Items/Credits]
 var index: int = 0
-var item_length: float = 2.0
+var item_length: float = 3.5
 var item_timer: Timer
 
 @export var next_scene: PackedScene
@@ -24,6 +24,8 @@ func _ready():
 	$Fader.fade_out_finished.connect(_on_fade_out_finished)
 	
 	show_next_item()
+	var intro_song = load("res://audio/trax/intro.mp3")
+	Sound.play_music(intro_song, false)
 
 func show_next_item():
 	if index >= order.size():

@@ -8,10 +8,14 @@ func _ready() -> void:
 	GlobalClick.is_enabled = false # turn off click logic
 	anim_player.animation_finished.connect(_on_animation_finished)
 	play_sequence()
-	SceneLoader.current_scene = self
+	if SceneLoader.current_scene == null:
+		SceneLoader.current_scene = self
+	var score_song = load("res://audio/trax/Score.mp3")
+	Sound.play_music(score_song, true)
 
 func play_sequence() -> void:
-	anim_player.play("enter")
+	anim_player.play("fade_in")
+	anim_player.queue("enter")
 	anim_player.queue("fallback")
 	anim_player.queue("scroll_drop")
 

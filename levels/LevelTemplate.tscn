@@ -59,6 +59,7 @@ var gameover_path: String = \"res://assets/splash-screens/GameOver.tscn\"
 var player_path: String = \"res://player/Player.tscn\"
 var cannon_path: String = \"res://entities/Cannon.tscn\"
 var next_level_loading: bool = false
+@export var level_song_path: String
 
 func _ready() -> void:
 	SignalBus.spawn_bullet.connect(_spawn_bullet)
@@ -74,8 +75,10 @@ func _ready() -> void:
 		SceneLoader.current_scene = self
 	_launch_into_scene()
 	DiagBus.set_active_state('prepping')
-	debug_collisions()
+	#debug_collisions()
 	LevelState.current_level += 1
+	var song = load(level_song_path)
+	Sound.play_music(song, true)
 	
 func _setup_ref():
 	ref.set('level', self)
@@ -155,7 +158,7 @@ func _on_level_over():
 func _on_end_stage():
 	next_level_loading = true
 	ref.camera.zoom_all_the_way_in(1)
-	await get_tree().create_timer(3).timeout
+	await get_tree().create_timer(4).timeout
 	load_next_level()
 	
 func load_next_level():
@@ -866,6 +869,7 @@ animations = [{
 y_sort_enabled = true
 script = SubResource("GDScript_oqlok")
 next_level_path = "res://levels/Level2.tscn"
+level_song_path = null
 
 [node name="LevelRoot" type="Node2D" parent="." unique_id=775803705]
 y_sort_enabled = true
@@ -1078,6 +1082,11 @@ text = "100"
 label_settings = SubResource("LabelSettings_vg3su")
 script = ExtResource("38_0wxk8")
 
+[node name="WaveSkull" type="AnimatedSprite2D" parent="HUDLayer" unique_id=273534912]
+position = Vector2(219, 134)
+sprite_frames = SubResource("SpriteFrames_sv7yt")
+animation = &"active"
+
 [node name="BlackFade" type="ColorRect" parent="HUDLayer" unique_id=1362084228]
 offset_left = -1.0
 offset_top = -31.0
@@ -1086,11 +1095,6 @@ offset_bottom = 144.0
 mouse_filter = 2
 color = Color(0, 0, 0, 0.39215687)
 script = ExtResource("17_jkxa6")
-
-[node name="WaveSkull" type="AnimatedSprite2D" parent="HUDLayer" unique_id=273534912]
-position = Vector2(219, 134)
-sprite_frames = SubResource("SpriteFrames_sv7yt")
-animation = &"active"
 
 [node name="DebugLayer" type="CanvasLayer" parent="." unique_id=1534624280]
 

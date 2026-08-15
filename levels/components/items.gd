@@ -17,6 +17,8 @@ func _on_item_spawn(item):
 	if item is Tower:
 		item_parent = towers
 	item_parent.add_child.call_deferred(item)
+	if not item.is_node_ready():
+		await item.ready
 	await get_tree().process_frame
 	if item.ref.pickup.picked_up:
 		return
