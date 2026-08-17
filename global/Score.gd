@@ -4,15 +4,15 @@ signal score_updated
 
 var scores: Dictionary ={
 	
-	'king_taken': {'title': 'Poor King', 'value': -20, 'count': 0},
-	'player_death': {'title': 'You Died', 'value': -50, 'count': 0},
+	'king_taken': {'title': 'Poor King', 'value': -100, 'count': 0},
+	'player_death': {'title': 'You Died', 'value': -200, 'count': 0},
 	'coin_collected': {'title': 'Fat Wallet', 'value': 1, 'count': 0},
-	'enemy_killed': {'title': 'Slayer', 'value': 5, 'count': 0},
+	'enemy_killed': {'title': 'Slayer', 'value': 2, 'count': 0},
 	'boss_killed': {'title': 'Boss Cobbler', 'value': 300, 'count': 0},
-	'wall_built': {'title': 'Big Builder', 'value': 25, 'count': 0},
+	'wall_built': {'title': 'Big Builder', 'value': 10, 'count': 0},
 	'item_used': {'title': 'Item User', 'value': 5, 'count': 0},
 	'turret_purchased': {'title': 'Tower Power', 'value': 50, 'count': 0},
-	'item_purchased': {'title': 'Big Shopper', 'value': 50, 'count': 0}
+	'item_purchased': {'title': 'Big Shopper', 'value': 10, 'count': 0}
 }
 	
 

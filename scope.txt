@@ -182,3 +182,15 @@ X Bigger explosions
 - Music not looping on HTML
 X fix coin sound
 X Debug scoring system 
+X Change hand colors to match player
+X Remove pickup sound, tweak throw sound
+X Y-sorting on placed walls
+X Buying decree causes decree to queue_free before state is exited I think
+X Bones should spin in the direction they are moving
+X Explosions are too large, also last too long
+X Skeletons should be white and black
+X Goblins walking through placed wall pillars
+X Dust sound is clipping. I think because its overlapping, needs to use play_iso_SFX function
+X Bullet hits need play_iso_SFX too. 
+X Lvl3 Cannon spawn needs to be centered
+X Pickups need to be dropped on death, and hit for player

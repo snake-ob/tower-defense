@@ -70,7 +70,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gvve4"]
-radius = 44.0
+radius = 26.0
 
 [node name="Explosion" type="Node2D" unique_id=933911819]
 script = ExtResource("1_lopgb")
@@ -79,8 +79,8 @@ attack = SubResource("Resource_enhwb")
 [node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1251401443]
 sprite_frames = SubResource("SpriteFrames_4p53w")
 animation = &"explode"
-frame = 6
-frame_progress = 1.0
+frame = 3
+frame_progress = 0.8862745
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=1611305122]
 collision_layer = 0

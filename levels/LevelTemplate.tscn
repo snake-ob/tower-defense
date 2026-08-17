@@ -912,6 +912,7 @@ physics_quadrant_size = 1
 script = SubResource("GDScript_vg3su")
 
 [node name="FenceBuilder" parent="LevelRoot/TileMaps" unique_id=1898883992 instance=ExtResource("4_stsco")]
+y_sort_enabled = true
 
 [node name="Centre" type="Marker2D" parent="LevelRoot" unique_id=1417477716]
 position = Vector2(124, 35)

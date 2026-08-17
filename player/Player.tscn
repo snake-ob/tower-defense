@@ -431,8 +431,6 @@ func _enter_state():
 	grab._pickup_object(pickup)
 	actor.holding = true
 	change_state.emit('idle')
-	var sound = load(\"res://audio/sfx/pickup.wav\")
-	Sound.play_SFX(sound)
 
 func get_closest_node(p_nodes: Array) -> Node2D:
 	if p_nodes.is_empty():

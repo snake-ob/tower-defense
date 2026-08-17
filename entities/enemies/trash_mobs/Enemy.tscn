@@ -714,6 +714,7 @@ y_sort_enabled = true
 collision_layer = 256
 collision_mask = 262145
 script = ExtResource("1_vec32")
+type = null
 move = SubResource("Resource_ijd6d")
 attack = SubResource("Resource_opqqp")
 collision = SubResource("Resource_86smx")

@@ -100,6 +100,30 @@ func _on_rmb_click():
 	actor.purchase_requested()
 "
 
+[sub_resource type="GDScript" id="GDScript_dp4a1"]
+resource_name = "buy.gd"
+script/source = "extends State
+
+var pickup: Area2D
+var soft_collision
+var state_active: bool = false
+var shop: Node2D
+
+func _setup(p_ref):
+	soft_collision = p_ref.soft_collision
+	pickup = p_ref.pickup
+	actor = p_ref.actor
+	shop = p_ref.shop
+
+func _enter_state():
+	DiagBus.reset_state()
+	print(\"Decree - buy\")
+
+	state_active = false
+	shop.visible = false
+	actor.queue_free()
+"
+
 [node name="RoyalDecree" type="CharacterBody2D" unique_id=799632857]
 collision_layer = 0
 collision_mask = 262145
@@ -138,6 +162,9 @@ script = SubResource("GDScript_61d7m")
 
 [node name="Picked" type="Node" parent="StateMachine" unique_id=892046204]
 script = SubResource("GDScript_duxdq")
+
+[node name="Buy" type="Node" parent="StateMachine" unique_id=885514157]
+script = SubResource("GDScript_dp4a1")
 
 [node name="PurchaseScreen" parent="." unique_id=351827832 instance=ExtResource("10_duxdq")]
 visible = false

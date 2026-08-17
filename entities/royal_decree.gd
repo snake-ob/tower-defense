@@ -65,7 +65,7 @@ func purchase_requested():
 		upgrade_item.register_tower()
 	SignalBus.spawned.emit(upgrade_item)
 	Score.update('item_purchased')
-	queue_free()
+	$StateMachine._set_state('Buy')
 
 func deny_purchase():
 	ref.shop.insufficient_funds()

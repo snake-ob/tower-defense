@@ -471,6 +471,9 @@ tile_map_data = PackedByteArray("AAD6//n/AQAAAAAAAAD7//n/AQAAAAAAAAD8//n/AQAAAAA
 position = Vector2(199, -425)
 shape = SubResource("RectangleShape2D_11ac5")
 
+[node name="CannonSpawn" parent="LevelRoot" parent_id_path=PackedInt32Array(775803705) index="8" unique_id=88345150]
+position = Vector2(202, 39)
+
 [node name="HoldingSpawn" parent="LevelRoot" parent_id_path=PackedInt32Array(775803705) index="9" unique_id=1774874299]
 position = Vector2(944, 26)
 

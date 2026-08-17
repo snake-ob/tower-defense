@@ -57,6 +57,7 @@ func _take_hit(hit):
 	$Hurtbox.enable_iframes()
 	var hurt_sound = load("res://audio/sfx/player_hurt.wav")
 	Sound.play_SFX(hurt_sound)
+	$Grab._drop()
 	# Health damage
 	# Disable hurtbox (maybe hurtbox has iframes function that resets on timer)
 	# Sprite flashes white	
@@ -72,6 +73,8 @@ func _health_depleted():
 	
 func _player_die():
 	$StateMachine._set_state('die')
+	$Grab._drop()
+
 	
 func load_cannon():
 	var grab: Grab = $Grab

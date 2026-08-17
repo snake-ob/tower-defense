@@ -32,6 +32,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	move_in_direction(delta)
 	move_and_slide()
+	$Sprite2D.flip_h = velocity.x < 0
 
 func _set_collisions(p_collision):
 	$Hurtbox.set_collision_layer_value(p_collision.layer, true)

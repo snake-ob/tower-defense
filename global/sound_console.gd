@@ -25,8 +25,8 @@ func play_music(track, _loop):
 	
 	Music.stream.loop = _loop
 
-func play_iso_SFX(sfx):
-	var channel = $SFX/Channel8
+func play_iso_SFX(sfx, _channel):
+	var channel = $SFX.get_child(_channel)
 	channel.set_stream(sfx)
 	channel.pitch_scale = randf_range(0.900, 1.050)
 	channel.play()
