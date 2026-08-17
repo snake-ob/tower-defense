@@ -110,7 +110,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_14cl8")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 5.0
 }, {
@@ -133,7 +133,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_54g7c")
 }],
-"loop": false,
+"loop": 0,
 "name": &"launch",
 "speed": 10.0
 }, {
@@ -153,7 +153,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_xq541")
 }],
-"loop": false,
+"loop": 0,
 "name": &"load",
 "speed": 12.0
 }, {
@@ -185,7 +185,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0b063")
 }],
-"loop": false,
+"loop": 0,
 "name": &"spawn",
 "speed": 10.0
 }, {
@@ -199,7 +199,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_v3ykb")
 }],
-"loop": false,
+"loop": 0,
 "name": &"triggered",
 "speed": 5.0
 }]
@@ -387,6 +387,9 @@ func _launch_targets():
 	var arc = 400.0
 	var launch: Dictionary = {'direction': dir, 'speed': speed, \"arc\": arc}
 	
+	var launch_sound = load(\"res://audio/sfx/explosion.wav\")
+	Sound.play_SFX(launch_sound)
+	
 	targets_to_launch.sort_custom(func(a, b):
 		if a is Player and b is King:
 			return true  # Player comes before King
@@ -434,7 +437,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_7jiry")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 2.0
 }]
@@ -466,7 +469,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ahtwt")
 }],
-"loop": true,
+"loop": 1,
 "name": &"default",
 "speed": 2.0
 }]

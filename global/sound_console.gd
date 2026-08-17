@@ -12,8 +12,8 @@ func play_SFX(sfx):
 	for channel in SFX.get_children():
 		if not channel.is_playing():
 			channel.set_stream(sfx)
-			channel.play()
 			channel.pitch_scale = randf_range(0.900, 1.050)
+			channel.play()
 			break
 	
 func play_music(track, _loop):
@@ -24,6 +24,12 @@ func play_music(track, _loop):
 		Music.set_stream(null)
 	
 	Music.stream.loop = _loop
+
+func play_iso_SFX(sfx):
+	var channel = $SFX/Channel8
+	channel.set_stream(sfx)
+	channel.pitch_scale = randf_range(0.900, 1.050)
+	channel.play()
 	
 func stop_music():
 	Music.stop()

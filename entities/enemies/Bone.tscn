@@ -1,7 +1,13 @@
 [gd_scene format=3 uid="uid://bvaoflp73o6rj"]
 
 [ext_resource type="PackedScene" uid="uid://3sjyslisd0oy" path="res://entities/tower/Bullet.tscn" id="1_thmuh"]
+[ext_resource type="Script" uid="uid://b6vj2ye8oamvj" path="res://common/data/attack_data.gd" id="2_llh4t"]
 [ext_resource type="Texture2D" uid="uid://c6o2lv5xqpa48" path="res://assets/sprites/objects/bone-projectile-sheet.png" id="2_ygbdq"]
+
+[sub_resource type="Resource" id="Resource_frvx8"]
+script = ExtResource("2_llh4t")
+knockback = 5.0
+metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_llh4t"]
 atlas = ExtResource("2_ygbdq")
@@ -40,6 +46,7 @@ animations = [{
 }]
 
 [node name="Bullet" unique_id=150744527 instance=ExtResource("1_thmuh")]
+attack = SubResource("Resource_frvx8")
 
 [node name="Sprite2D" parent="." index="1" unique_id=1996044331]
 visible = false

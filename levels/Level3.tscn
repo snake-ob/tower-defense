@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://b06oy0kyr8di8" path="res://entities/enemies/trash_mobs/BigBoss.tscn" id="8_ws61b"]
 [ext_resource type="PackedScene" uid="uid://6alrc1yoxqd1" path="res://entities/enemies/trash_mobs/Imp.tscn" id="9_m7lwk"]
 [ext_resource type="PackedScene" uid="uid://kal6e53gkhim" path="res://entities/enemies/trash_mobs/Ghost.tscn" id="10_gtknj"]
+[ext_resource type="Script" uid="uid://n51tnmdrlouq" path="res://common/data/diag_data.gd" id="11_mppvi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r8psn"]
 size = Vector2(1116, 20)
@@ -108,6 +109,92 @@ script = ExtResource("3_oq8ku")
 wave_enemies = Array[ExtResource("4_mppvi")]([SubResource("Resource_srcw4"), SubResource("Resource_bua1m"), SubResource("Resource_fq1bf"), SubResource("Resource_6j38h"), SubResource("Resource_kk3xu")])
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
+[sub_resource type="Resource" id="Resource_dp4a1"]
+script = ExtResource("11_mppvi")
+text = "The castle... it is ruined"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_mppvi"]
+script = ExtResource("11_mppvi")
+text = "How could they have done this..."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_uog4x"]
+script = ExtResource("11_mppvi")
+text = "My throne.. it is gone.."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_fqqs4"]
+script = ExtResource("11_mppvi")
+text = "We should look for survivors.."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_52gcn"]
+script = ExtResource("11_mppvi")
+text = "Get away from the castle, fiends."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_ws61b"]
+script = ExtResource("11_mppvi")
+text = "This is not good."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_m7lwk"]
+script = ExtResource("11_mppvi")
+text = "Look out."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_gtknj"]
+script = ExtResource("11_mppvi")
+text = "Hide us, they are coming."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_ao42f"]
+script = ExtResource("11_mppvi")
+text = "Woah!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_nkw31"]
+script = ExtResource("11_mppvi")
+text = "Oh! Easy there."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_5o53r"]
+script = ExtResource("11_mppvi")
+text = "Oh dear!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_t3rlc"]
+script = ExtResource("11_mppvi")
+text = "That was the last of them, boy. Good job."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_77jv8"]
+script = ExtResource("11_mppvi")
+text = "We have won the day, and victory is ours."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_w4yws"]
+script = ExtResource("11_mppvi")
+text = "The vermin have been slayed"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_en7ln"]
+script = ExtResource("11_mppvi")
+text = "Will you buy it?"
+graphic = "rmb"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_5nt5t"]
+script = ExtResource("11_mppvi")
+text = "That looks strong"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_4axbk"]
+script = ExtResource("11_mppvi")
+text = "That will be very helpful"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
 [node name="Level" unique_id=688708345 instance=ExtResource("1_gq8fh")]
 next_level_path = "res://levels/ScoreScene.tscn"
 level_song_path = "res://audio/trax/LevelThree.mp3"
@@ -149,9 +236,6 @@ position = Vector2(757, 0)
 shape = SubResource("RectangleShape2D_rd3y7")
 
 [node name="TowerSpawns" parent="LevelRoot" parent_id_path=PackedInt32Array(775803705) index="3" unique_id=794131442]
-visible = false
-
-[node name="SpawnPath" parent="LevelRoot" parent_id_path=PackedInt32Array(775803705) index="4" unique_id=1469162358]
 visible = false
 
 [node name="Tree" parent="LevelRoot/Obstacles/Trees" parent_id_path=PackedInt32Array(920583500) index="0" unique_id=716451621 instance=ExtResource("2_11ac5")]
@@ -393,6 +477,13 @@ position = Vector2(944, 26)
 [node name="LevelManager" parent="Systems" parent_id_path=PackedInt32Array(1631077692) index="3" unique_id=1712362614]
 waves = Array[ExtResource("3_oq8ku")]([SubResource("Resource_m670w"), SubResource("Resource_goo40"), SubResource("Resource_q28e0"), SubResource("Resource_sq6l6"), SubResource("Resource_d8lhr")])
 start_time = 35
+
+[node name="DiagSystem" parent="Systems" parent_id_path=PackedInt32Array(1631077692) index="5" unique_id=1366943935]
+prepping = Array[ExtResource("11_mppvi")]([SubResource("Resource_dp4a1"), SubResource("Resource_mppvi"), SubResource("Resource_uog4x"), SubResource("Resource_fqqs4")])
+defending = Array[ExtResource("11_mppvi")]([SubResource("Resource_52gcn"), SubResource("Resource_ws61b"), SubResource("Resource_m7lwk"), SubResource("Resource_gtknj")])
+king_picked = Array[ExtResource("11_mppvi")]([SubResource("Resource_ao42f"), SubResource("Resource_nkw31"), SubResource("Resource_5o53r")])
+lvl_over = Array[ExtResource("11_mppvi")]([SubResource("Resource_t3rlc"), SubResource("Resource_77jv8"), SubResource("Resource_w4yws")])
+shopping = Array[ExtResource("11_mppvi")]([SubResource("Resource_en7ln"), SubResource("Resource_5nt5t"), SubResource("Resource_4axbk")])
 
 [node name="TopLeft" parent="Camera" parent_id_path=PackedInt32Array(2127698929) index="1" unique_id=693073085]
 position = Vector2(-324, -449)

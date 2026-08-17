@@ -29,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://dr0jwhixv6kpf" path="res://assets/sprites/characters/big-goblin.png" id="27_f2fpg"]
 [ext_resource type="Script" uid="uid://cqtiiu4on7uef" path="res://common/components/wall_buster.gd" id="28_d7ukk"]
 [ext_resource type="Script" uid="uid://vtdtigdymq6n" path="res://common/components/wall_detector.gd" id="29_8yddp"]
+[ext_resource type="Script" uid="uid://n51tnmdrlouq" path="res://common/data/diag_data.gd" id="30_dp4a1"]
 [ext_resource type="FontFile" uid="uid://bg3rx63jxwsp0" path="res://fonts/3x3-pixel-font.otf" id="30_wyuhx"]
 [ext_resource type="FontFile" uid="uid://cggn115yr4jh8" path="res://fonts/4x6px.otf" id="31_wyuhx"]
 
@@ -1216,9 +1217,72 @@ wave_enemies = Array[ExtResource("4_cr8f5")]([SubResource("Resource_rqpk4"), Sub
 wave_title = "Wave 5"
 metadata/_custom_type_script = "uid://bw8eurybijbn4"
 
+[sub_resource type="Resource" id="Resource_rmdpd"]
+script = ExtResource("30_dp4a1")
+text = "It begins...."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_eestp"]
+script = ExtResource("30_dp4a1")
+text = "The forest is full of gloom today."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_rx1pf"]
+script = ExtResource("30_dp4a1")
+text = "Something is coming..."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_ax4go"]
+script = ExtResource("30_dp4a1")
+text = "They come for me."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_1s1h1"]
+script = ExtResource("30_dp4a1")
+text = "They want my awesome royal blood."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_7pipe"]
+script = ExtResource("30_dp4a1")
+text = "Fools. My hand will protect me."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_ao42f"]
+script = ExtResource("30_dp4a1")
+text = "Woah!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_nkw31"]
+script = ExtResource("30_dp4a1")
+text = "Oh! Easy there."
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_5o53r"]
+script = ExtResource("30_dp4a1")
+text = "Oh dear!"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_vgs4h"]
+script = ExtResource("30_dp4a1")
+text = "An excellent choice!"
+graphic = "rmb"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_he3br"]
+script = ExtResource("30_dp4a1")
+text = "Ooo. That looks powerful."
+graphic = "rmb"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
+[sub_resource type="Resource" id="Resource_pqv1t"]
+script = ExtResource("30_dp4a1")
+text = "Will you buy that with right click?"
+graphic = "rmb"
+metadata/_custom_type_script = "uid://n51tnmdrlouq"
+
 [sub_resource type="LabelSettings" id="LabelSettings_wyuhx"]
 font = ExtResource("30_wyuhx")
-font_size = 3
+font_size = 4
 
 [sub_resource type="LabelSettings" id="LabelSettings_sv7yt"]
 font = ExtResource("31_wyuhx")
@@ -1348,6 +1412,12 @@ position = Vector2(5, 43)
 
 [node name="LevelManager" parent="Systems" parent_id_path=PackedInt32Array(1631077692) index="3" unique_id=1712362614]
 waves = Array[ExtResource("3_vi6ws")]([SubResource("Resource_dkril"), SubResource("Resource_lbu4x"), SubResource("Resource_nn0v1"), SubResource("Resource_q53j5"), SubResource("Resource_am03j")])
+
+[node name="DiagSystem" parent="Systems" parent_id_path=PackedInt32Array(1631077692) index="5" unique_id=1366943935]
+prepping = Array[ExtResource("30_dp4a1")]([SubResource("Resource_rmdpd"), SubResource("Resource_eestp"), SubResource("Resource_rx1pf")])
+defending = Array[ExtResource("30_dp4a1")]([SubResource("Resource_ax4go"), SubResource("Resource_1s1h1"), SubResource("Resource_7pipe")])
+king_picked = Array[ExtResource("30_dp4a1")]([SubResource("Resource_ao42f"), SubResource("Resource_nkw31"), SubResource("Resource_5o53r")])
+shopping = Array[ExtResource("30_dp4a1")]([SubResource("Resource_vgs4h"), SubResource("Resource_he3br"), SubResource("Resource_pqv1t")])
 
 [node name="TimeLeft" parent="HUDLayer" parent_id_path=PackedInt32Array(2124084829) index="2" unique_id=1903094023]
 offset_left = 212.0

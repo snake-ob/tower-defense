@@ -168,12 +168,17 @@ July 20 2026
 ==============================================
 AUG 15 2026
 BUG FIXES
-- Level3 - Enemy spawn in incorrect position
-- Walls push player around when building (the one in hand needs to not be on a collision)
-- +1 items push things around - should not be
-- King says "will you buy that?" Even when shop is closed
-- Skeletons hit way too hard
-- Small spaces in between trees and walls create soft-locking
-- Cannons need explosion sound
-- Docking runes in turrets needs sound
-- King needs unique dialogue for each map
+X Level3 - Enemy spawn in incorrect position
+X Walls push player around when building (the one in hand needs to not be on a collision)
+X +1 items push things around - should not be
+X King says "will you buy that?" Even when shop is closed
+X Skeletons hit way too hard
+X Small spaces in between trees and walls create soft-locking
+X Cannons need explosion sound
+X Docking runes in turrets needs sound
+X King needs unique dialogue for each map
+X Fix King's Hand logo
+X Bigger explosions
+- Music not looping on HTML
+X fix coin sound
+X Debug scoring system 

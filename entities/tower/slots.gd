@@ -38,6 +38,8 @@ func slot_rune(p_rune):
 	add_upgrade(p_rune)
 	_upgrade_spawner.call_deferred()
 	_update_tower_data()
+	var slot_sound = load("res://audio/sfx/slot.wav")
+	Sound.play_SFX(slot_sound)
 	
 func init_rune(p_rune):
 	add_child(p_rune)

@@ -65,6 +65,8 @@ func exit_state():
 "
 
 [node name="WallUpgrade" type="CharacterBody2D" unique_id=1578281118]
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("1_g72kn")
 move = SubResource("Resource_grblh")
 upgrade = "walls"

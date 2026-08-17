@@ -8,7 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_enhwb"]
 script = ExtResource("2_gvve4")
-damage = 3
+damage = 5
 knockback = 5.0
 metadata/_custom_type_script = "uid://b6vj2ye8oamvj"
 
@@ -70,7 +70,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gvve4"]
-radius = 20.22375
+radius = 44.0
 
 [node name="Explosion" type="Node2D" unique_id=933911819]
 script = ExtResource("1_lopgb")

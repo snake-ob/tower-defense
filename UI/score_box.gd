@@ -5,8 +5,9 @@ var scores: Dictionary
 var score_line_path: String = "res://UI/ScoreLine.tscn"
 
 func _ready():
-	Score.debug_scores()
+	#Score.debug_scores()
 	scores = Score.scores
+	print(scores)
 	await get_tree().process_frame
 	add_scores()
 
